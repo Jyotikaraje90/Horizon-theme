@@ -4272,6 +4272,16 @@ product-recommendations:has([data-has-recommendations='false']) {
   cursor: pointer !important;
 }
 
+/* Hide quantity selector and accelerated checkout inside product cards */
+.product-card .quantity-selector-wrapper,
+.product-card quantity-selector,
+.product-card .quantity-selector,
+.product-card .accelerated-checkout-block,
+.product-card .buy-buttons-block .quantity-label,
+.product-card .buy-buttons-block .quantity-rules {
+  display: none !important;
+}
+
 /* Explore Our Jewelry Collection button */
 .product-list-button,
 [class*="product-list"] .button,
