@@ -4293,6 +4293,7 @@ product-recommendations:has([data-has-recommendations='false']) {
   text-transform: uppercase !important;
   line-height: 21px !important;
   letter-spacing: 0.05em !important;
+  text-decoration: none !important;
   cursor: pointer !important;
 }
 
@@ -4304,6 +4305,12 @@ product-recommendations:has([data-has-recommendations='false']) {
 .product-card .buy-buttons-block .quantity-label,
 .product-card .buy-buttons-block .quantity-rules {
   display: none !important;
+}
+
+/* Remove underline from add-to-cart wrapper elements */
+.product-card .buy-buttons-block,
+.product-card .buy-buttons-block * {
+  text-decoration: none !important;
 }
 
 /* Explore Our Jewelry Collection button */
