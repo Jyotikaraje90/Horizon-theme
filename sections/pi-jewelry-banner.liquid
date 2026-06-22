@@ -56,45 +56,58 @@
     padding: 50px 0;
   }
 
-  /* Offset frame wrapper */
+  /* Frame wrapper — image fills the box */
   .pi-jb__frame {
     position: relative;
-    width: 280px;
-    height: 370px;
+    width: 300px;
+    height: 395px;
+    flex-shrink: 0;
   }
 
-  /* White decorative border — offset upper-left (left image) */
-  .pi-jb__img-col--left .pi-jb__frame::before {
-    content: '';
-    position: absolute;
-    top: -22px;
-    left: -22px;
-    width: calc(100% - 22px);
-    height: calc(100% - 22px);
-    border: 3px solid #FFFFFF;
-    z-index: 0;
-  }
-
-  /* White decorative border — offset lower-right (right image) */
-  .pi-jb__img-col--right .pi-jb__frame::before {
-    content: '';
-    position: absolute;
-    bottom: -22px;
-    right: -22px;
-    width: calc(100% - 22px);
-    height: calc(100% - 22px);
-    border: 3px solid #FFFFFF;
-    z-index: 0;
-  }
-
+  /* Image fills entire frame container */
   .pi-jb__frame img,
   .pi-jb__frame .placeholder-svg {
-    position: relative;
-    z-index: 1;
-    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    z-index: 1;
+    display: block;
+  }
+
+  /*
+    White border sits ON TOP of the image (z-index: 2).
+    Left image: border anchored at top-left → image bleeds past border at bottom-right.
+    Right image: border anchored at bottom-right → image bleeds past border at top-left.
+    The 28px offset is the "bleed" gap (matching Figma ~16-20px proportionally).
+  */
+
+  /* Left — frame at upper-left corner */
+  .pi-jb__img-col--left .pi-jb__frame::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 28px);
+    height: calc(100% - 28px);
+    border: 3px solid #FFFFFF;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  /* Right — frame at lower-right corner */
+  .pi-jb__img-col--right .pi-jb__frame::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: calc(100% - 28px);
+    height: calc(100% - 28px);
+    border: 3px solid #FFFFFF;
+    z-index: 2;
+    pointer-events: none;
   }
 
   /* ─── Center content ─────────────────────────── */
