@@ -4213,3 +4213,13 @@ product-recommendations:has([data-has-recommendations='false']) {
     translate: 0px var(--atc-destination, 0px);
   }
 }
+
+
+/* PuertoInk custom overrides */
+.menu-list__link {
+  font-weight: 400 !important;
+}
+
+.menu-list__link-title {
+  padding-inline: 20px !important;
+}
