@@ -1,36 +1,36 @@
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
   .pi-jb {
     position: relative;
-    background: linear-gradient(to right, #0A2535 0%, #0D3248 45%, #12263A 75%, #1C2030 100%);
+    background: linear-gradient(to right, #0A2535 0%, #0D3248 40%, #122033 70%, #1A1F2E 100%);
     overflow: hidden;
+    min-height: 500px;
   }
 
-  /* Diagonal diamond grid pattern */
+  /* Diagonal line pattern */
   .pi-jb::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(45deg, rgba(255,255,255,0.045) 1px, transparent 1px),
-      linear-gradient(-45deg, rgba(255,255,255,0.045) 1px, transparent 1px);
-    background-size: 90px 90px;
+      linear-gradient(45deg, rgba(255,255,255,0.04) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+    background-size: 100px 100px;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Warm amber glow near right image */
+  /* Warm amber glow — right side */
   .pi-jb__glow {
     position: absolute;
-    right: 8%;
+    right: 6%;
     top: 50%;
     transform: translateY(-50%);
-    width: 360px;
-    height: 360px;
-    background: radial-gradient(circle, rgba(180, 110, 20, 0.28) 0%, transparent 70%);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(180, 110, 20, 0.32) 0%, transparent 68%);
     pointer-events: none;
     z-index: 0;
   }
@@ -39,120 +39,151 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1.6fr 1fr;
+    grid-template-columns: 1fr 1.7fr 1fr;
     align-items: center;
-    gap: 40px;
-    max-width: 1440px;
+    gap: 0;
+    max-width: 1500px;
     margin: 0 auto;
-    padding: 60px 40px;
-    min-height: 460px;
+    min-height: 500px;
     box-sizing: border-box;
   }
 
-  /* Left / Right image columns */
+  /* ─── Image columns ─────────────────────────── */
   .pi-jb__img-col {
-    position: relative;
-  }
-
-  .pi-jb__img-col--right {
     display: flex;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
   }
 
-  /* White outline frame offset behind image */
+  /* Offset frame wrapper */
   .pi-jb__frame {
     position: relative;
-    display: inline-block;
+    width: 280px;
+    height: 370px;
   }
 
-  .pi-jb__frame::before {
+  /* White decorative border — offset upper-left (left image) */
+  .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
-    border: 2px solid rgba(255, 255, 255, 0.55);
-    z-index: -1;
+    top: -22px;
+    left: -22px;
+    width: calc(100% - 22px);
+    height: calc(100% - 22px);
+    border: 3px solid #FFFFFF;
+    z-index: 0;
   }
 
-  .pi-jb__img-col--left .pi-jb__frame::before {
-    top: -14px;
-    left: -14px;
-    right: 14px;
-    bottom: 14px;
-  }
-
+  /* White decorative border — offset lower-right (right image) */
   .pi-jb__img-col--right .pi-jb__frame::before {
-    top: 14px;
-    left: 14px;
-    right: -14px;
-    bottom: -14px;
+    content: '';
+    position: absolute;
+    bottom: -22px;
+    right: -22px;
+    width: calc(100% - 22px);
+    height: calc(100% - 22px);
+    border: 3px solid #FFFFFF;
+    z-index: 0;
   }
 
   .pi-jb__frame img,
   .pi-jb__frame .placeholder-svg {
+    position: relative;
+    z-index: 1;
     display: block;
-    width: 260px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
   }
 
-  /* Center content */
+  /* ─── Center content ─────────────────────────── */
   .pi-jb__center {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    padding: 50px 40px;
   }
 
   .pi-jb__heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 3.5vw, 56px);
-    font-weight: 700;
-    line-height: 1.15;
-    color: #ffffff;
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 70px;
+    color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 0;
     margin: 0;
+    width: 100%;
   }
 
   .pi-jb__subheading {
-    font-size: 16px;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
     font-weight: 400;
-    line-height: 1.6;
-    color: rgba(255, 255, 255, 0.75);
+    line-height: 29px;
+    color: #FFFFFF;
     margin: 0;
-    max-width: 380px;
+    letter-spacing: 0;
   }
 
   .pi-jb__btn {
-    display: inline-block;
-    background: #ffffff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFFFFF;
     color: #000000;
-    padding: 14px 36px;
+    height: 55px;
+    padding: 16px 32px;
     border-radius: 8px;
     text-decoration: none;
     text-transform: uppercase;
+    font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    line-height: 1.3;
     letter-spacing: 0.04em;
-    border: 2px solid #ffffff;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+    white-space: nowrap;
   }
 
   .pi-jb__btn:hover {
-    background: transparent;
-    color: #ffffff;
+    background: #f0f0f0;
+    color: #000000;
+    text-decoration: none;
   }
 
-  @media (max-width: 989px) {
+  .pi-jb__img-col--right {
+    justify-content: flex-end;
+    padding-right: 60px;
+  }
+
+  .pi-jb__img-col--left {
+    padding-left: 60px;
+  }
+
+  /* ─── Responsive ─────────────────────────── */
+  @media (max-width: 1100px) {
+    .pi-jb__heading { font-size: 42px; line-height: 54px; }
+    .pi-jb__frame { width: 220px; height: 290px; }
+    .pi-jb__img-col--left { padding-left: 30px; }
+    .pi-jb__img-col--right { padding-right: 30px; }
+  }
+
+  @media (max-width: 768px) {
     .pi-jb__inner {
       grid-template-columns: 1fr;
-      text-align: center;
-      padding: 48px 24px;
-      gap: 32px;
+      min-height: unset;
     }
-    .pi-jb__img-col--right { justify-content: center; }
-    .pi-jb__frame img,
-    .pi-jb__frame .placeholder-svg { width: 200px; height: 240px; }
+    .pi-jb__img-col--left,
+    .pi-jb__img-col--right {
+      display: none;
+    }
+    .pi-jb__center { padding: 48px 24px; }
+    .pi-jb__heading { font-size: 36px; line-height: 46px; }
   }
 </style>
 
@@ -160,11 +191,12 @@
   <div class="pi-jb__glow"></div>
   <div class="pi-jb__inner">
 
+    {%- comment -%} Left image {%- endcomment -%}
     <div class="pi-jb__img-col pi-jb__img-col--left">
       <div class="pi-jb__frame">
         {%- if section.settings.left_image != blank -%}
           <img
-            src="{{ section.settings.left_image | image_url: width: 520 }}"
+            src="{{ section.settings.left_image | image_url: width: 600 }}"
             alt="{{ section.settings.left_image.alt | escape }}"
             loading="lazy"
           >
@@ -174,6 +206,7 @@
       </div>
     </div>
 
+    {%- comment -%} Center content {%- endcomment -%}
     <div class="pi-jb__center">
       {%- if section.settings.heading != blank -%}
         <h2 class="pi-jb__heading">{{ section.settings.heading }}</h2>
@@ -188,11 +221,12 @@
       {%- endif -%}
     </div>
 
+    {%- comment -%} Right image {%- endcomment -%}
     <div class="pi-jb__img-col pi-jb__img-col--right">
       <div class="pi-jb__frame">
         {%- if section.settings.right_image != blank -%}
           <img
-            src="{{ section.settings.right_image | image_url: width: 520 }}"
+            src="{{ section.settings.right_image | image_url: width: 600 }}"
             alt="{{ section.settings.right_image.alt | escape }}"
             loading="lazy"
           >

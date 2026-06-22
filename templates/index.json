@@ -19,6 +19,15 @@
         "banner3_label": "Piercings"
       }
     },
+    "pi_jewelry_banner_mN8xWq": {
+      "type": "pi-jewelry-banner",
+      "settings": {
+        "heading": "Luxury Piercing Jewelry For Every Look",
+        "subheading": "Premium designs tailored for elegance and everyday style.",
+        "button_label": "Discover More",
+        "button_link": "/collections/all"
+      }
+    },
     "product_list_fa6P9H": {
       "type": "product-list",
       "blocks": {
@@ -226,6 +235,7 @@
   },
   "order": [
     "pi_main_banner_xKpQmR",
+    "pi_jewelry_banner_mN8xWq",
     "product_list_fa6P9H"
   ]
 }
