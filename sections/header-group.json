@@ -11,34 +11,12 @@
   "type": "header",
   "name": "Header",
   "sections": {
-    "header_announcements_9jGBFp": {
-      "type": "header-announcements",
-      "blocks": {
-        "announcement_BxgCk9": {
-          "type": "_announcement",
-          "settings": {
-            "text": "Welcome to our store",
-            "link": "",
-            "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "weight": "",
-            "letter_spacing": "normal",
-            "case": "none"
-          },
-          "blocks": {}
-        }
-      },
-      "block_order": [
-        "announcement_BxgCk9"
-      ],
-      "name": "t:names.announcement_bar",
+    "pi_announcement_bar_xKpQmR": {
+      "type": "pi-announcement-bar",
+      "name": "PI Announcement Bar",
       "settings": {
-        "speed": 5,
-        "section_width": "page-width",
-        "color_scheme": "scheme-1",
-        "divider_width": 1,
-        "padding-block-start": 15,
-        "padding-block-end": 15
+        "announcement_text": "Sign up and get 10% off on Piercing Jewelry",
+        "locations": "Crete, Athens, Antwerp, Amsterdam"
       }
     },
     "header_section": {
@@ -50,9 +28,7 @@
           "settings": {
             "hide_logo_on_home_page": false,
             "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
+            "padding-block-end": 0
           },
           "blocks": {}
         },
@@ -112,7 +88,7 @@
     }
   },
   "order": [
-    "header_announcements_9jGBFp",
+    "pi_announcement_bar_xKpQmR",
     "header_section"
   ]
 }

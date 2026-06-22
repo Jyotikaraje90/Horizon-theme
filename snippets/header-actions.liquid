@@ -63,7 +63,7 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
-   {%- comment -%} Wishlist Icon {%- endcomment -%}
+  {%- comment -%} Wishlist Icon {%- endcomment -%}
   <a
     href="/pages/wishlist"
     class="header-actions__action pi-wishlist-action"
@@ -82,6 +82,7 @@
     class="pi-inquire-btn"
   >
     {{- section.settings.inquire_label | default: 'Inquire Now' -}}
+  </a>
   {% if shop.customer_accounts_enabled %}
     {% liquid
       assign account_actions_style = ''
@@ -563,6 +564,7 @@
       justify-self: flex-end;
     }
   }
+
   .pi-wishlist-action {
     display: flex;
     align-items: center;
