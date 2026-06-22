@@ -78,6 +78,27 @@
   >
     {%- content_for 'blocks' -%}
   </div>
+
+  {%- assign explore_block = section.blocks | where: 'type', '_product-list-button' | first -%}
+  {%- if explore_block == blank -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '_product-list-content' -%}
+        {%- for child in block.blocks -%}
+          {%- if child.type == '_product-list-button' -%}
+            {%- assign explore_block = child -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  <div class="pi-explore-footer">
+    <a
+      href="{{ section.settings.collection.url }}"
+      class="pi-explore-btn"
+    >
+      Explore Our Jewelry Collection
+    </a>
+  </div>
 </div>
 
 {% schema %}
