@@ -2,90 +2,83 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+  /* ─── Banner wrapper ─────────────────────────── */
   .pi-jb {
     position: relative;
-    background: linear-gradient(to right, #0A2535 0%, #0D3248 40%, #122033 70%, #1A1F2E 100%);
+    background: linear-gradient(110deg, #062030 0%, #0B2B40 35%, #081828 65%, #060D18 100%);
     overflow: hidden;
-    min-height: 500px;
   }
 
-  /* Diagonal line pattern */
+  /* Diagonal line grid */
   .pi-jb::before {
     content: '';
     position: absolute;
     inset: 0;
     background-image:
-      linear-gradient(45deg, rgba(255,255,255,0.04) 1px, transparent 1px),
-      linear-gradient(-45deg, rgba(255,255,255,0.04) 1px, transparent 1px);
-    background-size: 100px 100px;
+      linear-gradient(45deg, rgba(255,255,255,0.055) 1px, transparent 1px),
+      linear-gradient(-45deg, rgba(255,255,255,0.055) 1px, transparent 1px);
+    background-size: 120px 120px;
     pointer-events: none;
     z-index: 0;
   }
 
-  /* Warm amber glow — right side */
+  /* Warm amber glow — right */
   .pi-jb__glow {
     position: absolute;
-    right: 6%;
+    right: 2%;
     top: 50%;
     transform: translateY(-50%);
-    width: 400px;
-    height: 400px;
-    background: radial-gradient(circle, rgba(180, 110, 20, 0.32) 0%, transparent 68%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(180, 110, 20, 0.45) 0%, transparent 65%);
     pointer-events: none;
     z-index: 0;
   }
 
+  /* ─── Grid ───────────────────────────────────── */
   .pi-jb__inner {
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: 1fr 1.7fr 1fr;
-    align-items: center;
-    gap: 0;
+    grid-template-columns: 1fr 1.57fr 1fr;
+    align-items: stretch;          /* columns fill full banner height */
     max-width: 1500px;
     margin: 0 auto;
     min-height: 500px;
-    box-sizing: border-box;
   }
 
-  /* ─── Image columns ─────────────────────────── */
+  /* ─── Image columns ──────────────────────────── */
   .pi-jb__img-col {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 50px 0;
+    position: relative;            /* anchor for absolute frame */
   }
 
   /*
-    Double-frame effect — matches Figma exactly.
-
-    The container has overflow:hidden. Each pseudo-element is an oversized
-    rectangle (2000×2000) anchored at one corner. Only the 2 border lines
-    near the anchor are visible inside the container; the other 2 sides
-    extend far outside and get clipped. This produces two L-shaped corner
-    brackets at diagonally opposite corners of the image.
-
-    LEFT image:
-      ::before → anchored top-left  (15px inset) → shows top + left lines
-      ::after  → anchored bottom-right (15px inset) → shows bottom + right lines
-
-    RIGHT image (mirrored):
-      ::before → anchored bottom-right
-      ::after  → anchored top-left
+    .pi-jb__frame is absolutely positioned to fill the column,
+    with controlled insets from section edges and top/bottom.
+    overflow:hidden clips the oversized L-bracket pseudo-elements.
   */
   .pi-jb__frame {
-    position: relative;
-    width: 300px;
-    height: 395px;
+    position: absolute;
     overflow: hidden;
-    flex-shrink: 0;
+    top: 40px;
+    bottom: 40px;
   }
 
+  .pi-jb__img-col--left .pi-jb__frame {
+    left: 40px;   /* gap from section's left edge */
+    right: 0;
+  }
+
+  .pi-jb__img-col--right .pi-jb__frame {
+    left: 0;
+    right: 40px;  /* gap from section's right edge */
+  }
+
+  /* Image fills entire frame */
   .pi-jb__frame img,
   .pi-jb__frame .placeholder-svg {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -93,7 +86,15 @@
     display: block;
   }
 
-  /* Shared pseudo-element base */
+  /*
+    L-bracket double-frame effect.
+    Each pseudo-element is 2000×2000 anchored at one corner.
+    overflow:hidden on .pi-jb__frame clips the far ends,
+    leaving only the 2 border lines near the anchor visible.
+
+    LEFT  — ::before top-left,  ::after bottom-right
+    RIGHT — ::before bottom-right, ::after top-left
+  */
   .pi-jb__frame::before,
   .pi-jb__frame::after {
     content: '';
@@ -105,29 +106,11 @@
     pointer-events: none;
   }
 
-  /* LEFT — upper-left L-bracket */
-  .pi-jb__img-col--left .pi-jb__frame::before {
-    top: 15px;
-    left: 15px;
-  }
+  .pi-jb__img-col--left .pi-jb__frame::before { top: 15px;    left: 15px;    }
+  .pi-jb__img-col--left .pi-jb__frame::after  { bottom: 15px; right: 15px;   }
 
-  /* LEFT — lower-right L-bracket */
-  .pi-jb__img-col--left .pi-jb__frame::after {
-    bottom: 15px;
-    right: 15px;
-  }
-
-  /* RIGHT — lower-right L-bracket (mirrored) */
-  .pi-jb__img-col--right .pi-jb__frame::before {
-    bottom: 15px;
-    right: 15px;
-  }
-
-  /* RIGHT — upper-left L-bracket (mirrored) */
-  .pi-jb__img-col--right .pi-jb__frame::after {
-    top: 15px;
-    left: 15px;
-  }
+  .pi-jb__img-col--right .pi-jb__frame::before { bottom: 15px; right: 15px;  }
+  .pi-jb__img-col--right .pi-jb__frame::after  { top: 15px;    left: 15px;   }
 
   /* ─── Center content ─────────────────────────── */
   .pi-jb__center {
@@ -135,20 +118,20 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     gap: 20px;
-    padding: 50px 40px;
+    padding: 60px 40px;
   }
 
   .pi-jb__heading {
     font-family: 'Playfair Display', serif;
-    font-size: 54px;
+    font-size: clamp(36px, 3.75vw, 54px);
     font-weight: 600;
-    line-height: 70px;
+    line-height: 1.3;
     color: #FFFFFF;
     text-transform: uppercase;
     letter-spacing: 0;
     margin: 0;
-    width: 100%;
   }
 
   .pi-jb__subheading {
@@ -176,10 +159,9 @@
     font-size: 16px;
     font-weight: 600;
     letter-spacing: 0.04em;
+    white-space: nowrap;
     border: none;
     cursor: pointer;
-    box-sizing: border-box;
-    white-space: nowrap;
   }
 
   .pi-jb__btn:hover {
@@ -188,34 +170,19 @@
     text-decoration: none;
   }
 
-  .pi-jb__img-col--right {
-    justify-content: flex-end;
-    padding-right: 60px;
-  }
-
-  .pi-jb__img-col--left {
-    padding-left: 60px;
-  }
-
   /* ─── Responsive ─────────────────────────── */
-  @media (max-width: 1100px) {
-    .pi-jb__heading { font-size: 42px; line-height: 54px; }
-    .pi-jb__frame { width: 220px; height: 290px; }
-    .pi-jb__img-col--left { padding-left: 30px; }
-    .pi-jb__img-col--right { padding-right: 30px; }
+  @media (max-width: 989px) {
+    .pi-jb__frame { top: 24px; bottom: 24px; }
+    .pi-jb__img-col--left .pi-jb__frame { left: 20px; }
+    .pi-jb__img-col--right .pi-jb__frame { right: 20px; }
+    .pi-jb__center { padding: 48px 24px; }
   }
 
   @media (max-width: 768px) {
-    .pi-jb__inner {
-      grid-template-columns: 1fr;
-      min-height: unset;
-    }
+    .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
-    .pi-jb__img-col--right {
-      display: none;
-    }
-    .pi-jb__center { padding: 48px 24px; }
-    .pi-jb__heading { font-size: 36px; line-height: 46px; }
+    .pi-jb__img-col--right { display: none; }
+    .pi-jb__center { padding: 60px 24px; }
   }
 </style>
 
