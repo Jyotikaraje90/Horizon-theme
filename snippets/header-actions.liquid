@@ -563,6 +563,61 @@
       justify-self: flex-end;
     }
   }
+  .pi-wishlist-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pi-wishlist-action:hover {
+    color: var(--color-foreground);
+    opacity: 0.7;
+  }
+
+  .pi-wishlist-action .svg-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--button-size);
+    height: var(--button-size);
+  }
+
+  .pi-wishlist-action svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+  }
+
+  .pi-inquire-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+    margin-left: 8px;
+  }
+
+  .pi-inquire-btn:hover {
+    background-color: #333333;
+    color: #ffffff;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pi-inquire-btn {
+      display: none;
+    }
+  }
 
   @media screen and (min-width: 750px) {
     .header-actions--text {
