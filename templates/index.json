@@ -6,17 +6,24 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
       "name": "PI Main Banner",
       "settings": {
+        "main_image": "shopify://shop_images/Main_Banner_2170c28c-4c15-46fa-a480-594ac6b46019.png",
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
+        "main_button_link": "",
+        "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
-        "banner3_label": "Piercings"
+        "banner2_link": "",
+        "banner3_image": "shopify://shop_images/IMG_45581.png",
+        "banner3_label": "Piercings",
+        "banner3_link": ""
       }
     },
     "product_list_fa6P9H": {
