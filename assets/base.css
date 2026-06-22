@@ -4239,6 +4239,8 @@ product-recommendations:has([data-has-recommendations='false']) {
   font-size: 20px !important;
   font-weight: 600 !important;
   line-height: 26px !important;
+  color: #000000 !important;
+  text-decoration: none !important;
 }
 
 .product-card product-price,
@@ -4247,13 +4249,27 @@ product-recommendations:has([data-has-recommendations='false']) {
   font-size: 18px !important;
   font-weight: 400 !important;
   line-height: 29px !important;
+  color: #000000 !important;
 }
 
-.add-to-cart-button {
+/* Add to cart: plain text style inside product cards */
+.product-card .add-to-cart-button,
+.product-card .add-to-cart-button.button,
+.product-card .add-to-cart-button.button-secondary {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  color: #000000 !important;
+  padding: 0 !important;
+  width: auto !important;
+  min-width: unset !important;
+  border-radius: 0 !important;
   font-size: 16px !important;
   font-weight: 600 !important;
   text-transform: uppercase !important;
   line-height: 21px !important;
+  letter-spacing: 0.05em !important;
+  cursor: pointer !important;
 }
 
 /* Explore Our Jewelry Collection button */
