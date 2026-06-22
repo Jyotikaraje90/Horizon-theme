@@ -4296,3 +4296,33 @@ product-recommendations:has([data-has-recommendations='false']) {
 .pi-explore-btn:hover {
   background: #222222;
 }
+
+/* Best Sellers - heading */
+.section-resource-list__header h2 {
+  font-family: 'Playfair Display', serif !important;
+  font-size: 54px !important;
+  font-weight: 600 !important;
+  line-height: 70px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0 !important;
+  color: #000000 !important;
+}
+
+/* Best Sellers - navigation arrows */
+.section-resource-list__header slideshow-arrows,
+.section-resource-list__header .slideshow-controls__arrows {
+  display: flex !important;
+  align-items: center !important;
+  gap: 20px !important;
+}
+
+.section-resource-list__header .slideshow-control {
+  width: 50px !important;
+  height: 50px !important;
+  min-width: 50px !important;
+  min-height: 50px !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}

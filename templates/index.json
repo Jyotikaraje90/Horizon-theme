@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
@@ -16,11 +15,8 @@
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
-        "main_button_link": "",
         "banner2_label": "Tattoos",
-        "banner2_link": "",
-        "banner3_label": "Piercings",
-        "banner3_link": ""
+        "banner3_label": "Piercings"
       }
     },
     "product_list_fa6P9H": {
@@ -64,16 +60,16 @@
               "type": "_product-list-text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h2>BEST SELLERS</h2>",
+                "text": "<h2>Best Sellers</h2>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
                 "type_preset": "h2",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
+                "font": "var(--font-heading--family)",
+                "font_size": "3.375rem",
+                "line_height": "1.3",
                 "letter_spacing": "normal",
-                "case": "none",
+                "case": "uppercase",
                 "wrap": "pretty",
                 "color": "var(--color-foreground)",
                 "background": false,
@@ -85,25 +81,10 @@
                 "padding-inline-end": 0
               },
               "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "Explore Our Jewelry Collection",
-                "open_in_new_tab": false,
-                "style_class": "button",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
             }
           },
           "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
+            "product_list_text_YFtzcL"
           ]
         },
         "static-product-card": {
@@ -196,12 +177,13 @@
           ]
         }
       },
-      "name": "BEST SELLERS",
+
+      "name": "Featured collection",
       "settings": {
         "collection": "all",
         "layout_type": "grid",
         "carousel_on_mobile": false,
-        "max_products": 8,
+        "max_products": 4,
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
