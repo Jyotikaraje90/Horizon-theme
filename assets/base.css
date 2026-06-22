@@ -4223,3 +4223,51 @@ product-recommendations:has([data-has-recommendations='false']) {
 .menu-list__link-title {
   padding-inline: 20px !important;
 }
+
+/* Best Sellers - product card */
+.product-card__content {
+  background: #ffffff;
+  border-right: 1px dashed rgba(0, 0, 0, 0.15);
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.15);
+  border-left: 1px dashed rgba(0, 0, 0, 0.15);
+  border-radius: 0 0 10px 10px;
+  padding: 12px;
+}
+
+.product-card .product-title a,
+.product-card .product-title span {
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  line-height: 26px !important;
+}
+
+.product-card product-price,
+.product-card .price,
+.product-card .price__amount {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 29px !important;
+}
+
+.add-to-cart-button {
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  line-height: 21px !important;
+}
+
+/* Explore Our Jewelry Collection button */
+.product-list-button,
+[class*="product-list"] .button,
+[class*="product-list"] [class*="btn"] {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border-radius: 8px !important;
+  padding: 16px 32px !important;
+  font-size: 16px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  line-height: 21px !important;
+  text-decoration: none !important;
+  border: none !important;
+}

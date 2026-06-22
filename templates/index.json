@@ -6,24 +6,17 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
       "name": "PI Main Banner",
       "settings": {
-        "main_image": "shopify://shop_images/Main_Banner.png",
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
-        "main_button_link": "",
-        "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
-        "banner2_link": "",
-        "banner3_image": "shopify://shop_images/IMG_45581.png",
-        "banner3_label": "Piercings",
-        "banner3_link": ""
+        "banner3_label": "Piercings"
       }
     },
     "product_list_fa6P9H": {
@@ -93,9 +86,9 @@
               "type": "_product-list-button",
               "name": "t:names.product_list_button",
               "settings": {
-                "label": "View all",
+                "label": "Explore Our Jewelry Collection",
                 "open_in_new_tab": false,
-                "style_class": "link",
+                "style_class": "button",
                 "width": "fit-content",
                 "custom_width": 100,
                 "width_mobile": "fit-content",
@@ -114,7 +107,7 @@
           "name": "t:names.product_card",
           "static": true,
           "settings": {
-            "product_card_gap": 4,
+            "product_card_gap": 20,
             "inherit_color_scheme": true,
             "color_scheme": "",
             "border": "none",
@@ -152,8 +145,8 @@
                 "alignment": "left",
                 "type_preset": "rte",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
+                "font_size": "1.25rem",
+                "line_height": "1.3",
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
@@ -179,8 +172,8 @@
                 "width": "100%",
                 "alignment": "left",
                 "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
+                "font_size": "1.125rem",
+                "line_height": "1.6",
                 "letter_spacing": "normal",
                 "case": "none",
                 "color": "var(--color-foreground)",
@@ -208,13 +201,13 @@
         "columns": 4,
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
-        "columns_gap": 8,
+        "columns_gap": 30,
         "rows_gap": 24,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
         "horizontal_alignment": "flex-start",
-        "gap": 28,
+        "gap": 50,
         "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 48
