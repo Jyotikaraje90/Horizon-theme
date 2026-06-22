@@ -4297,8 +4297,16 @@ product-recommendations:has([data-has-recommendations='false']) {
   background: #222222;
 }
 
+/* Best Sellers - header background fix */
+.section-resource-list__header {
+  background: #ffffff;
+  position: relative;
+  z-index: 1;
+}
+
 /* Best Sellers - heading */
-.section-resource-list__header h2 {
+.section-resource-list__header h2,
+.section-resource-list__header h3 {
   font-family: 'Playfair Display', serif !important;
   font-size: 54px !important;
   font-weight: 600 !important;
