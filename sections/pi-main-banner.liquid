@@ -22,6 +22,15 @@
     height: 100%;
   }
 
+  .pi-hero__main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    pointer-events: none;
+    z-index: 1;
+  }
+
   .pi-hero__main img,
   .pi-hero__main .placeholder-svg {
     width: 100%;
@@ -38,6 +47,7 @@
     flex-direction: column;
     gap: 20px;
     max-width: calc(100% - 122px);
+    z-index: 2;
   }
 
   .pi-hero__main-content h1 {
