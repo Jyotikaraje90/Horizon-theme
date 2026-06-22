@@ -4260,6 +4260,7 @@ product-recommendations:has([data-has-recommendations='false']) {
 /* Title link — a.contents is the actual anchor wrapping the title text */
 .product-card__content a.contents,
 .product-card__content a.contents * {
+  font-family: 'Nunito Sans', sans-serif !important;
   font-size: 20px !important;
   font-weight: 600 !important;
   line-height: 26px !important;
@@ -4271,10 +4272,19 @@ product-recommendations:has([data-has-recommendations='false']) {
 .product-card product-price,
 .product-card .price,
 .product-card .price__amount {
+  font-family: 'Nunito Sans', sans-serif !important;
   font-size: 18px !important;
   font-weight: 400 !important;
   line-height: 29px !important;
   color: #000000 !important;
+}
+
+/* ADD TO CART */
+.product-card .add-to-cart-button,
+.product-card .add-to-cart-button.button,
+.product-card .add-to-cart-button.button-secondary,
+.product-card [class*="add-to-cart"] {
+  font-family: 'Nunito Sans', sans-serif !important;
 }
 
 /* Add to cart: plain text style inside product cards */
