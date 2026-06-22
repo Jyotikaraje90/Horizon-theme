@@ -86,31 +86,24 @@
     display: block;
   }
 
-  /*
-    L-bracket double-frame effect.
-    Each pseudo-element is 2000×2000 anchored at one corner.
-    overflow:hidden on .pi-jb__frame clips the far ends,
-    leaving only the 2 border lines near the anchor visible.
-
-    LEFT  — ::before top-left,  ::after bottom-right
-    RIGHT — ::before bottom-right, ::after top-left
-  */
-  .pi-jb__frame::before,
-  .pi-jb__frame::after {
+  /* Two concentric rectangle borders — outer then inner */
+  .pi-jb__frame::before {
     content: '';
     position: absolute;
-    width: 2000px;
-    height: 2000px;
+    inset: 14px;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
   }
 
-  .pi-jb__img-col--left .pi-jb__frame::before { top: 15px;    left: 15px;    }
-  .pi-jb__img-col--left .pi-jb__frame::after  { bottom: 15px; right: 15px;   }
-
-  .pi-jb__img-col--right .pi-jb__frame::before { bottom: 15px; right: 15px;  }
-  .pi-jb__img-col--right .pi-jb__frame::after  { top: 15px;    left: 15px;   }
+  .pi-jb__frame::after {
+    content: '';
+    position: absolute;
+    inset: 25px;
+    border: 3px solid #FFFFFF;
+    z-index: 2;
+    pointer-events: none;
+  }
 
   /* ─── Center content ─────────────────────────── */
   .pi-jb__center {
