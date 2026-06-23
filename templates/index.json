@@ -13,12 +13,15 @@
       "type": "pi-main-banner",
       "name": "PI Main Banner",
       "settings": {
+        "main_image": "shopify://shop_images/Main_Banner.png",
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
         "main_button_link": "",
+        "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
         "banner2_link": "",
+        "banner3_image": "shopify://shop_images/IMG_4558_1_bb261ca3-c878-4f11-957b-e8416116b683.png",
         "banner3_label": "Piercings",
         "banner3_link": ""
       }
@@ -40,10 +43,12 @@
       "type": "pi-jewelry-banner",
       "settings": {
         "background_image": "shopify://shop_images/Products_Banner_2.png",
+        "left_image": "shopify://shop_images/Maskgroup_4.png",
         "heading": "Luxury Piercing Jewelry For Every Look",
         "subheading": "Premium designs tailored for elegance and everyday style.",
         "button_label": "Discover More",
-        "button_link": "/collections/all"
+        "button_link": "/collections/all",
+        "right_image": "shopify://shop_images/Maskgroup_5.png"
       }
     },
     "pi_tattoo_services_Tz3mKw": {
@@ -52,6 +57,7 @@
         "ts_card_1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__1_-removebg-preview_06f00dcd-0ad7-4323-8c3a-200b8232acd9.png",
             "title": "Realistic Tattoos",
             "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
           }
@@ -59,6 +65,7 @@
         "ts_card_2": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__6_-removebg-preview.png",
             "title": "Micro-Realistic Tattoos",
             "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
           }
@@ -66,6 +73,7 @@
         "ts_card_3": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__2_-removebg-preview.png",
             "title": "Blackwork",
             "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
           }
@@ -73,6 +81,7 @@
         "ts_card_4": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__3_-removebg-preview_2902cec3-c04b-4c9b-ab55-d06129023b58.png",
             "title": "Fine Line Tattoos",
             "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
           }
