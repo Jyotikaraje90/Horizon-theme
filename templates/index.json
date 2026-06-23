@@ -222,7 +222,7 @@
       },
       "name": "Featured collection",
       "settings": {
-        "collection": "all",
+        "collection": "best-sellers",
         "layout_type": "carousel",
         "carousel_on_mobile": false,
         "max_products": 4,
