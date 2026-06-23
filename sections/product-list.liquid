@@ -31,16 +31,20 @@
     column-gap: 30px !important;
   }
 
-  /* Image area: #E6E6E6 background, 20px radius */
+  /* Image area: #E6E6E6 background, 20px radius, no border */
   .section-resource-list .card-gallery {
     --border-radius: 20px !important;
     background-color: #E6E6E6 !important;
     border-radius: 20px !important;
     overflow: hidden !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 
-  /* Blend white image backgrounds with the gray card */
+  /* Contain image inside gray card so background shows around it */
   .section-resource-list .card-gallery img {
+    object-fit: contain !important;
     mix-blend-mode: multiply;
   }
 
