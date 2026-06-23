@@ -31,7 +31,7 @@
       "name": "PI Best Sellers",
       "settings": {
         "heading": "Best Sellers",
-        "collection": "all",
+        "collection": "best-sellers",
         "max_products": 8,
         "explore_label": "Explore Our Jewelry Collection",
         "explore_link": "/collections/all",
