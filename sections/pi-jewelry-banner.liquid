@@ -9,7 +9,7 @@
     overflow: hidden;
   }
 
-  /* Diagonal line grid */
+  /* Diagonal line grid — hidden when a bg image is used */
   .pi-jb::before {
     content: '';
     position: absolute;
@@ -22,7 +22,29 @@
     z-index: 0;
   }
 
-  /* Warm amber glow — right */
+  .pi-jb--has-bg {
+    background: #000;
+  }
+
+  .pi-jb--has-bg::before {
+    display: none;
+  }
+
+  /* ─── Background image layer ─────────────────── */
+  .pi-jb__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .pi-jb__bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Warm amber glow — right (hidden when bg image is set) */
   .pi-jb__glow {
     position: absolute;
     right: 2%;
@@ -92,7 +114,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    z-index: 1;
+    z-index: 2;
   }
 
   /* LEFT — clip image to lower-right (Frame 2 area) */
@@ -110,7 +132,7 @@
     right: 16px;
     bottom: 16px;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 1;
     pointer-events: none;
   }
 
@@ -123,7 +145,7 @@
     right: 0;
     bottom: 0;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
   }
 
@@ -133,7 +155,7 @@
     clip-path: inset(20px 20px 0 0);
   }
 
-  /* RIGHT — Frame 1: upper-right decorative corner */
+  /* RIGHT — Frame 1: upper-right decorative corner (behind image) */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
@@ -142,11 +164,11 @@
     right: 0;
     bottom: 20px;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 1;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 2: lower-left border, sits on image edge */
+  /* RIGHT — Frame 2: lower-left border, on top of image */
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
@@ -155,7 +177,7 @@
     right: 20px;
     bottom: 0;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 3;
     pointer-events: none;
   }
 
@@ -232,7 +254,20 @@
   }
 </style>
 
-<div class="pi-jb">
+<div class="pi-jb{% if section.settings.background_image != blank %} pi-jb--has-bg{% endif %}">
+
+  {%- if section.settings.background_image != blank -%}
+    <div class="pi-jb__bg">
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.background_image.alt | default: '' | escape }}"
+        width="1920"
+        height="650"
+        loading="lazy"
+      >
+    </div>
+  {%- endif -%}
+
   <svg class="pi-jb__lines" viewBox="0 0 1920 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
     <!-- Vector 1 (rot -110.13°): top edge -->
     <line x1="471" y1="0" x2="708" y2="650" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
@@ -245,7 +280,9 @@
     <!-- Vector 2: bottom edge -->
     <line x1="1109" y1="650" x2="1565" y2="527" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
   </svg>
-  <div class="pi-jb__glow"></div>
+  {%- unless section.settings.background_image != blank -%}
+    <div class="pi-jb__glow"></div>
+  {%- endunless -%}
   <div class="pi-jb__inner">
 
     {%- comment -%} Left image {%- endcomment -%}
@@ -301,6 +338,7 @@
   "name": "PI Jewelry Banner",
   "tag": "section",
   "settings": [
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
     { "type": "image_picker", "id": "left_image", "label": "Left image" },
     { "type": "header", "content": "Center content" },
     {
