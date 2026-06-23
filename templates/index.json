@@ -6,26 +6,24 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
       "name": "PI Main Banner",
       "settings": {
+        "main_image": "shopify://shop_images/Main_Banner_2170c28c-4c15-46fa-a480-594ac6b46019.png",
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
+        "main_button_link": "",
+        "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
-        "banner3_label": "Piercings"
-      }
-    },
-    "pi_jewelry_banner_mN8xWq": {
-      "type": "pi-jewelry-banner",
-      "settings": {
-        "heading": "Luxury Piercing Jewelry For Every Look",
-        "subheading": "Premium designs tailored for elegance and everyday style.",
-        "button_label": "Discover More",
-        "button_link": "/collections/all"
+        "banner2_link": "",
+        "banner3_image": "shopify://shop_images/IMG_45581.png",
+        "banner3_label": "Piercings",
+        "banner3_link": ""
       }
     },
     "product_list_fa6P9H": {
@@ -190,12 +188,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
                 "add-to-cart": {
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
                     "style_class": "button-secondary"
                   },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
                   "blocks": {}
                 }
               },
@@ -210,7 +220,6 @@
           ]
         }
       },
-
       "name": "Featured collection",
       "settings": {
         "collection": "all",
@@ -230,6 +239,17 @@
         "color_scheme": "scheme-1",
         "padding-block-start": 48,
         "padding-block-end": 48
+      }
+    },
+    "pi_jewelry_banner_mN8xWq": {
+      "type": "pi-jewelry-banner",
+      "settings": {
+        "left_image": "shopify://shop_images/Maskgroup_4.png",
+        "heading": "Luxury Piercing Jewelry For Every Look",
+        "subheading": "Premium designs tailored for elegance and everyday style.",
+        "button_label": "Discover More",
+        "button_link": "/collections/all",
+        "right_image": "shopify://shop_images/Maskgroup_5.png"
       }
     }
   },
