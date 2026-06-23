@@ -35,6 +35,28 @@
     z-index: 0;
   }
 
+  /* ─── Diagonal vector lines (Figma: Vector 1 & 2) ──── */
+  .pi-jb__vector {
+    position: absolute;
+    width: 1724.66px;
+    height: 1122.24px;
+    border: 2px solid #4D4D4D;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .pi-jb__vector--1 {
+    top: -562px;
+    left: 206px;
+    transform: rotate(-110.13deg);
+  }
+
+  .pi-jb__vector--2 {
+    top: -351px;
+    left: -277px;
+    transform: rotate(-15.1deg);
+  }
+
   /* ─── Grid ───────────────────────────────────── */
   .pi-jb__inner {
     position: relative;
@@ -44,7 +66,7 @@
     align-items: stretch;          /* columns fill full banner height */
     max-width: 1500px;
     margin: 0 auto;
-    min-height: 500px;
+    min-height: 650px;
   }
 
   /* ─── Image columns ──────────────────────────── */
@@ -225,6 +247,8 @@
 </style>
 
 <div class="pi-jb">
+  <div class="pi-jb__vector pi-jb__vector--1"></div>
+  <div class="pi-jb__vector pi-jb__vector--2"></div>
   <div class="pi-jb__glow"></div>
   <div class="pi-jb__inner">
 
