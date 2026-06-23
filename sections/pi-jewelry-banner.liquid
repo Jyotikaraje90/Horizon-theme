@@ -63,26 +63,24 @@
     position: relative;            /* anchor for absolute frame */
   }
 
-  /*
-    .pi-jb__frame is absolutely positioned to fill the column,
-    with controlled insets from section edges and top/bottom.
-    overflow:hidden clips the oversized L-bracket pseudo-elements.
-  */
+  /* .pi-jb__frame sized to exact Figma dimensions (365×434px per frame, 16px/20px double-frame offset) */
   .pi-jb__frame {
     position: absolute;
     overflow: hidden;
-    top: 40px;
-    bottom: 40px;
   }
 
   .pi-jb__img-col--left .pi-jb__frame {
-    left: 40px;   /* gap from section's left edge */
-    right: 0;
+    left: 110px;
+    top: 50px;
+    width: 381px;  /* 365 + 16px offset */
+    height: 450px; /* 434 + 16px offset */
   }
 
   .pi-jb__img-col--right .pi-jb__frame {
-    left: 0;
-    right: 40px;  /* gap from section's right edge */
+    left: 42px;
+    top: 146px;
+    width: 385px;  /* 365 + 20px offset */
+    height: 454px; /* 434 + 20px offset */
   }
 
   /* Image fills the full frame container */
@@ -100,17 +98,17 @@
   /* LEFT — clip image to lower-right (Frame 2 area) */
   .pi-jb__img-col--left .pi-jb__frame img,
   .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
-    clip-path: inset(32px 14px 14px 32px);
+    clip-path: inset(16px 0 0 16px);
   }
 
   /* LEFT — Frame 1: upper-left decorative corner */
   .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 14px;
-    left: 14px;
-    right: 32px;
-    bottom: 32px;
+    top: 0;
+    left: 0;
+    right: 16px;
+    bottom: 16px;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
@@ -120,29 +118,29 @@
   .pi-jb__img-col--left .pi-jb__frame::after {
     content: '';
     position: absolute;
-    top: 32px;
-    left: 32px;
-    right: 14px;
-    bottom: 14px;
+    top: 16px;
+    left: 16px;
+    right: 0;
+    bottom: 0;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
   }
 
-  /* RIGHT — clip image to lower-left (Frame 2 area, mirrored) */
+  /* RIGHT — clip image to lower-left (mirrored) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(32px 32px 14px 14px);
+    clip-path: inset(20px 20px 0 0);
   }
 
   /* RIGHT — Frame 1: upper-right decorative corner */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 14px;
-    left: 32px;
-    right: 14px;
-    bottom: 32px;
+    top: 0;
+    left: 20px;
+    right: 0;
+    bottom: 20px;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
@@ -152,10 +150,10 @@
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
-    top: 32px;
-    left: 14px;
-    right: 32px;
-    bottom: 14px;
+    top: 20px;
+    left: 0;
+    right: 20px;
+    bottom: 0;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
@@ -221,9 +219,8 @@
 
   /* ─── Responsive ─────────────────────────── */
   @media (max-width: 989px) {
-    .pi-jb__frame { top: 24px; bottom: 24px; }
-    .pi-jb__img-col--left .pi-jb__frame { left: 20px; }
-    .pi-jb__img-col--right .pi-jb__frame { right: 20px; }
+    .pi-jb__img-col--left .pi-jb__frame { left: 20px; top: 24px; width: 230px; height: 280px; }
+    .pi-jb__img-col--right .pi-jb__frame { left: 12px; top: 24px; width: 230px; height: 280px; }
     .pi-jb__center { padding: 48px 24px; }
   }
 
