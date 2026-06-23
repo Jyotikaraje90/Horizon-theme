@@ -408,6 +408,7 @@ p:empty {
 
 .shopify-section:not(.header-section):has(.section) {
   position: relative;
+  isolation: isolate;
 }
 
 .shopify-section:not(.header-section) .section-background {
@@ -4363,6 +4364,12 @@ product-recommendations:has([data-has-recommendations='false']) {
 
 .pi-explore-btn:hover {
   background: #222222;
+}
+
+/* ── Best Sellers: fix overlap with hero section ── */
+.shopify-section:not(.header-section):has(.section-resource-list) {
+  background-color: var(--color-background, #ffffff);
+  isolation: isolate;
 }
 
 /* ── Best Sellers: full-width section – constrain to 1440px centered ── */
