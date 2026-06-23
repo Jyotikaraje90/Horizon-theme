@@ -19,6 +19,19 @@
         "banner3_label": "Piercings"
       }
     },
+    "pi_best_sellers_Kx4mQz": {
+      "type": "pi-best-sellers",
+      "name": "PI Best Sellers",
+      "settings": {
+        "heading": "Best Sellers",
+        "collection": "all",
+        "max_products": 8,
+        "explore_label": "Explore Our Jewelry Collection",
+        "explore_link": "/collections/all",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
     "pi_jewelry_banner_mN8xWq": {
       "type": "pi-jewelry-banner",
       "settings": {
@@ -70,6 +83,7 @@
   },
   "order": [
     "pi_main_banner_xKpQmR",
+    "pi_best_sellers_Kx4mQz",
     "pi_jewelry_banner_mN8xWq",
     "pi_tattoo_services_Tz3mKw"
   ]
