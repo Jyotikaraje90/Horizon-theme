@@ -17,45 +17,15 @@
 
   /* === Product card styling (Figma spec) === */
 
-  /* Remove default gap/background/border from card content wrapper */
-  .section-resource-list .product-card__content {
-    padding: 0 !important;
-    gap: 0 !important;
-    background: transparent !important;
-    border: none !important;
-    border-radius: 0 !important;
-  }
-
   /* Image area: #E6E6E6 background, 20px radius */
-  .section-resource-list .product-card__content card-gallery {
-    background-color: #E6E6E6;
-    border-radius: 20px;
+  .section-resource-list .card-gallery {
+    background-color: #E6E6E6 !important;
+    border-radius: 20px !important;
     overflow: hidden;
-    display: block;
   }
 
-  /* Text items below image: white bg, dashed left/right borders, no gap between siblings */
-  .section-resource-list .product-card__content card-gallery ~ * {
-    background: #FFFFFF;
-    border-left: 1px dashed rgba(0, 0, 0, 0.25);
-    border-right: 1px dashed rgba(0, 0, 0, 0.25);
-    padding: 10px 20px;
-  }
-
-  /* First text item (product title): start the white section with 20px top */
-  .section-resource-list .product-card__content card-gallery + * {
-    padding-top: 20px;
-  }
-
-  /* Last text item (buy buttons): add bottom border + bottom radius + 20px bottom */
-  .section-resource-list .product-card__content card-gallery ~ *:last-child {
-    border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
-    border-radius: 0 0 10px 10px;
-    padding-bottom: 20px;
-  }
-
-  /* ADD TO CART: underlined text, no button styling */
-  .section-resource-list add-to-cart-component button {
+  /* ADD TO CART: underlined text only, no button styling */
+  .section-resource-list add-to-cart-component button.button {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
@@ -65,6 +35,7 @@
     height: auto !important;
     width: auto !important;
     border-radius: 0 !important;
+    display: inline !important;
   }
 
   .section-resource-list add-to-cart-component .add-to-cart-text {
@@ -77,9 +48,10 @@
     line-height: 21px;
     text-transform: uppercase;
     letter-spacing: 0;
+    display: inline !important;
   }
 
-  /* Hide cart icon inside button — show text only */
+  /* Hide cart icon — show text only */
   .section-resource-list .add-to-cart-icon {
     display: none !important;
   }
