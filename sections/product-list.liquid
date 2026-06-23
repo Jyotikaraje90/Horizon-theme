@@ -18,15 +18,14 @@
   /* === Product card styling (Figma spec) === */
 
   /* Image area: #E6E6E6 background, 20px radius */
-  .section-resource-list .card-gallery,
-  .section-resource-list product-card .card-gallery,
-  .section-resource-list .resource-list__item .card-gallery {
+  .section-resource-list .card-gallery {
+    --border-radius: 20px !important;
     background-color: #E6E6E6 !important;
     border-radius: 20px !important;
     overflow: hidden !important;
   }
 
-  /* Make white product image backgrounds blend with gray card */
+  /* Blend white image backgrounds with the gray card */
   .section-resource-list .card-gallery img {
     mix-blend-mode: multiply;
   }
