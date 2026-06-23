@@ -24,6 +24,11 @@
     overflow: hidden;
   }
 
+  /* Make white product image backgrounds transparent so the gray shows through */
+  .section-resource-list .card-gallery img {
+    mix-blend-mode: multiply;
+  }
+
   /* ADD TO CART: underlined text only, no button styling */
   .section-resource-list add-to-cart-component button.button {
     background: transparent !important;
