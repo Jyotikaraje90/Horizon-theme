@@ -1,0 +1,302 @@
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  .pi-usp {
+    position: relative;
+    min-height: 374px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ─── Background image ────────────────────────── */
+  .pi-usp__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .pi-usp__bg img,
+  .pi-usp__bg .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── Dark overlay ────────────────────────────── */
+  .pi-usp__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* ─── Content container ───────────────────────── */
+  .pi-usp__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding: 100px 40px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ─── Items grid ──────────────────────────────── */
+  .pi-usp__grid {
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .pi-usp__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+  }
+
+  /* ─── Vertical dividers ───────────────────────── */
+  .pi-usp__divider {
+    width: 1px;
+    height: 174px;
+    background: rgba(255, 255, 255, 0.35);
+    flex-shrink: 0;
+  }
+
+  /* ─── Icon ────────────────────────────────────── */
+  .pi-usp__icon {
+    width: 100px;
+    height: 100px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pi-usp__icon svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ─── Label ───────────────────────────────────── */
+  .pi-usp__label {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 44px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 1199px) {
+    .pi-usp__label { font-size: 26px; line-height: 36px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-usp__inner { padding: 60px 24px; }
+    .pi-usp__icon { width: 72px; height: 72px; }
+    .pi-usp__label { font-size: 22px; line-height: 30px; }
+    .pi-usp__divider { height: 130px; }
+  }
+
+  @media (max-width: 749px) {
+    .pi-usp__grid { flex-wrap: wrap; justify-content: center; gap: 40px; }
+    .pi-usp__item { flex: 0 0 calc(50% - 20px); }
+    .pi-usp__divider { display: none; }
+    .pi-usp__inner { padding: 48px 16px; }
+    .pi-usp__icon { width: 60px; height: 60px; }
+    .pi-usp__label { font-size: 20px; line-height: 28px; }
+  }
+</style>
+
+<div class="pi-usp">
+
+  {%- comment -%} Background image {%- endcomment -%}
+  <div class="pi-usp__bg">
+    {%- if section.settings.background_image != blank -%}
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.background_image.alt | default: '' | escape }}"
+        width="1920"
+        height="374"
+        loading="lazy"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Dark overlay {%- endcomment -%}
+  <div class="pi-usp__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+
+  {%- comment -%} Items {%- endcomment -%}
+  <div class="pi-usp__inner">
+    <div class="pi-usp__grid">
+
+      {%- for block in section.blocks -%}
+
+        {%- unless forloop.first -%}
+          <div class="pi-usp__divider" aria-hidden="true"></div>
+        {%- endunless -%}
+
+        <div class="pi-usp__item" {{ block.shopify_attributes }}>
+
+          <div class="pi-usp__icon">
+            {%- case block.settings.icon -%}
+
+              {%- when 'authentic' -%}
+                <svg viewBox="0 0 104 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <!-- Head -->
+                  <circle cx="52" cy="20" r="14" fill="#fff"/>
+                  <!-- Body -->
+                  <path d="M20 62c0-17.673 14.327-32 32-32s32 14.327 32 32H20z" fill="#fff"/>
+                  <!-- ID card frame -->
+                  <rect x="18" y="66" width="68" height="30" rx="5" fill="#fff" opacity=".95"/>
+                  <!-- Photo placeholder -->
+                  <circle cx="34" cy="79" r="7" fill="#333"/>
+                  <!-- Text lines -->
+                  <rect x="47" y="73" width="28" height="4" rx="2" fill="#555"/>
+                  <rect x="47" y="81" width="20" height="4" rx="2" fill="#555"/>
+                  <!-- Star dots row -->
+                  <circle cx="47" cy="91" r="2" fill="#555"/>
+                  <circle cx="54" cy="91" r="2" fill="#555"/>
+                  <circle cx="61" cy="91" r="2" fill="#555"/>
+                  <circle cx="68" cy="91" r="2" fill="#555"/>
+                </svg>
+
+              {%- when 'premium' -%}
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <!-- Diamond shape -->
+                  <path d="M50 88L22 42L35 18H65L78 42L50 88Z" fill="#fff"/>
+                  <!-- Upper facets (slightly transparent for depth) -->
+                  <path d="M22 42L35 18L50 42H22Z" fill="#fff" opacity=".55"/>
+                  <path d="M78 42L65 18L50 42H78Z" fill="#fff" opacity=".55"/>
+                  <!-- Sparkle top-left: large cross -->
+                  <line x1="7" y1="12" x2="7" y2="24" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="1" y1="18" x2="13" y2="18" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Sparkle top-right: medium cross -->
+                  <line x1="86" y1="10" x2="86" y2="19" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="81.5" y1="14.5" x2="90.5" y2="14.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Sparkle right: small cross -->
+                  <line x1="93" y1="35" x2="93" y2="41" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                  <line x1="90" y1="38" x2="96" y2="38" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+
+              {%- when 'inclusive' -%}
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <!-- Left person -->
+                  <circle cx="20" cy="20" r="9" fill="#fff"/>
+                  <path d="M4 50c0-8.837 7.163-16 16-16" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none"/>
+                  <!-- Right person -->
+                  <circle cx="80" cy="20" r="9" fill="#fff"/>
+                  <path d="M96 50c0-8.837-7.163-16-16-16" stroke="#fff" stroke-width="5" stroke-linecap="round" fill="none"/>
+                  <!-- Center person (taller) -->
+                  <circle cx="50" cy="16" r="12" fill="#fff"/>
+                  <path d="M26 50c0-13.255 10.745-24 24-24s24 10.745 24 24" fill="#fff"/>
+                  <!-- Globe -->
+                  <circle cx="50" cy="78" r="19" stroke="#fff" stroke-width="2.5" fill="none"/>
+                  <ellipse cx="50" cy="78" rx="8.5" ry="19" stroke="#fff" stroke-width="2" fill="none"/>
+                  <line x1="31" y1="78" x2="69" y2="78" stroke="#fff" stroke-width="2"/>
+                  <line x1="34" y1="67" x2="66" y2="67" stroke="#fff" stroke-width="1.5"/>
+                  <line x1="34" y1="89" x2="66" y2="89" stroke="#fff" stroke-width="1.5"/>
+                </svg>
+
+              {%- when 'creative' -%}
+                <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <!-- Person -->
+                  <circle cx="50" cy="22" r="13" fill="#fff"/>
+                  <path d="M24 65c0-14.359 11.641-26 26-26s26 11.641 26 26" fill="#fff"/>
+                  <!-- Large star/cross top-left -->
+                  <line x1="13" y1="12" x2="13" y2="26" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="6" y1="19" x2="20" y2="19" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+                  <!-- Medium star/cross top-right -->
+                  <line x1="81" y1="9" x2="81" y2="19" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                  <line x1="76" y1="14" x2="86" y2="14" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/>
+                  <!-- Small star/cross right -->
+                  <line x1="89" y1="33" x2="89" y2="40" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <line x1="85.5" y1="36.5" x2="92.5" y2="36.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+                  <!-- Paint wand / brush stroke -->
+                  <path d="M74 56 Q84 63 87 74" stroke="#fff" stroke-width="3" stroke-linecap="round" fill="none"/>
+                  <circle cx="88" cy="77" r="5" fill="#fff"/>
+                </svg>
+
+            {%- endcase -%}
+          </div>
+
+          <p class="pi-usp__label">{{ block.settings.label }}</p>
+
+        </div>
+
+      {%- endfor -%}
+
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI USPs",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 50
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP Item",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "authentic", "label": "Authentic (Person ID)" },
+            { "value": "premium", "label": "Premium (Diamond)" },
+            { "value": "inclusive", "label": "Inclusive (People & Globe)" },
+            { "value": "creative", "label": "Creative (Artist)" }
+          ],
+          "default": "authentic"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Authentic"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PI USPs",
+      "blocks": [
+        { "type": "usp", "settings": { "icon": "authentic", "label": "Authentic" } },
+        { "type": "usp", "settings": { "icon": "premium", "label": "Premium" } },
+        { "type": "usp", "settings": { "icon": "inclusive", "label": "Inclusive" } },
+        { "type": "usp", "settings": { "icon": "creative", "label": "Creative" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

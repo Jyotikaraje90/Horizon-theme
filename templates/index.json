@@ -79,12 +79,50 @@
         "button_label": "View All Tattoo Services",
         "button_link": "/collections/all"
       }
+    },
+    "pi_usp_Qr5yNb": {
+      "type": "pi-usp",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "authentic",
+            "label": "Authentic"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "premium",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "inclusive",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "creative",
+            "label": "Creative"
+          }
+        }
+      },
+      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "settings": {
+        "overlay_opacity": 50
+      }
     }
   },
   "order": [
     "pi_main_banner_xKpQmR",
     "pi_best_sellers_Kx4mQz",
     "pi_jewelry_banner_mN8xWq",
-    "pi_tattoo_services_Tz3mKw"
+    "pi_tattoo_services_Tz3mKw",
+    "pi_usp_Qr5yNb"
   ]
 }
