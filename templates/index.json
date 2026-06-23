@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
@@ -15,8 +16,11 @@
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
+        "main_button_link": "",
         "banner2_label": "Tattoos",
-        "banner3_label": "Piercings"
+        "banner2_link": "",
+        "banner3_label": "Piercings",
+        "banner3_link": ""
       }
     },
     "pi_best_sellers_Kx4mQz": {
@@ -35,6 +39,7 @@
     "pi_jewelry_banner_mN8xWq": {
       "type": "pi-jewelry-banner",
       "settings": {
+        "background_image": "shopify://shop_images/Products_Banner_2.png",
         "heading": "Luxury Piercing Jewelry For Every Look",
         "subheading": "Premium designs tailored for elegance and everyday style.",
         "button_label": "Discover More",
@@ -73,7 +78,12 @@
           }
         }
       },
-      "block_order": ["ts_card_1", "ts_card_2", "ts_card_3", "ts_card_4"],
+      "block_order": [
+        "ts_card_1",
+        "ts_card_2",
+        "ts_card_3",
+        "ts_card_4"
+      ],
       "settings": {
         "heading": "Tattoo Services",
         "button_label": "View All Tattoo Services",
@@ -86,34 +96,40 @@
         "usp_1": {
           "type": "usp",
           "settings": {
-            "icon": "authentic",
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
             "label": "Authentic"
           }
         },
         "usp_2": {
           "type": "usp",
           "settings": {
-            "icon": "premium",
+            "icon": "shopify://shop_images/PREMIUM1.png",
             "label": "Premium"
           }
         },
         "usp_3": {
           "type": "usp",
           "settings": {
-            "icon": "inclusive",
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
             "label": "Inclusive"
           }
         },
         "usp_4": {
           "type": "usp",
           "settings": {
-            "icon": "creative",
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
             "label": "Creative"
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
+        "background_image": "shopify://shop_images/Our_Studios.png",
         "overlay_opacity": 50
       }
     }
