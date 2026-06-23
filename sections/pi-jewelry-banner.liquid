@@ -74,21 +74,25 @@
     right: 40px;  /* gap from section's right edge */
   }
 
-  /* LEFT — Frame 1: upper-left decorative corner, Frame 2: lower-right image frame */
-  .pi-jb__img-col--left .pi-jb__frame img,
-  .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
+  /* Image fills the full frame container — clip-path restricts visible area to Frame 2 */
+  .pi-jb__frame img,
+  .pi-jb__frame .placeholder-svg {
     position: absolute;
-    top: 32px;
-    left: 32px;
-    right: 14px;
-    bottom: 14px;
-    width: auto;
-    height: auto;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    z-index: 1;
     display: block;
+    z-index: 1;
   }
 
+  /* LEFT — clip image to lower-right (Frame 2 area) */
+  .pi-jb__img-col--left .pi-jb__frame img,
+  .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
+    clip-path: inset(32px 14px 14px 32px);
+  }
+
+  /* LEFT — Frame 1: upper-left decorative corner */
   .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
@@ -97,10 +101,11 @@
     right: 32px;
     bottom: 32px;
     border: 3px solid #FFFFFF;
-    z-index: 0;       /* behind image — only upper-left corner shows */
+    z-index: 2;
     pointer-events: none;
   }
 
+  /* LEFT — Frame 2: lower-right border, sits on image edge */
   .pi-jb__img-col--left .pi-jb__frame::after {
     content: '';
     position: absolute;
@@ -109,25 +114,17 @@
     right: 14px;
     bottom: 14px;
     border: 3px solid #FFFFFF;
-    z-index: 2;       /* on top of image */
+    z-index: 2;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 1: upper-right decorative corner, Frame 2: lower-left image frame (mirrored) */
+  /* RIGHT — clip image to lower-left (Frame 2 area, mirrored) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    position: absolute;
-    top: 32px;
-    left: 14px;
-    right: 32px;
-    bottom: 14px;
-    width: auto;
-    height: auto;
-    object-fit: cover;
-    z-index: 1;
-    display: block;
+    clip-path: inset(32px 32px 14px 14px);
   }
 
+  /* RIGHT — Frame 1: upper-right decorative corner */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
@@ -136,10 +133,11 @@
     right: 14px;
     bottom: 32px;
     border: 3px solid #FFFFFF;
-    z-index: 0;       /* behind image — only upper-right corner shows */
+    z-index: 2;
     pointer-events: none;
   }
 
+  /* RIGHT — Frame 2: lower-left border, sits on image edge */
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
@@ -148,7 +146,7 @@
     right: 32px;
     bottom: 14px;
     border: 3px solid #FFFFFF;
-    z-index: 2;       /* on top of image */
+    z-index: 2;
     pointer-events: none;
   }
 
