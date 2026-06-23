@@ -1,7 +1,20 @@
 
-
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* Carousel arrows: Figma spec — 50×50px buttons, 20px gap */
+  .section-resource-list .slideshow-control.slideshow-control--shape-circle,
+  .section-resource-list .slideshow-control.slideshow-control--shape-square {
+    width: 50px;
+    height: 50px;
+  }
+
+  .section-resource-list .slideshow-controls__arrows {
+    gap: 20px;
+    height: 50px;
+  }
+</style>
 
 {% liquid
   assign max_items = section.settings.max_products
