@@ -74,9 +74,9 @@
     right: 40px;  /* gap from section's right edge */
   }
 
-  /* Image sits inside Frame 2 (lower-right), leaving Frame 1 (upper-left) decorative */
-  .pi-jb__frame img,
-  .pi-jb__frame .placeholder-svg {
+  /* LEFT — Frame 1: upper-left decorative corner, Frame 2: lower-right image frame */
+  .pi-jb__img-col--left .pi-jb__frame img,
+  .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
     position: absolute;
     top: 32px;
     left: 32px;
@@ -89,8 +89,7 @@
     display: block;
   }
 
-  /* Frame 1 — upper-left rectangle */
-  .pi-jb__frame::before {
+  .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
     top: 14px;
@@ -98,12 +97,11 @@
     right: 32px;
     bottom: 32px;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 0;       /* behind image — only upper-left corner shows */
     pointer-events: none;
   }
 
-  /* Frame 2 — same size, shifted 18px right + 18px down (avg of 16px left / 20px right from Figma) */
-  .pi-jb__frame::after {
+  .pi-jb__img-col--left .pi-jb__frame::after {
     content: '';
     position: absolute;
     top: 32px;
@@ -111,7 +109,46 @@
     right: 14px;
     bottom: 14px;
     border: 3px solid #FFFFFF;
-    z-index: 2;
+    z-index: 2;       /* on top of image */
+    pointer-events: none;
+  }
+
+  /* RIGHT — Frame 1: upper-right decorative corner, Frame 2: lower-left image frame (mirrored) */
+  .pi-jb__img-col--right .pi-jb__frame img,
+  .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
+    position: absolute;
+    top: 32px;
+    left: 14px;
+    right: 32px;
+    bottom: 14px;
+    width: auto;
+    height: auto;
+    object-fit: cover;
+    z-index: 1;
+    display: block;
+  }
+
+  .pi-jb__img-col--right .pi-jb__frame::before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 32px;
+    right: 14px;
+    bottom: 32px;
+    border: 3px solid #FFFFFF;
+    z-index: 0;       /* behind image — only upper-right corner shows */
+    pointer-events: none;
+  }
+
+  .pi-jb__img-col--right .pi-jb__frame::after {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 14px;
+    right: 32px;
+    bottom: 14px;
+    border: 3px solid #FFFFFF;
+    z-index: 2;       /* on top of image */
     pointer-events: none;
   }
 
