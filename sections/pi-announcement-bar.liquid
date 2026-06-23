@@ -1,11 +1,4 @@
 <style>
-  /* Make the entire header group (announcement bar + nav) stick while scrolling */
-  #shopify-section-group-header-group {
-    position: sticky;
-    top: 0;
-    z-index: 300;
-  }
-
   .pi-announcement {
     background-color: #111111;
     color: #ffffff;
@@ -111,6 +104,41 @@
     }
   }
 </style>
+
+<script>
+(function () {
+  function initStickyBar() {
+    var bar = document.querySelector('.pi-announcement');
+    if (!bar) return;
+
+    var h = bar.offsetHeight;
+
+    /* Fix bar to top of viewport at all times */
+    bar.style.position = 'fixed';
+    bar.style.top = '0';
+    bar.style.left = '0';
+    bar.style.right = '0';
+    bar.style.zIndex = '9999';
+    bar.style.width = '100%';
+
+    /* Insert spacer so the header section stays in the correct flow position */
+    var spacer = document.createElement('div');
+    spacer.style.height = h + 'px';
+    bar.parentNode.insertBefore(spacer, bar.nextSibling);
+
+    /* Push the sticky navbar so it sticks just below the announcement bar */
+    var st = document.createElement('style');
+    st.textContent = '.header-section { top: ' + h + 'px !important; }';
+    document.head.appendChild(st);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyBar);
+  } else {
+    initStickyBar();
+  }
+})();
+</script>
 
 <div class="pi-announcement">
   <div class="pi-announcement__inner">
