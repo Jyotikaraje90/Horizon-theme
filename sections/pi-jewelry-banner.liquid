@@ -9,25 +9,8 @@
     overflow: hidden;
   }
 
-  /* Diagonal line grid — hidden when a bg image is used */
-  .pi-jb::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(45deg, rgba(255,255,255,0.055) 1px, transparent 1px),
-      linear-gradient(-45deg, rgba(255,255,255,0.055) 1px, transparent 1px);
-    background-size: 120px 120px;
-    pointer-events: none;
-    z-index: 0;
-  }
-
   .pi-jb--has-bg {
     background: #000;
-  }
-
-  .pi-jb--has-bg::before {
-    display: none;
   }
 
   /* ─── Background image layer ─────────────────── */
