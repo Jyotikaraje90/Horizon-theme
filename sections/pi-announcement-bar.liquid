@@ -1,11 +1,15 @@
 <style>
+  /* Make the entire header group (announcement bar + nav) stick while scrolling */
+  #shopify-section-group-header-group {
+    position: sticky;
+    top: 0;
+    z-index: 300;
+  }
+
   .pi-announcement {
     background-color: #111111;
     color: #ffffff;
     width: 100%;
-    position: sticky;
-    top: 0;
-    z-index: 200;
   }
 
   .pi-announcement__inner {
