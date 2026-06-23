@@ -57,7 +57,7 @@
         "ts_card_1": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Mask_group__1_-removebg-preview_06f00dcd-0ad7-4323-8c3a-200b8232acd9.png",
+            "image": "shopify://shop_images/Mask_group_7.png",
             "title": "Realistic Tattoos",
             "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
           }
@@ -65,7 +65,7 @@
         "ts_card_2": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Mask_group__6_-removebg-preview.png",
+            "image": "shopify://shop_images/Mask_group_8.png",
             "title": "Micro-Realistic Tattoos",
             "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
           }
@@ -73,7 +73,7 @@
         "ts_card_3": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Mask_group__2_-removebg-preview.png",
+            "image": "shopify://shop_images/Mask_group_9.png",
             "title": "Blackwork",
             "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
           }
@@ -81,7 +81,7 @@
         "ts_card_4": {
           "type": "card",
           "settings": {
-            "image": "shopify://shop_images/Mask_group__3_-removebg-preview_2902cec3-c04b-4c9b-ab55-d06129023b58.png",
+            "image": "shopify://shop_images/Mask_group_10.png",
             "title": "Fine Line Tattoos",
             "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
           }
