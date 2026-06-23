@@ -15,18 +15,9 @@
     height: 50px;
   }
 
-  /* ── Card: 360px fixed width ── */
-  .section-resource-list .resource-list__item {
-    flex: 0 0 360px !important;
-    width: 360px !important;
-    max-width: 360px !important;
-  }
-
-  /* ── Gap between cards: 30px ── */
-  .section-resource-list .slideshow__list,
-  .section-resource-list .resource-list {
+  /* ── Gap between slides: 30px ── */
+  .section-resource-list slideshow-slides {
     gap: 30px !important;
-    column-gap: 30px !important;
   }
 
   /* ── Image area: #E6E6E6 bg, 20px radius all corners ── */
@@ -52,24 +43,28 @@
     gap: 0 !important;
   }
 
-  /* ── Info box: product title (via display:contents <a> wrapper) ── */
-  .section-resource-list .product-card__content > a.contents .text-block {
+  /* ── Info box: product title ── */
+  .section-resource-list rte-formatter.text-block {
     background: #ffffff;
     padding: 16px 16px 0 16px !important;
     border-left: 1px dashed #000000;
     border-right: 1px dashed #000000;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
   }
 
   /* ── Info box: price ── */
-  .section-resource-list .product-card__content > product-price {
+  .section-resource-list product-price {
     background: #ffffff;
     padding: 20px 16px 0 16px !important;
     border-left: 1px dashed #000000;
     border-right: 1px dashed #000000;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
   }
 
   /* ── Info box: buy-buttons block — closes the box with bottom border ── */
-  .section-resource-list .product-card__content > .buy-buttons-block {
+  .section-resource-list .buy-buttons-block {
     background: #ffffff;
     padding: 20px 16px 16px 16px !important;
     border-left: 1px dashed #000000;
@@ -77,6 +72,8 @@
     border-bottom: 1px dashed #000000;
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
   }
 
   /* ── Buy-buttons chain: full width ── */

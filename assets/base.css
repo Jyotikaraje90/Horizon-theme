@@ -4420,3 +4420,45 @@ product-recommendations:has([data-has-recommendations='false']) {
   align-items: center !important;
   justify-content: center !important;
 }
+
+/* ── Best Sellers: constrain full-width carousel with side padding ── */
+.section-resource-list.section--full-width .resource-list.resource-list__carousel,
+.section-resource-list.section--full-width .resource-list__carousel {
+  padding-inline: 40px !important;
+  box-sizing: border-box !important;
+  max-width: 1500px !important;
+  margin-inline: auto !important;
+}
+
+/* ── Best Sellers: fixed 360px slide width for carousel ── */
+.section-resource-list .resource-list__slide {
+  width: 360px !important;
+  flex: 0 0 360px !important;
+  min-width: 360px !important;
+  max-width: 360px !important;
+}
+
+/* ── Best Sellers: solid black ADD TO CART button (specificity 0,4,0 overrides 0,3,0) ── */
+.section-resource-list .product-card .add-to-cart-button.button {
+  background: #000000 !important;
+  color: #ffffff !important;
+  border: none !important;
+  border-radius: 8px !important;
+  padding: 16px 32px !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  min-width: unset !important;
+  height: 55px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: unset !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.section-resource-list .product-card .add-to-cart-button.button:hover {
+  background: #222222 !important;
+}
