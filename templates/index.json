@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
@@ -15,17 +16,11 @@
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
+        "main_button_link": "",
         "banner2_label": "Tattoos",
-        "banner3_label": "Piercings"
-      }
-    },
-    "pi_jewelry_banner_mN8xWq": {
-      "type": "pi-jewelry-banner",
-      "settings": {
-        "heading": "Luxury Piercing Jewelry For Every Look",
-        "subheading": "Premium designs tailored for elegance and everyday style.",
-        "button_label": "Discover More",
-        "button_link": "/collections/all"
+        "banner2_link": "",
+        "banner3_label": "Piercings",
+        "banner3_link": ""
       }
     },
     "product_list_fa6P9H": {
@@ -190,12 +185,24 @@
                 "padding-inline-end": 0
               },
               "blocks": {
+                "quantity": {
+                  "type": "quantity",
+                  "static": true,
+                  "settings": {},
+                  "blocks": {}
+                },
                 "add-to-cart": {
                   "type": "add-to-cart",
                   "static": true,
                   "settings": {
                     "style_class": "button-secondary"
                   },
+                  "blocks": {}
+                },
+                "accelerated-checkout": {
+                  "type": "accelerated-checkout",
+                  "static": true,
+                  "settings": {},
                   "blocks": {}
                 }
               },
@@ -210,7 +217,6 @@
           ]
         }
       },
-
       "name": "Featured collection",
       "settings": {
         "collection": "all",
@@ -232,12 +238,22 @@
         "padding-block-end": 48
       }
     },
+    "pi_jewelry_banner_mN8xWq": {
+      "type": "pi-jewelry-banner",
+      "settings": {
+        "heading": "Luxury Piercing Jewelry For Every Look",
+        "subheading": "Premium designs tailored for elegance and everyday style.",
+        "button_label": "Discover More",
+        "button_link": "/collections/all"
+      }
+    },
     "pi_tattoo_services_Tz3mKw": {
       "type": "pi-tattoo-services",
       "blocks": {
         "ts_card_1": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__1_-removebg-preview_06f00dcd-0ad7-4323-8c3a-200b8232acd9.png",
             "title": "Realistic Tattoos",
             "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
           }
@@ -245,6 +261,7 @@
         "ts_card_2": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__6_-removebg-preview.png",
             "title": "Micro-Realistic Tattoos",
             "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
           }
@@ -252,6 +269,7 @@
         "ts_card_3": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__2_-removebg-preview_1c7b936a-b8f7-497b-a896-aee07eb0df23.png",
             "title": "Blackwork",
             "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
           }
@@ -259,12 +277,18 @@
         "ts_card_4": {
           "type": "card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group__3_-removebg-preview_2902cec3-c04b-4c9b-ab55-d06129023b58.png",
             "title": "Fine Line Tattoos",
             "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
           }
         }
       },
-      "block_order": ["ts_card_1", "ts_card_2", "ts_card_3", "ts_card_4"],
+      "block_order": [
+        "ts_card_1",
+        "ts_card_2",
+        "ts_card_3",
+        "ts_card_4"
+      ],
       "settings": {
         "heading": "Tattoo Services",
         "button_label": "View All Tattoo Services",
