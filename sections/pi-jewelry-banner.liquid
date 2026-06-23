@@ -86,11 +86,14 @@
     display: block;
   }
 
-  /* Two concentric rectangle borders — outer then inner */
+  /* Two same-size frames — second one shifted 20px downward */
   .pi-jb__frame::before {
     content: '';
     position: absolute;
-    inset: 14px;
+    top: 14px;
+    left: 14px;
+    right: 14px;
+    bottom: 34px;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
@@ -99,7 +102,10 @@
   .pi-jb__frame::after {
     content: '';
     position: absolute;
-    inset: 25px;
+    top: 34px;
+    left: 14px;
+    right: 14px;
+    bottom: 14px;
     border: 3px solid #FFFFFF;
     z-index: 2;
     pointer-events: none;
