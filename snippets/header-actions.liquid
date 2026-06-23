@@ -76,13 +76,6 @@
     </span>
   </a>
 
-  {%- comment -%} Inquire Now Button {%- endcomment -%}
-  <a
-    href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
-    class="pi-inquire-btn"
-  >
-    {{- section.settings.inquire_label | default: 'Inquire Now' -}}
-  </a>
   {% if shop.customer_accounts_enabled %}
     {% liquid
       assign account_actions_style = ''
@@ -270,6 +263,14 @@
       {{ cart_icon }}
     </a>
   {% endif %}
+
+  {%- comment -%} Inquire Now Button {%- endcomment -%}
+  <a
+    href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
+    class="pi-inquire-btn"
+  >
+    {{- section.settings.inquire_label | default: 'Inquire Now' -}}
+  </a>
 
   <span
     ref="liveRegion"
@@ -600,9 +601,10 @@
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
-    font-size: 0.8rem;
+    font-size: 18px;
+    line-height: 23px;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     text-transform: uppercase;
     white-space: nowrap;
     border-radius: 4px;
