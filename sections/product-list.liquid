@@ -3,7 +3,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
-  /* Carousel arrows: 50×50px, 20px gap */
+  /* ── Arrow buttons: 50×50px with 20px gap ── */
   .section-resource-list .slideshow-control.slideshow-control--shape-circle,
   .section-resource-list .slideshow-control.slideshow-control--shape-square {
     width: 50px;
@@ -15,23 +15,21 @@
     height: 50px;
   }
 
-  /* === Product card styling (Figma spec) === */
-
-  /* Card: 360px fixed width */
+  /* ── Card: 360px fixed width ── */
   .section-resource-list .resource-list__item {
     flex: 0 0 360px !important;
     width: 360px !important;
     max-width: 360px !important;
   }
 
-  /* Gap between cards: 30px (Figma Frame 1618872543) */
+  /* ── Gap between cards: 30px ── */
   .section-resource-list .slideshow__list,
   .section-resource-list .resource-list {
     gap: 30px !important;
     column-gap: 30px !important;
   }
 
-  /* Image area: #E6E6E6 background, 20px radius, no border */
+  /* ── Image area: #E6E6E6 bg, 20px radius all corners ── */
   .section-resource-list .card-gallery {
     --border-radius: 20px !important;
     background-color: #E6E6E6 !important;
@@ -42,41 +40,91 @@
     box-shadow: none !important;
   }
 
-  /* Contain image inside gray card so background shows around it */
+  /* ── Image: contain inside gray area, blend with white ── */
   .section-resource-list .card-gallery img {
     object-fit: contain !important;
     mix-blend-mode: multiply;
   }
 
-  /* ADD TO CART: underlined text only, no button styling */
-  .section-resource-list add-to-cart-component button.button {
-    background: transparent !important;
+  /* ── Card content: white bg, zero gap (gallery flush with info box) ── */
+  .section-resource-list .product-card__content {
+    background: #ffffff;
+    gap: 0 !important;
+  }
+
+  /* ── Info box: product title (via display:contents <a> wrapper) ── */
+  .section-resource-list .product-card__content > a.contents .text-block {
+    background: #ffffff;
+    padding: 16px 16px 0 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+  }
+
+  /* ── Info box: price ── */
+  .section-resource-list .product-card__content > product-price {
+    background: #ffffff;
+    padding: 20px 16px 0 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+  }
+
+  /* ── Info box: buy-buttons block — closes the box with bottom border ── */
+  .section-resource-list .product-card__content > .buy-buttons-block {
+    background: #ffffff;
+    padding: 20px 16px 16px 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+    border-bottom: 1px dashed #000000;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+  }
+
+  /* ── Buy-buttons chain: full width ── */
+  .section-resource-list .buy-buttons-block product-form-component,
+  .section-resource-list .buy-buttons-block form,
+  .section-resource-list .buy-buttons-block add-to-cart-component {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* ── ADD TO CART: full-width solid black button, 55px tall ── */
+  .section-resource-list add-to-cart-component .button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 55px !important;
+    background: #000000 !important;
+    color: #ffffff !important;
     border: none !important;
+    border-radius: 8px !important;
+    padding: 16px 32px !important;
     box-shadow: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
     min-height: unset !important;
-    height: auto !important;
-    width: auto !important;
-    border-radius: 0 !important;
-    display: inline !important;
+    cursor: pointer;
+    text-decoration: none !important;
   }
 
+  .section-resource-list add-to-cart-component .button:hover {
+    background: #222222 !important;
+  }
+
+  /* ── Button text ── */
   .section-resource-list add-to-cart-component .add-to-cart-text {
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    color: #000000 !important;
+    color: #ffffff !important;
+    text-decoration: none !important;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
-    line-height: 21px;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
-    letter-spacing: 0;
-    display: inline !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
   }
 
-  /* Hide cart icon — show text only */
-  .section-resource-list .add-to-cart-icon {
+  /* ── Hide cart icon — text only ── */
+  .section-resource-list add-to-cart-component .add-to-cart-icon {
     display: none !important;
   }
 </style>
