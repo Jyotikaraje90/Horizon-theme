@@ -35,26 +35,15 @@
     z-index: 0;
   }
 
-  /* ─── Diagonal vector lines (Figma: Vector 1 & 2) ──── */
-  .pi-jb__vector {
+  /* ─── Figma vector lines (SVG, precise edge segments) ── */
+  .pi-jb__lines {
     position: absolute;
-    width: 1724.66px;
-    height: 1122.24px;
-    border: 2px solid #4D4D4D;
+    inset: 0;
+    width: 100%;
+    height: 100%;
     pointer-events: none;
     z-index: 0;
-  }
-
-  .pi-jb__vector--1 {
-    top: -562px;
-    left: 206px;
-    transform: rotate(-110.13deg);
-  }
-
-  .pi-jb__vector--2 {
-    top: -351px;
-    left: -277px;
-    transform: rotate(-15.1deg);
+    overflow: visible;
   }
 
   /* ─── Grid ───────────────────────────────────── */
@@ -247,8 +236,18 @@
 </style>
 
 <div class="pi-jb">
-  <div class="pi-jb__vector pi-jb__vector--1"></div>
-  <div class="pi-jb__vector pi-jb__vector--2"></div>
+  <svg class="pi-jb__lines" viewBox="0 0 1920 650" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Vector 1 (rot -110.13°): top edge -->
+    <line x1="471" y1="0" x2="708" y2="650" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <!-- Vector 1: bottom edge (upper-right to lower-far-right) -->
+    <line x1="1665" y1="0" x2="1890" y2="618" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <!-- Vector 1: left edge corner at bottom-right -->
+    <line x1="1803" y1="650" x2="1890" y2="618" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <!-- Vector 2 (rot -15.1°): right edge -->
+    <line x1="1422" y1="0" x2="1565" y2="527" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <!-- Vector 2: bottom edge -->
+    <line x1="1109" y1="650" x2="1565" y2="527" stroke="#4D4D4D" stroke-width="2" vector-effect="non-scaling-stroke"/>
+  </svg>
   <div class="pi-jb__glow"></div>
   <div class="pi-jb__inner">
 
