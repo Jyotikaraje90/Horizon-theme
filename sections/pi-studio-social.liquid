@@ -132,18 +132,6 @@
   .pi-hc {
     padding: 64px 0;
     background: #fff;
-    position: relative;
-    overflow: hidden;
-  }
-  /* Kill any theme-injected pseudo-element decorations */
-  .pi-hc::before,
-  .pi-hc::after,
-  .pi-hc__card::before,
-  .pi-hc__card::after,
-  .pi-hc__inner::before,
-  .pi-hc__inner::after {
-    display: none !important;
-    content: none !important;
   }
   .pi-hc__inner {
     max-width: 1500px;
@@ -153,9 +141,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 50px;
-    position: relative;
-    z-index: 1;
+    gap: 40px;
   }
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
@@ -166,44 +152,41 @@
     margin: 0;
     text-align: center;
   }
-  /* Frame 48095942 — Fixed 1090px, space-between, arrows + card */
   .pi-hc__row {
     display: flex;
     align-items: center;
+    gap: 24px;
     width: 100%;
     max-width: 1090px;
-    justify-content: space-between;
+    justify-content: center;
   }
-  /* Testimonial card — Fixed 930px, radius 30px, gap 30px, shadow */
   .pi-hc__card-wrap {
-    flex: 0 0 930px;
-    width: 930px;
-    overflow: visible;
+    flex: 1;
+    max-width: 930px;
+    overflow: hidden;
   }
   .pi-hc__card {
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
-    padding: 30px 40px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-    text-align: center;
-  }
-  .pi-hc__slide { display: none; }
-  /* Frame 1171275765 — Fill 930px, vertical, gap 20px */
-  .pi-hc__slide.is-active {
+    padding: 40px 48px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    text-align: center;
+  }
+  .pi-hc__slide { display: none; }
+  .pi-hc__slide.is-active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
     width: 100%;
   }
-  /* Mask group — 70x70px */
   .pi-hc__avatar {
-    width: 70px;
-    height: 70px;
+    width: 80px;
+    height: 80px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -216,33 +199,20 @@
     object-fit: cover;
     display: block;
   }
-  /* Ratings — Horizontal, gap 6px; star_Fill — 20x20px, #FFBA00 */
   .pi-hc__stars {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    color: #F5A623;
+    font-size: 22px;
+    letter-spacing: 3px;
     line-height: 1;
-  }
-  .pi-hc__stars svg {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    display: block;
   }
   .pi-hc__text {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.75;
-    color: #333 !important;
+    color: #333;
     max-width: 720px;
     margin: 0;
-    text-decoration: none !important;
-  }
-  .pi-hc__text a,
-  .pi-hc__text a:visited {
-    color: inherit !important;
-    text-decoration: none !important;
   }
   .pi-hc__author {
     font-family: 'Nunito Sans', sans-serif;
@@ -250,7 +220,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #000 !important;
+    color: #000;
     margin: 0;
   }
 
@@ -338,15 +308,13 @@
     .pi-ps__card { flex: 0 0 280px; width: 280px; }
     .pi-ps__card-img { width: 280px; height: 280px; }
     .pi-tb__grid { grid-template-rows: repeat(2, 260px); }
-    .pi-hc__row { max-width: 100%; }
-    .pi-hc__card-wrap { flex: 1; width: auto; }
   }
   @media (max-width: 749px) {
     .pi-ps__inner, .pi-hc__inner { padding: 0 16px; }
     .pi-ps__heading { font-size: clamp(28px, 7vw, 40px); }
     .pi-ps__card { flex: 0 0 240px; width: 240px; }
     .pi-ps__card-img { width: 240px; height: 240px; }
-    .pi-hc__row { gap: 12px; justify-content: center; }
+    .pi-hc__row { gap: 12px; }
     .pi-hc__card { padding: 24px; }
     .pi-tb__grid {
       grid-template-columns: repeat(2, 1fr);
@@ -456,25 +424,20 @@
                     {{ 'customer' | placeholder_svg_tag: 'placeholder-svg' }}
                   {%- endif -%}
                 </div>
-                <div class="pi-hc__stars" aria-label="{{ block.settings.rating | default: 5 }} out of 5 stars">
+                <div class="pi-hc__stars">
                   {%- assign rating = block.settings.rating | default: 5 -%}
                   {%- for i in (1..5) -%}
-                    {%- if i <= rating -%}
-                      <svg viewBox="0 0 20 20" fill="#FFBA00" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M10 1.39L12.39 7.26L18.78 7.64L14.09 11.77L15.56 18L10 14.77L4.44 18L5.91 11.77L1.22 7.64L7.61 7.26L10 1.39Z"/>
-                      </svg>
-                    {%- else -%}
-                      <svg viewBox="0 0 20 20" fill="none" stroke="#FFBA00" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M10 1.39L12.39 7.26L18.78 7.64L14.09 11.77L15.56 18L10 14.77L4.44 18L5.91 11.77L1.22 7.64L7.61 7.26L10 1.39Z"/>
-                      </svg>
-                    {%- endif -%}
+                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
                   {%- endfor -%}
                 </div>
                 {%- if block.settings.review_text != blank -%}
                   <p class="pi-hc__text">{{ block.settings.review_text }}</p>
                 {%- endif -%}
                 {%- if block.settings.author_name != blank -%}
-                  <p class="pi-hc__author">- {{ block.settings.author_name }}{%- if block.settings.author_role != blank -%}, {{ block.settings.author_role }}{%- endif -%}</p>
+                  <p class="pi-hc__author">
+                    — {{ block.settings.author_name }}
+                    {%- if block.settings.author_role != blank -%}, {{ block.settings.author_role }}{%- endif -%}
+                  </p>
                 {%- endif -%}
               </div>
             {%- endfor -%}
