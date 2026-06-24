@@ -245,6 +245,50 @@
         "trusted_button_link": "",
         "trusted_deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png"
       }
+    },
+    "pi_our_studios_Jm2vLp": {
+      "type": "pi-our-studios",
+      "blocks": {
+        "os_studio_1": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Crete",
+            "link": ""
+          }
+        },
+        "os_studio_2": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Athens",
+            "link": ""
+          }
+        },
+        "os_studio_3": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Antwerp",
+            "link": ""
+          }
+        },
+        "os_studio_4": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Amsterdam",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "os_studio_1",
+        "os_studio_2",
+        "os_studio_3",
+        "os_studio_4"
+      ],
+      "settings": {
+        "heading": "Our Studios",
+        "background_image": "shopify://shop_images/Our_Studios.png",
+        "overlay_opacity": 55
+      }
     }
   },
   "order": [
@@ -253,6 +297,7 @@
     "pi_jewelry_banner_mN8xWq",
     "pi_tattoo_services_Tz3mKw",
     "pi_usp_Qr5yNb",
-    "pi_studio_social_Vn7qRx"
+    "pi_studio_social_Vn7qRx",
+    "pi_our_studios_Jm2vLp"
   ]
 }
