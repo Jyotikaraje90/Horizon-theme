@@ -121,32 +121,32 @@
     pointer-events: none;
   }
 
-  /* RIGHT — clip image to lower-left (mirrored) */
+  /* RIGHT — clip image to lower-right (same pattern as left) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(20px 20px 0 0);
+    clip-path: inset(20px 0 0 20px);
   }
 
-  /* RIGHT — Frame 1: upper-right decorative corner (behind image) */
+  /* RIGHT — Frame 1: upper-left decorative corner (behind image) */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 20px;
-    right: 0;
+    left: 0;
+    right: 20px;
     bottom: 20px;
     border: 3px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 2: lower-left border, on top of image */
+  /* RIGHT — Frame 2: lower-right border, on top of image */
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
     top: 20px;
-    left: 0;
-    right: 20px;
+    left: 20px;
+    right: 0;
     bottom: 0;
     border: 3px solid #FFFFFF;
     z-index: 3;
