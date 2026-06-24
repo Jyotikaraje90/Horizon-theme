@@ -1,11 +1,4 @@
 <style>
-  /* ─── Kill theme-level section gap ───────────────── */
-  #shopify-section-{{ section.id }} {
-    margin: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-  }
-
   /* ─── Section wrapper ─────────────────────────── */
   .pi-os {
     position: relative;
@@ -15,8 +8,7 @@
     background-color: #172532;
   }
 
-  /* ─── Background image ────────────────────────── */
-  /* Figma: image 9 — large image anchored to bottom */
+  /* ─── Background image (large, bottom-anchored) ─ */
   .pi-os__bg {
     position: absolute;
     width: 100%;
@@ -34,7 +26,7 @@
     display: block;
   }
 
-  /* ─── Dark overlay (Rectangle 257: opacity 0.75) ─ */
+  /* ─── Dark overlay (75% black, Rectangle 257) ─── */
   .pi-os__overlay {
     position: absolute;
     width: 100%;
@@ -44,8 +36,8 @@
     z-index: 1;
   }
 
-  /* ─── Content frame (Frame 1171275737)             */
-  /* Figma: absolute, 1500×370, left:210, top:100     */
+  /* ─── Content frame (Frame 1171275737)            */
+  /* Figma: 1500×370, left:210px, top:100px          */
   .pi-os__inner {
     position: absolute;
     z-index: 2;
@@ -75,8 +67,7 @@
     height: 70px;
   }
 
-  /* ─── Cards row (Frame 1171275739) ───────────────── */
-  /* Figma: flex row, gap 20, 1500×250               */
+  /* ─── Cards row (Frame 1171275739) ──────────────── */
   .pi-os__grid {
     display: flex;
     flex-direction: row;
@@ -109,26 +100,36 @@
     box-sizing: border-box;
   }
 
-  .pi-os__card:hover {
-    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.28);
+  /* ─── Card hover image ────────────────────────── */
+  .pi-os__card-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 8px;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+    display: block;
   }
 
-  /* Prevent any theme global transform on card children */
-  .pi-os__card *,
-  .pi-os__card *::before,
-  .pi-os__card *::after {
-    transform: none !important;
-    transition: none !important;
+  .pi-os__card:hover .pi-os__card-img {
+    opacity: 1;
   }
 
-  /* ─── Pin icon (Location1 1: 35×50) ──────────── */
+  /* ─── Pin icon — above hover image ───────────── */
   .pi-os__pin {
+    position: relative;
+    z-index: 2;
     width: 35px;
     height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
+    transition: opacity 0.3s ease;
   }
 
   .pi-os__pin svg {
@@ -137,8 +138,14 @@
     display: block;
   }
 
-  /* ─── City name (Proxima Nova Medium 34px) ────── */
+  .pi-os__card:hover .pi-os__pin {
+    opacity: 0;
+  }
+
+  /* ─── City name ───────────────────────────────── */
   .pi-os__city {
+    position: relative;
+    z-index: 2;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-size: 34px;
     font-weight: 500;
@@ -147,6 +154,11 @@
     text-align: center;
     color: #000000;
     margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .pi-os__card:hover .pi-os__city {
+    color: #ffffff;
   }
 
   /* ─── Responsive ──────────────────────────────── */
@@ -171,8 +183,9 @@
   @media (max-width: 989px) {
     .pi-os__inner { padding: 60px 24px; gap: 36px; }
     .pi-os__heading { font-size: 36px; line-height: 48px; }
-    .pi-os__card { height: 180px; }
+    .pi-os__card { height: 180px; gap: 14px; }
     .pi-os__city { font-size: 20px; line-height: 28px; }
+    .pi-os__pin { width: 26px; height: 38px; }
     .pi-os__pin svg { width: 26px; height: 38px; }
   }
 
@@ -180,15 +193,16 @@
     .pi-os__inner { padding: 40px 16px; gap: 24px; }
     .pi-os__heading { font-size: 28px; line-height: 38px; }
     .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
-    .pi-os__card { flex: 0 0 calc(50% - 6px); height: 140px; gap: 12px; }
+    .pi-os__card { flex: 0 0 calc(50% - 6px); height: 140px; gap: 10px; }
     .pi-os__city { font-size: 17px; line-height: 24px; }
+    .pi-os__pin { width: 20px; height: 30px; }
     .pi-os__pin svg { width: 20px; height: 30px; }
   }
 </style>
 
 <div class="pi-os">
 
-  {%- comment -%} Background image {%- endcomment -%}
+  {%- comment -%} Section background image {%- endcomment -%}
   <div class="pi-os__bg">
     {%- if section.settings.background_image != blank -%}
       <img
@@ -203,10 +217,10 @@
     {%- endif -%}
   </div>
 
-  {%- comment -%} Overlay — Rectangle 257, black 75% {%- endcomment -%}
+  {%- comment -%} Dark overlay {%- endcomment -%}
   <div class="pi-os__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
 
-  {%- comment -%} Content — Frame 1171275737 {%- endcomment -%}
+  {%- comment -%} Content {%- endcomment -%}
   <div class="pi-os__inner">
 
     {%- if section.settings.heading != blank -%}
@@ -221,6 +235,17 @@
           {%- else -%}
             <div class="pi-os__card" {{ block.shopify_attributes }}>
           {%- endif -%}
+
+            {%- if block.settings.hover_image != blank -%}
+              <img
+                src="{{ block.settings.hover_image | image_url: width: 720 }}"
+                alt="{{ block.settings.hover_image.alt | default: block.settings.city_name | escape }}"
+                class="pi-os__card-img"
+                width="360"
+                height="250"
+                loading="lazy"
+              >
+            {%- endif -%}
 
             <div class="pi-os__pin" aria-hidden="true">
               <svg viewBox="0 0 35 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -281,6 +306,11 @@
           "id": "city_name",
           "label": "City name",
           "default": "City"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover image (studio photo)"
         },
         {
           "type": "url",
