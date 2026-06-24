@@ -335,16 +335,16 @@
         <h2 class="pi-ps__heading">{{ section.settings.piercing_heading }}</h2>
       {%- endif -%}
       <div class="pi-ps__arrows">
-        <button class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M11 3L5 9L11 15" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing" style="width:50px;height:50px;border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
-        </button>
-        <button class="pi-ss-arrow pi-ps__next" aria-label="Next piercing">
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-            <path d="M7 3L13 9L7 15" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </div>
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__next" aria-label="Next piercing" style="width:50px;height:50px;border-radius:50%;background:#000000;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
-        </button>
+        </div>
       </div>
     </div>
 
@@ -511,8 +511,12 @@
       psIdx = Math.max(0, Math.min(i, Math.max(0, total - psVisible())));
       psTrack.style.transform = 'translateX(-' + (psIdx * psCardW) + 'px)';
     }
-    psWrap.querySelector('.pi-ps__prev').addEventListener('click', function () { psSlide(psIdx - 1); });
-    psWrap.querySelector('.pi-ps__next').addEventListener('click', function () { psSlide(psIdx + 1); });
+    var psPrev = psWrap.querySelector('.pi-ps__prev');
+    var psNext = psWrap.querySelector('.pi-ps__next');
+    psPrev.addEventListener('click', function () { psSlide(psIdx - 1); });
+    psNext.addEventListener('click', function () { psSlide(psIdx + 1); });
+    psPrev.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx - 1); });
+    psNext.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx + 1); });
   }
 
   /* Happy Customers slider */
