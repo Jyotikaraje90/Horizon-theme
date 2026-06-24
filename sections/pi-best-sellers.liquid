@@ -74,7 +74,7 @@
 
   .pi-bs__arrow--prev:hover { background-color: #f2f2f2 !important; }
 
-  .pi-bs__arrow--prev svg { transform: rotate(180deg); }
+  .pi-bs__arrow--next svg { transform: rotate(180deg); }
 
   /* Next: filled black circle */
   .pi-bs__arrow--next {
@@ -323,7 +323,6 @@
     <div class="pi-bs__header">
       <h2 class="pi-bs__title">{{ heading }}</h2>
       <div class="pi-bs__arrows">
-        {%- comment -%} Prev: same icon as Next, CSS rotates it -180° {%- endcomment -%}
         <button
           class="pi-bs__arrow pi-bs__arrow--prev"
           id="pi-bs-prev-{{ section.id }}"
@@ -331,8 +330,8 @@
           type="button"
           disabled
         >
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
         </button>
         <button
@@ -341,8 +340,8 @@
           aria-label="Next products"
           type="button"
         >
-          <svg viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M6.75 4.5L11.25 9L6.75 13.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
         </button>
       </div>
