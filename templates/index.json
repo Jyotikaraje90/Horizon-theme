@@ -138,8 +138,8 @@
         "usp_4"
       ],
       "settings": {
-        "background_image": "shopify://shop_images/USPs_31d49c47-01d4-4f4b-824a-f1d5ba3b5d61.png",
-        "overlay_opacity": 20
+        "background_image": "shopify://shop_images/Our_Studios.png",
+        "overlay_opacity": 30
       }
     },
     "pi_studio_social_Vn7qRx": {
@@ -190,31 +190,36 @@
         "sp_photo_1": {
           "type": "social_photo",
           "settings": {
-            "image": "shopify://shop_images/Mohamed_Salah_4b85f63d-cca5-4464-86ff-4d020a27c7ce.png"
+            "image": "shopify://shop_images/Mohamed_Salah_4b85f63d-cca5-4464-86ff-4d020a27c7ce.png",
+            "name": "Mohamed Salah"
           }
         },
         "sp_photo_2": {
           "type": "social_photo",
           "settings": {
-            "image": "shopify://shop_images/Kostas_Tsimikas_d1e408a7-3140-4efb-a494-ad51d4e388ae.png"
+            "image": "shopify://shop_images/Kostas_Tsimikas_d1e408a7-3140-4efb-a494-ad51d4e388ae.png",
+            "name": "Kostas Tsimikas"
           }
         },
         "sp_photo_3": {
           "type": "social_photo",
           "settings": {
-            "image": "shopify://shop_images/Thiago_Alcantara_c7d53efd-9a33-4239-92a9-778d41555329.png"
+            "image": "shopify://shop_images/Thiago_Alcantara_c7d53efd-9a33-4239-92a9-778d41555329.png",
+            "name": "Thiago Alcantara"
           }
         },
         "sp_photo_4": {
           "type": "social_photo",
           "settings": {
-            "image": "shopify://shop_images/Anna_Theodoridi_6f7b3de4-57a4-43ed-b0b2-186e6eeeba00.png"
+            "image": "shopify://shop_images/Anna_Theodoridi_6f7b3de4-57a4-43ed-b0b2-186e6eeeba00.png",
+            "name": "Anna Theodoridi"
           }
         },
         "sp_photo_5": {
           "type": "social_photo",
           "settings": {
-            "image": "shopify://shop_images/Mykola_Shaparenko.png"
+            "image": "shopify://shop_images/Mykola_Shaparenko.png",
+            "name": "Mykola Shaparenko"
           }
         }
       },
@@ -237,8 +242,7 @@
         "customers_heading": "Happy Customers",
         "trusted_heading": "Trusted by the Best",
         "trusted_button_label": "Explore More",
-        "trusted_button_link": "",
-        "trusted_deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png"
+        "trusted_button_link": ""
       }
     }
   },
