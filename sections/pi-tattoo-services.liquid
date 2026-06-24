@@ -113,7 +113,7 @@
 
   .pi-ts__card-img {
     width: 360px;
-    height: 380px;
+    height: 360px;
     overflow: hidden;
     border-radius: 0;
     flex-shrink: 0;
@@ -131,10 +131,15 @@
   .pi-ts__card-body {
     width: 360px;
     box-sizing: border-box;
-    padding: 16px 0 0 0;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 20px;
+    border-right: 1px dashed #000000;
+    border-bottom: 1px dashed #000000;
+    border-left: 1px dashed #000000;
+    border-radius: 0 0 10px 10px;
+    background: #ffffff;
   }
 
   .pi-ts__card-title {
@@ -179,9 +184,9 @@
     text-decoration: none;
     text-transform: uppercase;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 600;
-    line-height: 23px;
+    line-height: 21px;
     letter-spacing: 0;
     white-space: nowrap;
     border: none;
@@ -252,7 +257,7 @@
                       src="{{ block.settings.image | image_url: width: 720 }}"
                       alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
                       width="360"
-                      height="380"
+                      height="360"
                       loading="lazy"
                     >
                   {%- else -%}
