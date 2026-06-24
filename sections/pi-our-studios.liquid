@@ -1,18 +1,28 @@
 <style>
+  /* ─── Kill theme-level section gap ───────────────── */
+  #shopify-section-{{ section.id }} {
+    margin: 0 !important;
+    padding: 0 !important;
+    display: block !important;
+  }
+
   /* ─── Section wrapper ─────────────────────────── */
   .pi-os {
     position: relative;
+    width: 100%;
     height: 570px;
     overflow: hidden;
-    display: flex;
-    align-items: center;
     background-color: #172532;
   }
 
   /* ─── Background image ────────────────────────── */
+  /* Figma: image 9 — large image anchored to bottom */
   .pi-os__bg {
     position: absolute;
-    inset: 0;
+    width: 100%;
+    height: 963px;
+    left: 0;
+    bottom: -200px;
     z-index: 0;
   }
 
@@ -24,26 +34,30 @@
     display: block;
   }
 
-  /* ─── Dark overlay ────────────────────────────── */
+  /* ─── Dark overlay (Rectangle 257: opacity 0.75) ─ */
   .pi-os__overlay {
     position: absolute;
-    inset: 0;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
     z-index: 1;
   }
 
-  /* ─── Content container ───────────────────────── */
+  /* ─── Content frame (Frame 1171275737)             */
+  /* Figma: absolute, 1500×370, left:210, top:100     */
   .pi-os__inner {
-    position: relative;
+    position: absolute;
     z-index: 2;
-    max-width: 1500px;
-    margin-inline: auto;
-    padding: 100px 20px;
-    width: 100%;
-    box-sizing: border-box;
+    width: 1500px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 50px;
+    padding: 0;
   }
 
   /* ─── Heading ─────────────────────────────────── */
@@ -57,28 +71,32 @@
     color: #ffffff;
     text-transform: uppercase;
     margin: 0;
-    width: 100%;
+    width: 1500px;
+    height: 70px;
   }
 
-  /* ─── Cards row ───────────────────────────────── */
+  /* ─── Cards row (Frame 1171275739) ───────────────── */
+  /* Figma: flex row, gap 20, 1500×250               */
   .pi-os__grid {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
+    padding: 0;
     gap: 20px;
-    width: 100%;
-    flex-wrap: wrap;
+    width: 1500px;
+    height: 250px;
+    flex-wrap: nowrap;
   }
 
   /* ─── Card ────────────────────────────────────── */
   .pi-os__card {
+    position: relative;
     width: 360px;
     height: 250px;
     background: #ffffff !important;
     background-image: none !important;
     border-radius: 8px;
-    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.20);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.20);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -88,22 +106,25 @@
     flex-shrink: 0;
     overflow: hidden;
     isolation: isolate;
+    box-sizing: border-box;
   }
 
   .pi-os__card:hover {
-    box-shadow: 3px 3px 16px 0px rgba(0, 0, 0, 0.28);
+    box-shadow: 3px 3px 16px rgba(0, 0, 0, 0.28);
   }
 
+  /* Prevent any theme global transform on card children */
   .pi-os__card *,
   .pi-os__card *::before,
   .pi-os__card *::after {
     transform: none !important;
+    transition: none !important;
   }
 
-  /* ─── Pin icon ────────────────────────────────── */
+  /* ─── Pin icon (Location1 1: 35×50) ──────────── */
   .pi-os__pin {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -111,42 +132,57 @@
   }
 
   .pi-os__pin svg {
-    width: 36px;
-    height: 36px;
+    width: 35px;
+    height: 50px;
+    display: block;
   }
 
-  /* ─── City name ───────────────────────────────── */
+  /* ─── City name (Proxima Nova Medium 34px) ────── */
   .pi-os__city {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 26px;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 44px;
     letter-spacing: 0;
     text-align: center;
-    color: #121212;
+    color: #000000;
     margin: 0;
   }
 
   /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 1599px) {
+    .pi-os__inner { width: calc(100% - 80px); left: 40px; transform: none; }
+    .pi-os__heading { width: 100%; }
+    .pi-os__grid { width: 100%; }
+    .pi-os__card { flex: 1; min-width: 0; }
+    .pi-os__city { font-size: 28px; }
+  }
+
   @media (max-width: 1199px) {
-    .pi-os__heading { font-size: 42px; line-height: 56px; }
-    .pi-os__card { width: 280px; height: 220px; }
+    .pi-os { height: auto; min-height: 480px; }
+    .pi-os__bg { height: 700px; bottom: -100px; }
+    .pi-os__inner { position: relative; left: auto; top: auto; transform: none; width: 100%; padding: 80px 40px; box-sizing: border-box; }
+    .pi-os__heading { width: 100%; height: auto; font-size: 42px; line-height: 56px; }
+    .pi-os__grid { width: 100%; height: auto; }
+    .pi-os__card { flex: 1; min-width: 200px; height: 200px; }
+    .pi-os__city { font-size: 24px; line-height: 32px; }
   }
 
   @media (max-width: 989px) {
     .pi-os__inner { padding: 60px 24px; gap: 36px; }
     .pi-os__heading { font-size: 36px; line-height: 48px; }
-    .pi-os__card { width: 240px; height: 200px; }
-    .pi-os__city { font-size: 18px; }
+    .pi-os__card { height: 180px; }
+    .pi-os__city { font-size: 20px; line-height: 28px; }
+    .pi-os__pin svg { width: 26px; height: 38px; }
   }
 
   @media (max-width: 749px) {
-    .pi-os__inner { padding: 48px 16px; gap: 28px; }
-    .pi-os__heading { font-size: 30px; line-height: 40px; }
-    .pi-os__grid { gap: 16px; }
-    .pi-os__card { width: calc(50% - 8px); min-width: 140px; height: 160px; gap: 14px; }
-    .pi-os__city { font-size: 16px; line-height: 22px; }
-    .pi-os__pin svg { width: 28px; height: 28px; }
+    .pi-os__inner { padding: 40px 16px; gap: 24px; }
+    .pi-os__heading { font-size: 28px; line-height: 38px; }
+    .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
+    .pi-os__card { flex: 0 0 calc(50% - 6px); height: 140px; gap: 12px; }
+    .pi-os__city { font-size: 17px; line-height: 24px; }
+    .pi-os__pin svg { width: 20px; height: 30px; }
   }
 </style>
 
@@ -159,7 +195,7 @@
         src="{{ section.settings.background_image | image_url: width: 1920 }}"
         alt="{{ section.settings.background_image.alt | default: 'Our Studios background' | escape }}"
         width="1920"
-        height="570"
+        height="963"
         loading="lazy"
       >
     {%- else -%}
@@ -167,10 +203,10 @@
     {%- endif -%}
   </div>
 
-  {%- comment -%} Overlay {%- endcomment -%}
+  {%- comment -%} Overlay — Rectangle 257, black 75% {%- endcomment -%}
   <div class="pi-os__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
 
-  {%- comment -%} Content {%- endcomment -%}
+  {%- comment -%} Content — Frame 1171275737 {%- endcomment -%}
   <div class="pi-os__inner">
 
     {%- if section.settings.heading != blank -%}
@@ -187,8 +223,8 @@
           {%- endif -%}
 
             <div class="pi-os__pin" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="#121212" stroke-width="1.2" fill="none"/>
+              <svg viewBox="0 0 35 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.5 0C7.835 0 0 7.835 0 17.5C0 30.625 17.5 50 17.5 50C17.5 50 35 30.625 35 17.5C35 7.835 27.165 0 17.5 0ZM17.5 23.75C14.05 23.75 11.25 20.95 11.25 17.5C11.25 14.05 14.05 11.25 17.5 11.25C20.95 11.25 23.75 14.05 23.75 17.5C23.75 20.95 20.95 23.75 17.5 23.75Z" stroke="#000000" stroke-width="1.5" fill="none"/>
               </svg>
             </div>
 
@@ -228,11 +264,11 @@
       "type": "range",
       "id": "overlay_opacity",
       "min": 0,
-      "max": 80,
+      "max": 100,
       "step": 5,
       "unit": "%",
       "label": "Overlay opacity",
-      "default": 55
+      "default": 75
     }
   ],
   "blocks": [
