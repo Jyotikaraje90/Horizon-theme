@@ -121,13 +121,13 @@
     pointer-events: none;
   }
 
-  /* RIGHT — clip image to upper-left (image above, 20px dark strip at right+bottom) */
+  /* RIGHT — clip image to upper-left, 35px strip at right+bottom reveals both frame lines */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(0 20px 20px 0);
+    clip-path: inset(0 35px 35px 0);
   }
 
-  /* RIGHT — Frame 1: outer border, only right+bottom visible in dark strip */
+  /* RIGHT — Frame 1 (outer): border at the frame container edge */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
@@ -137,24 +137,24 @@
     bottom: 0;
     border-top: none;
     border-left: none;
-    border-right: 3px solid #FFFFFF;
-    border-bottom: 3px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 2: inner border offset 20px right+down, only right+bottom visible */
+  /* RIGHT — Frame 2 (inner): 17px inset from outer so two distinct lines show in the strip */
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
-    top: 20px;
-    left: 20px;
-    right: 0;
-    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 17px;
+    bottom: 17px;
     border-top: none;
     border-left: none;
-    border-right: 3px solid #FFFFFF;
-    border-bottom: 3px solid #FFFFFF;
+    border-right: 2px solid #FFFFFF;
+    border-bottom: 2px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
