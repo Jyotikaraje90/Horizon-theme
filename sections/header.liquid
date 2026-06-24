@@ -409,14 +409,14 @@
 
 {% stylesheet %}
   body {
-    --header-height: 60px;
+    --header-height: 95px;
     --header-group-height: var(--header-height);
     --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
 
   .header {
     /* Set header paddings based on height setting */
-    --header-padding: var(--padding-sm);
+    --header-padding: 20px;
     --font-paragraph--line-height: 1;
     --header-content-transition-timing: 0s;
 
@@ -895,6 +895,10 @@
 
   .header:has(#Details-menu-drawer-container[open]) {
     contain: style;
+  }
+
+  .header .menu-list {
+    --menu-horizontal-gap: 40px;
   }
 
   .header.header--compact {

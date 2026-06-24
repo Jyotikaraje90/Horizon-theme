@@ -561,6 +561,10 @@
     display: flex;
     align-items: center;
 
+    @media screen and (min-width: 750px) {
+      gap: 20px;
+    }
+
     @media screen and (max-width: 749px) {
       justify-self: flex-end;
     }
@@ -597,7 +601,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 20px;
+    padding: 16px 32px;
     background-color: #000000;
     color: #ffffff;
     text-decoration: none;
@@ -607,9 +611,8 @@
     letter-spacing: 0;
     text-transform: uppercase;
     white-space: nowrap;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: background-color 0.2s ease;
-    margin-left: 8px;
   }
 
   .pi-inquire-btn:hover {
