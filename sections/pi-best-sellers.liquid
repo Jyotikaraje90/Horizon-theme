@@ -490,7 +490,6 @@
     current = Math.max(0, Math.min(idx, total - visible));
     var offset = current * (cardWidth() + 30);
     track.style.transform = 'translateX(-' + offset + 'px)';
-    if (arrowsEl) arrowsEl.style.visibility = total <= visible ? 'hidden' : 'visible';
     prevBtn.disabled = current === 0;
     nextBtn.disabled = current >= total - visible;
   }
