@@ -156,6 +156,7 @@
         "ps_card_2": {
           "type": "piercing_card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png",
             "title": "Navel Piercing",
             "description": "A trendy and stylish piercing on belly button for body jewelry lovers."
           }
@@ -163,6 +164,7 @@
         "ps_card_3": {
           "type": "piercing_card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png",
             "title": "Septum Piercing",
             "description": "A bold, central nose piercing with customizable jewelry options."
           }
@@ -170,6 +172,7 @@
         "ps_card_4": {
           "type": "piercing_card",
           "settings": {
+            "image": "shopify://shop_images/Mask_group_13_7a2c3591-6fd6-438d-ae64-b4d0d1bdfe57.png",
             "title": "Helix Piercing",
             "description": "A stylish cartilage piercing along the upper ear."
           }
