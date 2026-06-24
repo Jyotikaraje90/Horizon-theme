@@ -1,0 +1,262 @@
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  .pi-os {
+    position: relative;
+    min-height: 570px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ─── Background image ────────────────────────── */
+  .pi-os__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .pi-os__bg img,
+  .pi-os__bg .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── Dark overlay ────────────────────────────── */
+  .pi-os__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* ─── Content container ───────────────────────── */
+  .pi-os__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding: 100px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* ─── Heading ─────────────────────────────────── */
+  .pi-os__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 54px;
+    font-weight: 600;
+    line-height: 70px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #ffffff;
+    text-transform: uppercase;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* ─── Cards row ───────────────────────────────── */
+  .pi-os__grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  /* ─── Card ────────────────────────────────────── */
+  .pi-os__card {
+    width: 360px;
+    height: 250px;
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.20);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-decoration: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    flex-shrink: 0;
+  }
+
+  .pi-os__card:hover {
+    transform: translateY(-4px);
+    box-shadow: 3px 7px 20px 0px rgba(0, 0, 0, 0.25);
+  }
+
+  /* ─── Pin icon ────────────────────────────────── */
+  .pi-os__pin {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pi-os__pin svg {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* ─── City name ───────────────────────────────── */
+  .pi-os__city {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 26px;
+    letter-spacing: 0;
+    text-align: center;
+    color: #121212;
+    margin: 0;
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 1199px) {
+    .pi-os__heading { font-size: 42px; line-height: 56px; }
+    .pi-os__card { width: 280px; height: 220px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-os__inner { padding: 60px 24px; gap: 36px; }
+    .pi-os__heading { font-size: 36px; line-height: 48px; }
+    .pi-os__card { width: 240px; height: 200px; }
+    .pi-os__city { font-size: 18px; }
+  }
+
+  @media (max-width: 749px) {
+    .pi-os__inner { padding: 48px 16px; gap: 28px; }
+    .pi-os__heading { font-size: 30px; line-height: 40px; }
+    .pi-os__grid { gap: 16px; }
+    .pi-os__card { width: calc(50% - 8px); min-width: 140px; height: 160px; gap: 14px; }
+    .pi-os__city { font-size: 16px; line-height: 22px; }
+    .pi-os__pin svg { width: 28px; height: 28px; }
+  }
+</style>
+
+<div class="pi-os">
+
+  {%- comment -%} Background image {%- endcomment -%}
+  <div class="pi-os__bg">
+    {%- if section.settings.background_image != blank -%}
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.background_image.alt | default: 'Our Studios background' | escape }}"
+        width="1920"
+        height="570"
+        loading="lazy"
+      >
+    {%- else -%}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Overlay {%- endcomment -%}
+  <div class="pi-os__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="pi-os__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pi-os__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pi-os__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'studio' -%}
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="pi-os__card" {{ block.shopify_attributes }}>
+          {%- else -%}
+            <div class="pi-os__card" {{ block.shopify_attributes }}>
+          {%- endif -%}
+
+            <div class="pi-os__pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" stroke="#121212" stroke-width="1.2" fill="none"/>
+              </svg>
+            </div>
+
+            {%- if block.settings.city_name != blank -%}
+              <p class="pi-os__city">{{ block.settings.city_name }}</p>
+            {%- endif -%}
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PI Our Studios",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Studios"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 55
+    }
+  ],
+  "blocks": [
+    {
+      "type": "studio",
+      "name": "Studio Location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "city_name",
+          "label": "City name",
+          "default": "City"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "PI Our Studios",
+      "blocks": [
+        { "type": "studio", "settings": { "city_name": "Crete" } },
+        { "type": "studio", "settings": { "city_name": "Athens" } },
+        { "type": "studio", "settings": { "city_name": "Antwerp" } },
+        { "type": "studio", "settings": { "city_name": "Amsterdam" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
