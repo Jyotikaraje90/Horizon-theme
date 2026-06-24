@@ -50,22 +50,37 @@
     min-width: 50px;
     border-radius: 50%;
     border: 1.5px solid #000000;
-    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: background 0.2s, color 0.2s;
+    transition: background 0.2s, border-color 0.2s;
     padding: 0;
   }
 
-  .pi-ts__arrow:hover {
+  /* Prev: outlined (white bg, black arrow) */
+  .pi-ts__arrow--prev {
+    background: #ffffff;
+  }
+  .pi-ts__arrow--prev svg path {
+    stroke: #000000;
+  }
+  .pi-ts__arrow--prev:hover {
     background: #000000;
-    color: #ffffff;
+  }
+  .pi-ts__arrow--prev:hover svg path {
+    stroke: #ffffff;
   }
 
-  .pi-ts__arrow:hover svg path {
+  /* Next: filled (black bg, white arrow) */
+  .pi-ts__arrow--next {
+    background: #000000;
+  }
+  .pi-ts__arrow--next svg path {
     stroke: #ffffff;
+  }
+  .pi-ts__arrow--next:hover {
+    background: #222222;
   }
 
   /* ─── Content area ────────────────────────────── */
@@ -82,7 +97,7 @@
 
   .pi-ts__track {
     display: flex;
-    gap: 30px;
+    gap: 20px;
     transition: transform 0.4s ease;
     will-change: transform;
   }
@@ -91,6 +106,7 @@
   .pi-ts__card {
     flex: 0 0 360px;
     width: 360px;
+    height: 473px;
     display: flex;
     flex-direction: column;
   }
@@ -117,6 +133,8 @@
     display: flex;
     flex-direction: column;
     gap: 8px;
+    flex: 1;
+    overflow: hidden;
   }
 
   .pi-ts__card-title {
@@ -173,13 +191,13 @@
   /* ─── Responsive ──────────────────────────────── */
   @media (max-width: 989px) {
     .pi-ts__inner { padding-inline: 24px; }
-    .pi-ts__card { flex: 0 0 280px; width: 280px; }
+    .pi-ts__card { flex: 0 0 280px; width: 280px; height: auto; }
     .pi-ts__card-img { width: 280px; height: 280px; }
   }
 
   @media (max-width: 749px) {
     .pi-ts__inner { padding-inline: 16px; gap: 32px; }
-    .pi-ts__card { flex: 0 0 240px; width: 240px; }
+    .pi-ts__card { flex: 0 0 240px; width: 240px; height: auto; }
     .pi-ts__card-img { width: 240px; height: 240px; }
     .pi-ts__heading { font-size: clamp(28px, 7vw, 40px); }
   }
@@ -263,7 +281,7 @@
     var prevBtn = section.querySelector('.pi-ts__arrow--prev');
     var nextBtn = section.querySelector('.pi-ts__arrow--next');
 
-    var cardWidth = 360 + 30; /* card width + gap */
+    var cardWidth = 360 + 20; /* card width + gap */
     var currentIndex = 0;
 
     function getVisibleCount() {
