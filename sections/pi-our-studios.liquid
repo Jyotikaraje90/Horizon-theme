@@ -2,10 +2,11 @@
   /* ─── Section wrapper ─────────────────────────── */
   .pi-os {
     position: relative;
-    min-height: 570px;
+    height: 570px;
     overflow: hidden;
     display: flex;
     align-items: center;
+    background-color: #172532;
   }
 
   /* ─── Background image ────────────────────────── */
@@ -74,7 +75,8 @@
   .pi-os__card {
     width: 360px;
     height: 250px;
-    background: #ffffff;
+    background: #ffffff !important;
+    background-image: none !important;
     border-radius: 8px;
     box-shadow: 3px 3px 10px 0px rgba(0, 0, 0, 0.20);
     display: flex;
@@ -83,13 +85,19 @@
     justify-content: center;
     gap: 20px;
     text-decoration: none;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
     flex-shrink: 0;
+    overflow: hidden;
+    isolation: isolate;
   }
 
   .pi-os__card:hover {
-    transform: translateY(-4px);
-    box-shadow: 3px 7px 20px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 3px 3px 16px 0px rgba(0, 0, 0, 0.28);
+  }
+
+  .pi-os__card *,
+  .pi-os__card *::before,
+  .pi-os__card *::after {
+    transform: none !important;
   }
 
   /* ─── Pin icon ────────────────────────────────── */
