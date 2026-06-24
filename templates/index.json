@@ -253,6 +253,7 @@
           "type": "studio",
           "settings": {
             "city_name": "Crete",
+            "hover_image": "shopify://shop_images/image_69_1.png",
             "link": ""
           }
         },
@@ -260,6 +261,7 @@
           "type": "studio",
           "settings": {
             "city_name": "Athens",
+            "hover_image": "shopify://shop_images/1_7.png",
             "link": ""
           }
         },
@@ -267,6 +269,7 @@
           "type": "studio",
           "settings": {
             "city_name": "Antwerp",
+            "hover_image": "shopify://shop_images/Property_1_v3.png",
             "link": ""
           }
         },
@@ -274,6 +277,7 @@
           "type": "studio",
           "settings": {
             "city_name": "Amsterdam",
+            "hover_image": "shopify://shop_images/Property_1_v3_1.png",
             "link": ""
           }
         }
