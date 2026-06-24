@@ -85,7 +85,19 @@
 
   .pi-bs__arrow--next:hover { background-color: #222222 !important; }
 
-  .pi-bs__arrow:disabled { opacity: 0.35; cursor: default; }
+  .pi-bs__arrow--prev:disabled {
+    background-color: #ffffff !important;
+    border-color: #cccccc !important;
+    color: #cccccc !important;
+    cursor: default;
+  }
+
+  .pi-bs__arrow--next:disabled {
+    background-color: #cccccc !important;
+    border-color: #cccccc !important;
+    color: #ffffff !important;
+    cursor: default;
+  }
 
   .pi-bs__arrow svg {
     width: 15.91px;
@@ -201,7 +213,7 @@
   .pi-bs__card-price {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 1.6;
     color: #000000;
     margin: 0;
@@ -218,7 +230,7 @@
     padding: 0;
     font-family: 'Nunito Sans', sans-serif;
     font-size: 0.8rem;
-    font-weight: 400;
+    font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
     color: #000000;
@@ -456,6 +468,7 @@
   if (!track || !prevBtn || !nextBtn) return;
 
   var current = 0;
+  var arrowsEl = prevBtn.closest('.pi-bs__arrows');
 
   function visibleCount() {
     var w = wrapper.offsetWidth;
@@ -473,11 +486,14 @@
   function totalCards() { return track.children.length; }
 
   function slideTo(idx) {
-    current = Math.max(0, Math.min(idx, totalCards() - visibleCount()));
+    var total   = totalCards();
+    var visible = visibleCount();
+    current = Math.max(0, Math.min(idx, total - visible));
     var offset = current * (cardWidth() + 30);
     track.style.transform = 'translateX(-' + offset + 'px)';
+    if (arrowsEl) arrowsEl.style.visibility = total <= visible ? 'hidden' : 'visible';
     prevBtn.disabled = current === 0;
-    nextBtn.disabled = current >= totalCards() - visibleCount();
+    nextBtn.disabled = current >= total - visible;
   }
 
   prevBtn.addEventListener('click', function () { slideTo(current - 1); });
