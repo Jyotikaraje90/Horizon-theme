@@ -63,18 +63,20 @@
     overflow: hidden;
   }
 
+  /* LEFT container: starts at Figma frame position (top:50px left:110px) */
   .pi-jb__img-col--left .pi-jb__frame {
     left: 110px;
     top: 50px;
-    width: 387px;  /* 365px image + 22px frame offset */
-    height: 456px; /* 434px image + 22px frame offset */
+    width: 387px;  /* 365px + 22px image offset */
+    height: 456px; /* 434px + 22px image offset */
   }
 
+  /* RIGHT container: 22px above/left of Figma frame position (top:166px left:62px) */
   .pi-jb__img-col--right .pi-jb__frame {
-    left: 42px;
-    top: 146px;
-    width: 387px;  /* 365px image + 22px frame offset */
-    height: 456px; /* 434px image + 22px frame offset */
+    left: 40px;
+    top: 144px;
+    width: 387px;  /* 365px + 22px image offset */
+    height: 456px; /* 434px + 22px image offset */
   }
 
   /* Image fills the full frame container */
@@ -89,36 +91,42 @@
     z-index: 2;
   }
 
-  /* LEFT — image offset to lower-right, exposes upper-left for frame */
+  /* LEFT — image pushed 22px right+down; frame sits at container top-left (= Figma position) */
   .pi-jb__img-col--left .pi-jb__frame img,
   .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
     clip-path: inset(22px 0 0 22px);
   }
 
-  /* LEFT — single white frame behind image; top+left edges peek out at upper-left */
+  /* LEFT — frame border exactly 365×434 at top-left of container = Figma: top:50 left:110 */
   .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border: 2px solid #FFFFFF;
+    top: 0;
+    left: 0;
+    right: 22px;
+    bottom: 22px;
+    border: 3px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
   .pi-jb__img-col--left .pi-jb__frame::after { content: none; }
 
-  /* RIGHT — image offset to upper-left, exposes lower-right for frame */
+  /* RIGHT — image at container top-left; frame sits 22px right+down (= Figma: top:166 left:62) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
     clip-path: inset(0 22px 22px 0);
   }
 
-  /* RIGHT — single white frame behind image; bottom+right edges peek out at lower-right */
+  /* RIGHT — frame border exactly 365×434 offset 22px from top-left = Figma: top:166 left:62 */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
-    inset: 0;
-    border: 2px solid #FFFFFF;
+    top: 22px;
+    left: 22px;
+    right: 0;
+    bottom: 0;
+    border: 3px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
