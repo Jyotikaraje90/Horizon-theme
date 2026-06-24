@@ -132,6 +132,18 @@
   .pi-hc {
     padding: 64px 0;
     background: #fff;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Kill any theme-injected pseudo-element decorations */
+  .pi-hc::before,
+  .pi-hc::after,
+  .pi-hc__card::before,
+  .pi-hc__card::after,
+  .pi-hc__inner::before,
+  .pi-hc__inner::after {
+    display: none !important;
+    content: none !important;
   }
   .pi-hc__inner {
     max-width: 1500px;
@@ -142,6 +154,8 @@
     flex-direction: column;
     align-items: center;
     gap: 50px;
+    position: relative;
+    z-index: 1;
   }
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
@@ -164,13 +178,13 @@
   .pi-hc__card-wrap {
     flex: 0 0 930px;
     width: 930px;
-    overflow: hidden;
+    overflow: visible;
   }
   .pi-hc__card {
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
-    padding: 40px;
+    padding: 30px 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -213,15 +227,22 @@
     width: 20px;
     height: 20px;
     flex-shrink: 0;
+    display: block;
   }
   .pi-hc__text {
     font-family: 'Nunito Sans', sans-serif;
     font-size: 16px;
     font-weight: 400;
     line-height: 1.75;
-    color: #333;
+    color: #333 !important;
     max-width: 720px;
     margin: 0;
+    text-decoration: none !important;
+  }
+  .pi-hc__text a,
+  .pi-hc__text a:visited {
+    color: inherit !important;
+    text-decoration: none !important;
   }
   .pi-hc__author {
     font-family: 'Nunito Sans', sans-serif;
@@ -229,7 +250,7 @@
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #000;
+    color: #000 !important;
     margin: 0;
   }
 
@@ -453,10 +474,7 @@
                   <p class="pi-hc__text">{{ block.settings.review_text }}</p>
                 {%- endif -%}
                 {%- if block.settings.author_name != blank -%}
-                  <p class="pi-hc__author">
-                    — {{ block.settings.author_name }}
-                    {%- if block.settings.author_role != blank -%}, {{ block.settings.author_role }}{%- endif -%}
-                  </p>
+                  <p class="pi-hc__author">- {{ block.settings.author_name }}{%- if block.settings.author_role != blank -%}, {{ block.settings.author_role }}{%- endif -%}</p>
                 {%- endif -%}
               </div>
             {%- endfor -%}
