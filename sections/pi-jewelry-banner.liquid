@@ -127,7 +127,7 @@
     clip-path: inset(0 20px 20px 0);
   }
 
-  /* RIGHT — Frame 1: outer border covers full frame, behind image */
+  /* RIGHT — Frame 1: outer border, only right+bottom visible in dark strip */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
@@ -135,12 +135,15 @@
     left: 0;
     right: 0;
     bottom: 0;
-    border: 3px solid #FFFFFF;
+    border-top: none;
+    border-left: none;
+    border-right: 3px solid #FFFFFF;
+    border-bottom: 3px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 2: inner border offset 20px right+down, behind image */
+  /* RIGHT — Frame 2: inner border offset 20px right+down, only right+bottom visible */
   .pi-jb__img-col--right .pi-jb__frame::after {
     content: '';
     position: absolute;
@@ -148,7 +151,10 @@
     left: 20px;
     right: 0;
     bottom: 0;
-    border: 3px solid #FFFFFF;
+    border-top: none;
+    border-left: none;
+    border-right: 3px solid #FFFFFF;
+    border-bottom: 3px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
