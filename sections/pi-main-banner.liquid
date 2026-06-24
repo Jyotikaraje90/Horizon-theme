@@ -14,11 +14,11 @@
     box-sizing: border-box;
     overflow: hidden;
     border-radius: 20px;
+    clip-path: inset(0 round 20px);
   }
 
   .pi-hero__main {
     position: relative;
-    border-radius: 20px 0 0 20px;
     overflow: hidden;
     height: 100%;
   }
@@ -110,14 +110,6 @@
     overflow: hidden;
   }
 
-  .pi-hero__side-banner:first-child {
-    border-radius: 0 20px 0 0;
-  }
-
-  .pi-hero__side-banner:last-child {
-    border-radius: 0 0 20px 0;
-  }
-
   .pi-hero__side-banner a {
     display: block;
     width: 100%;
@@ -161,7 +153,6 @@
     }
 
     .pi-hero__main {
-      border-radius: 20px;
       height: 65vw;
       min-height: 320px;
       max-height: 520px;
@@ -181,14 +172,6 @@
     .pi-hero__side {
       flex-direction: row;
       height: 220px;
-    }
-
-    .pi-hero__side-banner:first-child {
-      border-radius: 20px 0 0 20px;
-    }
-
-    .pi-hero__side-banner:last-child {
-      border-radius: 0 20px 20px 0;
     }
 
     .pi-hero__side-label {
