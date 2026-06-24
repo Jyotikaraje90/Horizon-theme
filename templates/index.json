@@ -180,6 +180,7 @@
         "testimonial_1": {
           "type": "testimonial",
           "settings": {
+            "avatar": "shopify://shop_images/Mask_group_14_4fdd2c92-1456-40d3-ad40-2c07fd103ae0.png",
             "rating": 5,
             "review_text": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process. The precision and attention to detail are unmatched. The studio has a clean, professional atmosphere, and the artist worked patiently with me to perfect my design. I couldn't have asked for a better experience.",
             "author_name": "Emily Carter",
@@ -188,23 +189,33 @@
         },
         "sp_photo_1": {
           "type": "social_photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mohamed_Salah_4b85f63d-cca5-4464-86ff-4d020a27c7ce.png"
+          }
         },
         "sp_photo_2": {
           "type": "social_photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Kostas_Tsimikas_d1e408a7-3140-4efb-a494-ad51d4e388ae.png"
+          }
         },
         "sp_photo_3": {
           "type": "social_photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Thiago_Alcantara_c7d53efd-9a33-4239-92a9-778d41555329.png"
+          }
         },
         "sp_photo_4": {
           "type": "social_photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Anna_Theodoridi_6f7b3de4-57a4-43ed-b0b2-186e6eeeba00.png"
+          }
         },
         "sp_photo_5": {
           "type": "social_photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mykola_Shaparenko.png"
+          }
         }
       },
       "block_order": [
