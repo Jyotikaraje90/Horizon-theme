@@ -66,15 +66,15 @@
   .pi-jb__img-col--left .pi-jb__frame {
     left: 110px;
     top: 50px;
-    width: 381px;  /* 365 + 16px offset */
-    height: 450px; /* 434 + 16px offset */
+    width: 387px;  /* 365px image + 22px frame offset */
+    height: 456px; /* 434px image + 22px frame offset */
   }
 
   .pi-jb__img-col--right .pi-jb__frame {
     left: 42px;
     top: 146px;
-    width: 385px;  /* 365 + 20px offset */
-    height: 454px; /* 434 + 20px offset */
+    width: 387px;  /* 365px image + 22px frame offset */
+    height: 456px; /* 434px image + 22px frame offset */
   }
 
   /* Image fills the full frame container */
@@ -89,75 +89,41 @@
     z-index: 2;
   }
 
-  /* LEFT — clip image to lower-right (Frame 2 area) */
+  /* LEFT — image offset to lower-right, exposes upper-left for frame */
   .pi-jb__img-col--left .pi-jb__frame img,
   .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
-    clip-path: inset(16px 0 0 16px);
+    clip-path: inset(22px 0 0 22px);
   }
 
-  /* LEFT — Frame 1: upper-left decorative corner, behind image */
+  /* LEFT — single white frame behind image; top+left edges peek out at upper-left */
   .pi-jb__img-col--left .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 16px;
-    bottom: 16px;
-    border: 3px solid #FFFFFF;
+    inset: 0;
+    border: 2px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
-  /* LEFT — Frame 2: lower-right border, behind image */
-  .pi-jb__img-col--left .pi-jb__frame::after {
-    content: '';
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    right: 0;
-    bottom: 0;
-    border: 3px solid #FFFFFF;
-    z-index: 1;
-    pointer-events: none;
-  }
+  .pi-jb__img-col--left .pi-jb__frame::after { content: none; }
 
-  /* RIGHT — clip image to upper-left, 35px strip at right+bottom reveals both frame lines */
+  /* RIGHT — image offset to upper-left, exposes lower-right for frame */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(0 35px 35px 0);
+    clip-path: inset(0 22px 22px 0);
   }
 
-  /* RIGHT — Frame 1 (outer): border at the frame container edge */
+  /* RIGHT — single white frame behind image; bottom+right edges peek out at lower-right */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-top: none;
-    border-left: none;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
+    inset: 0;
+    border: 2px solid #FFFFFF;
     z-index: 1;
     pointer-events: none;
   }
 
-  /* RIGHT — Frame 2 (inner): 17px inset from outer so two distinct lines show in the strip */
-  .pi-jb__img-col--right .pi-jb__frame::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 17px;
-    bottom: 17px;
-    border-top: none;
-    border-left: none;
-    border-right: 2px solid #FFFFFF;
-    border-bottom: 2px solid #FFFFFF;
-    z-index: 1;
-    pointer-events: none;
-  }
+  .pi-jb__img-col--right .pi-jb__frame::after { content: none; }
 
   /* ─── Center content ─────────────────────────── */
   .pi-jb__center {
@@ -219,8 +185,8 @@
 
   /* ─── Responsive ─────────────────────────── */
   @media (max-width: 989px) {
-    .pi-jb__img-col--left .pi-jb__frame { left: 20px; top: 24px; width: 230px; height: 280px; }
-    .pi-jb__img-col--right .pi-jb__frame { left: 12px; top: 24px; width: 230px; height: 280px; }
+    .pi-jb__img-col--left .pi-jb__frame { left: 20px; top: 24px; width: 222px; height: 262px; }
+    .pi-jb__img-col--right .pi-jb__frame { left: 12px; top: 24px; width: 222px; height: 262px; }
     .pi-jb__center { padding: 48px 24px; }
   }
 
