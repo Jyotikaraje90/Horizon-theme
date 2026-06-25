@@ -439,8 +439,18 @@
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
-        "background_image": "shopify://shop_images/Background.png"
+        "success_message": "Thank you! We'll be in touch soon."
+      }
+    },
+    "pi_instagram_strip_Lq8vTc": {
+      "type": "pi-instagram-strip",
+      "settings": {
+        "image_1": "shopify://shop_images/1_23e39253-e234-4e1d-a48e-04d8e6494dce.png",
+        "image_2": "shopify://shop_images/2.png",
+        "image_3": "shopify://shop_images/3.png",
+        "image_4": "shopify://shop_images/4.png",
+        "image_5": "shopify://shop_images/5.png",
+        "image_6": "shopify://shop_images/6.png"
       }
     }
   },
@@ -455,6 +465,7 @@
     "pi_about_us_Wr9kBm",
     "pi_latest_blogs_Nb3kPw",
     "pi_faqs_Xc6dYn",
-    "pi_contact_us_Hg4wJk"
+    "pi_contact_us_Hg4wJk",
+    "pi_instagram_strip_Lq8vTc"
   ]
 }
