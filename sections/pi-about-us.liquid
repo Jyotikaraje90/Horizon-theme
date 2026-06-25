@@ -50,28 +50,6 @@
     overflow: hidden;
   }
 
-  /*
-    Subtle ink overlay at bottom of top image — thin strip, small amplitude.
-  */
-  .pi-au__img-top::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #121212;
-    pointer-events: none;
-    z-index: 2;
-    clip-path: polygon(
-      0% 100%, 100% 100%,
-      100% 93%,
-      97% 90%, 94% 93%, 91% 89%, 88% 92%, 85% 89%,
-      82% 92%, 79% 88%, 76% 92%, 73% 88%, 70% 92%,
-      67% 88%, 64% 91%, 61% 88%, 58% 91%, 55% 87%,
-      52% 91%, 49% 87%, 46% 91%, 43% 87%, 40% 91%,
-      37% 87%, 34% 91%, 31% 87%, 28% 91%, 25% 88%,
-      22% 91%, 19% 88%, 16% 92%, 13% 88%, 10% 92%,
-      7% 89%, 4% 92%, 1% 89%, 0% 91%
-    );
-  }
 
   /* Image 2 — man (bottom): Figma 455×370, left:0, top:233px */
   .pi-au__img-bottom {
@@ -84,49 +62,6 @@
     overflow: hidden;
   }
 
-  /*
-    Subtle ink overlay at TOP of bottom image — thin strip, small amplitude.
-  */
-  .pi-au__img-bottom::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #121212;
-    pointer-events: none;
-    z-index: 3;
-    clip-path: polygon(
-      0% 0%, 100% 0%,
-      100% 8%,
-      97% 12%, 94% 8%, 91% 12%, 88% 7%, 85% 11%,
-      82% 7%, 79% 11%, 76% 7%, 73% 11%, 70% 7%,
-      67% 11%, 64% 6%, 61% 10%, 58% 6%, 55% 10%,
-      52% 6%, 49% 10%, 46% 6%, 43% 10%, 40% 6%,
-      37% 10%, 34% 6%, 31% 10%, 28% 6%, 25% 10%,
-      22% 6%, 19% 10%, 16% 6%, 13% 10%, 10% 6%,
-      7% 10%, 4% 6%, 1% 9%, 0% 7%
-    );
-  }
-
-  /*
-    Subtle ink overlay on LEFT edge of bottom image — thin strip only.
-  */
-  .pi-au__img-bottom::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: #121212;
-    pointer-events: none;
-    z-index: 3;
-    clip-path: polygon(
-      0% 0%, 5% 0%,
-      8% 5%,  4% 10%, 8% 15%, 4% 20%,
-      8% 25%, 4% 30%, 8% 35%, 4% 40%,
-      8% 45%, 4% 50%, 8% 55%, 4% 60%,
-      8% 65%, 4% 70%, 8% 75%, 4% 80%,
-      8% 85%, 4% 90%, 8% 95%,
-      5% 100%, 0% 100%
-    );
-  }
 
   .pi-au__img-top img,
   .pi-au__img-bottom img,
