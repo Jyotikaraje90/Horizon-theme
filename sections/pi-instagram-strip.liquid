@@ -1,0 +1,77 @@
+<style>
+  .pi-ig-strip {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    width: 100%;
+    height: 311px;
+    overflow: hidden;
+  }
+  .pi-ig-strip__cell {
+    overflow: hidden;
+    position: relative;
+    background: #111;
+  }
+  .pi-ig-strip__cell img,
+  .pi-ig-strip__cell .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @media (max-width: 749px) {
+    .pi-ig-strip {
+      grid-template-columns: repeat(3, 1fr);
+      height: auto;
+    }
+    .pi-ig-strip__cell {
+      aspect-ratio: 1 / 1;
+    }
+  }
+  @media (max-width: 479px) {
+    .pi-ig-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<div class="pi-ig-strip">
+  {%- for i in (1..6) -%}
+    {%- assign img_key = 'image_' | append: i -%}
+    {%- assign img = section.settings[img_key] -%}
+    <div class="pi-ig-strip__cell">
+      {%- if img != blank -%}
+        <img
+          src="{{ img | image_url: width: 640 }}"
+          alt="{{ img.alt | escape }}"
+          width="320"
+          height="311"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'lifestyle-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  {%- endfor -%}
+</div>
+
+{% schema %}
+{
+  "name": "PI Instagram Strip",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Instagram Images" },
+    { "type": "image_picker", "id": "image_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Image 4" },
+    { "type": "image_picker", "id": "image_5", "label": "Image 5" },
+    { "type": "image_picker", "id": "image_6", "label": "Image 6" }
+  ],
+  "presets": [
+    {
+      "name": "PI Instagram Strip"
+    }
+  ]
+}
+{% endschema %}
