@@ -439,7 +439,8 @@
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon."
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background.png"
       }
     },
     "pi_instagram_strip_Lq8vTc": {
