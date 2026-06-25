@@ -7,7 +7,7 @@
   .pi-lb {
     max-width: 1500px;
     margin: 0 auto;
-    padding: 0 60px;
+    padding: 0;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -151,6 +151,10 @@
   .pi-lb__btn:hover { opacity: 0.82; }
 
   /* ─── Responsive ─────────────────────────────────────── */
+  @media (max-width: 1540px) {
+    .pi-lb { padding: 0 40px; }
+  }
+
   @media (max-width: 1279px) {
     .pi-lb { padding: 0 40px; }
     .pi-lb__heading { font-size: 44px; line-height: 58px; }
