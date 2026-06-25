@@ -314,6 +314,7 @@
         "lb_post_1": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/Blog_Image.png",
             "date": "Feb 28, 2025",
             "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
             "link": ""
@@ -322,6 +323,7 @@
         "lb_post_2": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/Blog_Image_1.png",
             "date": "Feb 27, 2025",
             "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
             "link": ""
@@ -330,6 +332,7 @@
         "lb_post_3": {
           "type": "post",
           "settings": {
+            "image": "shopify://shop_images/Blog_Image_2.png",
             "date": "Feb 26, 2025",
             "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
             "link": ""
