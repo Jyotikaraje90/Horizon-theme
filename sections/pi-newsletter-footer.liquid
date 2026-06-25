@@ -1,6 +1,12 @@
 <style>
   /* ═══ PI NEWSLETTER & FOOTER ═══════════════════════ */
 
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 5;
+    margin-top: -123px;
+  }
+
   .pi-nf {
     background: #000;
     position: relative;
@@ -22,13 +28,6 @@
     height: 100%;
     object-fit: cover;
     display: block;
-  }
-  .pi-nf__nl-overlay {
-    position: absolute;
-    inset: 0;
-    background: #fff;
-    opacity: 0.8;
-    z-index: 1;
   }
   .pi-nf__nl-card {
     position: absolute;
@@ -269,9 +268,9 @@
     .pi-nf__copyright-inner { padding: 0 60px; }
   }
   @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} { margin-top: 0; }
     .pi-nf__nl { height: auto; }
     .pi-nf__nl-bg { position: static; height: 200px; overflow: hidden; }
-    .pi-nf__nl-overlay { position: absolute; top: 0; left: 0; right: 0; height: 200px; }
     .pi-nf__nl-card { position: static; border-radius: 0; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 32px; gap: 24px; max-width: 100%; }
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
@@ -308,7 +307,6 @@
           loading="lazy"
         >
       {%- endif -%}
-      <div class="pi-nf__nl-overlay"></div>
     </div>
 
     <div class="pi-nf__nl-card">
