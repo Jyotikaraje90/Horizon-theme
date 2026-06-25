@@ -293,6 +293,18 @@
         "background_image": "shopify://shop_images/Our_Studios.png",
         "overlay_opacity": 55
       }
+    },
+    "pi_about_us_Wr9kBm": {
+      "type": "pi-about-us",
+      "settings": {
+        "heading": "About Us",
+        "subheading": "Turning Visions into Timeless Tattoos",
+        "text": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together.",
+        "button_1_label": "Book a Session",
+        "button_1_link": "",
+        "button_2_label": "Shop Piercing Jewelry",
+        "button_2_link": "/collections/all"
+      }
     }
   },
   "order": [
@@ -302,6 +314,7 @@
     "pi_tattoo_services_Tz3mKw",
     "pi_usp_Qr5yNb",
     "pi_studio_social_Vn7qRx",
-    "pi_our_studios_Jm2vLp"
+    "pi_our_studios_Jm2vLp",
+    "pi_about_us_Wr9kBm"
   ]
 }

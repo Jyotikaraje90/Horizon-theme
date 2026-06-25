@@ -1,0 +1,349 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 100px 0;
+    background: #ffffff;
+  }
+
+  .pi-au {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+  }
+
+  /* ─── Section heading ───────────────────────────── */
+  .pi-au__heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 54px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+    margin: 0 0 70px;
+  }
+
+  /* ─── Two-column body ───────────────────────────── */
+  .pi-au__body {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 80px;
+  }
+
+  /* ─── Left: stacked images ──────────────────────── */
+  .pi-au__images {
+    position: relative;
+    flex: 0 0 560px;
+    height: 500px;
+  }
+
+  .pi-au__img-back,
+  .pi-au__img-front {
+    position: absolute;
+    overflow: hidden;
+  }
+
+  /* Top-left photo — rough right-side torn edge */
+  .pi-au__img-back {
+    width: 310px;
+    height: 390px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    clip-path: polygon(
+      0% 0%, 83% 0%, 87% 3%, 82% 7%, 88% 11%, 83% 16%, 89% 21%,
+      84% 26%, 90% 31%, 84% 36%, 88% 42%, 82% 48%, 87% 54%,
+      81% 61%, 86% 67%, 80% 74%, 85% 81%, 79% 88%, 84% 95%,
+      78% 100%, 0% 100%
+    );
+  }
+
+  /* Bottom-right photo — rough left-side torn edge */
+  .pi-au__img-front {
+    width: 310px;
+    height: 390px;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+    clip-path: polygon(
+      22% 0%, 100% 0%, 100% 100%, 17% 100%, 12% 95%, 18% 88%,
+      13% 81%, 19% 75%, 14% 68%, 20% 61%, 14% 55%, 20% 48%,
+      14% 42%, 20% 36%, 14% 31%, 20% 25%, 14% 19%, 20% 13%,
+      14% 7%, 20% 3%, 15% 0%
+    );
+  }
+
+  .pi-au__img-back img,
+  .pi-au__img-front img,
+  .pi-au__img-back .placeholder-svg,
+  .pi-au__img-front .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── Right: text content ───────────────────────── */
+  .pi-au__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding-left: 28px;
+    border-left: 3px solid #000000;
+  }
+
+  .pi-au__subheading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 57px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pi-au__text {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #121212;
+    margin: 0;
+  }
+
+  /* ─── Buttons ───────────────────────────────────── */
+  .pi-au__buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .pi-au__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: opacity 0.2s ease;
+    white-space: nowrap;
+  }
+
+  .pi-au__btn:hover { opacity: 0.82; }
+
+  .pi-au__btn--primary {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #000000;
+  }
+
+  .pi-au__btn--secondary {
+    background: #ffffff;
+    color: #000000;
+    border: 2px solid #000000;
+  }
+
+  /* ─── Responsive ────────────────────────────────── */
+  @media (max-width: 1599px) {
+    .pi-au { max-width: 100%; padding: 0 60px; }
+    .pi-au__images { flex: 0 0 480px; }
+  }
+
+  @media (max-width: 1199px) {
+    .pi-au__heading { font-size: 44px; line-height: 58px; margin-bottom: 50px; }
+    .pi-au__body { gap: 50px; }
+    .pi-au__images { flex: 0 0 400px; height: 440px; }
+    .pi-au__img-back { width: 260px; height: 330px; }
+    .pi-au__img-front { width: 260px; height: 330px; }
+    .pi-au__subheading { font-size: 36px; line-height: 48px; }
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} { padding: 70px 0; }
+    .pi-au { padding: 0 40px; }
+    .pi-au__heading { font-size: 36px; line-height: 48px; margin-bottom: 40px; }
+    .pi-au__body { flex-direction: column; gap: 50px; }
+    .pi-au__images { flex: none; width: 100%; height: 360px; }
+    .pi-au__img-back { width: 210px; height: 280px; }
+    .pi-au__img-front { width: 210px; height: 280px; }
+    .pi-au__content { padding-left: 20px; }
+    .pi-au__subheading { font-size: 30px; line-height: 40px; }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} { padding: 50px 0; }
+    .pi-au { padding: 0 20px; }
+    .pi-au__heading { font-size: 28px; line-height: 38px; margin-bottom: 30px; }
+    .pi-au__images { height: 300px; }
+    .pi-au__img-back { width: 175px; height: 235px; }
+    .pi-au__img-front { width: 175px; height: 235px; }
+    .pi-au__subheading { font-size: 26px; line-height: 36px; }
+    .pi-au__text { font-size: 16px; line-height: 26px; }
+    .pi-au__btn { font-size: 14px; padding: 14px 24px; }
+  }
+</style>
+
+<div class="pi-au">
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="pi-au__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="pi-au__body">
+
+    {%- comment -%} Left: two overlapping images {%- endcomment -%}
+    <div class="pi-au__images" aria-hidden="true">
+
+      <div class="pi-au__img-back">
+        {%- if section.settings.image_1 != blank -%}
+          <img
+            src="{{ section.settings.image_1 | image_url: width: 620 }}"
+            alt="{{ section.settings.image_1.alt | default: 'About us photo 1' | escape }}"
+            width="310"
+            height="390"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="pi-au__img-front">
+        {%- if section.settings.image_2 != blank -%}
+          <img
+            src="{{ section.settings.image_2 | image_url: width: 620 }}"
+            alt="{{ section.settings.image_2.alt | default: 'About us photo 2' | escape }}"
+            width="310"
+            height="390"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+    </div>
+
+    {%- comment -%} Right: text + buttons {%- endcomment -%}
+    <div class="pi-au__content">
+
+      {%- if section.settings.subheading != blank -%}
+        <h3 class="pi-au__subheading">{{ section.settings.subheading }}</h3>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="pi-au__text">{{ section.settings.text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+        <div class="pi-au__buttons">
+          {%- if section.settings.button_1_label != blank -%}
+            <a
+              href="{{ section.settings.button_1_link | default: '#' }}"
+              class="pi-au__btn pi-au__btn--primary"
+            >
+              {{- section.settings.button_1_label -}}
+            </a>
+          {%- endif -%}
+
+          {%- if section.settings.button_2_label != blank -%}
+            <a
+              href="{{ section.settings.button_2_link | default: '#' }}"
+              class="pi-au__btn pi-au__btn--secondary"
+            >
+              {{- section.settings.button_2_label -}}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+
+    </div>
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI About Us",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "About Us"
+    },
+    {
+      "type": "header",
+      "content": "Images"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_1",
+      "label": "Photo 1 (top-left)"
+    },
+    {
+      "type": "image_picker",
+      "id": "image_2",
+      "label": "Photo 2 (bottom-right)"
+    },
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Turning Visions into Timeless Tattoos"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Body text",
+      "default": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together."
+    },
+    {
+      "type": "header",
+      "content": "Buttons"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Button 1 label",
+      "default": "Book a Session"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Button 1 link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Button 2 label",
+      "default": "Shop Piercing Jewelry"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Button 2 link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI About Us"
+    }
+  ]
+}
+{% endschema %}
