@@ -12,8 +12,7 @@
     box-sizing: border-box;
   }
 
-  /* ─── "ABOUT US" heading ────────────────────────────── */
-  /* Figma: Playfair Display SemiBold 54px / 70px, Centre, Uppercase */
+  /* ─── Optional "ABOUT US" heading ──────────────────── */
   .pi-au__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -26,16 +25,14 @@
   }
 
   /* ─── Row: images (left) + content (right) ──────────── */
-  /* Figma Frame 1171275737: Horizontal, 1500px, Hug 608px, gap 50px */
   .pi-au__body {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     gap: 50px;
   }
 
   /* ─── Left: overlapping images ──────────────────────── */
-  /* Container = 1500 - 50gap - 710right = 740px */
   .pi-au__images {
     position: relative;
     flex: 0 0 740px;
@@ -53,30 +50,30 @@
     overflow: hidden;
   }
 
-  /* Black brush-stroke overlay at BOTTOM of image 1 */
+  /*
+    Dark ink overlay at bottom of top image.
+    Organic torn edge — jagged peaks of varying heights.
+  */
   .pi-au__img-top::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: #000000;
+    background: #121212;
     pointer-events: none;
     z-index: 2;
-    /* Jagged top boundary of the black area — teeth pointing UP into the photo */
     clip-path: polygon(
-      0% 88%,  4% 81%, 8% 88%,
-      12% 80%, 16% 88%,
-      20% 83%, 24% 88%,
-      28% 80%, 32% 88%,
-      36% 82%, 40% 88%,
-      44% 80%, 48% 88%,
-      52% 82%, 56% 88%,
-      60% 80%, 64% 88%,
-      68% 83%, 72% 88%,
-      76% 80%, 80% 88%,
-      84% 82%, 88% 88%,
-      92% 80%, 96% 88%,
-      100% 82%,
-      100% 100%, 0% 100%
+      0% 100%, 100% 100%,
+      100% 86%,
+      98% 80%, 96% 87%, 94% 79%, 92% 85%, 90% 78%,
+      88% 84%, 86% 77%, 84% 83%, 82% 76%, 80% 82%,
+      78% 75%, 76% 82%, 74% 76%, 72% 82%, 70% 75%,
+      68% 81%, 66% 74%, 64% 81%, 62% 74%, 60% 80%,
+      58% 73%, 56% 80%, 54% 74%, 52% 80%, 50% 73%,
+      48% 80%, 46% 74%, 44% 80%, 42% 73%, 40% 79%,
+      38% 73%, 36% 79%, 34% 73%, 32% 79%, 30% 73%,
+      28% 79%, 26% 74%, 24% 80%, 22% 74%, 20% 80%,
+      18% 74%, 16% 80%, 14% 74%, 12% 80%, 10% 75%,
+      8% 81%, 6% 75%, 4% 81%, 2% 76%, 0% 80%
     );
   }
 
@@ -91,53 +88,53 @@
     overflow: hidden;
   }
 
-  /* Black brush-stroke overlay at TOP of image 2 */
+  /*
+    Dark ink overlay at TOP of bottom image.
+    Organic torn edge — peaks pointing downward into the photo.
+  */
   .pi-au__img-bottom::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: #000000;
+    background: #121212;
     pointer-events: none;
     z-index: 3;
-    /* Jagged bottom boundary — teeth pointing DOWN into the photo */
     clip-path: polygon(
       0% 0%, 100% 0%,
-      100% 13%,
-      96% 6%,  92% 13%,
-      88% 5%,  84% 13%,
-      80% 6%,  76% 13%,
-      72% 5%,  68% 13%,
-      64% 6%,  60% 13%,
-      56% 5%,  52% 13%,
-      48% 6%,  44% 13%,
-      40% 5%,  36% 13%,
-      32% 6%,  28% 13%,
-      24% 5%,  20% 13%,
-      16% 6%,  12% 13%,
-      8% 5%,   4% 13%,
-      0% 8%
+      100% 14%,
+      98% 8%, 96% 14%, 94% 7%, 92% 13%, 90% 6%,
+      88% 12%, 86% 5%, 84% 12%, 82% 5%, 80% 11%,
+      78% 5%, 76% 11%, 74% 4%, 72% 11%, 70% 4%,
+      68% 10%, 66% 3%, 64% 10%, 62% 3%, 60% 9%,
+      58% 3%, 56% 9%, 54% 3%, 52% 9%, 50% 2%,
+      48% 9%, 46% 2%, 44% 9%, 42% 2%, 40% 8%,
+      38% 2%, 36% 8%, 34% 2%, 32% 8%, 30% 2%,
+      28% 8%, 26% 2%, 24% 8%, 22% 2%, 20% 8%,
+      18% 2%, 16% 8%, 14% 2%, 12% 8%, 10% 3%,
+      8% 9%, 6% 3%, 4% 9%, 2% 4%, 0% 8%
     );
   }
 
-  /* Black brush-stroke overlay on LEFT of image 2 */
+  /*
+    Dark ink overlay on LEFT edge of bottom image.
+    Organic torn left boundary against the white background.
+  */
   .pi-au__img-bottom::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: #000000;
+    background: #121212;
     pointer-events: none;
     z-index: 3;
-    /* Jagged right boundary — teeth pointing RIGHT into the photo */
     clip-path: polygon(
-      0% 0%, 6% 0%,
-      15% 7%,  6% 14%,
-      15% 21%, 6% 28%,
-      15% 35%, 6% 42%,
-      15% 49%, 6% 56%,
-      15% 63%, 6% 70%,
-      15% 77%, 6% 84%,
-      15% 91%, 6% 98%,
-      0% 100%
+      0% 0%, 7% 0%,
+      12% 4%,  6% 8%,  12% 12%, 5% 16%,
+      11% 20%, 5% 24%, 11% 28%, 5% 32%,
+      11% 36%, 5% 40%, 10% 44%, 4% 48%,
+      10% 52%, 5% 56%, 11% 60%, 5% 64%,
+      11% 68%, 5% 72%, 11% 76%, 5% 80%,
+      10% 84%, 4% 88%, 10% 92%, 5% 96%,
+      7% 100%, 0% 100%
     );
   }
 
@@ -152,7 +149,6 @@
   }
 
   /* ─── Right: content column ─────────────────────────── */
-  /* Figma Frame 1171275731: Vertical, Fixed 710px, Hug 353px, PT 30px, gap 30px */
   .pi-au__content {
     flex: 0 0 710px;
     display: flex;
@@ -161,14 +157,12 @@
     padding-top: 30px;
   }
 
-  /* Subheading wrapper — Figma Frame 1171275730:
-     Fill(710px), left border 3px #000, padding-left 15px */
+  /* Left-border accent wrapping the subheading */
   .pi-au__subheading-wrap {
     border-left: 3px solid #000000;
     padding-left: 15px;
   }
 
-  /* Subheading — Figma: Proxima Nova Medium 34px / 44px */
   .pi-au__subheading {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 500;
@@ -178,7 +172,6 @@
     margin: 0;
   }
 
-  /* Body text — Figma: Proxima Nova Regular 18px / 29px, #121212 */
   .pi-au__text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -189,7 +182,6 @@
   }
 
   /* ─── Buttons row ────────────────────────────────────── */
-  /* Figma Frame 1171275787: Horizontal, Hug 470px, Hug 55px, gap 20px */
   .pi-au__buttons {
     display: flex;
     flex-direction: row;
@@ -218,14 +210,12 @@
 
   .pi-au__btn:hover { opacity: 0.82; }
 
-  /* Figma Btn 1: black fill #000000, white text #FFFFFF */
   .pi-au__btn--primary {
     background: #000000;
     color: #ffffff;
     border: 1px solid #000000;
   }
 
-  /* Figma Btn 2: white fill, 1px border #000000, black text */
   .pi-au__btn--secondary {
     background: #ffffff;
     color: #000000;
@@ -366,8 +356,7 @@
     {
       "type": "text",
       "id": "heading",
-      "label": "Section heading",
-      "default": "About Us"
+      "label": "Section heading (optional)"
     },
     {
       "type": "header",
