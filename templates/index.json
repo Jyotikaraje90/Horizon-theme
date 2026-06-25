@@ -397,8 +397,42 @@
         "faq_5"
       ],
       "settings": {
-        "button_label": "VIEW ALL FAQS",
+        "button_label": "Inquire Now",
         "button_link": ""
+      }
+    },
+    "pi_contact_us_Hg4wJk": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": { "location_name": "Crete" }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": { "location_name": "Athens" }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": { "location_name": "Antwerp" }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": { "location_name": "Amsterdam" }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": ""
       }
     }
   },
@@ -412,6 +446,7 @@
     "pi_our_studios_Jm2vLp",
     "pi_about_us_Wr9kBm",
     "pi_latest_blogs_Nb3kPw",
-    "pi_faqs_Xc6dYn"
+    "pi_faqs_Xc6dYn",
+    "pi_contact_us_Hg4wJk"
   ]
 }

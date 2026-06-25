@@ -1,0 +1,461 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 0;
+    background: #ffffff;
+  }
+
+  .pi-contact-us {
+    max-width: 1500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
+    min-height: 683px;
+    overflow: hidden;
+  }
+
+  /* ── Left panel ──────────────────────────────────── */
+  .pi-contact-us__form-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 30px;
+    gap: 10px;
+    flex: 0 0 60.67%;
+    background: #F0F0F0;
+    border-radius: 15px 0 0 15px;
+    box-sizing: border-box;
+  }
+
+  .pi-contact-us__details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 30px;
+    width: 100%;
+  }
+
+  /* Heading */
+  .pi-contact-us__heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pi-contact-us__title-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 5px;
+  }
+
+  .pi-contact-us__title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 57px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pi-contact-us__rule {
+    width: 50px;
+    height: 3px;
+    background: #000000;
+    flex-shrink: 0;
+    border: none;
+    margin: 0;
+  }
+
+  .pi-contact-us__subtitle {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #000000;
+    margin: 0;
+    width: 100%;
+  }
+
+  /* Form */
+  .pi-contact-us__form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .pi-contact-us__row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+
+  .pi-contact-us__field {
+    box-sizing: border-box;
+    flex: 1;
+    height: 55px;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    outline: none;
+  }
+
+  .pi-contact-us__field::placeholder { color: #666666; }
+  .pi-contact-us__field:focus { border-color: #000000; }
+
+  .pi-contact-us__select-wrap {
+    position: relative;
+    width: 100%;
+  }
+
+  .pi-contact-us__select {
+    box-sizing: border-box;
+    width: 100%;
+    height: 55px;
+    padding: 0 44px 0 20px;
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    cursor: pointer;
+  }
+
+  .pi-contact-us__select:focus { border-color: #000000; }
+
+  .pi-contact-us__select-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 11px;
+    height: 7px;
+  }
+
+  .pi-contact-us__textarea {
+    box-sizing: border-box;
+    width: 100%;
+    height: 150px;
+    padding: 20px;
+    background: #FFFFFF;
+    border: 1px solid #808080;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #666666;
+    outline: none;
+    resize: vertical;
+  }
+
+  .pi-contact-us__textarea::placeholder { color: #666666; }
+  .pi-contact-us__textarea:focus { border-color: #000000; }
+
+  /* Submit row */
+  .pi-contact-us__submit-row {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pi-contact-us__btn {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 16px 32px;
+    gap: 20px;
+    height: 55px;
+    background: #000000;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #FFFFFF;
+    white-space: nowrap;
+    box-sizing: border-box;
+    transition: opacity 0.2s ease;
+  }
+
+  .pi-contact-us__btn:hover { opacity: 0.82; }
+
+  .pi-contact-us__success {
+    display: none;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    color: #000000;
+    padding: 12px 0;
+    margin: 0;
+  }
+
+  /* ── Right panel ─────────────────────────────────── */
+  .pi-contact-us__image-panel {
+    flex: 1;
+    position: relative;
+    background: #F3F4F3;
+    border-radius: 0 15px 15px 0;
+    overflow: hidden;
+    min-height: 683px;
+  }
+
+  .pi-contact-us__image-panel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  .pi-contact-us__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 989px) {
+    .pi-contact-us {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .pi-contact-us__form-panel {
+      flex: none;
+      width: 100%;
+      border-radius: 15px 15px 0 0;
+    }
+
+    .pi-contact-us__image-panel {
+      min-height: 320px;
+      border-radius: 0 0 15px 15px;
+    }
+
+    .pi-contact-us__title {
+      font-size: 36px;
+      line-height: 46px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    .pi-contact-us__row {
+      flex-direction: column;
+    }
+
+    .pi-contact-us__field {
+      width: 100%;
+    }
+
+    .pi-contact-us__title {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    .pi-contact-us__subtitle {
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .pi-contact-us__image-panel {
+      min-height: 240px;
+    }
+  }
+</style>
+
+<div class="pi-contact-us">
+
+  <div class="pi-contact-us__form-panel">
+    <div class="pi-contact-us__details">
+
+      <div class="pi-contact-us__heading">
+        <div class="pi-contact-us__title-wrap">
+          <h2 class="pi-contact-us__title">{{ section.settings.title | default: 'Get In Touch' }}</h2>
+          <hr class="pi-contact-us__rule">
+        </div>
+        <p class="pi-contact-us__subtitle">{{ section.settings.subtitle | default: "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email." }}</p>
+      </div>
+
+      {%- form 'contact', id: 'pi-contact-form-{{ section.id }}' -%}
+
+        {%- if form.posted_successfully? -%}
+          <p class="pi-contact-us__success" style="display:block;">
+            {{- section.settings.success_message | default: "Thank you! We'll be in touch soon." -}}
+          </p>
+        {%- endif -%}
+
+        <div class="pi-contact-us__form">
+
+          <div class="pi-contact-us__row">
+            <input
+              class="pi-contact-us__field"
+              type="text"
+              name="contact[First Name]"
+              placeholder="First Name*"
+              required
+              autocomplete="given-name"
+            >
+            <input
+              class="pi-contact-us__field"
+              type="text"
+              name="contact[Last Name]"
+              placeholder="Last Name*"
+              required
+              autocomplete="family-name"
+            >
+          </div>
+
+          <div class="pi-contact-us__row">
+            <input
+              class="pi-contact-us__field"
+              type="tel"
+              name="contact[Phone]"
+              placeholder="Phone*"
+              required
+              autocomplete="tel"
+            >
+            <input
+              class="pi-contact-us__field"
+              type="email"
+              name="contact[email]"
+              placeholder="Email*"
+              required
+              autocomplete="email"
+            >
+          </div>
+
+          {%- assign location_blocks = section.blocks | where: 'type', 'location' -%}
+          {%- if location_blocks.size > 0 -%}
+            <div class="pi-contact-us__select-wrap">
+              <select class="pi-contact-us__select" name="contact[Studio Location]" required>
+                <option value="" disabled selected>Select Our Studio Location*</option>
+                {%- for block in location_blocks -%}
+                  <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
+                {%- endfor -%}
+              </select>
+              <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          {%- endif -%}
+
+          <textarea
+            class="pi-contact-us__textarea"
+            name="contact[body]"
+            placeholder="Message"
+          ></textarea>
+
+          <div class="pi-contact-us__submit-row">
+            <button type="submit" class="pi-contact-us__btn">
+              {{- section.settings.button_label | default: 'Submit' -}}
+            </button>
+          </div>
+
+        </div>
+
+      {%- endform -%}
+
+    </div>
+  </div>
+
+  <div class="pi-contact-us__image-panel">
+    {%- if section.settings.background_image != blank -%}
+      {{
+        section.settings.background_image
+        | image_url: width: 1300
+        | image_tag:
+          loading: 'lazy',
+          alt: section.settings.background_image.alt
+      }}
+      <div class="pi-contact-us__overlay"></div>
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI Contact Us",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Get In Touch"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtext",
+      "default": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! We'll be in touch soon."
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "location",
+      "name": "Studio Location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "location_name",
+          "label": "Location name",
+          "default": "Studio Location"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Contact Us",
+      "blocks": [
+        { "type": "location", "settings": { "location_name": "Crete" } },
+        { "type": "location", "settings": { "location_name": "Athens" } },
+        { "type": "location", "settings": { "location_name": "Antwerp" } },
+        { "type": "location", "settings": { "location_name": "Amsterdam" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
