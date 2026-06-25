@@ -1,0 +1,305 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 80px 0;
+    background: #ffffff;
+  }
+
+  /* ─── Outer wrapper ──────────────────────────────────── */
+  .pi-lb {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* ─── Heading ─────────────────────────────────────────── */
+  /* Playfair Display SemiBold 54px/70px Uppercase */
+  .pi-lb__heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 70px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #000000;
+    margin: 0;
+  }
+
+  /* ─── Content column (grid + button) ─────────────────── */
+  /* Frame 1171275748: flex column, gap 30px */
+  .pi-lb__content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    width: 100%;
+  }
+
+  /* ─── Three-card grid ────────────────────────────────── */
+  /* Frame 1618872967: flex row, gap 20px */
+  .pi-lb__grid {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    width: 100%;
+  }
+
+  /* ─── Individual card ────────────────────────────────── */
+  /* Blog Post 1/4/5: 487×423px */
+  .pi-lb__card {
+    position: relative;
+    flex: 0 0 calc((100% - 40px) / 3);
+    height: 423px;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  /* ─── Image area ─────────────────────────────────────── */
+  /* Blog Image: full width × 360px, radius 20px */
+  .pi-lb__card-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 360px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #e0e0e0;
+    z-index: 1;
+  }
+
+  .pi-lb__card-img img,
+  .pi-lb__card-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── Text overlay ───────────────────────────────────── */
+  /* Frame 36256: top 270px, width 427px (~87.7%), bg #F0F0F0
+     radius: 0px top-left (flush), 20px on other three corners
+     padding 30px, gap 20px — sits in front of the image */
+  .pi-lb__card-text {
+    position: absolute;
+    top: 270px;
+    left: 0;
+    width: calc(100% - 60px);
+    background: #F0F0F0;
+    border-radius: 0 20px 20px 20px;
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    z-index: 2;
+  }
+
+  /* ─── Inner stack: date + title ──────────────────────── */
+  /* Frame 1171275763: flex column, gap 10px */
+  .pi-lb__card-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  /* ─── Date badge ─────────────────────────────────────── */
+  /* Frame 36258: bg #CCCCCC, radius 4px, padding 5px 10px */
+  .pi-lb__card-date-wrap {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 10px;
+    background: #CCCCCC;
+    border-radius: 4px;
+    align-self: flex-start;
+  }
+
+  /* Proxima Nova Regular 14px/21px */
+  .pi-lb__card-date {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+  }
+
+  /* ─── Article title ──────────────────────────────────── */
+  /* Proxima Nova SemiBold 20px/26px */
+  .pi-lb__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    color: #000000;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ─── CTA button ─────────────────────────────────────── */
+  /* Btn: 190×55px, black fill, radius 8px, uppercase */
+  .pi-lb__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 55px;
+    padding: 16px 32px;
+    background: #000000;
+    color: #ffffff;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: opacity 0.2s ease;
+  }
+
+  .pi-lb__btn:hover { opacity: 0.82; }
+
+  /* ─── Responsive ─────────────────────────────────────── */
+  @media (max-width: 1279px) {
+    .pi-lb { padding: 0 40px; }
+    .pi-lb__heading { font-size: 44px; line-height: 58px; }
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} { padding: 60px 0; }
+    .pi-lb { padding: 0 32px; gap: 40px; }
+    .pi-lb__heading { font-size: 36px; line-height: 48px; }
+    .pi-lb__grid { flex-wrap: wrap; }
+    .pi-lb__card { flex: 0 0 calc(50% - 10px); height: 380px; }
+    .pi-lb__card-img { height: 310px; }
+    .pi-lb__card-text { top: 230px; }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} { padding: 50px 0; }
+    .pi-lb { padding: 0 20px; gap: 30px; }
+    .pi-lb__heading { font-size: 28px; line-height: 38px; }
+    .pi-lb__grid { flex-direction: column; }
+    .pi-lb__card { flex: none; width: 100%; height: 360px; }
+    .pi-lb__card-img { height: 290px; }
+    .pi-lb__card-text { top: 205px; width: calc(100% - 40px); }
+    .pi-lb__card-title { font-size: 18px; line-height: 24px; }
+  }
+</style>
+
+{%- assign blog = blogs[section.settings.blog] -%}
+
+<div class="pi-lb">
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="pi-lb__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="pi-lb__content">
+
+    <div class="pi-lb__grid">
+      {%- if blog != blank and blog.articles_count > 0 -%}
+        {%- for article in blog.articles limit: 3 -%}
+          <a href="{{ article.url }}" class="pi-lb__card">
+            <div class="pi-lb__card-img">
+              {%- if article.image -%}
+                <img
+                  src="{{ article.image | image_url: width: 600 }}"
+                  alt="{{ article.image.alt | default: article.title | escape }}"
+                  width="600"
+                  height="360"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="pi-lb__card-text">
+              <div class="pi-lb__card-inner">
+                <span class="pi-lb__card-date-wrap">
+                  <span class="pi-lb__card-date">{{ article.published_at | date: '%b %d, %Y' }}</span>
+                </span>
+                <h3 class="pi-lb__card-title">{{ article.title }}</h3>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..3) -%}
+          <div class="pi-lb__card">
+            <div class="pi-lb__card-img">
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+            <div class="pi-lb__card-text">
+              <div class="pi-lb__card-inner">
+                <span class="pi-lb__card-date-wrap">
+                  <span class="pi-lb__card-date">Jan 01, 2025</span>
+                </span>
+                <h3 class="pi-lb__card-title">Sample blog post title goes here</h3>
+              </div>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.button_label != blank -%}
+      <a
+        href="{%- if section.settings.button_link != blank -%}{{ section.settings.button_link }}{%- elsif blog != blank -%}{{ blog.url }}{%- else -%}#{%- endif -%}"
+        class="pi-lb__btn"
+      >
+        {{- section.settings.button_label -}}
+      </a>
+    {%- endif -%}
+
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI Latest Blogs",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Latest Blogs"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All Blogs"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link (optional — defaults to blog URL)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Latest Blogs"
+    }
+  ]
+}
+{% endschema %}
