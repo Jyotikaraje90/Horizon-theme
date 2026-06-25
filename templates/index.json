@@ -296,6 +296,50 @@
     },
     "pi_about_us_Wr9kBm": {
       "type": "pi-about-us",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there an age requirement for tattoos and piercings?",
+            "answer": "Yes, you must be 18+ for tattoos. For piercings, 16+ with parental consent (valid ID required)."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": ""
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I do before getting a tattoo?",
+            "answer": ""
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What material do you use for initial piercings?",
+            "answer": ""
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean and maintain my jewelry?",
+            "answer": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
       "settings": {
         "heading": "About Us",
         "image_1": "shopify://shop_images/Frame_1171275729.png",
@@ -305,7 +349,9 @@
         "button_1_label": "Book a Session",
         "button_1_link": "",
         "button_2_label": "Shop Piercing Jewelry",
-        "button_2_link": "/collections/all"
+        "button_2_link": "/collections/all",
+        "faq_button_label": "Inquire Now",
+        "faq_button_link": ""
       }
     },
     "pi_latest_blogs_Nb3kPw": {
