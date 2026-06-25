@@ -51,19 +51,32 @@
     top: 0;
     z-index: 1;
     overflow: hidden;
-    /* Irregular organic teeth pointing DOWN at bottom — varying depth/width */
+  }
+
+  /* Black brush-stroke overlay at BOTTOM of image 1 */
+  .pi-au__img-top::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #000000;
+    pointer-events: none;
+    z-index: 2;
+    /* Jagged top boundary of the black area — teeth pointing UP into the photo */
     clip-path: polygon(
-      0% 0%, 100% 0%, 100% 85%,
-      96% 100%, 90% 85%,
-      85% 97%,  81% 85%,
-      76% 100%, 70% 85%,
-      65% 96%,  62% 85%,
-      57% 100%, 51% 85%,
-      46% 97%,  43% 85%,
-      38% 100%, 32% 85%,
-      27% 97%,  24% 85%,
-      19% 100%, 13% 85%,
-      8%  97%,  0%  85%
+      0% 88%,  4% 81%, 8% 88%,
+      12% 80%, 16% 88%,
+      20% 83%, 24% 88%,
+      28% 80%, 32% 88%,
+      36% 82%, 40% 88%,
+      44% 80%, 48% 88%,
+      52% 82%, 56% 88%,
+      60% 80%, 64% 88%,
+      68% 83%, 72% 88%,
+      76% 80%, 80% 88%,
+      84% 82%, 88% 88%,
+      92% 80%, 96% 88%,
+      100% 82%,
+      100% 100%, 0% 100%
     );
   }
 
@@ -76,25 +89,55 @@
     top: 233px;
     z-index: 2;
     overflow: hidden;
-    /* Irregular organic teeth pointing UP at top + pointing LEFT on left edge */
+  }
+
+  /* Black brush-stroke overlay at TOP of image 2 */
+  .pi-au__img-bottom::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #000000;
+    pointer-events: none;
+    z-index: 3;
+    /* Jagged bottom boundary — teeth pointing DOWN into the photo */
     clip-path: polygon(
-      0% 100%, 100% 100%, 100% 15%,
-      96% 3%,  90% 15%,
-      85% 4%,  81% 15%,
-      76% 0%,  70% 15%,
-      65% 4%,  62% 15%,
-      57% 0%,  51% 15%,
-      46% 3%,  43% 15%,
-      38% 0%,  32% 15%,
-      27% 3%,  24% 15%,
-      19% 0%,  13% 15%,
-      8%  3%,
-      0% 8%,
-      14% 16%, 0% 24%,
-      14% 33%, 0% 42%,
-      14% 50%, 0% 59%,
-      14% 67%, 0% 76%,
-      14% 84%, 0% 93%
+      0% 0%, 100% 0%,
+      100% 13%,
+      96% 6%,  92% 13%,
+      88% 5%,  84% 13%,
+      80% 6%,  76% 13%,
+      72% 5%,  68% 13%,
+      64% 6%,  60% 13%,
+      56% 5%,  52% 13%,
+      48% 6%,  44% 13%,
+      40% 5%,  36% 13%,
+      32% 6%,  28% 13%,
+      24% 5%,  20% 13%,
+      16% 6%,  12% 13%,
+      8% 5%,   4% 13%,
+      0% 8%
+    );
+  }
+
+  /* Black brush-stroke overlay on LEFT of image 2 */
+  .pi-au__img-bottom::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #000000;
+    pointer-events: none;
+    z-index: 3;
+    /* Jagged right boundary — teeth pointing RIGHT into the photo */
+    clip-path: polygon(
+      0% 0%, 6% 0%,
+      15% 7%,  6% 14%,
+      15% 21%, 6% 28%,
+      15% 35%, 6% 42%,
+      15% 49%, 6% 56%,
+      15% 63%, 6% 70%,
+      15% 77%, 6% 84%,
+      15% 91%, 6% 98%,
+      0% 100%
     );
   }
 
