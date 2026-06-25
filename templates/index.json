@@ -406,19 +406,27 @@
       "blocks": {
         "loc_1": {
           "type": "location",
-          "settings": { "location_name": "Crete" }
+          "settings": {
+            "location_name": "Crete"
+          }
         },
         "loc_2": {
           "type": "location",
-          "settings": { "location_name": "Athens" }
+          "settings": {
+            "location_name": "Athens"
+          }
         },
         "loc_3": {
           "type": "location",
-          "settings": { "location_name": "Antwerp" }
+          "settings": {
+            "location_name": "Antwerp"
+          }
         },
         "loc_4": {
           "type": "location",
-          "settings": { "location_name": "Amsterdam" }
+          "settings": {
+            "location_name": "Amsterdam"
+          }
         }
       },
       "block_order": [
@@ -432,7 +440,7 @@
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
-        "background_image": ""
+        "background_image": "shopify://shop_images/Background.png"
       }
     }
   },
