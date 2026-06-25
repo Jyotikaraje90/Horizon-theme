@@ -310,9 +310,39 @@
     },
     "pi_latest_blogs_Nb3kPw": {
       "type": "pi-latest-blogs",
+      "blocks": {
+        "lb_post_1": {
+          "type": "post",
+          "settings": {
+            "date": "Feb 28, 2025",
+            "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
+            "link": ""
+          }
+        },
+        "lb_post_2": {
+          "type": "post",
+          "settings": {
+            "date": "Feb 27, 2025",
+            "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
+            "link": ""
+          }
+        },
+        "lb_post_3": {
+          "type": "post",
+          "settings": {
+            "date": "Feb 26, 2025",
+            "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "lb_post_1",
+        "lb_post_2",
+        "lb_post_3"
+      ],
       "settings": {
         "heading": "Latest Blogs",
-        "blog": "news",
         "button_label": "View All Blogs",
         "button_link": ""
       }

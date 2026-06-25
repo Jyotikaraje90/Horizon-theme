@@ -4,7 +4,6 @@
     background: #ffffff;
   }
 
-  /* ─── Outer wrapper ──────────────────────────────────── */
   .pi-lb {
     max-width: 1500px;
     margin: 0 auto;
@@ -16,8 +15,6 @@
     gap: 50px;
   }
 
-  /* ─── Heading ─────────────────────────────────────────── */
-  /* Playfair Display SemiBold 54px/70px Uppercase */
   .pi-lb__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -29,8 +26,6 @@
     margin: 0;
   }
 
-  /* ─── Content column (grid + button) ─────────────────── */
-  /* Frame 1171275748: flex column, gap 30px */
   .pi-lb__content {
     display: flex;
     flex-direction: column;
@@ -39,8 +34,6 @@
     width: 100%;
   }
 
-  /* ─── Three-card grid ────────────────────────────────── */
-  /* Frame 1618872967: flex row, gap 20px */
   .pi-lb__grid {
     display: flex;
     flex-direction: row;
@@ -49,8 +42,7 @@
     width: 100%;
   }
 
-  /* ─── Individual card ────────────────────────────────── */
-  /* Blog Post 1/4/5: 487×423px */
+  /* Each card: 487×423px */
   .pi-lb__card {
     position: relative;
     flex: 0 0 calc((100% - 40px) / 3);
@@ -60,8 +52,7 @@
     color: inherit;
   }
 
-  /* ─── Image area ─────────────────────────────────────── */
-  /* Blog Image: full width × 360px, radius 20px */
+  /* Image: full width × 360px, radius 20px */
   .pi-lb__card-img {
     position: absolute;
     top: 0;
@@ -82,10 +73,8 @@
     display: block;
   }
 
-  /* ─── Text overlay ───────────────────────────────────── */
-  /* Frame 36256: top 270px, width 427px (~87.7%), bg #F0F0F0
-     radius: 0px top-left (flush), 20px on other three corners
-     padding 30px, gap 20px — sits in front of the image */
+  /* Text overlay: top 270px, width ~87.7%, #F0F0F0
+     radius 0 top-left / 20px on other three corners */
   .pi-lb__card-text {
     position: absolute;
     top: 270px;
@@ -101,16 +90,13 @@
     z-index: 2;
   }
 
-  /* ─── Inner stack: date + title ──────────────────────── */
-  /* Frame 1171275763: flex column, gap 10px */
   .pi-lb__card-inner {
     display: flex;
     flex-direction: column;
     gap: 10px;
   }
 
-  /* ─── Date badge ─────────────────────────────────────── */
-  /* Frame 36258: bg #CCCCCC, radius 4px, padding 5px 10px */
+  /* Date badge: #CCCCCC, radius 4px, padding 5px 10px */
   .pi-lb__card-date-wrap {
     display: inline-flex;
     align-items: center;
@@ -120,7 +106,6 @@
     align-self: flex-start;
   }
 
-  /* Proxima Nova Regular 14px/21px */
   .pi-lb__card-date {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -129,8 +114,7 @@
     color: #000000;
   }
 
-  /* ─── Article title ──────────────────────────────────── */
-  /* Proxima Nova SemiBold 20px/26px */
+  /* Title: Proxima Nova SemiBold 20px/26px */
   .pi-lb__card-title {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
@@ -144,8 +128,7 @@
     overflow: hidden;
   }
 
-  /* ─── CTA button ─────────────────────────────────────── */
-  /* Btn: 190×55px, black fill, radius 8px, uppercase */
+  /* CTA button: black 55px height, radius 8px, uppercase */
   .pi-lb__btn {
     display: inline-flex;
     align-items: center;
@@ -195,8 +178,6 @@
   }
 </style>
 
-{%- assign blog = blogs[section.settings.blog] -%}
-
 <div class="pi-lb">
 
   {%- if section.settings.heading != blank -%}
@@ -206,54 +187,47 @@
   <div class="pi-lb__content">
 
     <div class="pi-lb__grid">
-      {%- if blog != blank and blog.articles_count > 0 -%}
-        {%- for article in blog.articles limit: 3 -%}
-          <a href="{{ article.url }}" class="pi-lb__card">
-            <div class="pi-lb__card-img">
-              {%- if article.image -%}
-                <img
-                  src="{{ article.image | image_url: width: 600 }}"
-                  alt="{{ article.image.alt | default: article.title | escape }}"
-                  width="600"
-                  height="360"
-                  loading="lazy"
-                >
-              {%- else -%}
-                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- for block in section.blocks -%}
+        {%- assign card_tag = 'div' -%}
+        {%- if block.settings.link != blank -%}{%- assign card_tag = 'a' -%}{%- endif -%}
+
+        <{{ card_tag }}
+          {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}
+          class="pi-lb__card"
+          {{ block.shopify_attributes }}
+        >
+          <div class="pi-lb__card-img">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                width="600"
+                height="360"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="pi-lb__card-text">
+            <div class="pi-lb__card-inner">
+              {%- if block.settings.date != blank -%}
+                <span class="pi-lb__card-date-wrap">
+                  <span class="pi-lb__card-date">{{ block.settings.date }}</span>
+                </span>
+              {%- endif -%}
+              {%- if block.settings.title != blank -%}
+                <h3 class="pi-lb__card-title">{{ block.settings.title }}</h3>
               {%- endif -%}
             </div>
-            <div class="pi-lb__card-text">
-              <div class="pi-lb__card-inner">
-                <span class="pi-lb__card-date-wrap">
-                  <span class="pi-lb__card-date">{{ article.published_at | date: '%b %d, %Y' }}</span>
-                </span>
-                <h3 class="pi-lb__card-title">{{ article.title }}</h3>
-              </div>
-            </div>
-          </a>
-        {%- endfor -%}
-      {%- else -%}
-        {%- for i in (1..3) -%}
-          <div class="pi-lb__card">
-            <div class="pi-lb__card-img">
-              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-            </div>
-            <div class="pi-lb__card-text">
-              <div class="pi-lb__card-inner">
-                <span class="pi-lb__card-date-wrap">
-                  <span class="pi-lb__card-date">Jan 01, 2025</span>
-                </span>
-                <h3 class="pi-lb__card-title">Sample blog post title goes here</h3>
-              </div>
-            </div>
           </div>
-        {%- endfor -%}
-      {%- endif -%}
+        </{{ card_tag }}>
+      {%- endfor -%}
     </div>
 
     {%- if section.settings.button_label != blank -%}
       <a
-        href="{%- if section.settings.button_link != blank -%}{{ section.settings.button_link }}{%- elsif blog != blank -%}{{ blog.url }}{%- else -%}#{%- endif -%}"
+        href="{{ section.settings.button_link | default: '#' }}"
         class="pi-lb__btn"
       >
         {{- section.settings.button_label -}}
@@ -268,17 +242,43 @@
 {
   "name": "PI Latest Blogs",
   "tag": "section",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Blog Post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "date",
+          "label": "Date",
+          "default": "Jan 01, 2025"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Blog post title goes here"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
   "settings": [
     {
       "type": "text",
       "id": "heading",
       "label": "Heading",
       "default": "Latest Blogs"
-    },
-    {
-      "type": "blog",
-      "id": "blog",
-      "label": "Blog"
     },
     {
       "type": "header",
@@ -293,12 +293,17 @@
     {
       "type": "url",
       "id": "button_link",
-      "label": "Button link (optional — defaults to blog URL)"
+      "label": "Button link"
     }
   ],
   "presets": [
     {
-      "name": "PI Latest Blogs"
+      "name": "PI Latest Blogs",
+      "blocks": [
+        { "type": "post" },
+        { "type": "post" },
+        { "type": "post" }
+      ]
     }
   ]
 }
