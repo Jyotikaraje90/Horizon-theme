@@ -296,6 +296,62 @@
     },
     "pi_about_us_Wr9kBm": {
       "type": "pi-about-us",
+      "settings": {
+        "heading": "About Us",
+        "image_1": "shopify://shop_images/Frame_1171275729.png",
+        "image_2": "shopify://shop_images/1_5978060f-e96b-4218-ab81-1a8f4b26a528.png",
+        "subheading": "Turning Visions into Timeless Tattoos",
+        "text": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together.",
+        "button_1_label": "Book a Session",
+        "button_1_link": "",
+        "button_2_label": "Shop Piercing Jewelry",
+        "button_2_link": "/collections/all"
+      }
+    },
+    "pi_latest_blogs_Nb3kPw": {
+      "type": "pi-latest-blogs",
+      "blocks": {
+        "lb_post_1": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image.png",
+            "date": "Feb 28, 2025",
+            "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
+            "link": ""
+          }
+        },
+        "lb_post_2": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image_1.png",
+            "date": "Feb 27, 2025",
+            "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
+            "link": ""
+          }
+        },
+        "lb_post_3": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image_2.png",
+            "date": "Feb 26, 2025",
+            "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "lb_post_1",
+        "lb_post_2",
+        "lb_post_3"
+      ],
+      "settings": {
+        "heading": "Latest Blogs",
+        "button_label": "View All Blogs",
+        "button_link": ""
+      }
+    },
+    "pi_faqs_Xc6dYn": {
+      "type": "pi-faqs",
       "blocks": {
         "faq_1": {
           "type": "faq",
@@ -341,58 +397,7 @@
         "faq_5"
       ],
       "settings": {
-        "heading": "About Us",
-        "image_1": "shopify://shop_images/Frame_1171275729.png",
-        "image_2": "shopify://shop_images/1_5978060f-e96b-4218-ab81-1a8f4b26a528.png",
-        "subheading": "Turning Visions into Timeless Tattoos",
-        "text": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together.",
-        "button_1_label": "Book a Session",
-        "button_1_link": "",
-        "button_2_label": "Shop Piercing Jewelry",
-        "button_2_link": "/collections/all",
-        "faq_button_label": "View all FAQS",
-        "faq_button_link": ""
-      }
-    },
-    "pi_latest_blogs_Nb3kPw": {
-      "type": "pi-latest-blogs",
-      "blocks": {
-        "lb_post_1": {
-          "type": "post",
-          "settings": {
-            "image": "shopify://shop_images/Blog_Image.png",
-            "date": "Feb 28, 2025",
-            "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
-            "link": ""
-          }
-        },
-        "lb_post_2": {
-          "type": "post",
-          "settings": {
-            "image": "shopify://shop_images/Blog_Image_1.png",
-            "date": "Feb 27, 2025",
-            "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
-            "link": ""
-          }
-        },
-        "lb_post_3": {
-          "type": "post",
-          "settings": {
-            "image": "shopify://shop_images/Blog_Image_2.png",
-            "date": "Feb 26, 2025",
-            "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "lb_post_1",
-        "lb_post_2",
-        "lb_post_3"
-      ],
-      "settings": {
-        "heading": "Latest Blogs",
-        "button_label": "View All Blogs",
+        "button_label": "Inquire Now",
         "button_link": ""
       }
     }
@@ -406,6 +411,7 @@
     "pi_studio_social_Vn7qRx",
     "pi_our_studios_Jm2vLp",
     "pi_about_us_Wr9kBm",
-    "pi_latest_blogs_Nb3kPw"
+    "pi_latest_blogs_Nb3kPw",
+    "pi_faqs_Xc6dYn"
   ]
 }
