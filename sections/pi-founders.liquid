@@ -1,0 +1,149 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    padding: 100px 0;
+    background: #000000;
+  }
+
+  .pi-founders {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 60px;
+  }
+
+  .pi-founders__image {
+    flex: 0 0 520px;
+    overflow: hidden;
+  }
+
+  .pi-founders__image img,
+  .pi-founders__image .placeholder-svg {
+    width: 100%;
+    height: 480px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-founders__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    padding-top: 10px;
+  }
+
+  .pi-founders__subheading-wrap {
+    border-left: 3px solid #ffffff;
+    padding-left: 15px;
+  }
+
+  .pi-founders__subheading {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 44px;
+    color: #ffffff;
+    margin: 0;
+  }
+
+  .pi-founders__text {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0;
+  }
+
+  .pi-founders__text br + br {
+    display: block;
+    content: '';
+    margin-top: 16px;
+  }
+
+  @media (max-width: 1279px) {
+    .pi-founders__image { flex: 0 0 420px; }
+    .pi-founders__subheading { font-size: 28px; line-height: 38px; }
+  }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} { padding: 70px 0; }
+    .pi-founders { flex-direction: column; padding: 0 32px; gap: 40px; }
+    .pi-founders__image { flex: none; width: 100%; }
+    .pi-founders__image img { height: 360px; }
+    .pi-founders__content { padding-top: 0; }
+    .pi-founders__subheading { font-size: 26px; line-height: 34px; }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} { padding: 50px 0; }
+    .pi-founders { padding: 0 20px; gap: 30px; }
+    .pi-founders__image img { height: 260px; }
+    .pi-founders__subheading { font-size: 22px; line-height: 30px; }
+    .pi-founders__text { font-size: 16px; line-height: 26px; }
+  }
+</style>
+
+<div class="pi-founders">
+
+  <div class="pi-founders__image">
+    {%- if section.settings.image != blank -%}
+      <img
+        src="{{ section.settings.image | image_url: width: 1040 }}"
+        alt="{{ section.settings.image.alt | default: 'Behind Puerto Ink' | escape }}"
+        loading="lazy"
+        width="520"
+        height="480"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  <div class="pi-founders__content">
+    {%- if section.settings.subheading != blank -%}
+      <div class="pi-founders__subheading-wrap">
+        <h2 class="pi-founders__subheading">{{ section.settings.subheading }}</h2>
+      </div>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <div class="pi-founders__text">{{ section.settings.text | newline_to_br }}</div>
+    {%- endif -%}
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI Founders",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Founders photo"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Behind Puerto Ink"
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Body text",
+      "default": "Puerto Ink was founded in 2016 by two brothers, Vangelis and Michalis, from Heraklion, Crete. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.\n\nWhat began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their first studio in Heraklion, setting the foundation for what would become a renowned name in the industry.\n\nIn six years, they expanded internationally, opening a studio in Antwerp, Belgium, followed by Amsterdam and Athens, establishing Puerto Ink as a global brand.\n\nToday, with a team of 35+ skilled professionals, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots."
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Founders"
+    }
+  ]
+}
+{% endschema %}
