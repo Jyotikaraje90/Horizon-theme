@@ -50,10 +50,11 @@
   .pi-vision__subheading {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 500;
-    font-size: 34px;
-    line-height: 44px;
+    font-size: 30px;
+    line-height: 40px;
     color: #000000;
     margin: 0;
+    white-space: nowrap;
   }
 
   .pi-vision__text {
@@ -64,6 +65,8 @@
     color: #121212;
     margin: 0;
   }
+  .pi-vision__text p      { margin: 0; }
+  .pi-vision__text strong { font-weight: 700; }
 
   .pi-vision__image {
     flex: 0 0 49.33%;
@@ -82,7 +85,7 @@
 
   @media (max-width: 1279px) {
     .pi-vision__heading { font-size: 44px; line-height: 58px; }
-    .pi-vision__subheading { font-size: 28px; line-height: 38px; }
+    .pi-vision__subheading { font-size: 26px; line-height: 36px; white-space: normal; }
   }
 
   @media (max-width: 989px) {
@@ -117,7 +120,7 @@
         </div>
       {%- endif -%}
       {%- if section.settings.text != blank -%}
-        <p class="pi-vision__text">{{ section.settings.text }}</p>
+        <div class="pi-vision__text">{{ section.settings.text }}</div>
       {%- endif -%}
     </div>
   </div>
@@ -156,10 +159,10 @@
       "default": "Redefining Self-Expression Through Artistry"
     },
     {
-      "type": "textarea",
+      "type": "richtext",
       "id": "text",
       "label": "Body text",
-      "default": "Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in tattoo artistry and piercing craftsmanship, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry."
+      "default": "<p>Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in <strong>tattoo artistry and piercing craftsmanship</strong>, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry.</p>"
     },
     {
       "type": "image_picker",
