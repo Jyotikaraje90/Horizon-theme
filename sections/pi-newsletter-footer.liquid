@@ -5,6 +5,7 @@
     position: relative;
     z-index: 5;
     margin-top: -123px;
+    background: #fff;
   }
 
   .pi-nf {
@@ -300,44 +301,45 @@
 {%- assign resource_blocks    = section.blocks | where: "type", "resource_link" -%}
 {%- assign studio_blocks      = section.blocks | where: "type", "studio" -%}
 
-<div class="pi-nf">
+{%- comment -%}── NEWSLETTER (white bg from section wrapper) ──{%- endcomment -%}
+<div class="pi-nf__nl">
 
-  {%- comment -%}── NEWSLETTER ──────────────────────────{%- endcomment -%}
-  <div class="pi-nf__nl">
+  <div class="pi-nf__nl-card"{% if section.settings.newsletter_bg_image != blank %} style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"{% endif %}>
+    <div class="pi-nf__nl-inner">
 
-    <div class="pi-nf__nl-card"{% if section.settings.newsletter_bg_image != blank %} style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"{% endif %}>
-      <div class="pi-nf__nl-inner">
+      <h2 class="pi-nf__nl-heading">
+        {{- section.settings.newsletter_heading | default: 'Join Our Newsletter' -}}
+      </h2>
 
-        <h2 class="pi-nf__nl-heading">
-          {{- section.settings.newsletter_heading | default: 'Join Our Newsletter' -}}
-        </h2>
-
-        <div class="pi-nf__nl-form-wrap">
-          {%- form 'customer', id: 'pi-newsletter-{{ section.id }}' -%}
-            {%- if form.posted_successfully? -%}
-              <p class="pi-nf__nl-success" style="display:block;">
-                {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
-              </p>
-            {%- else -%}
-              <input type="hidden" name="contact[tags]" value="newsletter,email">
-              <input
-                class="pi-nf__nl-input"
-                type="email"
-                name="contact[email]"
-                placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}"
-                required
-                autocomplete="email"
-              >
-              <button type="submit" class="pi-nf__nl-btn">
-                {{- section.settings.newsletter_btn_label | default: 'Subscribe' -}}
-              </button>
-            {%- endif -%}
-          {%- endform -%}
-        </div>
-
+      <div class="pi-nf__nl-form-wrap">
+        {%- form 'customer', id: 'pi-newsletter-{{ section.id }}' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="pi-nf__nl-success" style="display:block;">
+              {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
+            </p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,email">
+            <input
+              class="pi-nf__nl-input"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="pi-nf__nl-btn">
+              {{- section.settings.newsletter_btn_label | default: 'Subscribe' -}}
+            </button>
+          {%- endif -%}
+        {%- endform -%}
       </div>
+
     </div>
   </div>
+</div>
+
+{%- comment -%}── BLACK FOOTER ────────────────────────────{%- endcomment -%}
+<div class="pi-nf">
 
   {%- comment -%}── FOOTER BODY ─────────────────────────{%- endcomment -%}
   <div class="pi-nf__footer-body">
@@ -417,8 +419,10 @@
 
     </div>
 
-    {%- comment -%}── COPYRIGHT ───────────────────────────{%- endcomment -%}
-    <div class="pi-nf__copyright">
+  </div>
+
+  {%- comment -%}── COPYRIGHT ───────────────────────────{%- endcomment -%}
+  <div class="pi-nf__copyright">
       <div class="pi-nf__copyright-inner">
         <div class="pi-nf__copyright-left">
           {%- if section.settings.copyright_text != blank -%}
@@ -457,7 +461,6 @@
       </div>
     </div>
 
-  </div>
 </div>
 
 {% schema %}
