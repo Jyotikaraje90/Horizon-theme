@@ -9,11 +9,21 @@
  */
 {
   "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
     "pi_ph_about": {
       "type": "pi-page-hero",
       "settings": {
-        "heading": "About Us",
-        "overlay_opacity": 40
+        "overlay_opacity": 40,
+        "heading": "About Us"
       }
     },
     "pi_founders_about": {
@@ -70,7 +80,12 @@
           }
         }
       },
-      "block_order": ["usp_1", "usp_2", "usp_3", "usp_4"],
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
         "background_image": "shopify://shop_images/Our_Studios.png",
         "overlay_opacity": 30
@@ -115,7 +130,13 @@
           }
         }
       },
-      "block_order": ["tb_1", "tb_2", "tb_3", "tb_4", "tb_5"],
+      "block_order": [
+        "tb_1",
+        "tb_2",
+        "tb_3",
+        "tb_4",
+        "tb_5"
+      ],
       "settings": {
         "heading": "Trusted By The Best",
         "deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png",
@@ -159,7 +180,12 @@
           }
         }
       },
-      "block_order": ["os_1", "os_2", "os_3", "os_4"],
+      "block_order": [
+        "os_1",
+        "os_2",
+        "os_3",
+        "os_4"
+      ],
       "settings": {
         "heading": "Our Studios",
         "background_image": "shopify://shop_images/Our_Studios.png",
@@ -205,7 +231,13 @@
           }
         }
       },
-      "block_order": ["faq_1", "faq_2", "faq_3", "faq_4", "faq_5"],
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
       "settings": {
         "button_label": "VIEW ALL FAQS",
         "button_link": ""
@@ -216,22 +248,35 @@
       "blocks": {
         "loc_1": {
           "type": "location",
-          "settings": { "location_name": "Crete" }
+          "settings": {
+            "location_name": "Crete"
+          }
         },
         "loc_2": {
           "type": "location",
-          "settings": { "location_name": "Athens" }
+          "settings": {
+            "location_name": "Athens"
+          }
         },
         "loc_3": {
           "type": "location",
-          "settings": { "location_name": "Antwerp" }
+          "settings": {
+            "location_name": "Antwerp"
+          }
         },
         "loc_4": {
           "type": "location",
-          "settings": { "location_name": "Amsterdam" }
+          "settings": {
+            "location_name": "Amsterdam"
+          }
         }
       },
-      "block_order": ["loc_1", "loc_2", "loc_3", "loc_4"],
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
       "settings": {
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
@@ -257,6 +302,7 @@
     }
   },
   "order": [
+    "main",
     "pi_ph_about",
     "pi_founders_about",
     "pi_team_about",
