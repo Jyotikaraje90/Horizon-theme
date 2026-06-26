@@ -96,7 +96,7 @@
       ],
       "settings": {
         "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
-        "overlay_opacity": 20
+        "overlay_opacity": 10
       }
     },
     "pi_tb_about": {
