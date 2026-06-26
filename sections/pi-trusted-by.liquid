@@ -116,24 +116,31 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.35s ease;
   }
 
-  .pi-tb__photo:hover img {
-    transform: scale(1.05);
+  .pi-tb__photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+
+  .pi-tb__photo:hover .pi-tb__photo-overlay {
+    opacity: 1;
   }
 
   .pi-tb__photo-name {
-    position: absolute;
-    bottom: 10px;
-    left: 12px;
-    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 13px;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(16px, 1.6vw, 28px);
     font-weight: 600;
     color: #ffffff;
-    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.7);
-    z-index: 1;
-    pointer-events: none;
+    text-align: center;
+    padding: 0 12px;
   }
 
   /* ── Responsive ───────────────────────────────────── */
@@ -213,7 +220,9 @@
           {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
         {%- if block.settings.name != blank -%}
-          <span class="pi-tb__photo-name">{{ block.settings.name }}</span>
+          <div class="pi-tb__photo-overlay" aria-hidden="true">
+            <span class="pi-tb__photo-name">{{ block.settings.name }}</span>
+          </div>
         {%- endif -%}
       </div>
     {%- endif -%}
