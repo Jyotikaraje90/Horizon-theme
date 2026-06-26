@@ -34,23 +34,24 @@
     overflow: hidden;
   }
 
-  /* Decorative sketch image — faint, bottom-anchored */
+  /* Decorative sketch image — fixed 197.58×326px, centered at top of panel */
   .pi-tb__deco {
     position: absolute;
-    inset: 0;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 0;
     pointer-events: none;
-    overflow: hidden;
+    width: 197.58px;
+    height: 326px;
   }
 
   .pi-tb__deco img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center bottom;
+    object-fit: contain;
     display: block;
     opacity: 0.25;
-    transform: scaleX(-1);
   }
 
   /* Content above deco */
