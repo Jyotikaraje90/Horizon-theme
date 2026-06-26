@@ -23,6 +23,7 @@
       "type": "pi-page-hero",
       "settings": {
         "heading": "About Us",
+        "background_image": "shopify://shop_images/About_Us.png",
         "overlay_opacity": 40
       }
     },
