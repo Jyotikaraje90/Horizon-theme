@@ -13,7 +13,7 @@
     border: 1px solid #808080;
   }
 
-  /* ── Newsletter area (top 246px) ── */
+  /* ── Newsletter area — Figma: 1920×246px card, left/right 210px ── */
   .pi-nf__nl {
     position: relative;
     height: 246px;
@@ -30,6 +30,8 @@
     display: flex;
     align-items: center;
   }
+  /* Inner row: Figma Frame 1171275767 — 1310px wide, top:50px, left:95px within card */
+  /* max-width:1310px + margin:auto centers it with 95px auto-margins inside the 1500px card */
   .pi-nf__nl-inner {
     width: 100%;
     max-width: 1310px;
@@ -41,21 +43,25 @@
     gap: 30px;
     box-sizing: border-box;
   }
+  /* Figma: 362px × 140px, Playfair Display SemiBold 600, 54px, 70px lh, Uppercase, #000 */
   .pi-nf__nl-heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 3.5vw, 54px);
+    font-size: clamp(28px, 2.8vw, 54px);
     font-weight: 600;
     text-transform: uppercase;
     color: #000;
     margin: 0;
     line-height: 1.3;
-    flex-shrink: 0;
+    flex: 0 0 auto;
     max-width: 362px;
+    word-break: normal;
+    overflow-wrap: normal;
   }
+  /* Figma Frame 1171275768: 740px fixed × 75px hug, radius 8px, padding 10/10/10/20, bg #000 */
   .pi-nf__nl-form-wrap {
+    flex: 1 1 auto;
     max-width: 740px;
-    width: 100%;
-    flex-shrink: 0;
+    min-width: 0;
   }
   .pi-nf__nl-form-wrap form,
   .pi-nf__nl-form {
@@ -72,6 +78,7 @@
     box-sizing: border-box;
     gap: 10px;
   }
+  /* Figma: Proxima Nova 400, 14px, 21px lh, #fff */
   .pi-nf__nl-input {
     flex: 1;
     min-width: 0;
@@ -85,6 +92,7 @@
     line-height: 21px;
   }
   .pi-nf__nl-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+  /* Figma Btn: 150px × 55px, radius 8px, padding 16/32, bg #fff, text #000 */
   .pi-nf__nl-btn {
     display: flex;
     align-items: center;
@@ -113,13 +121,13 @@
     padding: 10px 20px;
   }
 
-  /* ── Footer body ── */
+  /* ── Footer body — padding matches newsletter card's 210px side inset ── */
   .pi-nf__footer-body {
-    padding-top: 60px;
+    padding: 60px 210px 0;
+    box-sizing: border-box;
   }
+  /* Figma Group 36264: 1px border all sides #808080, columns inside */
   .pi-nf__footer-inner {
-    max-width: 1500px;
-    margin: 0 auto;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -127,7 +135,7 @@
     border: 1px solid #808080;
   }
 
-  /* Brand column */
+  /* Figma Frame 1171275773: 265px × 162px hug, gap 20px vertical */
   .pi-nf__brand {
     display: flex;
     flex-direction: column;
@@ -152,7 +160,7 @@
     margin: 0;
   }
 
-  /* Vertical divider */
+  /* Figma Line 4: 1px #808080 vertical divider, align-self: stretch */
   .pi-nf__vdivider {
     width: 1px;
     background: #808080;
@@ -160,7 +168,7 @@
     flex-shrink: 0;
   }
 
-  /* Nav column */
+  /* Figma link columns: vertical, gap 20px */
   .pi-nf__col {
     display: flex;
     flex-direction: column;
@@ -200,7 +208,6 @@
   }
   .pi-nf__link:hover { opacity: 0.65; color: #fff; }
 
-  /* Studio row with pin icon */
   .pi-nf__studio-row {
     display: flex;
     flex-direction: row;
@@ -209,18 +216,18 @@
   }
   .pi-nf__studio-icon { flex-shrink: 0; line-height: 0; }
 
-  /* Copyright bar */
+  /* Figma Copyright: 1920×61px, border-top 1px #808080, left:210px content */
   .pi-nf__copyright {
     margin-top: 47px;
     border-top: 1px solid #808080;
     height: 61px;
     display: flex;
     align-items: center;
+    padding: 0 210px;
+    box-sizing: border-box;
   }
   .pi-nf__copyright-inner {
-    max-width: 1500px;
     width: 100%;
-    margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -233,6 +240,7 @@
     align-items: center;
     gap: 10px;
   }
+  /* Figma Frame 48095950: gap 10px, horizontal */
   .pi-nf__copyright-text {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: 14px;
@@ -245,9 +253,10 @@
   .pi-nf__copyright-sep {
     width: 1px;
     height: 21px;
-    background: #999;
+    background: #808080;
     flex-shrink: 0;
   }
+  /* Figma Frame 1 (social): horizontal, gap 20px */
   .pi-nf__social {
     display: flex;
     flex-direction: row;
@@ -260,27 +269,31 @@
   /* ── Responsive ── */
   @media (max-width: 1200px) {
     .pi-nf__nl-card { inset: 0 80px; }
+    .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
+    .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} { margin-top: 0; }
     .pi-nf__nl { height: auto; }
-    .pi-nf__nl-card { position: static; border-radius: 0; background-size: cover; }
+    .pi-nf__nl-card { position: static; border-radius: 0; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 32px; gap: 24px; max-width: 100%; }
     .pi-nf__nl-heading { color: #000; }
-    .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
-    .pi-nf__footer-inner { flex-wrap: wrap; gap: 0; border: 1px solid #808080; }
+    .pi-nf__nl-form-wrap { max-width: 100%; }
+    .pi-nf__footer-body { padding-left: 32px; padding-right: 32px; }
+    .pi-nf__footer-inner { flex-wrap: wrap; }
     .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
     .pi-nf__col { border-bottom: 1px solid #808080; }
     .pi-nf__vdivider { display: none; }
-    .pi-nf__copyright-inner { flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 12px; }
-    .pi-nf__copyright { height: auto; }
+    .pi-nf__copyright { padding-left: 32px; padding-right: 32px; height: auto; padding-top: 12px; padding-bottom: 12px; }
+    .pi-nf__copyright-inner { flex-wrap: wrap; }
   }
   @media (max-width: 749px) {
-    .pi-nf__nl-inner { padding: 32px 20px; }
-    .pi-nf__nl-heading { font-size: clamp(26px, 7vw, 40px); }
+    .pi-nf__nl-heading { font-size: clamp(22px, 6vw, 40px); }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 16px; gap: 12px; }
     .pi-nf__nl-btn { width: 100%; }
+    .pi-nf__footer-body { padding-left: 20px; padding-right: 20px; }
+    .pi-nf__copyright { padding-left: 20px; padding-right: 20px; }
   }
 </style>
 
