@@ -37,7 +37,7 @@
   /* Decorative sketch image — fixed 197.58×326px, top-left of panel */
   .pi-tb__deco {
     position: absolute;
-    top: 0;
+    top: -30px;
     left: 0;
     z-index: 0;
     pointer-events: none;
@@ -50,7 +50,7 @@
     height: 100%;
     object-fit: contain;
     display: block;
-    opacity: 0.25;
+    opacity: 0.55;
   }
 
   /* Content above deco */
@@ -177,7 +177,7 @@
     {%- endif -%}
     <div class="pi-tb__left-content">
       {%- if section.settings.heading != blank -%}
-        <h2 class="pi-tb__heading">{{ section.settings.heading }}</h2>
+        <h2 class="pi-tb__heading">{{ section.settings.heading | replace: ' The Best', '<br>The Best' }}</h2>
       {%- endif -%}
       {%- if section.settings.button_label != blank -%}
         <a href="{{ section.settings.button_link | default: '#' }}" class="pi-tb__btn">
