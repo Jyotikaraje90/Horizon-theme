@@ -35,7 +35,6 @@
   .pi-team__image {
     width: 100%;
     overflow: hidden;
-    margin-top: 50px;
   }
 
   .pi-team__image img,
@@ -43,7 +42,7 @@
     width: 100%;
     height: 708px;
     object-fit: cover;
-    object-position: center top;
+    object-position: center center;
     display: block;
   }
 
@@ -57,7 +56,6 @@
   @media (max-width: 749px) {
     .pi-team__header { padding: 50px 20px 28px; }
     .pi-team__heading { font-size: 28px; line-height: 38px; }
-    .pi-team__image { margin-top: 30px; }
     .pi-team__image img { height: 300px; }
   }
 </style>
@@ -78,7 +76,7 @@
       alt="{{ section.settings.team_image.alt | default: 'The Puerto Ink Team' | escape }}"
       loading="lazy"
       width="1920"
-      height="600"
+      height="708"
     >
   </div>
 {%- else -%}
