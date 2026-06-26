@@ -50,7 +50,16 @@
     transform: rotate(-53.78deg);
   }
 
-  /* ══ SHARED: inner wrapper ══════════════════════════════════ */
+  /* ══ CONTENT STACK — gap 100px between sections ═══════════ */
+  .pi-au-body {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    padding: 100px 0;
+    background: #ffffff;
+  }
+
+  /* ══ SHARED: inner wrapper — 1500px centred ════════════════ */
   .pi-au-wrap {
     max-width: 1500px;
     margin: 0 auto;
@@ -64,27 +73,17 @@
     padding-left: 15px;
     display: flex;
     align-items: center;
-    gap: 10px;
   }
   .pi-au-bar__text {
     margin: 0;
     color: #000000;
-  }
-  .pi-au-bar__text--sm {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 30px;
+    font-weight: 500;
+    font-size: 34px;
     line-height: 44px;
   }
-  .pi-au-bar__text--lg {
-    font-family: 'Playfair Display', serif;
-    font-weight: 600;
-    font-size: 54px;
-    line-height: 70px;
-    text-transform: uppercase;
-  }
 
-  /* ══ SHARED: rich-text body copy ═══════════════════════════ */
+  /* ══ SHARED: richtext body copy ════════════════════════════ */
   .pi-au-rte {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
     font-weight: 400;
@@ -95,14 +94,10 @@
     flex-direction: column;
     gap: 10px;
   }
-  .pi-au-rte p  { margin: 0; }
+  .pi-au-rte p      { margin: 0; }
   .pi-au-rte strong { font-weight: 700; }
 
-  /* ══ 2. BEHIND PUERTO INK ═══════════════════════════════════ */
-  .pi-au-behind {
-    padding: 100px 0;
-    background: #ffffff;
-  }
+  /* ══ 2. BEHIND PUERTO INK ══════════════════════════════════ */
   .pi-au-behind__row {
     display: flex;
     align-items: flex-start;
@@ -113,6 +108,7 @@
     height: 663px;
     border-radius: 8px;
     overflow: hidden;
+    background: #121212;
   }
   .pi-au-behind__img img,
   .pi-au-behind__img .placeholder-svg {
@@ -128,47 +124,40 @@
     gap: 30px;
   }
 
-  /* ══ 3. THE PUERTO INK TEAM ══════════════════════════════════ */
-  .pi-au-team {
-    padding: 80px 0 100px;
-    background: #ffffff;
+  /* ══ 3. THE PUERTO INK TEAM ════════════════════════════════ */
+  .pi-au-team__top {
+    max-width: 1120px;
+    margin: 0 auto 50px;
+    padding: 0 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
   }
   .pi-au-team__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     font-size: 54px;
     line-height: 70px;
-    text-align: center;
     text-transform: uppercase;
     color: #000000;
-    margin: 0 0 30px;
+    margin: 0;
   }
   .pi-au-team__desc {
-    max-width: 1120px;
-    margin: 0 auto 60px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
+    font-weight: 400;
     font-size: 18px;
     line-height: 29px;
     color: #000000;
-    text-align: center;
+    margin: 0;
   }
   .pi-au-team__desc p { margin: 0; }
-  .pi-au-team__grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 30px;
-    justify-content: center;
-  }
-  .pi-au-team__card {
-    flex: 0 0 calc(25% - 22.5px);
-    min-width: 180px;
-  }
   .pi-au-team__photo {
     width: 100%;
-    aspect-ratio: 3 / 4;
-    border-radius: 8px;
+    height: 708px;
     overflow: hidden;
-    margin-bottom: 16px;
   }
   .pi-au-team__photo img,
   .pi-au-team__photo .placeholder-svg {
@@ -177,35 +166,35 @@
     object-fit: cover;
     display: block;
   }
-  .pi-au-team__name {
-    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
-    font-weight: 700;
-    font-size: 18px;
-    line-height: 24px;
-    color: #000000;
-    margin: 0 0 4px;
-    text-align: center;
-  }
-  .pi-au-team__role {
-    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 22px;
-    color: #666666;
-    margin: 0;
-    text-align: center;
-  }
 
-  /* ══ 4. OUR VISION ══════════════════════════════════════════ */
-  .pi-au-vision {
-    padding: 0 0 100px;
-    background: #ffffff;
-  }
+  /* ══ 4. OUR VISION ─ text LEFT, image RIGHT ════════════════ */
   .pi-au-vision__row {
     display: flex;
     align-items: flex-start;
     gap: 50px;
   }
+  /* Text column — order 0 (left) */
+  .pi-au-vision__col {
+    flex: 0 0 710px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  .pi-au-vision__heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 70px;
+    text-transform: uppercase;
+    color: #000000;
+    margin: 0;
+  }
+  .pi-au-vision__sub-block {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  /* Image column — order 1 (right) */
   .pi-au-vision__img {
     flex: 0 0 740px;
     height: 500px;
@@ -219,20 +208,16 @@
     object-fit: cover;
     display: block;
   }
-  .pi-au-vision__col {
-    flex: 0 0 710px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-  }
 
-  /* ══ RESPONSIVE ══════════════════════════════════════════════ */
+  /* ══ RESPONSIVE ════════════════════════════════════════════ */
   @media (max-width: 1599px) {
     .pi-au-wrap            { padding: 0 40px; }
+    .pi-au-team__top       { padding: 0 40px; }
     .pi-au-behind__img     { flex: 0 0 560px; height: 520px; }
     .pi-au-behind__col     { flex: 1 1 auto; min-width: 0; }
-    .pi-au-vision__img     { flex: 0 0 560px; height: 430px; }
     .pi-au-vision__col     { flex: 1 1 auto; min-width: 0; }
+    .pi-au-vision__img     { flex: 0 0 560px; height: 430px; }
+    .pi-au-team__photo     { height: 560px; }
   }
 
   @media (max-width: 1279px) {
@@ -241,48 +226,43 @@
     .pi-au-behind__img     { flex: 0 0 420px; height: 440px; }
     .pi-au-vision__img     { flex: 0 0 420px; height: 360px; }
     .pi-au-team__heading   { font-size: 44px; line-height: 58px; }
-    .pi-au-bar__text--lg   { font-size: 44px; line-height: 58px; }
-    .pi-au-team__card      { flex: 0 0 calc(33.333% - 20px); }
+    .pi-au-vision__heading { font-size: 44px; line-height: 58px; }
+    .pi-au-bar__text       { font-size: 28px; }
+    .pi-au-team__photo     { height: 480px; }
   }
 
   @media (max-width: 989px) {
     .pi-au-hero            { height: 180px; }
     .pi-au-hero__title     { font-size: 36px; line-height: 48px; }
     .pi-au-wrap            { padding: 0 32px; }
-    .pi-au-behind          { padding: 60px 0; }
+    .pi-au-team__top       { padding: 0 32px; }
+    .pi-au-body            { gap: 70px; padding: 70px 0; }
     .pi-au-behind__row     { flex-direction: column; gap: 40px; }
     .pi-au-behind__img     { flex: none; width: 100%; height: 380px; }
     .pi-au-behind__col     { flex: none; width: 100%; }
-    .pi-au-team            { padding: 60px 0; }
     .pi-au-team__heading   { font-size: 36px; line-height: 48px; }
-    .pi-au-team__desc      { margin-bottom: 40px; }
-    .pi-au-team__card      { flex: 0 0 calc(50% - 15px); }
-    .pi-au-vision          { padding: 0 0 60px; }
+    .pi-au-team__photo     { height: 400px; }
     .pi-au-vision__row     { flex-direction: column; gap: 40px; }
-    .pi-au-vision__img     { flex: none; width: 100%; height: 320px; }
     .pi-au-vision__col     { flex: none; width: 100%; gap: 30px; }
-    .pi-au-bar__text--lg   { font-size: 36px; line-height: 48px; }
+    .pi-au-vision__img     { flex: none; width: 100%; height: 320px; order: -1; }
+    .pi-au-vision__heading { font-size: 36px; line-height: 48px; }
+    .pi-au-bar__text       { font-size: 24px; line-height: 34px; }
   }
 
   @media (max-width: 749px) {
     .pi-au-hero            { height: 150px; }
     .pi-au-hero__title     { font-size: 28px; line-height: 38px; }
     .pi-au-wrap            { padding: 0 20px; }
-    .pi-au-behind          { padding: 50px 0; }
+    .pi-au-team__top       { padding: 0 20px; }
+    .pi-au-body            { gap: 50px; padding: 50px 0; }
     .pi-au-behind__img     { height: 280px; }
-    .pi-au-bar__text--sm   { font-size: 22px; line-height: 32px; }
-    .pi-au-bar__text--lg   { font-size: 28px; line-height: 38px; }
+    .pi-au-bar__text       { font-size: 20px; line-height: 30px; }
     .pi-au-rte             { font-size: 16px; line-height: 26px; }
-    .pi-au-team            { padding: 50px 0; }
     .pi-au-team__heading   { font-size: 28px; line-height: 38px; }
-    .pi-au-team__desc      { font-size: 16px; line-height: 26px; margin-bottom: 32px; }
-    .pi-au-team__card      { flex: 0 0 calc(50% - 10px); min-width: 0; }
-    .pi-au-vision          { padding: 0 0 50px; }
+    .pi-au-team__desc      { font-size: 16px; line-height: 26px; }
+    .pi-au-team__photo     { height: 300px; }
+    .pi-au-vision__heading { font-size: 28px; line-height: 38px; }
     .pi-au-vision__img     { height: 260px; }
-  }
-
-  @media (max-width: 479px) {
-    .pi-au-team__card { flex: 0 0 100%; max-width: 300px; margin-inline: auto; }
   }
 </style>
 
@@ -292,142 +272,124 @@
     <img
       class="pi-au-deco pi-au-deco--l"
       src="{{ section.settings.hero_deco_left | image_url: width: 200 }}"
-      alt=""
-      aria-hidden="true"
-      width="99"
-      height="211"
+      alt="" aria-hidden="true"
+      width="99" height="211"
     >
   {%- endif -%}
-
   {%- if section.settings.hero_deco_right != blank -%}
     <img
       class="pi-au-deco pi-au-deco--r"
       src="{{ section.settings.hero_deco_right | image_url: width: 200 }}"
-      alt=""
-      aria-hidden="true"
-      width="99"
-      height="211"
+      alt="" aria-hidden="true"
+      width="99" height="211"
     >
   {%- endif -%}
-
   {%- if section.settings.hero_heading != blank -%}
     <h1 class="pi-au-hero__title">{{ section.settings.hero_heading }}</h1>
   {%- endif -%}
 </div>
 
-{%- comment -%} ══ 2. BEHIND PUERTO INK ════════════════════════════════ {%- endcomment -%}
-<div class="pi-au-behind">
-  <div class="pi-au-wrap">
-    <div class="pi-au-behind__row">
+{%- comment -%} ══ CONTENT STACK ═══════════════════════════════════════ {%- endcomment -%}
+<div class="pi-au-body">
 
-      <div class="pi-au-behind__img">
-        {%- if section.settings.behind_image != blank -%}
-          <img
-            src="{{ section.settings.behind_image | image_url: width: 1480 }}"
-            alt="{{ section.settings.behind_image.alt | default: section.settings.behind_subheading | escape }}"
-            width="740"
-            height="663"
-            loading="lazy"
-          >
-        {%- else -%}
-          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-        {%- endif -%}
-      </div>
+  {%- comment -%} ══ 2. BEHIND PUERTO INK ════════════════════════════ {%- endcomment -%}
+  <div>
+    <div class="pi-au-wrap">
+      <div class="pi-au-behind__row">
 
-      <div class="pi-au-behind__col">
-        {%- if section.settings.behind_subheading != blank -%}
-          <div class="pi-au-bar">
-            <h2 class="pi-au-bar__text pi-au-bar__text--sm">{{ section.settings.behind_subheading }}</h2>
-          </div>
-        {%- endif -%}
-
-        <div class="pi-au-rte">
-          {%- if section.settings.behind_text_1 != blank -%}{{ section.settings.behind_text_1 }}{%- endif -%}
-          {%- if section.settings.behind_text_2 != blank -%}{{ section.settings.behind_text_2 }}{%- endif -%}
-          {%- if section.settings.behind_text_3 != blank -%}{{ section.settings.behind_text_3 }}{%- endif -%}
-          {%- if section.settings.behind_text_4 != blank -%}{{ section.settings.behind_text_4 }}{%- endif -%}
+        <div class="pi-au-behind__img">
+          {%- if section.settings.behind_image != blank -%}
+            <img
+              src="{{ section.settings.behind_image | image_url: width: 1480 }}"
+              alt="{{ section.settings.behind_image.alt | default: section.settings.behind_subheading | escape }}"
+              width="740" height="663"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
         </div>
-      </div>
 
-    </div>
-  </div>
-</div>
-
-{%- comment -%} ══ 3. THE PUERTO INK TEAM ══════════════════════════════ {%- endcomment -%}
-{%- assign team_blocks = section.blocks | where: 'type', 'team_member' -%}
-<div class="pi-au-team">
-  <div class="pi-au-wrap">
-    {%- if section.settings.team_heading != blank -%}
-      <h2 class="pi-au-team__heading">{{ section.settings.team_heading }}</h2>
-    {%- endif -%}
-
-    {%- if section.settings.team_description != blank -%}
-      <div class="pi-au-team__desc">{{ section.settings.team_description }}</div>
-    {%- endif -%}
-
-    {%- if team_blocks.size > 0 -%}
-      <div class="pi-au-team__grid">
-        {%- for block in team_blocks -%}
-          <div class="pi-au-team__card" {{ block.shopify_attributes }}>
-            <div class="pi-au-team__photo">
-              {%- if block.settings.photo != blank -%}
-                <img
-                  src="{{ block.settings.photo | image_url: width: 600 }}"
-                  alt="{{ block.settings.photo.alt | default: block.settings.name | escape }}"
-                  width="300"
-                  height="400"
-                  loading="lazy"
-                >
-              {%- else -%}
-                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
+        <div class="pi-au-behind__col">
+          {%- if section.settings.behind_subheading != blank -%}
+            <div class="pi-au-bar">
+              <h2 class="pi-au-bar__text">{{ section.settings.behind_subheading }}</h2>
             </div>
-            {%- if block.settings.name != blank -%}
-              <p class="pi-au-team__name">{{ block.settings.name }}</p>
-            {%- endif -%}
-            {%- if block.settings.role != blank -%}
-              <p class="pi-au-team__role">{{ block.settings.role }}</p>
-            {%- endif -%}
+          {%- endif -%}
+          <div class="pi-au-rte">
+            {%- if section.settings.behind_text_1 != blank -%}{{ section.settings.behind_text_1 }}{%- endif -%}
+            {%- if section.settings.behind_text_2 != blank -%}{{ section.settings.behind_text_2 }}{%- endif -%}
+            {%- if section.settings.behind_text_3 != blank -%}{{ section.settings.behind_text_3 }}{%- endif -%}
+            {%- if section.settings.behind_text_4 != blank -%}{{ section.settings.behind_text_4 }}{%- endif -%}
           </div>
-        {%- endfor -%}
+        </div>
+
       </div>
-    {%- endif -%}
-  </div>
-</div>
-
-{%- comment -%} ══ 4. OUR VISION ═══════════════════════════════════════ {%- endcomment -%}
-<div class="pi-au-vision">
-  <div class="pi-au-wrap">
-    <div class="pi-au-vision__row">
-
-      <div class="pi-au-vision__img">
-        {%- if section.settings.vision_image != blank -%}
-          <img
-            src="{{ section.settings.vision_image | image_url: width: 1480 }}"
-            alt="{{ section.settings.vision_image.alt | default: section.settings.vision_subheading | escape }}"
-            width="740"
-            height="500"
-            loading="lazy"
-          >
-        {%- else -%}
-          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
-        {%- endif -%}
-      </div>
-
-      <div class="pi-au-vision__col">
-        {%- if section.settings.vision_subheading != blank -%}
-          <div class="pi-au-bar">
-            <h2 class="pi-au-bar__text pi-au-bar__text--lg">{{ section.settings.vision_subheading }}</h2>
-          </div>
-        {%- endif -%}
-
-        {%- if section.settings.vision_text != blank -%}
-          <div class="pi-au-rte">{{ section.settings.vision_text }}</div>
-        {%- endif -%}
-      </div>
-
     </div>
   </div>
+
+  {%- comment -%} ══ 3. THE PUERTO INK TEAM ══════════════════════════ {%- endcomment -%}
+  <div>
+    <div class="pi-au-team__top">
+      {%- if section.settings.team_heading != blank -%}
+        <h2 class="pi-au-team__heading">{{ section.settings.team_heading }}</h2>
+      {%- endif -%}
+      {%- if section.settings.team_description != blank -%}
+        <div class="pi-au-team__desc">{{ section.settings.team_description }}</div>
+      {%- endif -%}
+    </div>
+    <div class="pi-au-team__photo">
+      {%- if section.settings.team_photo != blank -%}
+        <img
+          src="{{ section.settings.team_photo | image_url: width: 1920 }}"
+          alt="{{ section.settings.team_photo.alt | default: section.settings.team_heading | escape }}"
+          width="1920" height="708"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- comment -%} ══ 4. OUR VISION — text left, image right ══════════ {%- endcomment -%}
+  <div>
+    <div class="pi-au-wrap">
+      <div class="pi-au-vision__row">
+
+        <div class="pi-au-vision__col">
+          {%- if section.settings.vision_heading != blank -%}
+            <h2 class="pi-au-vision__heading">{{ section.settings.vision_heading }}</h2>
+          {%- endif -%}
+          <div class="pi-au-vision__sub-block">
+            {%- if section.settings.vision_subheading != blank -%}
+              <div class="pi-au-bar">
+                <h3 class="pi-au-bar__text">{{ section.settings.vision_subheading }}</h3>
+              </div>
+            {%- endif -%}
+            {%- if section.settings.vision_text != blank -%}
+              <div class="pi-au-rte">{{ section.settings.vision_text }}</div>
+            {%- endif -%}
+          </div>
+        </div>
+
+        <div class="pi-au-vision__img">
+          {%- if section.settings.vision_image != blank -%}
+            <img
+              src="{{ section.settings.vision_image | image_url: width: 1480 }}"
+              alt="{{ section.settings.vision_image.alt | default: section.settings.vision_heading | escape }}"
+              width="740" height="500"
+              loading="lazy"
+            >
+          {%- else -%}
+            {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </div>
 
 {% schema %}
@@ -511,61 +473,41 @@
       "default": "<p>At Puerto Ink, we are more than a team — we are a family of passionate artists and piercing specialists dedicated to turning visions into reality. With diverse styles, exceptional skill, and years of experience, we create custom tattoos and flawless piercings tailored to each client. Rooted in creativity, professionalism, and trust, we foster a welcoming community where artistry thrives, and every visit is a memorable experience.</p>"
     },
     {
+      "type": "image_picker",
+      "id": "team_photo",
+      "label": "Team group photo (full-width)"
+    },
+    {
       "type": "header",
       "content": "Our Vision"
     },
     {
-      "type": "image_picker",
-      "id": "vision_image",
-      "label": "Photo"
+      "type": "text",
+      "id": "vision_heading",
+      "label": "Main heading",
+      "default": "Our Vision"
     },
     {
       "type": "text",
       "id": "vision_subheading",
-      "label": "Heading",
-      "default": "Our Vision"
+      "label": "Accent bar subheading",
+      "default": "Redefining Self-Expression Through Artistry"
     },
     {
       "type": "richtext",
       "id": "vision_text",
       "label": "Text",
-      "default": "<p>Our vision is to be the leading destination for tattoo art and piercing excellence — a place where creativity knows no bounds and every client walks out feeling like a work of art. We are committed to raising the standard of the industry through continuous innovation, artist development, and an unwavering focus on the client experience.</p>"
-    }
-  ],
-  "blocks": [
+      "default": "<p>Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in tattoo artistry and piercing craftsmanship, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry.</p>"
+    },
     {
-      "type": "team_member",
-      "name": "Team Member",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "photo",
-          "label": "Photo"
-        },
-        {
-          "type": "text",
-          "id": "name",
-          "label": "Name",
-          "default": "Artist Name"
-        },
-        {
-          "type": "text",
-          "id": "role",
-          "label": "Role \/ Specialty",
-          "default": "Tattoo Artist"
-        }
-      ]
+      "type": "image_picker",
+      "id": "vision_image",
+      "label": "Photo"
     }
   ],
   "presets": [
     {
-      "name": "PI About Us",
-      "blocks": [
-        { "type": "team_member" },
-        { "type": "team_member" },
-        { "type": "team_member" },
-        { "type": "team_member" }
-      ]
+      "name": "PI About Us"
     }
   ]
 }
