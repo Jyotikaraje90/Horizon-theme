@@ -189,7 +189,7 @@
       "settings": {
         "heading": "Our Studios",
         "background_image": "shopify://shop_images/Our_Studios.png",
-        "overlay_opacity": 55
+        "overlay_opacity": 35
       }
     },
     "pi_faqs_about": {
