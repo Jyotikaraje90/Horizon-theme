@@ -28,16 +28,17 @@
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 60px 50px;
+    align-items: center;
+    padding: 60px 40px;
     box-sizing: border-box;
     background: #ffffff;
     overflow: hidden;
   }
 
-  /* Decorative sketch image — fixed 197.58×326px, top-left of panel */
+  /* Decorative sketch image — fixed 197.58×326px, top-left inside panel */
   .pi-tb__deco {
     position: absolute;
-    top: -30px;
+    top: 0;
     left: 0;
     z-index: 0;
     pointer-events: none;
@@ -59,7 +60,9 @@
     z-index: 1;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 28px;
+    width: 100%;
   }
 
   .pi-tb__heading {
@@ -70,6 +73,7 @@
     text-transform: uppercase;
     color: #000000;
     margin: 0;
+    text-align: center;
   }
 
   .pi-tb__btn {
