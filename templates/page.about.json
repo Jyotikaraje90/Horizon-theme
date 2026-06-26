@@ -296,24 +296,6 @@
     "pi_instagram_about": {
       "type": "pi-instagram-strip",
       "settings": {}
-    },
-    "pi_nf_about": {
-      "type": "pi-newsletter-footer",
-      "settings": {
-        "newsletter_heading": "Join Our Newsletter",
-        "newsletter_placeholder": "Enter your email address",
-        "newsletter_btn_label": "Subscribe",
-        "newsletter_success": "Thanks for subscribing!",
-        "footer_tagline": "Expert Tattoos, Precision Piercings, Premium Jewelry.",
-        "quick_links_heading": "Quick Links",
-        "resources_heading": "Resources",
-        "studios_heading": "Our Studios",
-        "copyright_text": "Copyright © 2025 Puerto Ink, All Rights Reserved.",
-        "developer_text": "Designed & Developed by Alian Software.",
-        "facebook_url": "",
-        "twitter_url": "",
-        "instagram_url": ""
-      }
     }
   },
   "order": [
@@ -327,7 +309,6 @@
     "pi_studios_about",
     "pi_faqs_about",
     "pi_contact_about",
-    "pi_instagram_about",
-    "pi_nf_about"
+    "pi_instagram_about"
   ]
 }
