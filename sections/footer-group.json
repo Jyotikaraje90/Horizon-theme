@@ -10,6 +10,43 @@
 {
   "type": "footer",
   "name": "Footer",
-  "sections": {},
-  "order": []
+  "sections": {
+    "pi_nf_Hk5wJm": {
+      "type": "pi-newsletter-footer",
+      "settings": {
+        "newsletter_heading": "Join Our Newsletter",
+        "newsletter_placeholder": "Enter your email address",
+        "newsletter_btn_label": "Subscribe",
+        "newsletter_success": "Thanks for subscribing!",
+        "footer_tagline": "Expert Tattoos, Precision Piercings, Premium Jewelry.",
+        "quick_links_heading": "Quick Links",
+        "resources_heading": "Resources",
+        "studios_heading": "Our Studios",
+        "copyright_text": "Copyright © 2025 Puerto Ink, All Rights Reserved.",
+        "developer_text": "Designed & Developed by Alian Software."
+      },
+      "blocks": {
+        "ql_1": { "type": "quick_link",    "settings": { "label": "Home",              "link": "/" } },
+        "ql_2": { "type": "quick_link",    "settings": { "label": "About",             "link": "/pages/about" } },
+        "ql_3": { "type": "quick_link",    "settings": { "label": "Tattoo Services",   "link": "/collections/all" } },
+        "ql_4": { "type": "quick_link",    "settings": { "label": "Piercing Services", "link": "/collections/all" } },
+        "ql_5": { "type": "quick_link",    "settings": { "label": "Shop Jewelry",      "link": "/collections/all" } },
+        "rl_1": { "type": "resource_link", "settings": { "label": "Blogs",             "link": "/blogs/news" } },
+        "rl_2": { "type": "resource_link", "settings": { "label": "FAQs",              "link": "/pages/faqs" } },
+        "rl_3": { "type": "resource_link", "settings": { "label": "Contact Us",        "link": "/pages/contact" } },
+        "rl_4": { "type": "resource_link", "settings": { "label": "Privacy Policy",    "link": "/policies/privacy-policy" } },
+        "rl_5": { "type": "resource_link", "settings": { "label": "Terms & Conditions","link": "/policies/terms-of-service" } },
+        "st_1": { "type": "studio",        "settings": { "name": "Crete",     "link": "" } },
+        "st_2": { "type": "studio",        "settings": { "name": "Athens",    "link": "" } },
+        "st_3": { "type": "studio",        "settings": { "name": "Antwerp",   "link": "" } },
+        "st_4": { "type": "studio",        "settings": { "name": "Amsterdam", "link": "" } }
+      },
+      "block_order": [
+        "ql_1", "ql_2", "ql_3", "ql_4", "ql_5",
+        "rl_1", "rl_2", "rl_3", "rl_4", "rl_5",
+        "st_1", "st_2", "st_3", "st_4"
+      ]
+    }
+  },
+  "order": ["pi_nf_Hk5wJm"]
 }
