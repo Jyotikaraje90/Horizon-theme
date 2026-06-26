@@ -23,9 +23,8 @@
       "type": "pi-page-hero",
       "settings": {
         "heading": "About Us",
-        "overlay_opacity": 40,
-        "deco_left": "shopify://shop_images/Group.png",
-        "deco_right": "shopify://shop_images/Group.png"
+        "background_image": "shopify://shop_images/About_Us.png",
+        "overlay_opacity": 40
       }
     },
     "pi_founders_about": {
