@@ -29,6 +29,7 @@
     "pi_founders_about": {
       "type": "pi-founders",
       "settings": {
+        "image": "shopify://shop_images/Frame_1171275733.png",
         "subheading": "Behind Puerto Ink",
         "text": "Puerto Ink was founded in 2016 by two brothers, Vangelis and Michalis, from Heraklion, Crete. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.\n\nWhat began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their first studio in Heraklion, setting the foundation for what would become a renowned name in the industry.\n\nIn six years, they expanded internationally, opening a studio in Antwerp, Belgium, followed by Amsterdam and Athens, establishing Puerto Ink as a global brand.\n\nToday, with a team of 35+ skilled professionals, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots."
       }
@@ -37,7 +38,8 @@
       "type": "pi-team-banner",
       "settings": {
         "heading": "The Puerto Ink Team",
-        "text": "At Puerto Ink, we are more than a team — we are a family of passionate artists and piercing specialists dedicated to turning visions into reality. With diverse styles, exceptional skill, and years of experience, we create custom tattoos and flawless piercings tailored to each client. Rooted in creativity, professionalism, and trust, we foster a welcoming community where artistry thrives, and every visit is a memorable experience."
+        "text": "At Puerto Ink, we are more than a team — we are a family of passionate artists and piercing specialists dedicated to turning visions into reality. With diverse styles, exceptional skill, and years of experience, we create custom tattoos and flawless piercings tailored to each client. Rooted in creativity, professionalism, and trust, we foster a welcoming community where artistry thrives, and every visit is a memorable experience.",
+        "team_image": "shopify://shop_images/Background_813c9047-2b21-4e7f-b1b4-492d0e4a8499.png"
       }
     },
     "pi_vision_about": {
@@ -45,7 +47,8 @@
       "settings": {
         "heading": "Our Vision",
         "subheading": "Redefining Self-Expression Through Artistry",
-        "text": "Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in tattoo artistry and piercing craftsmanship, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry."
+        "text": "Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in tattoo artistry and piercing craftsmanship, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry.",
+        "image": "shopify://shop_images/Frame_1171275733_1.png"
       }
     },
     "pi_usp_about": {
@@ -281,24 +284,30 @@
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
-        "background_image": ""
+        "success_message": "Thank you! We'll be in touch soon."
       }
     },
     "pi_instagram_about": {
       "type": "pi-instagram-strip",
-      "settings": {
-        "image_1": "",
-        "image_2": "",
-        "image_3": "",
-        "image_4": "",
-        "image_5": "",
-        "image_6": ""
-      }
+      "settings": {}
     },
     "pi_nf_about": {
       "type": "pi-newsletter-footer",
-      "settings": {}
+      "settings": {
+        "newsletter_heading": "Join Our Newsletter",
+        "newsletter_placeholder": "Enter your email address",
+        "newsletter_btn_label": "Subscribe",
+        "newsletter_success": "Thanks for subscribing!",
+        "footer_tagline": "Expert Tattoos, Precision Piercings, Premium Jewelry.",
+        "quick_links_heading": "Quick Links",
+        "resources_heading": "Resources",
+        "studios_heading": "Our Studios",
+        "copyright_text": "Copyright © 2025 Puerto Ink, All Rights Reserved.",
+        "developer_text": "Designed & Developed by Alian Software.",
+        "facebook_url": "",
+        "twitter_url": "",
+        "instagram_url": ""
+      }
     }
   },
   "order": [
