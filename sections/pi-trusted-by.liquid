@@ -1,7 +1,7 @@
 <style>
   #shopify-section-{{ section.id }} {
     background: #ffffff;
-    overflow: hidden;
+    overflow: visible;
   }
 
   /*
@@ -32,15 +32,15 @@
     padding: 60px 40px;
     box-sizing: border-box;
     background: #ffffff;
-    overflow: hidden;
+    overflow: visible;
   }
 
-  /* Decorative sketch image — fixed 197.58×326px, top-left inside panel */
+  /* Decorative sketch image — fixed 197.58×326px, peeks into section above */
   .pi-tb__deco {
     position: absolute;
-    top: 0;
+    top: -50px;
     left: 0;
-    z-index: 0;
+    z-index: 10;
     pointer-events: none;
     width: 197.58px;
     height: 326px;
@@ -51,7 +51,7 @@
     height: 100%;
     object-fit: contain;
     display: block;
-    opacity: 0.55;
+    opacity: 0.8;
   }
 
   /* Content above deco */
