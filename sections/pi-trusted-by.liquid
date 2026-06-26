@@ -1,32 +1,46 @@
 <style>
   #shopify-section-{{ section.id }} {
-    background: #000000;
+    background: #ffffff;
     overflow: hidden;
   }
 
+  /*
+   * Figma layout: 1920 × 978px, 3 equal columns × 2 rows of 489px each.
+   * Top-left cell = text panel. Remaining 5 cells = celebrity photos.
+   * Block order (JSON): Mohamed Salah, Kostas Tsimikas, Thiago Alcantara,
+   *   Anna Theodoridi, Mykola Shaparenko.
+   * With the text panel pinned to grid-column 1 / grid-row 1, CSS auto-flow
+   * places Mohamed→col2 row1, Kostas→col3 row1, Thiago→col1 row2,
+   * Anna→col2 row2, Mykola→col3 row2. ✓
+   */
   .pi-tb {
-    display: flex;
-    flex-direction: row;
-    min-height: 500px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 489px);
+    width: 100%;
   }
 
-  /* ── Left column ──────────────────────────────── */
-  .pi-tb__left {
-    flex: 0 0 38%;
+  /* ── Text panel (top-left cell) ──────────────────── */
+  .pi-tb__text-panel {
+    grid-column: 1;
+    grid-row: 1;
     position: relative;
-    overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 70px 60px;
+    padding: 60px 50px;
     box-sizing: border-box;
+    background: #ffffff;
+    overflow: hidden;
   }
 
+  /* Decorative sketch image — faint, bottom-anchored */
   .pi-tb__deco {
     position: absolute;
     inset: 0;
     z-index: 0;
     pointer-events: none;
+    overflow: hidden;
   }
 
   .pi-tb__deco img {
@@ -36,8 +50,10 @@
     object-position: center bottom;
     display: block;
     opacity: 0.25;
+    transform: scaleX(-1);
   }
 
+  /* Content above deco */
   .pi-tb__left-content {
     position: relative;
     z-index: 1;
@@ -48,11 +64,11 @@
 
   .pi-tb__heading {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
+    font-weight: 600;
     font-size: 54px;
-    line-height: 1.2;
+    line-height: 70px;
     text-transform: uppercase;
-    color: #ffffff;
+    color: #000000;
     margin: 0;
   }
 
@@ -69,8 +85,8 @@
     text-transform: uppercase;
     text-decoration: none;
     border-radius: 8px;
-    background: #ffffff;
-    color: #000000;
+    background: #000000;
+    color: #ffffff;
     border: none;
     width: fit-content;
     transition: opacity 0.2s ease;
@@ -80,15 +96,7 @@
 
   .pi-tb__btn:hover { opacity: 0.82; }
 
-  /* ── Right column: photo grid ─────────────────── */
-  .pi-tb__grid {
-    flex: 1;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-auto-rows: 250px;
-    gap: 0;
-  }
-
+  /* ── Celebrity photo cells ────────────────────────── */
   .pi-tb__photo {
     position: relative;
     overflow: hidden;
@@ -120,37 +128,49 @@
     pointer-events: none;
   }
 
-  /* ── Responsive ───────────────────────────────── */
+  /* ── Responsive ───────────────────────────────────── */
   @media (max-width: 1279px) {
-    .pi-tb__heading { font-size: 42px; }
-    .pi-tb__left { padding: 60px 48px; }
-    .pi-tb__grid { grid-auto-rows: 220px; }
+    .pi-tb { grid-template-rows: repeat(2, 380px); }
+    .pi-tb__heading { font-size: 42px; line-height: 56px; }
+    .pi-tb__text-panel { padding: 48px 40px; }
   }
 
   @media (max-width: 989px) {
-    .pi-tb { flex-direction: column; }
-    .pi-tb__left { flex: none; padding: 50px 32px; min-height: 260px; }
-    .pi-tb__heading { font-size: 34px; }
-    .pi-tb__grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 180px; }
+    .pi-tb {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto;
+    }
+    .pi-tb__text-panel {
+      grid-column: 1 / -1;
+      grid-row: auto;
+      height: auto;
+      min-height: 260px;
+      padding: 50px 32px;
+      justify-content: center;
+    }
+    .pi-tb__photo { height: 200px; }
+    .pi-tb__heading { font-size: 34px; line-height: 44px; }
   }
 
   @media (max-width: 749px) {
-    .pi-tb__left { padding: 40px 20px; min-height: 220px; }
-    .pi-tb__heading { font-size: 28px; }
+    .pi-tb { grid-template-columns: 1fr 1fr; }
+    .pi-tb__text-panel { padding: 40px 20px; min-height: 220px; }
+    .pi-tb__heading { font-size: 28px; line-height: 38px; }
     .pi-tb__btn { font-size: 14px; height: auto; padding: 14px 24px; }
-    .pi-tb__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; }
+    .pi-tb__photo { height: 160px; }
   }
 </style>
 
 <div class="pi-tb">
 
-  {%- comment -%} Left column {%- endcomment -%}
-  <div class="pi-tb__left">
+  {%- comment -%} Top-left cell: text panel {%- endcomment -%}
+  <div class="pi-tb__text-panel">
     {%- if section.settings.deco_image != blank -%}
       <div class="pi-tb__deco">
         <img
           src="{{ section.settings.deco_image | image_url: width: 800 }}"
           alt=""
+          aria-hidden="true"
           loading="lazy"
         >
       </div>
@@ -167,27 +187,29 @@
     </div>
   </div>
 
-  {%- comment -%} Right column: photo grid {%- endcomment -%}
-  <div class="pi-tb__grid">
-    {%- for block in section.blocks -%}
-      {%- if block.type == 'photo' -%}
-        <div class="pi-tb__photo" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <img
-              src="{{ block.settings.image | image_url: width: 600 }}"
-              alt="{{ block.settings.name | default: '' | escape }}"
-              loading="lazy"
-            >
-          {%- else -%}
-            {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
-          {%- if block.settings.name != blank -%}
-            <span class="pi-tb__photo-name">{{ block.settings.name }}</span>
-          {%- endif -%}
-        </div>
-      {%- endif -%}
-    {%- endfor -%}
-  </div>
+  {%- comment -%}
+    Photo blocks auto-placed by CSS grid starting at col 2, row 1.
+    JSON block order: Mohamed(col2,row1) → Kostas(col3,row1) →
+    Thiago(col1,row2) → Anna(col2,row2) → Mykola(col3,row2)
+  {%- endcomment -%}
+  {%- for block in section.blocks -%}
+    {%- if block.type == 'photo' -%}
+      <div class="pi-tb__photo" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 660 }}"
+            alt="{{ block.settings.name | default: '' | escape }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- if block.settings.name != blank -%}
+          <span class="pi-tb__photo-name">{{ block.settings.name }}</span>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  {%- endfor -%}
 
 </div>
 
