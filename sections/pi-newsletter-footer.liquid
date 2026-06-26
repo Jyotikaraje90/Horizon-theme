@@ -10,6 +10,7 @@
   .pi-nf {
     background: #000;
     position: relative;
+    border: 1px solid #808080;
   }
 
   /* ── Newsletter area (top 246px) ── */
@@ -17,23 +18,14 @@
     position: relative;
     height: 246px;
   }
-  .pi-nf__nl-bg {
-    position: absolute;
-    inset: 0;
-    overflow: hidden;
-    z-index: 0;
-  }
-  .pi-nf__nl-bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
   .pi-nf__nl-card {
     position: absolute;
     inset: 0 210px;
-    background: #000;
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
     border-radius: 20px;
+    overflow: hidden;
     z-index: 2;
     display: flex;
     align-items: center;
@@ -55,7 +47,7 @@
     font-size: clamp(32px, 3.5vw, 54px);
     font-weight: 600;
     text-transform: uppercase;
-    color: #fff;
+    color: #000;
     margin: 0;
     line-height: 1.3;
     flex-shrink: 0;
@@ -131,8 +123,9 @@
     margin: 0 auto;
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
+    border: 1px solid #808080;
   }
 
   /* Brand column */
@@ -142,6 +135,8 @@
     gap: 20px;
     width: 265px;
     flex-shrink: 0;
+    padding: 24px;
+    box-sizing: border-box;
   }
   .pi-nf__logo { display: block; }
   .pi-nf__logo img {
@@ -171,6 +166,8 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
+    padding: 24px;
+    box-sizing: border-box;
   }
   .pi-nf__col-heading {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
@@ -230,6 +227,8 @@
     justify-content: space-between;
     align-items: center;
     gap: 16px;
+    padding: 0 24px;
+    box-sizing: border-box;
   }
   .pi-nf__copyright-left {
     display: flex;
@@ -264,20 +263,19 @@
   /* ── Responsive ── */
   @media (max-width: 1200px) {
     .pi-nf__nl-card { inset: 0 80px; }
-    .pi-nf__footer-inner { padding: 0 60px; }
-    .pi-nf__copyright-inner { padding: 0 60px; }
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} { margin-top: 0; }
     .pi-nf__nl { height: auto; }
-    .pi-nf__nl-bg { position: static; height: 200px; overflow: hidden; }
-    .pi-nf__nl-card { position: static; border-radius: 0; }
+    .pi-nf__nl-card { position: static; border-radius: 0; background-size: cover; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 32px; gap: 24px; max-width: 100%; }
+    .pi-nf__nl-heading { color: #000; }
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
-    .pi-nf__footer-inner { flex-wrap: wrap; gap: 40px; padding: 0 32px; }
+    .pi-nf__footer-inner { flex-wrap: wrap; gap: 0; border: 1px solid #808080; }
+    .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
+    .pi-nf__col { border-bottom: 1px solid #808080; }
     .pi-nf__vdivider { display: none; }
-    .pi-nf__brand { width: 100%; }
-    .pi-nf__copyright-inner { padding: 0 32px; flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 12px; }
+    .pi-nf__copyright-inner { flex-wrap: wrap; height: auto; padding-top: 12px; padding-bottom: 12px; }
     .pi-nf__copyright { height: auto; }
   }
   @media (max-width: 749px) {
@@ -286,8 +284,6 @@
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 16px; gap: 12px; }
     .pi-nf__nl-btn { width: 100%; }
-    .pi-nf__footer-inner { padding: 0 20px; gap: 32px; }
-    .pi-nf__copyright-inner { padding: 0 20px; }
   }
 </style>
 
@@ -299,17 +295,8 @@
 
   {%- comment -%}── NEWSLETTER ──────────────────────────{%- endcomment -%}
   <div class="pi-nf__nl">
-    <div class="pi-nf__nl-bg">
-      {%- if section.settings.newsletter_bg_image != blank -%}
-        <img
-          src="{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}"
-          alt=""
-          loading="lazy"
-        >
-      {%- endif -%}
-    </div>
 
-    <div class="pi-nf__nl-card">
+    <div class="pi-nf__nl-card"{% if section.settings.newsletter_bg_image != blank %} style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"{% endif %}>
       <div class="pi-nf__nl-inner">
 
         <h2 class="pi-nf__nl-heading">
