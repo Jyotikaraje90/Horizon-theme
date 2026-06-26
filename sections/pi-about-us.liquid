@@ -32,7 +32,8 @@
     z-index: 1;
     pointer-events: none;
     opacity: 0.30;
-    fill: #ffffff;
+    display: block;
+    object-fit: contain;
   }
   .pi-au-deco--l {
     width: 99px;
@@ -287,23 +288,27 @@
 
 {%- comment -%} ══ 1. HERO BANNER ══════════════════════════════════════ {%- endcomment -%}
 <div class="pi-au-hero">
-  <svg class="pi-au-deco pi-au-deco--l" viewBox="0 0 100 211" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M56 5C42 5 22 20 14 46C6 72 17 96 34 114C51 132 65 140 58 166C51 192 28 200 46 210C60 218 80 208 84 188C88 168 72 150 64 130C56 110 52 92 64 70C76 48 96 38 88 14C82-2 68 5 56 5Z"/>
-    <ellipse cx="40" cy="68" rx="9" ry="13" transform="rotate(-20 40 68)"/>
-    <ellipse cx="54" cy="152" rx="9" ry="13" transform="rotate(-20 54 152)"/>
-    <path d="M24 40Q14 58 20 76" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <path d="M80 18Q90 38 84 56" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <path d="M22 82Q12 100 18 118" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-  </svg>
+  {%- if section.settings.hero_deco_left != blank -%}
+    <img
+      class="pi-au-deco pi-au-deco--l"
+      src="{{ section.settings.hero_deco_left | image_url: width: 200 }}"
+      alt=""
+      aria-hidden="true"
+      width="99"
+      height="211"
+    >
+  {%- endif -%}
 
-  <svg class="pi-au-deco pi-au-deco--r" viewBox="0 0 100 211" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-    <path d="M56 5C42 5 22 20 14 46C6 72 17 96 34 114C51 132 65 140 58 166C51 192 28 200 46 210C60 218 80 208 84 188C88 168 72 150 64 130C56 110 52 92 64 70C76 48 96 38 88 14C82-2 68 5 56 5Z"/>
-    <ellipse cx="40" cy="68" rx="9" ry="13" transform="rotate(-20 40 68)"/>
-    <ellipse cx="54" cy="152" rx="9" ry="13" transform="rotate(-20 54 152)"/>
-    <path d="M24 40Q14 58 20 76" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <path d="M80 18Q90 38 84 56" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/>
-    <path d="M22 82Q12 100 18 118" stroke="white" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-  </svg>
+  {%- if section.settings.hero_deco_right != blank -%}
+    <img
+      class="pi-au-deco pi-au-deco--r"
+      src="{{ section.settings.hero_deco_right | image_url: width: 200 }}"
+      alt=""
+      aria-hidden="true"
+      width="99"
+      height="211"
+    >
+  {%- endif -%}
 
   {%- if section.settings.hero_heading != blank -%}
     <h1 class="pi-au-hero__title">{{ section.settings.hero_heading }}</h1>
@@ -439,6 +444,16 @@
       "id": "hero_heading",
       "label": "Heading",
       "default": "About Us"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_deco_left",
+      "label": "Left decorative swirl"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_deco_right",
+      "label": "Right decorative swirl"
     },
     {
       "type": "header",
