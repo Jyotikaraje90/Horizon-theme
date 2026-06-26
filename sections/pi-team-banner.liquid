@@ -40,7 +40,9 @@
   .pi-team__image img,
   .pi-team__image .placeholder-svg {
     width: 100%;
-    height: auto;
+    aspect-ratio: 1920 / 708;
+    object-fit: cover;
+    object-position: center center;
     display: block;
   }
 
@@ -48,13 +50,11 @@
     .pi-team__header { padding: 70px 32px 36px; }
     .pi-team__heading { font-size: 36px; line-height: 48px; margin-bottom: 18px; }
     .pi-team__text { font-size: 16px; }
-    .pi-team__image img { height: auto; }
   }
 
   @media (max-width: 749px) {
     .pi-team__header { padding: 50px 20px 28px; }
     .pi-team__heading { font-size: 28px; line-height: 38px; }
-    .pi-team__image img { height: auto; }
   }
 </style>
 
