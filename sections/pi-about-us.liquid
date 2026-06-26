@@ -44,34 +44,24 @@
     overflow: hidden;
   }
 
-  /* Top-left photo — rough right-side torn edge */
+  /* Top-left photo */
   .pi-au__img-back {
     width: 310px;
     height: 390px;
     top: 0;
     left: 0;
     z-index: 1;
-    clip-path: polygon(
-      0% 0%, 83% 0%, 87% 3%, 82% 7%, 88% 11%, 83% 16%, 89% 21%,
-      84% 26%, 90% 31%, 84% 36%, 88% 42%, 82% 48%, 87% 54%,
-      81% 61%, 86% 67%, 80% 74%, 85% 81%, 79% 88%, 84% 95%,
-      78% 100%, 0% 100%
-    );
+    border-radius: 4px;
   }
 
-  /* Bottom-right photo — rough left-side torn edge */
+  /* Bottom-right photo */
   .pi-au__img-front {
     width: 310px;
     height: 390px;
     bottom: 0;
     right: 0;
     z-index: 2;
-    clip-path: polygon(
-      22% 0%, 100% 0%, 100% 100%, 17% 100%, 12% 95%, 18% 88%,
-      13% 81%, 19% 75%, 14% 68%, 20% 61%, 14% 55%, 20% 48%,
-      14% 42%, 20% 36%, 14% 31%, 20% 25%, 14% 19%, 20% 13%,
-      14% 7%, 20% 3%, 15% 0%
-    );
+    border-radius: 4px;
   }
 
   .pi-au__img-back img,
