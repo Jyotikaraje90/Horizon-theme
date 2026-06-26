@@ -15,10 +15,10 @@
     gap: 50px;
   }
 
-  /* Left: image — 740×663px, radius 8px */
+  /* Left: image */
   .pi-founders__image {
-    flex: 0 0 740px;
-    height: 663px;
+    flex: 0 0 calc(50% - 25px);
+    aspect-ratio: 740 / 663;
     border-radius: 8px;
     overflow: hidden;
     background: #121212;
@@ -31,9 +31,10 @@
     display: block;
   }
 
-  /* Right: content — 710px, gap 30px */
+  /* Right: content */
   .pi-founders__content {
-    flex: 0 0 710px;
+    flex: 1 1 0;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -73,14 +74,7 @@
   .pi-founders__text strong { font-weight: 700; }
   .pi-founders__text p      { margin: 0; }
 
-  @media (max-width: 1599px) {
-    .pi-founders               { padding: 0 40px; }
-    .pi-founders__image        { flex: 0 0 560px; height: 520px; }
-    .pi-founders__content      { flex: 1 1 auto; min-width: 0; }
-  }
-
   @media (max-width: 1279px) {
-    .pi-founders__image        { flex: 0 0 420px; height: 440px; }
     .pi-founders__subheading   { font-size: 28px; line-height: 38px; }
   }
 
