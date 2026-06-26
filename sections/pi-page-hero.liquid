@@ -1,15 +1,18 @@
 <style>
   #shopify-section-{{ section.id }} {
+    padding: 0;
+    margin: 0;
     background: #000000;
     overflow: hidden;
   }
 
   .pi-ph {
     position: relative;
-    min-height: 300px;
+    height: 270px;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
   }
 
   .pi-ph__bg {
@@ -17,7 +20,6 @@
     inset: 0;
     z-index: 0;
   }
-
   .pi-ph__bg img {
     width: 100%;
     height: 100%;
@@ -31,39 +33,60 @@
     z-index: 1;
   }
 
+  /* Decorative swirl images */
+  .pi-ph__deco {
+    position: absolute;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0.30;
+    display: block;
+    object-fit: contain;
+    width: 99px;
+    height: 211px;
+  }
+  /* Left — Figma: left -1.73%, top 40.89%, matrix(-0.59,-0.81,-0.81,0.58,0,0) */
+  .pi-ph__deco--l {
+    left: -1.73%;
+    top: 40.89%;
+    transform: matrix(-0.59, -0.81, -0.81, 0.58, 0, 0);
+  }
+  /* Right — Figma: left 89.76%, top -16.12%, matrix(0.59,0.81,0.81,-0.58,0,0) */
+  .pi-ph__deco--r {
+    left: 89.76%;
+    top: -16.12%;
+    transform: matrix(0.59, 0.81, 0.81, -0.58, 0, 0);
+  }
+
   .pi-ph__content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
     text-align: center;
-    padding: 80px 60px;
-    width: 100%;
   }
 
   .pi-ph__heading {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 72px;
-    line-height: 1.2;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 70px;
     text-transform: uppercase;
+    letter-spacing: 0.02em;
     color: #ffffff;
     margin: 0;
-    letter-spacing: 0.05em;
   }
 
   @media (max-width: 989px) {
-    .pi-ph { min-height: 220px; }
-    .pi-ph__heading { font-size: 48px; }
-    .pi-ph__content { padding: 60px 32px; }
+    .pi-ph          { height: 200px; }
+    .pi-ph__heading { font-size: 40px; line-height: 52px; }
   }
 
   @media (max-width: 749px) {
-    .pi-ph { min-height: 180px; }
-    .pi-ph__heading { font-size: 36px; }
-    .pi-ph__content { padding: 50px 20px; }
+    .pi-ph          { height: 160px; }
+    .pi-ph__heading { font-size: 28px; line-height: 38px; }
   }
 </style>
 
 <div class="pi-ph">
+
   {%- if section.settings.background_image != blank -%}
     <div class="pi-ph__bg">
       <img
@@ -71,16 +94,37 @@
         alt=""
         loading="eager"
         width="1920"
-        height="300"
+        height="270"
       >
     </div>
   {%- endif -%}
+
   <div class="pi-ph__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+
+  {%- if section.settings.deco_left != blank -%}
+    <img
+      class="pi-ph__deco pi-ph__deco--l"
+      src="{{ section.settings.deco_left | image_url: width: 200 }}"
+      alt="" aria-hidden="true"
+      width="99" height="211"
+    >
+  {%- endif -%}
+
+  {%- if section.settings.deco_right != blank -%}
+    <img
+      class="pi-ph__deco pi-ph__deco--r"
+      src="{{ section.settings.deco_right | image_url: width: 200 }}"
+      alt="" aria-hidden="true"
+      width="99" height="211"
+    >
+  {%- endif -%}
+
   <div class="pi-ph__content">
     {%- if section.settings.heading != blank -%}
       <h1 class="pi-ph__heading">{{ section.settings.heading }}</h1>
     {%- endif -%}
   </div>
+
 </div>
 
 {% schema %}
@@ -89,9 +133,15 @@
   "tag": "section",
   "settings": [
     {
+      "type": "text",
+      "id": "heading",
+      "label": "Page title",
+      "default": "About Us"
+    },
+    {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image (ornament/decorative)"
+      "label": "Background image (optional)"
     },
     {
       "type": "range",
@@ -104,10 +154,18 @@
       "default": 40
     },
     {
-      "type": "text",
-      "id": "heading",
-      "label": "Page title",
-      "default": "About Us"
+      "type": "header",
+      "content": "Decorative Swirls"
+    },
+    {
+      "type": "image_picker",
+      "id": "deco_left",
+      "label": "Left swirl image"
+    },
+    {
+      "type": "image_picker",
+      "id": "deco_right",
+      "label": "Right swirl image"
     }
   ],
   "presets": [

@@ -1,7 +1,7 @@
 <style>
   #shopify-section-{{ section.id }} {
     padding: 100px 0;
-    background: #000000;
+    background: #ffffff;
   }
 
   .pi-founders {
@@ -12,79 +12,92 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    gap: 60px;
+    gap: 50px;
   }
 
+  /* Left: image — 740×663px, radius 8px */
   .pi-founders__image {
-    flex: 0 0 520px;
+    flex: 0 0 740px;
+    height: 663px;
+    border-radius: 8px;
     overflow: hidden;
+    background: #121212;
   }
-
   .pi-founders__image img,
   .pi-founders__image .placeholder-svg {
     width: 100%;
-    height: 480px;
+    height: 100%;
     object-fit: cover;
     display: block;
   }
 
+  /* Right: content — 710px, gap 30px */
   .pi-founders__content {
-    flex: 1;
+    flex: 0 0 710px;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    padding-top: 10px;
   }
 
+  /* Subheading with left border — Proxima Nova Medium 34px */
   .pi-founders__subheading-wrap {
-    border-left: 3px solid #ffffff;
+    border-left: 3px solid #000000;
     padding-left: 15px;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
   }
-
   .pi-founders__subheading {
-    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
     font-weight: 500;
     font-size: 34px;
     line-height: 44px;
-    color: #ffffff;
+    color: #000000;
     margin: 0;
   }
 
+  /* Body text — 4 paragraphs, gap 10px */
+  .pi-founders__paras {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
   .pi-founders__text {
-    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
     font-weight: 400;
     font-size: 18px;
     line-height: 29px;
-    color: rgba(255, 255, 255, 0.85);
+    color: #121212;
     margin: 0;
   }
+  .pi-founders__text strong { font-weight: 700; }
+  .pi-founders__text p      { margin: 0; }
 
-  .pi-founders__text br + br {
-    display: block;
-    content: '';
-    margin-top: 16px;
+  @media (max-width: 1599px) {
+    .pi-founders               { padding: 0 40px; }
+    .pi-founders__image        { flex: 0 0 560px; height: 520px; }
+    .pi-founders__content      { flex: 1 1 auto; min-width: 0; }
   }
 
   @media (max-width: 1279px) {
-    .pi-founders__image { flex: 0 0 420px; }
-    .pi-founders__subheading { font-size: 28px; line-height: 38px; }
+    .pi-founders__image        { flex: 0 0 420px; height: 440px; }
+    .pi-founders__subheading   { font-size: 28px; line-height: 38px; }
   }
 
   @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} { padding: 70px 0; }
-    .pi-founders { flex-direction: column; padding: 0 32px; gap: 40px; }
-    .pi-founders__image { flex: none; width: 100%; }
-    .pi-founders__image img { height: 360px; }
-    .pi-founders__content { padding-top: 0; }
-    .pi-founders__subheading { font-size: 26px; line-height: 34px; }
+    #shopify-section-{{ section.id }} { padding: 60px 0; }
+    .pi-founders               { flex-direction: column; padding: 0 32px; gap: 40px; }
+    .pi-founders__image        { flex: none; width: 100%; height: 380px; }
+    .pi-founders__content      { flex: none; width: 100%; }
+    .pi-founders__subheading   { font-size: 26px; line-height: 34px; }
   }
 
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding: 50px 0; }
-    .pi-founders { padding: 0 20px; gap: 30px; }
-    .pi-founders__image img { height: 260px; }
-    .pi-founders__subheading { font-size: 22px; line-height: 30px; }
-    .pi-founders__text { font-size: 16px; line-height: 26px; }
+    .pi-founders               { padding: 0 20px; gap: 30px; }
+    .pi-founders__image        { height: 280px; }
+    .pi-founders__subheading   { font-size: 22px; line-height: 30px; }
+    .pi-founders__text         { font-size: 16px; line-height: 26px; }
   }
 </style>
 
@@ -93,11 +106,11 @@
   <div class="pi-founders__image">
     {%- if section.settings.image != blank -%}
       <img
-        src="{{ section.settings.image | image_url: width: 1040 }}"
+        src="{{ section.settings.image | image_url: width: 1480 }}"
         alt="{{ section.settings.image.alt | default: 'Behind Puerto Ink' | escape }}"
         loading="lazy"
-        width="520"
-        height="480"
+        width="740"
+        height="663"
       >
     {%- else -%}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
@@ -105,14 +118,30 @@
   </div>
 
   <div class="pi-founders__content">
+
     {%- if section.settings.subheading != blank -%}
       <div class="pi-founders__subheading-wrap">
         <h2 class="pi-founders__subheading">{{ section.settings.subheading }}</h2>
       </div>
     {%- endif -%}
-    {%- if section.settings.text != blank -%}
-      <div class="pi-founders__text">{{ section.settings.text | newline_to_br }}</div>
-    {%- endif -%}
+
+    <div class="pi-founders__paras">
+      {%- if section.settings.text_1 != blank -%}
+        <div class="pi-founders__text">{{ section.settings.text_1 }}</div>
+      {%- elsif section.settings.text != blank -%}
+        <div class="pi-founders__text">{{ section.settings.text | newline_to_br }}</div>
+      {%- endif -%}
+      {%- if section.settings.text_2 != blank -%}
+        <div class="pi-founders__text">{{ section.settings.text_2 }}</div>
+      {%- endif -%}
+      {%- if section.settings.text_3 != blank -%}
+        <div class="pi-founders__text">{{ section.settings.text_3 }}</div>
+      {%- endif -%}
+      {%- if section.settings.text_4 != blank -%}
+        <div class="pi-founders__text">{{ section.settings.text_4 }}</div>
+      {%- endif -%}
+    </div>
+
   </div>
 
 </div>
@@ -125,7 +154,7 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Founders photo"
+      "label": "Photo"
     },
     {
       "type": "text",
@@ -134,10 +163,37 @@
       "default": "Behind Puerto Ink"
     },
     {
+      "type": "richtext",
+      "id": "text_1",
+      "label": "Paragraph 1",
+      "default": "<p>Puerto Ink was founded in <strong>2016</strong> by two brothers, <strong>Vangelis and Michalis</strong>, from <strong>Heraklion, Crete</strong>. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_2",
+      "label": "Paragraph 2",
+      "default": "<p>What began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their <strong>first studio in Heraklion</strong>, setting the foundation for what would become a renowned name in the industry.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_3",
+      "label": "Paragraph 3",
+      "default": "<p>In six years, they expanded internationally, opening a studio in <strong>Antwerp, Belgium</strong>, followed by <strong>Amsterdam and Athens</strong>, establishing Puerto Ink as a global brand.</p>"
+    },
+    {
+      "type": "richtext",
+      "id": "text_4",
+      "label": "Paragraph 4",
+      "default": "<p>Today, with a team of <strong>35+ skilled professionals</strong>, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Legacy field (kept for backwards compat)"
+    },
+    {
       "type": "textarea",
       "id": "text",
-      "label": "Body text",
-      "default": "Puerto Ink was founded in 2016 by two brothers, Vangelis and Michalis, from Heraklion, Crete. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.\n\nWhat began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their first studio in Heraklion, setting the foundation for what would become a renowned name in the industry.\n\nIn six years, they expanded internationally, opening a studio in Antwerp, Belgium, followed by Amsterdam and Athens, establishing Puerto Ink as a global brand.\n\nToday, with a team of 35+ skilled professionals, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots."
+      "label": "Body text (plain — use paragraphs above instead)"
     }
   ],
   "presets": [
