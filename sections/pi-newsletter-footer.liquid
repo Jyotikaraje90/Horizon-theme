@@ -142,7 +142,6 @@
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    border: 1px solid #808080;
   }
 
   /* Figma Frame 1171275773: 265px × 162px hug, gap 20px vertical */
@@ -192,7 +191,7 @@
     font-weight: 600;
     line-height: 21px;
     text-transform: uppercase;
-    color: #fff;
+    color: #fff !important;
     margin: 0;
     white-space: nowrap;
   }
@@ -210,13 +209,13 @@
     font-weight: 400;
     line-height: 26px;
     text-transform: uppercase;
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
     white-space: nowrap;
     display: block;
     transition: opacity 0.2s;
   }
-  .pi-nf__link:hover { opacity: 0.65; color: #fff; }
+  .pi-nf__link:hover { opacity: 0.65; color: #fff !important; }
 
   .pi-nf__studio-row {
     display: flex;
@@ -458,25 +457,33 @@
         <div class="pi-nf__social">
           {%- if section.settings.facebook_url != blank -%}
             <a href="{{ section.settings.facebook_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="Facebook">
+          {%- endif -%}
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 7.5C15 3.358 11.642 0 7.5 0C3.358 0 0 3.358 0 7.5C0 11.256 2.738 14.374 6.328 14.91V9.668H4.424V7.5H6.328V5.851C6.328 3.971 7.43 2.947 9.144 2.947C9.965 2.947 10.822 3.094 10.822 3.094V4.939H9.877C8.945 4.939 8.672 5.5 8.672 6.076V7.5H10.734L10.42 9.668H8.672V14.91C12.262 14.374 15 11.256 15 7.5Z" fill="white"/>
               </svg>
-            </a>
-          {%- endif -%}
+          {%- if section.settings.facebook_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+
           {%- if section.settings.twitter_url != blank -%}
             <a href="{{ section.settings.twitter_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="X (Twitter)">
+          {%- endif -%}
               <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8.92 5.93L14.5 0H13.17L8.32 5.15L4.44 0H0L5.85 7.78L0 14H1.33L6.44 8.55L10.56 14H15L8.92 5.93ZM7.1 7.85L6.52 7.07L1.8 0.91H3.78L7.62 6.01L8.2 6.79L13.17 13.13H11.19L7.1 7.85Z" fill="white"/>
               </svg>
-            </a>
-          {%- endif -%}
+          {%- if section.settings.twitter_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+
           {%- if section.settings.instagram_url != blank -%}
             <a href="{{ section.settings.instagram_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="Instagram">
+          {%- endif -%}
               <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M7.5 0C5.464 0 5.208 0.009 4.41 0.045C1.722 0.169 0.169 1.722 0.045 4.41C0.009 5.208 0 5.464 0 7.5C0 9.536 0.009 9.792 0.045 10.59C0.169 13.278 1.722 14.831 4.41 14.955C5.208 14.991 5.464 15 7.5 15C9.536 15 9.792 14.991 10.59 14.955C13.278 14.831 14.831 13.278 14.955 10.59C14.991 9.792 15 9.536 15 7.5C15 5.464 14.991 5.208 14.955 4.41C14.831 1.722 13.278 0.169 10.59 0.045C9.792 0.009 9.536 0 7.5 0ZM7.5 1.35C9.504 1.35 9.742 1.358 10.532 1.394C12.573 1.487 13.513 2.442 13.606 4.468C13.642 5.258 13.65 5.496 13.65 7.5C13.65 9.504 13.642 9.742 13.606 10.532C13.513 12.558 12.573 13.513 10.532 13.606C9.742 13.642 9.504 13.65 7.5 13.65C5.496 13.65 5.258 13.642 4.468 13.606C2.427 13.513 1.487 12.557 1.394 10.532C1.358 9.742 1.35 9.504 1.35 7.5C1.35 5.496 1.358 5.258 1.394 4.468C1.487 2.442 2.427 1.487 4.468 1.394C5.258 1.358 5.496 1.35 7.5 1.35ZM7.5 3.649C5.37 3.649 3.649 5.37 3.649 7.5C3.649 9.63 5.37 11.351 7.5 11.351C9.63 11.351 11.351 9.63 11.351 7.5C11.351 5.37 9.63 3.649 7.5 3.649ZM7.5 9.999C6.119 9.999 4.999 8.881 4.999 7.5C4.999 6.119 6.119 4.999 7.5 4.999C8.881 4.999 9.999 6.119 9.999 7.5C9.999 8.881 8.881 9.999 7.5 9.999ZM11.506 2.595C11.011 2.595 10.61 2.996 10.61 3.491C10.61 3.986 11.011 4.387 11.506 4.387C12.001 4.387 12.402 3.986 12.402 3.491C12.402 2.996 12.001 2.595 11.506 2.595Z" fill="white"/>
               </svg>
-            </a>
-          {%- endif -%}
+          {%- if section.settings.instagram_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
         </div>
       </div>
     </div>
