@@ -348,9 +348,18 @@
       {%- comment -%} Brand {%- endcomment -%}
       <div class="pi-nf__brand">
         {%- if section.settings.footer_logo != blank -%}
+          {%- assign _footer_logo = section.settings.footer_logo -%}
+        {%- elsif settings.logo_inverse != blank -%}
+          {%- assign _footer_logo = settings.logo_inverse -%}
+        {%- elsif settings.logo != blank -%}
+          {%- assign _footer_logo = settings.logo -%}
+        {%- else -%}
+          {%- assign _footer_logo = nil -%}
+        {%- endif -%}
+        {%- if _footer_logo != blank -%}
           <a class="pi-nf__logo" href="{{ routes.root_url }}">
             <img
-              src="{{ section.settings.footer_logo | image_url: width: 260 }}"
+              src="{{ _footer_logo | image_url: width: 260 }}"
               alt="{{ shop.name }}"
               width="129"
               loading="lazy"
