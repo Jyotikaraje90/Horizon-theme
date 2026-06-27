@@ -5,18 +5,22 @@
     position: relative;
     z-index: 5;
     margin-top: -123px;
-    background: #fff;
+    background: transparent;
   }
 
   .pi-nf {
     background: #000;
     position: relative;
+    overflow: visible;
+    /* Pull black up so it starts at card midpoint — card is half over previous section, half over footer */
+    margin-top: -123px;
   }
 
   /* ── Newsletter area — Figma: 1920×246px card, left/right 210px ── */
   .pi-nf__nl {
     position: relative;
     height: 246px;
+    z-index: 2;
   }
   .pi-nf__nl-card {
     position: absolute;
@@ -82,7 +86,7 @@
   .pi-nf__nl-input {
     flex: 1;
     min-width: 0;
-    background: transparent;
+    background: #000;
     border: none;
     outline: none;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
@@ -92,6 +96,12 @@
     line-height: 21px;
   }
   .pi-nf__nl-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+  .pi-nf__nl-input:-webkit-autofill,
+  .pi-nf__nl-input:-webkit-autofill:hover,
+  .pi-nf__nl-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
   /* Figma Btn: 150px × 55px, radius 8px, padding 16/32, bg #fff, text #000 */
   .pi-nf__nl-btn {
     display: flex;
@@ -121,9 +131,9 @@
     padding: 10px 20px;
   }
 
-  /* ── Footer body — padding matches newsletter card's 210px side inset ── */
+  /* ── Footer body — 123px clears card overlap into .pi-nf + 60px design gap ── */
   .pi-nf__footer-body {
-    padding: 60px 210px 0;
+    padding: 183px 210px 0;
     box-sizing: border-box;
   }
   /* Figma Group 36264: 1px border all sides #808080, columns inside */
@@ -274,12 +284,13 @@
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} { margin-top: 0; }
-    .pi-nf__nl { height: auto; }
+    .pi-nf { margin-top: 0; }
+    .pi-nf__nl { height: auto; z-index: auto; }
     .pi-nf__nl-card { position: static; border-radius: 0; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 32px; gap: 24px; max-width: 100%; }
     .pi-nf__nl-heading { color: #000; }
     .pi-nf__nl-form-wrap { max-width: 100%; }
-    .pi-nf__footer-body { padding-left: 32px; padding-right: 32px; }
+    .pi-nf__footer-body { padding-top: 40px; padding-left: 32px; padding-right: 32px; }
     .pi-nf__footer-inner { flex-wrap: wrap; }
     .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
     .pi-nf__col { border-bottom: 1px solid #808080; }
