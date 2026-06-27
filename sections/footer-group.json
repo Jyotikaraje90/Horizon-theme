@@ -130,6 +130,7 @@
         "st_4"
       ],
       "settings": {
+        "newsletter_bg_image": "shopify://shop_images/Join_our_Newsletter.png",
         "newsletter_heading": "Join Our Newsletter",
         "newsletter_placeholder": "Enter your email address",
         "newsletter_btn_label": "Subscribe",
