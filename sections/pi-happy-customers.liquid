@@ -148,83 +148,132 @@
     .pi-hc__card { flex: 0 0 calc(50% - 15px); }
   }
 
-  /* ── Mobile only (Figma 354px spec) ─────────────── */
+  /* ── Mobile (Figma 354px fixed spec) ────────────── */
   @media (max-width: 749px) {
+
+    /* Section: no overflow:hidden → lets card shadow breathe */
     #shopify-section-{{ section.id }} {
       padding: 60px 0;
-      overflow: hidden;
+      overflow: visible;
     }
 
-    /* 10px side padding → at 375px: 355px available → card clamps to 354px */
+    /* .pi-hc clips tiny-screen horizontal overflow instead */
     .pi-hc {
       padding: 0 10px;
       gap: 30px;
+      overflow: hidden;
     }
 
-    /* Heading: 30px, 1 line, clamped for small phones */
+    /* Heading: never wraps on any screen size */
     .pi-hc__heading {
-      font-size: clamp(22px, 8vw, 30px);
-      line-height: 39px;
-      max-width: 354px;
+      font-size: clamp(18px, 7.5vw, 30px);
+      line-height: 1.3;
+      white-space: nowrap;
     }
 
-    /* No translateX on mobile — show/hide, no overflow */
+    /* Slider: show/hide on mobile — no translateX, no track overflow */
     .pi-hc__slider-wrap { overflow: visible; }
     .pi-hc__track { gap: 0; }
 
-    /* All cards hidden by default */
+    /* Card: always 354px fixed — text never changes line count */
     .pi-hc__card {
       display: none;
-      width: 354px; /* fixed — never shrinks, always 8 lines */
+      width: 354px;
       flex: 0 0 auto;
+      flex-direction: column;
+      align-items: center;
       margin: 0 auto;
+      background: #ffffff;
       border-radius: 30px;
-      /* No horizontal padding so text = 354px wide → exactly 8 lines */
-      padding: 15px 0;
-      gap: 20px;
       box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
+      padding: 20px 0;
+      gap: 20px;
+      box-sizing: border-box;
     }
 
+    /* Active card shown */
     .pi-hc__card.pi-hc--active { display: flex; }
 
-    /* Inner frame: gap 10px, full width */
+    /* Inner frame: avatar + stars + review, gap 10px */
     .pi-hc__card-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       gap: 10px;
       width: 100%;
       padding: 0;
     }
 
-    /* Avatar: 50×50px */
-    .pi-hc__avatar { width: 50px; height: 50px; }
+    /* Avatar: 50×50px circle */
+    .pi-hc__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
 
-    /* Stars: 20px tall, gap 6px */
-    .pi-hc__stars { height: 20px; gap: 6px; }
-    .pi-hc__star  { font-size: 20px; }
+    /* Stars: 5 stars, 20px, gap 6px — no fixed height so all 5 render */
+    .pi-hc__stars {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+    }
+    .pi-hc__star {
+      font-size: 20px;
+      line-height: 1;
+      color: #FFB800;
+    }
 
-    /* Review: fills 354px → 8 lines at 16px/26px (Figma: 354×208px) */
+    /* Review: full 354px width = exactly 8 lines at 16px/26px */
     .pi-hc__review {
       font-size: 16px;
       line-height: 26px;
+      text-align: center;
+      color: #121212;
+      margin: 0;
       width: 100%;
-      padding: 0 5px;
       box-sizing: border-box;
     }
 
-    /* Author: 14px/18px, uppercase, 1 line (Figma: 239×18px) */
+    /* Author: Proxima Nova 600, 14px/18px, uppercase, 1 line */
     .pi-hc__author {
       font-size: 14px;
       line-height: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #000000;
+      text-align: center;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 100%;
-      padding: 0 10px;
+      width: 100%;
+      padding: 0 15px;
       box-sizing: border-box;
+      margin: 0;
     }
 
-    /* Nav: 80×35px total, gap 10px, centered */
-    .pi-hc__nav { gap: 10px; justify-content: center; }
-    .pi-hc__nav-btn { width: 35px; height: 35px; }
+    /* Nav: 80×35px, gap 10px, centered below card */
+    .pi-hc__nav {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .pi-hc__nav-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 1.5px solid #000000;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
   }
 </style>
 
