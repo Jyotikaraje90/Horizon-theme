@@ -2,6 +2,7 @@
   #shopify-section-{{ section.id }} {
     background: #ffffff;
     padding: 80px 0;
+    overflow-x: hidden;
   }
 
   .pi-hc {
@@ -28,9 +29,15 @@
   }
 
   /* ── Slider ──────────────────────────────────────── */
-  .pi-hc__slider-wrap {
+  /* Outer clips horizontal overflow; inner has shadow clearance padding */
+  .pi-hc__slider-outer {
     width: 100%;
     overflow: hidden;
+  }
+
+  .pi-hc__slider-wrap {
+    padding: 40px;
+    margin: -40px;
   }
 
   .pi-hc__track {
@@ -87,7 +94,7 @@
     height: 20px;
   }
   .pi-hc__star {
-    font-size: 18px;
+    font-size: 20px;
     line-height: 1;
     color: #FFB800;
   }
@@ -177,6 +184,7 @@
     <h2 class="pi-hc__heading">{{ section.settings.heading }}</h2>
   {%- endif -%}
 
+  <div class="pi-hc__slider-outer">
   <div class="pi-hc__slider-wrap">
     <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
       {%- for block in section.blocks -%}
@@ -219,6 +227,7 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
+  </div>
   </div>
 
   {%- if section.blocks.size > 1 -%}
