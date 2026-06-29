@@ -4463,28 +4463,3 @@ product-recommendations:has([data-has-recommendations='false']) {
   background: #222222 !important;
 }
 
-/* ── Announcement Bar: mobile centering (stable override in base.css) ── */
-@media (max-width: 768px) {
-  .pi-announcement__inner {
-    grid-template-columns: 1fr !important;
-    align-items: center !important;
-    text-align: center !important;
-    padding: 0 20px !important;
-    min-height: 42px !important;
-    gap: 0 !important;
-    width: 100% !important;
-  }
-
-  .pi-announcement__text {
-    font-size: 12px !important;
-    line-height: 19px !important;
-    white-space: normal !important;
-    text-align: center !important;
-    width: 100% !important;
-  }
-
-  .pi-announcement__social,
-  .pi-announcement__locations {
-    display: none !important;
-  }
-}
