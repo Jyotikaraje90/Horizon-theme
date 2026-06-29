@@ -108,13 +108,8 @@
     margin: 0;
   }
 
-  .pi-hc__slider-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
+  /* Mobile in-card nav: hidden on desktop */
+  .pi-hc__nav--card { display: none; }
 
   .pi-hc__nav {
     display: flex;
@@ -262,28 +257,27 @@
       margin: 0;
     }
 
-    /* Slider container: relative so nav can be absolute at bottom */
-    .pi-hc__slider-container {
+    /* Card: position relative so in-card nav can be absolute */
+    .pi-hc__card {
       position: relative;
-      width: 100%;
       padding-bottom: 55px;
-      gap: 0;
     }
 
-    /* Nav: absolute at bottom of container */
-    .pi-hc__nav {
+    /* Desktop nav: hidden on mobile */
+    .pi-hc__nav--desktop { display: none; }
+
+    /* In-card nav: absolute at bottom of card */
+    .pi-hc__nav--card {
+      display: flex;
       position: absolute;
-      bottom: 10px;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
-      display: flex;
       flex-direction: row;
       align-items: center;
-      justify-content: center;
       gap: 10px;
-      white-space: nowrap;
     }
-    .pi-hc__nav-btn {
+    .pi-hc__nav--card .pi-hc__nav-btn {
       width: 35px;
       height: 35px;
       border-radius: 50%;
@@ -304,69 +298,80 @@
     <h2 class="pi-hc__heading">{{ section.settings.heading }}</h2>
   {%- endif -%}
 
-  <div class="pi-hc__slider-container">
+  <div class="pi-hc__slider-wrap">
+    <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'testimonial' -%}
+          {%- assign rating = block.settings.rating | plus: 0 -%}
+          <div class="pi-hc__card" {{ block.shopify_attributes }}>
 
-    <div class="pi-hc__slider-wrap">
-      <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'testimonial' -%}
-            {%- assign rating = block.settings.rating | plus: 0 -%}
-            <div class="pi-hc__card" {{ block.shopify_attributes }}>
+            <div class="pi-hc__card-inner">
 
-              <div class="pi-hc__card-inner">
-
-                <div class="pi-hc__avatar">
-                  {%- if block.settings.avatar != blank -%}
-                    <img
-                      src="{{ block.settings.avatar | image_url: width: 100 }}"
-                      alt="{{ block.settings.author | default: '' | escape }}"
-                      loading="lazy"
-                      width="50"
-                      height="50"
-                    >
-                  {%- endif -%}
-                </div>
-
-                <div class="pi-hc__stars" aria-label="{{ rating }} out of 5 stars">
-                  {%- for i in (1..5) -%}
-                    <span class="pi-hc__star" aria-hidden="true">
-                      {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
-                    </span>
-                  {%- endfor -%}
-                </div>
-
-                {%- if block.settings.review != blank -%}
-                  <p class="pi-hc__review">{{ block.settings.review }}</p>
+              <div class="pi-hc__avatar">
+                {%- if block.settings.avatar != blank -%}
+                  <img
+                    src="{{ block.settings.avatar | image_url: width: 100 }}"
+                    alt="{{ block.settings.author | default: '' | escape }}"
+                    loading="lazy"
+                    width="50"
+                    height="50"
+                  >
                 {%- endif -%}
-
               </div>
 
-              {%- if block.settings.author != blank -%}
-                <p class="pi-hc__author">- {{ block.settings.author }}</p>
+              <div class="pi-hc__stars" aria-label="{{ rating }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  <span class="pi-hc__star" aria-hidden="true">
+                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+                  </span>
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.review != blank -%}
+                <p class="pi-hc__review">{{ block.settings.review }}</p>
               {%- endif -%}
 
             </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
+
+            {%- if block.settings.author != blank -%}
+              <p class="pi-hc__author">- {{ block.settings.author }}</p>
+            {%- endif -%}
+
+            {%- if section.blocks.size > 1 -%}
+              <div class="pi-hc__nav pi-hc__nav--card" role="group" aria-label="Testimonial navigation">
+                <button class="pi-hc__nav-btn pi-hc__nav-prev" aria-label="Previous testimonial">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button class="pi-hc__nav-btn pi-hc__nav-next" aria-label="Next testimonial">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            {%- endif -%}
+
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
     </div>
-
-    {%- if section.blocks.size > 1 -%}
-      <div class="pi-hc__nav" role="group" aria-label="Testimonial navigation">
-        <button class="pi-hc__nav-btn" id="pi-hc-prev-{{ section.id }}" aria-label="Previous testimonial">
-          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button class="pi-hc__nav-btn" id="pi-hc-next-{{ section.id }}" aria-label="Next testimonial">
-          <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
-    {%- endif -%}
-
   </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="pi-hc__nav pi-hc__nav--desktop" role="group" aria-label="Testimonial navigation">
+      <button class="pi-hc__nav-btn" id="pi-hc-prev-{{ section.id }}" aria-label="Previous testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="pi-hc__nav-btn" id="pi-hc-next-{{ section.id }}" aria-label="Next testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {%- endif -%}
 
 </div>
 
@@ -415,19 +420,28 @@
     cards[0].classList.add('pi-hc--active');
   }
 
+  /* Desktop nav (ID-based) */
   if (prevBtn) {
     prevBtn.addEventListener('click', function () {
       current = current > 0 ? current - 1 : cards.length - 1;
       slide();
     });
   }
-
   if (nextBtn) {
     nextBtn.addEventListener('click', function () {
       current = current < cards.length - 1 ? current + 1 : 0;
       slide();
     });
   }
+
+  /* Mobile in-card nav (class-based, event delegation) */
+  trackEl.addEventListener('click', function (e) {
+    if (!isMobile()) return;
+    var isPrev = e.target.closest('.pi-hc__nav-prev');
+    var isNext = e.target.closest('.pi-hc__nav-next');
+    if (isPrev) { current = current > 0 ? current - 1 : cards.length - 1; slide(); }
+    if (isNext) { current = current < cards.length - 1 ? current + 1 : 0; slide(); }
+  });
 
   var resizeTimer;
   window.addEventListener('resize', function () {
