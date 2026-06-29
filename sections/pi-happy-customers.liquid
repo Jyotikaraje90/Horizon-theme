@@ -1,0 +1,365 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: #ffffff;
+    padding: 80px 0;
+  }
+
+  .pi-hc {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  /* ── Section heading ─────────────────────────────── */
+  .pi-hc__heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: 54px;
+    line-height: 70px;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* ── Slider ──────────────────────────────────────── */
+  .pi-hc__slider-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .pi-hc__track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s ease;
+  }
+
+  /* ── Testimonial card ─────────────────────────────── */
+  .pi-hc__card {
+    flex: 0 0 calc(33.333% - 20px);
+    background: #ffffff;
+    border-radius: 30px;
+    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  /* Inner frame — avatar + stars + review + author */
+  .pi-hc__card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  /* Avatar */
+  .pi-hc__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e0e0e0;
+  }
+  .pi-hc__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* Stars */
+  .pi-hc__stars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+  }
+  .pi-hc__star {
+    font-size: 18px;
+    line-height: 1;
+    color: #FFB800;
+  }
+
+  /* Review text */
+  .pi-hc__review {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    text-align: center;
+    color: #121212;
+    margin: 0;
+  }
+
+  /* Author */
+  .pi-hc__author {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    text-transform: uppercase;
+    color: #000000;
+    text-align: center;
+    margin: 0;
+  }
+
+  /* ── Navigation arrows ───────────────────────────── */
+  .pi-hc__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pi-hc__nav-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1.5px solid #000000;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0;
+    flex-shrink: 0;
+  }
+
+  .pi-hc__nav-btn:hover {
+    background: #000000;
+  }
+
+  .pi-hc__nav-btn:hover svg path {
+    stroke: #ffffff;
+  }
+
+  .pi-hc__nav-btn svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 1279px) {
+    .pi-hc__heading { font-size: 44px; line-height: 58px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-hc { padding: 0 32px; gap: 40px; }
+    .pi-hc__heading { font-size: 38px; line-height: 50px; }
+    .pi-hc__card { flex: 0 0 calc(50% - 15px); }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} { padding: 60px 0; }
+    .pi-hc { padding: 0 20px; gap: 30px; }
+    .pi-hc__heading { font-size: 30px; line-height: 39px; }
+    .pi-hc__card { flex: 0 0 100%; }
+  }
+</style>
+
+<div class="pi-hc">
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="pi-hc__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="pi-hc__slider-wrap">
+    <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'testimonial' -%}
+          <div class="pi-hc__card" {{ block.shopify_attributes }}>
+            <div class="pi-hc__card-inner">
+
+              <div class="pi-hc__avatar">
+                {%- if block.settings.avatar != blank -%}
+                  <img
+                    src="{{ block.settings.avatar | image_url: width: 100 }}"
+                    alt="{{ block.settings.author | default: '' | escape }}"
+                    loading="lazy"
+                    width="50"
+                    height="50"
+                  >
+                {%- endif -%}
+              </div>
+
+              <div class="pi-hc__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
+                {%- assign rating = block.settings.rating | default: 5 -%}
+                {%- for i in (1..5) -%}
+                  <span class="pi-hc__star" aria-hidden="true">
+                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+                  </span>
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.review != blank -%}
+                <p class="pi-hc__review">{{ block.settings.review }}</p>
+              {%- endif -%}
+
+            </div>
+
+            {%- if block.settings.author != blank -%}
+              <p class="pi-hc__author">- {{ block.settings.author }}</p>
+            {%- endif -%}
+
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="pi-hc__nav" role="group" aria-label="Testimonial navigation">
+      <button class="pi-hc__nav-btn" id="pi-hc-prev-{{ section.id }}" aria-label="Previous testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="pi-hc__nav-btn" id="pi-hc-next-{{ section.id }}" aria-label="Next testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>
+(function () {
+  var trackEl   = document.getElementById('pi-hc-track-{{ section.id }}');
+  var prevBtn   = document.getElementById('pi-hc-prev-{{ section.id }}');
+  var nextBtn   = document.getElementById('pi-hc-next-{{ section.id }}');
+  if (!trackEl || !prevBtn || !nextBtn) return;
+
+  var cards     = trackEl.querySelectorAll('.pi-hc__card');
+  var current   = 0;
+
+  function visibleCount() {
+    var w = window.innerWidth;
+    if (w > 989) return 3;
+    if (w > 749) return 2;
+    return 1;
+  }
+
+  function maxIndex() {
+    return Math.max(0, cards.length - visibleCount());
+  }
+
+  function slide() {
+    if (cards.length === 0) return;
+    var cardWidth = cards[0].offsetWidth;
+    var gap       = 30;
+    trackEl.style.transform = 'translateX(-' + (current * (cardWidth + gap)) + 'px)';
+  }
+
+  prevBtn.addEventListener('click', function () {
+    current = Math.max(0, current - 1);
+    slide();
+  });
+
+  nextBtn.addEventListener('click', function () {
+    current = Math.min(maxIndex(), current + 1);
+    slide();
+  });
+
+  window.addEventListener('resize', function () {
+    current = Math.min(current, maxIndex());
+    slide();
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PI Happy Customers",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Happy Customers"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Customer photo"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review text",
+          "default": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer name & title",
+          "default": "Emily Carter, Fashion Designer"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "PI Happy Customers",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process. The precision and attention to detail are unmatched. The studio has a clean, professional atmosphere, and the artist worked patiently with me to perfect my design. I couldn't have asked for a better experience",
+            "author": "Emily Carter, Fashion Designer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "An incredible experience from start to finish. The team listened to exactly what I wanted and delivered something even better. The studio is spotless and the artists are true professionals.",
+            "author": "Marcus Rivera, Graphic Artist"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "Puerto Ink is hands down the best tattoo studio I've visited. The attention to detail and artistic vision are on another level. I'll definitely be back for my next piece.",
+            "author": "Sofia Morales, Photographer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
