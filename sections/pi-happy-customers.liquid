@@ -166,7 +166,9 @@
       line-height: 1.3;
     }
 
-    /* No translateX on mobile — show/hide approach, zero overflow */
+    /* No translateX on mobile — show/hide, so no overflow to clip */
+    .pi-hc__slider-wrap { overflow: visible; }
+
     .pi-hc__track {
       gap: 0;
     }
