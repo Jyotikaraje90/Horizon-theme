@@ -4576,3 +4576,9 @@ product-recommendations:has([data-has-recommendations='false']) {
   display: none;
 }
 
+@media (max-width: 768px) {
+  .pi-announcement {
+    display: none !important;
+  }
+}
+
