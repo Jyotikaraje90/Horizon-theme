@@ -208,11 +208,16 @@
     .pi-jb__img-col--right { display: none; }
     .pi-jb__center { padding: 40px 18px 30px; }
 
+    .pi-jb {
+      overflow: visible;
+    }
+
     .pi-jb__mobile-imgs {
       display: flex;
       flex-direction: row;
       gap: 14px;
-      padding: 0 18px 28px;
+      padding: 0 18px;
+      margin-bottom: -28px;
       position: relative;
       z-index: 1;
     }
@@ -221,7 +226,7 @@
       flex: 1;
       height: 202px;
       overflow: hidden;
-      border: 2px solid #FFFFFF;
+      border: 3px solid #FFFFFF;
     }
 
     .pi-jb__mobile-img-wrap img,
