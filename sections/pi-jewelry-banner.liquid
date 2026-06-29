@@ -198,11 +198,39 @@
     .pi-jb__center { padding: 48px 24px; }
   }
 
+  .pi-jb__mobile-imgs {
+    display: none;
+  }
+
   @media (max-width: 768px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
     .pi-jb__img-col--right { display: none; }
-    .pi-jb__center { padding: 60px 24px; }
+    .pi-jb__center { padding: 40px 18px 30px; }
+
+    .pi-jb__mobile-imgs {
+      display: flex;
+      flex-direction: row;
+      gap: 14px;
+      padding: 0 18px 28px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .pi-jb__mobile-img-wrap {
+      flex: 1;
+      height: 202px;
+      overflow: hidden;
+      border: 2px solid #FFFFFF;
+    }
+
+    .pi-jb__mobile-img-wrap img,
+    .pi-jb__mobile-img-wrap .placeholder-svg {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
   }
 </style>
 
@@ -271,6 +299,24 @@
     </div>
 
   </div>
+
+  <div class="pi-jb__mobile-imgs">
+    <div class="pi-jb__mobile-img-wrap">
+      {%- if section.settings.left_image != blank -%}
+        <img src="{{ section.settings.left_image | image_url: width: 400 }}" alt="{{ section.settings.left_image.alt | escape }}" loading="lazy">
+      {%- else -%}
+        {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+    <div class="pi-jb__mobile-img-wrap">
+      {%- if section.settings.right_image != blank -%}
+        <img src="{{ section.settings.right_image | image_url: width: 400 }}" alt="{{ section.settings.right_image.alt | escape }}" loading="lazy">
+      {%- else -%}
+        {{ 'product-2' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  </div>
+
 </div>
 
 {% schema %}
