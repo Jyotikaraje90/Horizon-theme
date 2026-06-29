@@ -231,11 +231,11 @@
       isolation: isolate;
     }
 
-    /* Left image: frame bottom-right, image at top-right */
+    /* Left image: frame top-left, image at bottom-right */
     .pi-jb__mobile-img-wrap:first-child::before {
       content: '';
       position: absolute;
-      top: 12px; left: 12px; right: 0; bottom: 0;
+      top: 0; left: 0; right: 12px; bottom: 12px;
       border: 2px solid #FFFFFF;
       z-index: -1;
       pointer-events: none;
@@ -247,14 +247,14 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      clip-path: inset(0 12px 12px 0);
+      clip-path: inset(12px 0 0 12px);
     }
 
-    /* Right image: frame top-left, image at bottom-left */
+    /* Right image: frame bottom-right, image at top-left */
     .pi-jb__mobile-img-wrap:last-child::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 12px; bottom: 12px;
+      top: 12px; left: 12px; right: 0; bottom: 0;
       border: 2px solid #FFFFFF;
       z-index: -1;
       pointer-events: none;
@@ -266,7 +266,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      clip-path: inset(12px 0 0 12px);
+      clip-path: inset(0 12px 12px 0);
     }
   }
 </style>
