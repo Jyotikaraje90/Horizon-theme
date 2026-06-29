@@ -2,7 +2,7 @@
   #shopify-section-{{ section.id }} {
     background: #ffffff;
     padding: 80px 0;
-    overflow-x: hidden;
+    overflow: hidden;
   }
 
   .pi-hc {
@@ -16,7 +16,7 @@
     gap: 50px;
   }
 
-  /* ── Section heading ─────────────────────────────── */
+  /* ── Heading ─────────────────────────────────────── */
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -26,18 +26,12 @@
     color: #000000;
     text-align: center;
     margin: 0;
+    white-space: nowrap;
   }
 
-  /* ── Slider ──────────────────────────────────────── */
-  /* Outer clips horizontal overflow; inner has shadow clearance padding */
-  .pi-hc__slider-outer {
-    width: 100%;
-    overflow: hidden;
-  }
-
+  /* ── Slider — no overflow:hidden; section clips track ── */
   .pi-hc__slider-wrap {
-    padding: 40px;
-    margin: -40px;
+    width: 100%;
   }
 
   .pi-hc__track {
@@ -46,9 +40,11 @@
     transition: transform 0.4s ease;
   }
 
-  /* ── Testimonial card ─────────────────────────────── */
+  /* ── Card ────────────────────────────────────────── */
+  /* Desktop: 3 cards with 2 × 30px gaps */
   .pi-hc__card {
-    flex: 0 0 calc(33.333% - 20px);
+    flex: 0 0 calc((100% - 60px) / 3);
+    min-width: 0;
     background: #ffffff;
     border-radius: 30px;
     box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
@@ -60,7 +56,7 @@
     gap: 20px;
   }
 
-  /* Inner frame — avatar + stars + review + author */
+  /* Inner frame: avatar + stars + review, gap 10px */
   .pi-hc__card-inner {
     display: flex;
     flex-direction: column;
@@ -69,7 +65,7 @@
     width: 100%;
   }
 
-  /* Avatar */
+  /* Avatar — 50 × 50px circle */
   .pi-hc__avatar {
     width: 50px;
     height: 50px;
@@ -85,21 +81,21 @@
     display: block;
   }
 
-  /* Stars */
+  /* Stars — horizontal, gap 6px, total h 20px */
   .pi-hc__stars {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 6px;
-    height: 20px;
-  }
-  .pi-hc__star {
-    font-size: 20px;
     line-height: 1;
-    color: #FFB800;
+  }
+  .pi-hc__star svg {
+    width: 20px;
+    height: 20px;
+    display: block;
   }
 
-  /* Review text */
+  /* Review text — Proxima Nova 400, 16px/26px, center, #121212 */
   .pi-hc__review {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -110,7 +106,7 @@
     margin: 0;
   }
 
-  /* Author */
+  /* Author — Proxima Nova 600, 14px/18px, uppercase, #000000, 1 line */
   .pi-hc__author {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
@@ -120,13 +116,15 @@
     color: #000000;
     text-align: center;
     margin: 0;
+    white-space: nowrap;
   }
 
-  /* ── Navigation arrows ───────────────────────────── */
+  /* ── Nav arrows — centered, gap 10px ─────────────── */
   .pi-hc__nav {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: center;
     gap: 10px;
   }
 
@@ -144,15 +142,8 @@
     padding: 0;
     flex-shrink: 0;
   }
-
-  .pi-hc__nav-btn:hover {
-    background: #000000;
-  }
-
-  .pi-hc__nav-btn:hover svg path {
-    stroke: #ffffff;
-  }
-
+  .pi-hc__nav-btn:hover { background: #000000; }
+  .pi-hc__nav-btn:hover svg path { stroke: #ffffff; }
   .pi-hc__nav-btn svg {
     width: 12px;
     height: 12px;
@@ -166,15 +157,19 @@
 
   @media (max-width: 989px) {
     .pi-hc { padding: 0 32px; gap: 40px; }
-    .pi-hc__heading { font-size: 38px; line-height: 50px; }
-    .pi-hc__card { flex: 0 0 calc(50% - 15px); }
+    .pi-hc__heading { font-size: 38px; line-height: 50px; white-space: normal; }
+    /* Tablet: 2 cards with 1 × 30px gap */
+    .pi-hc__card { flex: 0 0 calc((100% - 30px) / 2); }
   }
 
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding: 60px 0; }
     .pi-hc { padding: 0 20px; gap: 30px; }
-    .pi-hc__heading { font-size: 30px; line-height: 39px; }
+    .pi-hc__heading { font-size: 30px; line-height: 39px; white-space: normal; }
+    /* Mobile: 1 card full width */
     .pi-hc__card { flex: 0 0 100%; }
+    /* Author allowed to wrap on very small screens */
+    .pi-hc__author { white-space: normal; }
   }
 </style>
 
@@ -184,12 +179,13 @@
     <h2 class="pi-hc__heading">{{ section.settings.heading }}</h2>
   {%- endif -%}
 
-  <div class="pi-hc__slider-outer">
   <div class="pi-hc__slider-wrap">
     <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
       {%- for block in section.blocks -%}
         {%- if block.type == 'testimonial' -%}
+          {%- assign rating = block.settings.rating | plus: 0 -%}
           <div class="pi-hc__card" {{ block.shopify_attributes }}>
+
             <div class="pi-hc__card-inner">
 
               <div class="pi-hc__avatar">
@@ -204,11 +200,14 @@
                 {%- endif -%}
               </div>
 
-              <div class="pi-hc__stars" aria-label="{{ block.settings.rating }} out of 5 stars">
-                {%- assign rating = block.settings.rating | default: 5 -%}
+              <div class="pi-hc__stars" aria-label="{{ rating }} out of 5 stars">
                 {%- for i in (1..5) -%}
                   <span class="pi-hc__star" aria-hidden="true">
-                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+                    {%- if i <= rating -%}
+                      <svg viewBox="0 0 20 20" fill="#FFB800" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.1l-4.94 2.6.94-5.49-4-3.9 5.53-.8z"/></svg>
+                    {%- else -%}
+                      <svg viewBox="0 0 20 20" fill="none" stroke="#FFB800" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.1l-4.94 2.6.94-5.49-4-3.9 5.53-.8z"/></svg>
+                    {%- endif -%}
                   </span>
                 {%- endfor -%}
               </div>
@@ -227,7 +226,6 @@
         {%- endif -%}
       {%- endfor -%}
     </div>
-  </div>
   </div>
 
   {%- if section.blocks.size > 1 -%}
@@ -249,13 +247,13 @@
 
 <script>
 (function () {
-  var trackEl   = document.getElementById('pi-hc-track-{{ section.id }}');
-  var prevBtn   = document.getElementById('pi-hc-prev-{{ section.id }}');
-  var nextBtn   = document.getElementById('pi-hc-next-{{ section.id }}');
+  var trackEl = document.getElementById('pi-hc-track-{{ section.id }}');
+  var prevBtn  = document.getElementById('pi-hc-prev-{{ section.id }}');
+  var nextBtn  = document.getElementById('pi-hc-next-{{ section.id }}');
   if (!trackEl || !prevBtn || !nextBtn) return;
 
-  var cards     = trackEl.querySelectorAll('.pi-hc__card');
-  var current   = 0;
+  var cards   = Array.prototype.slice.call(trackEl.querySelectorAll('.pi-hc__card'));
+  var current = 0;
 
   function visibleCount() {
     var w = window.innerWidth;
@@ -269,10 +267,11 @@
   }
 
   function slide() {
-    if (cards.length === 0) return;
-    var cardWidth = cards[0].offsetWidth;
-    var gap       = 30;
-    trackEl.style.transform = 'translateX(-' + (current * (cardWidth + gap)) + 'px)';
+    if (!cards.length) return;
+    var style  = window.getComputedStyle(trackEl);
+    var gap    = parseFloat(style.gap) || 30;
+    var cw     = cards[0].offsetWidth;
+    trackEl.style.transform = 'translateX(-' + (current * (cw + gap)) + 'px)';
   }
 
   prevBtn.addEventListener('click', function () {
@@ -285,9 +284,13 @@
     slide();
   });
 
+  var resizeTimer;
   window.addEventListener('resize', function () {
-    current = Math.min(current, maxIndex());
-    slide();
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      current = Math.min(current, maxIndex());
+      slide();
+    }, 100);
   });
 })();
 </script>
