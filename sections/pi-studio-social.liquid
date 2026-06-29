@@ -69,6 +69,7 @@
     width: 360px;
     height: 360px;
     overflow: hidden;
+    border-radius: 10px;
     flex-shrink: 0;
     background: #f3f3f3;
   }
@@ -103,6 +104,8 @@
     color: #121212;
     margin: 0;
   }
+  .pi-ps__carousel-container { position: relative; }
+  .pi-ps__arrows--mobile-overlay { display: none; }
   .pi-ps__footer { display: flex; justify-content: center; }
   .pi-ps__btn {
     display: inline-flex;
@@ -350,10 +353,7 @@
     .pi-ps__card-img { width: 280px; height: 280px; }
   }
   @media (max-width: 749px) {
-    .pi-ps__inner, .pi-hc__inner { padding: 0 16px; }
-    .pi-ps__heading { font-size: clamp(28px, 7vw, 40px); }
-    .pi-ps__card { flex: 0 0 240px; width: 240px; }
-    .pi-ps__card-img { width: 240px; height: 240px; }
+    .pi-hc__inner { padding: 0 16px; }
     .pi-hc__row { gap: 12px; }
     .pi-hc__card { padding: 24px; }
     .pi-tb__grid { grid-template-columns: repeat(2, 1fr); }
@@ -362,6 +362,34 @@
       aspect-ratio: unset;
       min-height: 260px;
       padding: 32px 32px 40px 32px;
+    }
+  }
+  @media (max-width: 600px) {
+    .pi-ps__inner { padding: 0 18px; gap: 30px; }
+    .pi-ps__track { gap: 10px; }
+    .pi-ps__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
+    .pi-ps__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .pi-ps__card-body { width: 100%; }
+    .pi-ps__heading { font-size: 30px; }
+    .pi-ps__btn { height: 50px; font-size: 14px; line-height: 18px; width: 100%; box-sizing: border-box; }
+    .pi-ps__arrows--desktop { display: none; }
+    .pi-ps__arrows--mobile-overlay {
+      display: flex;
+      position: absolute;
+      top: 0;
+      transform: translateY(-50%);
+      left: -17px;
+      right: -17px;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .pi-ps__arrows--mobile-overlay .pi-ss-arrow {
+      pointer-events: auto;
+      width: 35px !important;
+      height: 35px !important;
+      min-width: 35px;
     }
   }
 </style>
@@ -378,7 +406,7 @@
       {%- if section.settings.piercing_heading != blank -%}
         <h2 class="pi-ps__heading">{{ section.settings.piercing_heading }}</h2>
       {%- endif -%}
-      <div class="pi-ps__arrows">
+      <div class="pi-ps__arrows pi-ps__arrows--desktop">
         <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing" style="width:50px;height:50px;border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
           <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
             <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
@@ -392,8 +420,9 @@
       </div>
     </div>
 
-    <div class="pi-ps__track-wrap">
-      <div class="pi-ps__track" id="pi-ps-track-{{ section.id }}">
+    <div class="pi-ps__carousel-container">
+      <div class="pi-ps__track-wrap">
+        <div class="pi-ps__track" id="pi-ps-track-{{ section.id }}">
         {%- for block in piercing_cards -%}
           <div class="pi-ps__card" {{ block.shopify_attributes }}>
             <div class="pi-ps__card-img">
@@ -419,6 +448,20 @@
             </div>
           </div>
         {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="pi-ps__arrows--mobile-overlay">
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing" style="border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__next" aria-label="Next piercing" style="border-radius:50%;background:#000000;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
       </div>
     </div>
 
@@ -556,22 +599,41 @@
   /* Piercing Services carousel */
   var psWrap = document.getElementById('pi-ps-{{ section.id }}');
   if (psWrap) {
-    var psTrack = document.getElementById('pi-ps-track-{{ section.id }}');
-    var psCardW = 360 + 30;
-    var psIdx   = 0;
+    var psTrack    = document.getElementById('pi-ps-track-{{ section.id }}');
+    var psTrackWrap = psTrack.parentElement;
+    var psMobileArrows = psWrap.querySelector('.pi-ps__arrows--mobile-overlay');
+    var psIdx = 0;
 
-    function psVisible() { return Math.floor(psTrack.parentElement.offsetWidth / psCardW) || 1; }
+    function psGetCardWidth() {
+      var card = psTrack.querySelector('.pi-ps__card');
+      if (!card) return 390;
+      var gap = parseFloat(window.getComputedStyle(psTrack).gap) || 30;
+      return card.offsetWidth + gap;
+    }
+    function psVisible() { return Math.floor(psTrackWrap.offsetWidth / psGetCardWidth()) || 1; }
     function psSlide(i) {
       var total = psTrack.querySelectorAll('.pi-ps__card').length;
       psIdx = Math.max(0, Math.min(i, Math.max(0, total - psVisible())));
-      psTrack.style.transform = 'translateX(-' + (psIdx * psCardW) + 'px)';
+      psTrack.style.transform = 'translateX(-' + (psIdx * psGetCardWidth()) + 'px)';
     }
-    var psPrev = psWrap.querySelector('.pi-ps__prev');
-    var psNext = psWrap.querySelector('.pi-ps__next');
-    psPrev.addEventListener('click', function () { psSlide(psIdx - 1); });
-    psNext.addEventListener('click', function () { psSlide(psIdx + 1); });
-    psPrev.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx - 1); });
-    psNext.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx + 1); });
+    function psUpdateArrowPos() {
+      if (!psMobileArrows) return;
+      var img = psTrack.querySelector('.pi-ps__card-img');
+      if (!img) return;
+      psMobileArrows.style.top = (img.offsetHeight / 2) + 'px';
+    }
+    var psPrevBtns = psWrap.querySelectorAll('.pi-ps__prev');
+    var psNextBtns = psWrap.querySelectorAll('.pi-ps__next');
+    psPrevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { psSlide(psIdx - 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx - 1); });
+    });
+    psNextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { psSlide(psIdx + 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx + 1); });
+    });
+    window.addEventListener('resize', function () { psSlide(0); psUpdateArrowPos(); });
+    psUpdateArrowPos();
   }
 
   /* Happy Customers slider */
