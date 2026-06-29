@@ -212,12 +212,14 @@
 
   @media (max-width: 749px) {
     .pi-ts__inner { padding-inline: 16px; gap: 32px; }
-    .pi-ts__card { flex: 0 0 240px; width: 240px; }
-    .pi-ts__card-img { width: 240px; height: 260px; }
-    .pi-ts__card-body { width: 240px; }
+    .pi-ts__track { gap: 10px; }
+    .pi-ts__card { flex: 0 0 167px; width: 167px; }
+    .pi-ts__card-img { width: 167px; height: 167px; }
+    .pi-ts__card-body { width: 167px; gap: 5px; }
     .pi-ts__card-title { font-size: 16px; }
     .pi-ts__card-desc { font-size: 14px; line-height: 22px; }
-    .pi-ts__heading { font-size: clamp(28px, 7vw, 40px); }
+    .pi-ts__heading { font-size: 30px; }
+    .pi-ts__btn { height: 50px; font-size: 14px; line-height: 18px; }
   }
 </style>
 
@@ -299,12 +301,18 @@
     var prevBtn = section.querySelector('.pi-ts__arrow--prev');
     var nextBtn = section.querySelector('.pi-ts__arrow--next');
 
-    var cardWidth = 360 + 20; /* card width + gap */
     var currentIndex = 0;
+
+    function getCardWidth() {
+      var card = track.querySelector('.pi-ts__card');
+      if (!card) return 380;
+      var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+      return card.offsetWidth + gap;
+    }
 
     function getVisibleCount() {
       var wrapWidth = track.parentElement.offsetWidth;
-      return Math.floor(wrapWidth / cardWidth) || 1;
+      return Math.floor(wrapWidth / getCardWidth()) || 1;
     }
 
     function getTotalCards() {
@@ -316,7 +324,7 @@
       var visible = getVisibleCount();
       var maxIndex = Math.max(0, total - visible);
       currentIndex = Math.max(0, Math.min(index, maxIndex));
-      track.style.transform = 'translateX(-' + (currentIndex * cardWidth) + 'px)';
+      track.style.transform = 'translateX(-' + (currentIndex * getCardWidth()) + 'px)';
     }
 
     prevBtn.addEventListener('click', function () { slideTo(currentIndex - 1); });
