@@ -4560,21 +4560,19 @@ product-recommendations:has([data-has-recommendations='false']) {
   opacity: 0.35;
 }
 
-@media (max-width: 768px) {
-  .pi-announcement__inner {
-    padding: 0 20px;
-    min-height: 42px;
-  }
+.pi-announcement[data-mobile] .pi-announcement__inner {
+  padding: 0 20px;
+  min-height: 42px;
+}
 
-  .pi-announcement__text {
-    font-size: 12px;
-    line-height: 19px;
-    white-space: normal;
-  }
+.pi-announcement[data-mobile] .pi-announcement__text {
+  font-size: 12px;
+  line-height: 19px;
+  white-space: normal;
+}
 
-  .pi-announcement__social,
-  .pi-announcement__locations {
-    display: none;
-  }
+.pi-announcement[data-mobile] .pi-announcement__social,
+.pi-announcement[data-mobile] .pi-announcement__locations {
+  display: none;
 }
 
