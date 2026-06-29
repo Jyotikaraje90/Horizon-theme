@@ -185,16 +185,48 @@
   }
 
   @media (max-width: 480px) {
+    .pi-hero {
+      margin: 0 18px;
+      height: 514px;
+      max-height: 514px;
+      min-height: 514px;
+    }
+
     .pi-hero__main {
-      height: 80vw;
+      height: 364px;
+      min-height: 364px;
+      max-height: 364px;
+    }
+
+    .pi-hero__main-content {
+      top: 40px;
+      left: 20px;
+      max-width: 314px;
+      gap: 20px;
     }
 
     .pi-hero__main-content h1 {
-      font-size: clamp(24px, 7vw, 36px);
+      font-size: 32px;
+      line-height: 42px;
+    }
+
+    .pi-hero__main-content p {
+      font-size: 16px;
+      line-height: 26px;
+      white-space: normal;
+    }
+
+    .pi-hero__btn {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    .pi-hero__subframe {
+      gap: 20px;
     }
 
     .pi-hero__side {
-      height: 180px;
+      height: 150px;
     }
   }
 </style>

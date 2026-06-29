@@ -1121,6 +1121,18 @@
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
   }
+
+  @media screen and (max-width: 749px) {
+    body {
+      --header-height: 60px;
+    }
+
+    .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      padding-block: 10px;
+      padding-inline: 20px;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
