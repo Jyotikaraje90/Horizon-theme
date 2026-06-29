@@ -227,6 +227,7 @@
       height: 202px;
       overflow: hidden;
       position: relative;
+      isolation: isolate;
     }
 
     /* Left image: frame bottom-left, image at top-right */
@@ -235,7 +236,7 @@
       position: absolute;
       top: 12px; left: 0; right: 12px; bottom: 0;
       border: 2px solid #FFFFFF;
-      z-index: 3;
+      z-index: -1;
       pointer-events: none;
     }
 
@@ -254,7 +255,7 @@
       position: absolute;
       top: 0; left: 12px; right: 0; bottom: 12px;
       border: 2px solid #FFFFFF;
-      z-index: 3;
+      z-index: -1;
       pointer-events: none;
     }
 
