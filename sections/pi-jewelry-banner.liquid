@@ -229,11 +229,11 @@
       position: relative;
     }
 
-    /* Left image: frame top-left, image offset right+down */
+    /* Left image: frame bottom-left, image at top-right */
     .pi-jb__mobile-img-wrap:first-child::before {
       content: '';
       position: absolute;
-      top: 0; left: 0; right: 12px; bottom: 12px;
+      top: 12px; left: 0; right: 12px; bottom: 0;
       border: 2px solid #FFFFFF;
       z-index: 3;
       pointer-events: none;
@@ -245,14 +245,14 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      clip-path: inset(12px 0 0 12px);
+      clip-path: inset(0 0 12px 12px);
     }
 
-    /* Right image: frame bottom-right, image offset left+up */
+    /* Right image: frame top-right, image at bottom-left */
     .pi-jb__mobile-img-wrap:last-child::before {
       content: '';
       position: absolute;
-      top: 12px; left: 12px; right: 0; bottom: 0;
+      top: 0; left: 12px; right: 0; bottom: 12px;
       border: 2px solid #FFFFFF;
       z-index: 3;
       pointer-events: none;
@@ -264,7 +264,7 @@
       height: 100%;
       object-fit: cover;
       display: block;
-      clip-path: inset(0 12px 12px 0);
+      clip-path: inset(12px 12px 0 0);
     }
   }
 </style>
