@@ -347,6 +347,41 @@
       font-family: 'Proxima Nova', sans-serif;
       line-height: 18px;
     }
+
+    /* Hide desktop arrows from header on mobile */
+    .pi-bs__header .pi-bs__arrows {
+      display: none;
+    }
+
+    /* Mobile arrows: float over carousel at mid-image height */
+    .pi-bs__carousel-container {
+      position: relative;
+    }
+
+    .pi-bs__mobile-arrows {
+      display: flex;
+      position: absolute;
+      top: 83px;
+      transform: translateY(-50%);
+      left: 0;
+      right: 0;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .pi-bs__mobile-arrows .pi-bs__arrow {
+      pointer-events: all;
+    }
+  }
+
+  .pi-bs__carousel-container {
+    width: 100%;
+  }
+
+  .pi-bs__mobile-arrows {
+    display: none;
   }
 </style>
 
@@ -403,6 +438,19 @@
     <div class="pi-bs__body">
 
       {%- comment -%} Carousel track {%- endcomment -%}
+      <div class="pi-bs__carousel-container">
+      <div class="pi-bs__mobile-arrows">
+        <button class="pi-bs__arrow pi-bs__arrow--prev" id="pi-bs-mprev-{{ section.id }}" aria-label="Previous products" type="button" disabled>
+          <svg viewBox="4 4 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+        <button class="pi-bs__arrow pi-bs__arrow--next" id="pi-bs-mnext-{{ section.id }}" aria-label="Next products" type="button">
+          <svg viewBox="4 4 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+      </div>
       <div class="pi-bs__track-wrapper" id="pi-bs-wrapper-{{ section.id }}">
         <div class="pi-bs__track" id="pi-bs-track-{{ section.id }}">
 
@@ -499,6 +547,7 @@
 
         </div>
       </div>
+      </div>{%- comment -%} /.pi-bs__carousel-container {%- endcomment -%}
 
       {%- comment -%} Explore button {%- endcomment -%}
       <div class="pi-bs__explore">
@@ -518,6 +567,8 @@
   var nextBtn    = document.getElementById('pi-bs-next-' + sectionId);
   if (!track || !prevBtn || !nextBtn) return;
 
+  var mobilePrevBtn = document.getElementById('pi-bs-mprev-' + sectionId);
+  var mobileNextBtn = document.getElementById('pi-bs-mnext-' + sectionId);
   var current = 0;
   var arrowsEl = prevBtn.closest('.pi-bs__arrows');
 
@@ -549,10 +600,14 @@
     track.style.transform = 'translateX(-' + offset + 'px)';
     prevBtn.disabled = current === 0;
     nextBtn.disabled = current >= total - visible;
+    if (mobilePrevBtn) mobilePrevBtn.disabled = current === 0;
+    if (mobileNextBtn) mobileNextBtn.disabled = current >= total - visible;
   }
 
   prevBtn.addEventListener('click', function () { slideTo(current - 1); });
   nextBtn.addEventListener('click', function () { slideTo(current + 1); });
+  if (mobilePrevBtn) mobilePrevBtn.addEventListener('click', function () { slideTo(current - 1); });
+  if (mobileNextBtn) mobileNextBtn.addEventListener('click', function () { slideTo(current + 1); });
 
   window.addEventListener('resize', function () { slideTo(0); });
 
