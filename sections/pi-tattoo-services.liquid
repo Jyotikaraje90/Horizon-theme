@@ -39,7 +39,7 @@
   }
 
   /* ─── Arrow buttons ───────────────────────────── */
-  .pi-ts__arrows {
+  .pi-ts__arrows--desktop {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -59,9 +59,11 @@
     padding: 0 !important;
     appearance: none;
     -webkit-appearance: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
   }
 
-  /* Prev: outlined (white bg, black arrow) */
+  /* Prev: outlined */
   .pi-ts__arrow--prev {
     background-color: #ffffff !important;
   }
@@ -75,7 +77,7 @@
     fill: #ffffff !important;
   }
 
-  /* Next: filled (black bg, white arrow) */
+  /* Next: filled */
   .pi-ts__arrow--next {
     background-color: #000000 !important;
     border-color: #000000 !important;
@@ -92,6 +94,16 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+  }
+
+  /* ─── Carousel container (for overlay arrows) ─── */
+  .pi-ts__carousel-container {
+    position: relative;
+  }
+
+  /* ─── Mobile overlay arrows (hidden on desktop) ── */
+  .pi-ts__arrows--mobile-overlay {
+    display: none;
   }
 
   /* ─── Carousel track ──────────────────────────── */
@@ -118,7 +130,6 @@
     width: 360px;
     height: 360px;
     overflow: hidden;
-    border-radius: 0;
     flex-shrink: 0;
     background: #f3f3f3;
   }
@@ -147,7 +158,6 @@
     font-size: 20px;
     font-weight: 600;
     line-height: 26px;
-    letter-spacing: 0%;
     color: #000000;
     margin: 0;
   }
@@ -157,7 +167,6 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 29px;
-    letter-spacing: 0%;
     color: #121212;
     margin: 0;
     display: -webkit-box;
@@ -219,26 +228,50 @@
     .pi-ts__card-title { font-size: 16px; }
     .pi-ts__card-desc { font-size: 14px; line-height: 22px; }
     .pi-ts__heading { font-size: 30px; }
-    .pi-ts__btn { height: 50px; font-size: 14px; line-height: 18px; }
+
+    /* Button: full width */
+    .pi-ts__btn { height: 50px; font-size: 14px; line-height: 18px; width: 100%; box-sizing: border-box; }
+
+    /* Hide header arrows */
+    .pi-ts__arrows--desktop { display: none; }
+
+    /* Show overlay arrows centered on card image area */
+    .pi-ts__arrows--mobile-overlay {
+      display: flex;
+      position: absolute;
+      top: calc(167px / 2);
+      transform: translateY(-50%);
+      left: 0;
+      right: 0;
+      justify-content: space-between;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .pi-ts__arrows--mobile-overlay .pi-ts__arrow {
+      pointer-events: auto;
+      width: 40px !important;
+      height: 40px !important;
+      min-width: 40px;
+    }
   }
 </style>
 
 <div class="pi-ts" id="pi-ts-{{ section.id }}">
   <div class="pi-ts__inner">
 
-    {%- comment -%} Header: heading + arrows {%- endcomment -%}
+    {%- comment -%} Header: heading + desktop arrows {%- endcomment -%}
     <div class="pi-ts__header">
       {%- if section.settings.heading != blank -%}
         <h2 class="pi-ts__heading">{{ section.settings.heading }}</h2>
       {%- endif -%}
 
-      <div class="pi-ts__arrows">
-        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--prev" aria-label="Previous services" style="width:50px;height:50px;min-width:50px;border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+      <div class="pi-ts__arrows--desktop">
+        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--prev" aria-label="Previous services">
           <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
             <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
         </div>
-        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--next" aria-label="Next services" style="width:50px;height:50px;min-width:50px;border-radius:50%;background:#000000;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--next" aria-label="Next services">
           <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
             <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
@@ -248,35 +281,51 @@
 
     {%- comment -%} Content: carousel + button {%- endcomment -%}
     <div class="pi-ts__content">
-      <div class="pi-ts__track-wrap">
-        <div class="pi-ts__track" id="pi-ts-track-{{ section.id }}">
-          {%- for block in section.blocks -%}
-            {%- if block.type == 'card' -%}
-              <div class="pi-ts__card" {{ block.shopify_attributes }}>
-                <div class="pi-ts__card-img">
-                  {%- if block.settings.image != blank -%}
-                    <img
-                      src="{{ block.settings.image | image_url: width: 720 }}"
-                      alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
-                      width="360"
-                      height="360"
-                      loading="lazy"
-                    >
-                  {%- else -%}
-                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
+      <div class="pi-ts__carousel-container">
+        <div class="pi-ts__track-wrap">
+          <div class="pi-ts__track" id="pi-ts-track-{{ section.id }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'card' -%}
+                <div class="pi-ts__card" {{ block.shopify_attributes }}>
+                  <div class="pi-ts__card-img">
+                    {%- if block.settings.image != blank -%}
+                      <img
+                        src="{{ block.settings.image | image_url: width: 720 }}"
+                        alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                        width="360"
+                        height="360"
+                        loading="lazy"
+                      >
+                    {%- else -%}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="pi-ts__card-body">
+                    {%- if block.settings.title != blank -%}
+                      <h4 class="pi-ts__card-title">{{ block.settings.title }}</h4>
+                    {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <p class="pi-ts__card-desc">{{ block.settings.description }}</p>
+                    {%- endif -%}
+                  </div>
                 </div>
-                <div class="pi-ts__card-body">
-                  {%- if block.settings.title != blank -%}
-                    <h4 class="pi-ts__card-title">{{ block.settings.title }}</h4>
-                  {%- endif -%}
-                  {%- if block.settings.description != blank -%}
-                    <p class="pi-ts__card-desc">{{ block.settings.description }}</p>
-                  {%- endif -%}
-                </div>
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- comment -%} Mobile overlay arrows {%- endcomment -%}
+        <div class="pi-ts__arrows--mobile-overlay">
+          <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--prev" aria-label="Previous services">
+            <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+              <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+          </div>
+          <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--next" aria-label="Next services">
+            <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+              <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -298,8 +347,8 @@
     if (!section) return;
 
     var track = section.querySelector('#pi-ts-track-{{ section.id }}');
-    var prevBtn = section.querySelector('.pi-ts__arrow--prev');
-    var nextBtn = section.querySelector('.pi-ts__arrow--next');
+    var prevBtns = section.querySelectorAll('.pi-ts__arrow--prev');
+    var nextBtns = section.querySelectorAll('.pi-ts__arrow--next');
 
     var currentIndex = 0;
 
@@ -327,10 +376,14 @@
       track.style.transform = 'translateX(-' + (currentIndex * getCardWidth()) + 'px)';
     }
 
-    prevBtn.addEventListener('click', function () { slideTo(currentIndex - 1); });
-    nextBtn.addEventListener('click', function () { slideTo(currentIndex + 1); });
-    prevBtn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex - 1); });
-    nextBtn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
+    prevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { slideTo(currentIndex - 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex - 1); });
+    });
+    nextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { slideTo(currentIndex + 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
+    });
   })();
 </script>
 
