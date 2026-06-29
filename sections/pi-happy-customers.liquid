@@ -16,7 +16,6 @@
     gap: 50px;
   }
 
-  /* ── Heading ─────────────────────────────────────── */
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -26,12 +25,11 @@
     color: #000000;
     text-align: center;
     margin: 0;
-    white-space: nowrap;
   }
 
-  /* ── Slider — no overflow:hidden; section clips track ── */
   .pi-hc__slider-wrap {
     width: 100%;
+    overflow: hidden;
   }
 
   .pi-hc__track {
@@ -40,11 +38,8 @@
     transition: transform 0.4s ease;
   }
 
-  /* ── Card ────────────────────────────────────────── */
-  /* Desktop: 3 cards with 2 × 30px gaps */
   .pi-hc__card {
-    flex: 0 0 calc((100% - 60px) / 3);
-    min-width: 0;
+    flex: 0 0 calc(33.333% - 20px);
     background: #ffffff;
     border-radius: 30px;
     box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
@@ -56,7 +51,6 @@
     gap: 20px;
   }
 
-  /* Inner frame: avatar + stars + review, gap 10px */
   .pi-hc__card-inner {
     display: flex;
     flex-direction: column;
@@ -65,7 +59,6 @@
     width: 100%;
   }
 
-  /* Avatar — 50 × 50px circle */
   .pi-hc__avatar {
     width: 50px;
     height: 50px;
@@ -81,21 +74,19 @@
     display: block;
   }
 
-  /* Stars — horizontal, gap 6px, total h 20px */
   .pi-hc__stars {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 6px;
-    line-height: 1;
-  }
-  .pi-hc__star svg {
-    width: 20px;
     height: 20px;
-    display: block;
+  }
+  .pi-hc__star {
+    font-size: 18px;
+    line-height: 1;
+    color: #FFB800;
   }
 
-  /* Review text — Proxima Nova 400, 16px/26px, center, #121212 */
   .pi-hc__review {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -106,7 +97,6 @@
     margin: 0;
   }
 
-  /* Author — Proxima Nova 600, 14px/18px, uppercase, #000000, 1 line */
   .pi-hc__author {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
@@ -116,10 +106,8 @@
     color: #000000;
     text-align: center;
     margin: 0;
-    white-space: nowrap;
   }
 
-  /* ── Nav arrows — centered, gap 10px ─────────────── */
   .pi-hc__nav {
     display: flex;
     flex-direction: row;
@@ -150,26 +138,75 @@
     display: block;
   }
 
-  /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 1279px) {
     .pi-hc__heading { font-size: 44px; line-height: 58px; }
   }
 
   @media (max-width: 989px) {
     .pi-hc { padding: 0 32px; gap: 40px; }
-    .pi-hc__heading { font-size: 38px; line-height: 50px; white-space: normal; }
-    /* Tablet: 2 cards with 1 × 30px gap */
-    .pi-hc__card { flex: 0 0 calc((100% - 30px) / 2); }
+    .pi-hc__heading { font-size: 38px; line-height: 50px; }
+    .pi-hc__card { flex: 0 0 calc(50% - 15px); }
   }
 
+  /* ── Mobile only fixes (Figma 354px spec) ────────── */
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding: 60px 0; }
-    .pi-hc { padding: 0 20px; gap: 30px; }
-    .pi-hc__heading { font-size: 30px; line-height: 39px; white-space: normal; }
-    /* Mobile: 1 card full width */
-    .pi-hc__card { flex: 0 0 100%; }
-    /* Author allowed to wrap on very small screens */
-    .pi-hc__author { white-space: normal; }
+
+    .pi-hc {
+      padding: 0 20px;
+      gap: 30px;
+    }
+
+    .pi-hc__heading {
+      font-size: 30px;
+      line-height: 39px;
+    }
+
+    /* 1 card full width */
+    .pi-hc__card {
+      flex: 0 0 100%;
+      border-radius: 30px;
+      gap: 20px;
+      padding: 30px 20px;
+    }
+
+    .pi-hc__card-inner { gap: 10px; }
+
+    /* Avatar: 50x50px circle */
+    .pi-hc__avatar {
+      width: 50px;
+      height: 50px;
+    }
+
+    /* Stars: 20px height, gap 6px */
+    .pi-hc__stars {
+      height: 20px;
+      gap: 6px;
+    }
+    .pi-hc__star { font-size: 20px; }
+
+    /* Review: Proxima Nova 400, 16px/26px, centered, #121212 */
+    .pi-hc__review {
+      font-size: 16px;
+      line-height: 26px;
+      color: #121212;
+    }
+
+    /* Author: Proxima Nova 600, 14px/18px, uppercase, 1 line */
+    .pi-hc__author {
+      font-size: 14px;
+      line-height: 18px;
+      white-space: nowrap;
+    }
+
+    /* Nav arrows centered below card */
+    .pi-hc__nav {
+      gap: 10px;
+    }
+    .pi-hc__nav-btn {
+      width: 35px;
+      height: 35px;
+    }
   }
 </style>
 
@@ -203,11 +240,7 @@
               <div class="pi-hc__stars" aria-label="{{ rating }} out of 5 stars">
                 {%- for i in (1..5) -%}
                   <span class="pi-hc__star" aria-hidden="true">
-                    {%- if i <= rating -%}
-                      <svg viewBox="0 0 20 20" fill="#FFB800" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.1l-4.94 2.6.94-5.49-4-3.9 5.53-.8z"/></svg>
-                    {%- else -%}
-                      <svg viewBox="0 0 20 20" fill="none" stroke="#FFB800" stroke-width="1.2" xmlns="http://www.w3.org/2000/svg"><path d="M10 1.5l2.47 5.01 5.53.8-4 3.9.94 5.49L10 14.1l-4.94 2.6.94-5.49-4-3.9 5.53-.8z"/></svg>
-                    {%- endif -%}
+                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
                   </span>
                 {%- endfor -%}
               </div>
@@ -268,9 +301,8 @@
 
   function slide() {
     if (!cards.length) return;
-    var style  = window.getComputedStyle(trackEl);
-    var gap    = parseFloat(style.gap) || 30;
-    var cw     = cards[0].offsetWidth;
+    var gap = 30;
+    var cw  = cards[0].offsetWidth;
     trackEl.style.transform = 'translateX(-' + (current * (cw + gap)) + 'px)';
   }
 
