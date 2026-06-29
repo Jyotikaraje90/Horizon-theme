@@ -20,9 +20,10 @@
     spacer.style.height = h + 'px';
     bar.parentNode.insertBefore(spacer, bar.nextSibling);
 
-    /* Push the sticky navbar so it sticks just below the announcement bar */
+    /* Push the sticky navbar so it sticks just below the announcement bar.
+       On mobile the desktop bar is hidden (h=0) so override to 42px for the mobile bar. */
     var st = document.createElement('style');
-    st.textContent = '.header-section { top: ' + h + 'px !important; }';
+    st.textContent = '.header-section { top: ' + h + 'px !important; } @media (max-width: 768px) { .header-section { top: 42px !important; } }';
     document.head.appendChild(st);
 
     /* Toggle data-mobile based on actual rendered width (works in editor too) */
@@ -124,6 +125,18 @@
 
   </div>
 </div>
+
+<!-- Mobile Announcement Bar -->
+<div class="pi-announcement-mobile">
+  <span class="pi-announcement-mobile__text">
+    {%- if section.settings.announcement_link != blank -%}
+      <a href="{{ section.settings.announcement_link }}" style="color:#ffffff;text-decoration:none;">{{ section.settings.announcement_text }}</a>
+    {%- else -%}
+      {{ section.settings.announcement_text }}
+    {%- endif -%}
+  </span>
+</div>
+<div class="pi-announcement-mobile-spacer"></div>
 
 {% schema %}
 {
