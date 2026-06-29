@@ -219,12 +219,12 @@
     .pi-ts__card-desc { font-size: 16px; line-height: 26px; }
   }
 
-  @media (max-width: 749px) {
-    .pi-ts__inner { padding-inline: 16px; gap: 32px; }
+  @media (max-width: 600px) {
+    .pi-ts__inner { padding-inline: 18px; gap: 20px; }
     .pi-ts__track { gap: 10px; }
-    .pi-ts__card { flex: 0 0 167px; width: 167px; }
-    .pi-ts__card-img { width: 167px; height: 167px; }
-    .pi-ts__card-body { width: 167px; gap: 5px; }
+    .pi-ts__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
+    .pi-ts__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .pi-ts__card-body { width: 100%; gap: 5px; }
     .pi-ts__card-title { font-size: 16px; }
     .pi-ts__card-desc { font-size: 14px; line-height: 22px; }
     .pi-ts__heading { font-size: 30px; }
@@ -235,23 +235,24 @@
     /* Hide header arrows */
     .pi-ts__arrows--desktop { display: none; }
 
-    /* Show overlay arrows centered on card image area */
+    /* Show overlay arrows — JS sets top dynamically like best sellers */
     .pi-ts__arrows--mobile-overlay {
       display: flex;
       position: absolute;
-      top: calc(167px / 2);
+      top: 0;
       transform: translateY(-50%);
-      left: 0;
-      right: 0;
+      left: -17px;
+      right: -17px;
       justify-content: space-between;
+      align-items: center;
       pointer-events: none;
-      z-index: 2;
+      z-index: 5;
     }
     .pi-ts__arrows--mobile-overlay .pi-ts__arrow {
       pointer-events: auto;
-      width: 40px !important;
-      height: 40px !important;
-      min-width: 40px;
+      width: 35px !important;
+      height: 35px !important;
+      min-width: 35px;
     }
   }
 </style>
@@ -347,10 +348,19 @@
     if (!section) return;
 
     var track = section.querySelector('#pi-ts-track-{{ section.id }}');
+    var trackWrap = section.querySelector('.pi-ts__track-wrap');
     var prevBtns = section.querySelectorAll('.pi-ts__arrow--prev');
     var nextBtns = section.querySelectorAll('.pi-ts__arrow--next');
+    var mobileArrows = section.querySelector('.pi-ts__arrows--mobile-overlay');
 
     var currentIndex = 0;
+
+    function updateMobileArrowPos() {
+      if (!mobileArrows) return;
+      var imgWrap = track.querySelector('.pi-ts__card-img');
+      if (!imgWrap) return;
+      mobileArrows.style.top = (imgWrap.offsetHeight / 2) + 'px';
+    }
 
     function getCardWidth() {
       var card = track.querySelector('.pi-ts__card');
@@ -360,7 +370,7 @@
     }
 
     function getVisibleCount() {
-      var wrapWidth = track.parentElement.offsetWidth;
+      var wrapWidth = trackWrap.offsetWidth;
       return Math.floor(wrapWidth / getCardWidth()) || 1;
     }
 
@@ -384,6 +394,9 @@
       btn.addEventListener('click', function () { slideTo(currentIndex + 1); });
       btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
     });
+
+    window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });
+    updateMobileArrowPos();
   })();
 </script>
 
