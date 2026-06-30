@@ -4,7 +4,7 @@
 <style>
   /* ── Section wrapper ── */
   .pi-bs {
-    background: #ffffff;
+    background: var(--pi-bs-bg, #ffffff);
   }
 
   .pi-bs__inner {
@@ -28,12 +28,12 @@
 
   .pi-bs__title {
     font-family: 'Playfair Display', serif;
-    font-size: 54px;
+    font-size: var(--pi-bs-heading-size, 54px);
     font-weight: 600;
     line-height: 70px;
     letter-spacing: 0;
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-bs-heading-color, #000000);
     margin: 0;
   }
 
@@ -67,7 +67,7 @@
 
   /* Prev: white circle with black border */
   .pi-bs__arrow--prev {
-    background-color: #ffffff !important;
+    background-color: var(--pi-bs-arrow-prev-bg, #ffffff) !important;
     border: 1.5px solid #000000 !important;
     color: #000000 !important;
   }
@@ -78,7 +78,7 @@
 
   /* Next: filled black circle */
   .pi-bs__arrow--next {
-    background-color: #000000 !important;
+    background-color: var(--pi-bs-arrow-next-bg, #000000) !important;
     border: 1.5px solid #000000 !important;
     color: #ffffff !important;
   }
@@ -129,8 +129,8 @@
     position: relative;
     width: 100%;
     aspect-ratio: 1 / 1;
-    background: #E6E6E6;
-    border-radius: 20px;
+    background: var(--pi-bs-card-bg, #E6E6E6);
+    border-radius: var(--pi-bs-card-radius, 20px);
     overflow: hidden;
     display: block;
     text-decoration: none;
@@ -247,12 +247,12 @@
     gap: 20px;
     height: 55px;
     padding: 16px 32px;
-    border-radius: 8px;
-    background: #000000;
-    color: #ffffff;
+    border-radius: var(--pi-bs-btn-radius, 8px);
+    background: var(--pi-bs-btn-bg, #000000);
+    color: var(--pi-bs-btn-text, #ffffff);
     border: none;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: var(--pi-bs-btn-size, 16px);
     font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -292,7 +292,7 @@
     }
 
     .pi-bs__title {
-      font-size: 30px;
+      font-size: var(--pi-bs-heading-size-mobile, 30px);
       line-height: 39px;
     }
 
@@ -400,7 +400,7 @@
 
 <div
   class="pi-bs"
-  style="--pi-bs-pad-top: {{ section.settings.padding_top }}px; --pi-bs-pad-bottom: {{ section.settings.padding_bottom }}px;"
+  style="--pi-bs-pad-top: {{ section.settings.padding_top }}px; --pi-bs-pad-bottom: {{ section.settings.padding_bottom }}px; --pi-bs-bg: {{ section.settings.bg_color }}; --pi-bs-heading-size: {{ section.settings.heading_size }}px; --pi-bs-heading-size-mobile: {{ section.settings.mobile_heading_size }}px; --pi-bs-heading-color: {{ section.settings.heading_color }}; --pi-bs-card-radius: {{ section.settings.card_radius }}px; --pi-bs-card-bg: {{ section.settings.card_bg }}; --pi-bs-btn-bg: {{ section.settings.btn_bg }}; --pi-bs-btn-text: {{ section.settings.btn_text }}; --pi-bs-btn-radius: {{ section.settings.btn_radius }}px; --pi-bs-btn-size: {{ section.settings.btn_size }}px; --pi-bs-arrow-prev-bg: {{ section.settings.arrow_prev_bg }}; --pi-bs-arrow-next-bg: {{ section.settings.arrow_next_bg }};"
 >
   <div class="pi-bs__inner">
 
@@ -661,6 +661,66 @@
     },
     {
       "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop)",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Product Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#E6E6E6"
+    },
+    {
+      "type": "header",
       "content": "Explore button"
     },
     {
@@ -673,6 +733,54 @@
       "type": "url",
       "id": "explore_link",
       "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Arrow Buttons"
+    },
+    {
+      "type": "color",
+      "id": "arrow_prev_bg",
+      "label": "Previous arrow background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "arrow_next_bg",
+      "label": "Next arrow background",
+      "default": "#000000"
     },
     {
       "type": "header",

@@ -1,4 +1,45 @@
 
+<style>
+  .pi-announcement-{{ section.id }},
+  .pi-announcement-mobile-{{ section.id }} {
+    --pi-ann-bg: {{ section.settings.bg_color }};
+    --pi-ann-text: {{ section.settings.text_color }};
+    --pi-ann-icon: {{ section.settings.icon_color }};
+    --pi-ann-icon-size: {{ section.settings.icon_size }}px;
+    --pi-ann-text-size: {{ section.settings.text_size }}px;
+    --pi-ann-location-size: {{ section.settings.location_size }}px;
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__social a svg,
+  .pi-announcement-{{ section.id }} .pi-announcement__social span svg,
+  .pi-announcement-{{ section.id }} .pi-announcement__locations svg {
+    fill: var(--pi-ann-icon, #ffffff);
+    width: var(--pi-ann-icon-size, 20px);
+    height: var(--pi-ann-icon-size, 20px);
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text {
+    font-size: var(--pi-ann-text-size, 13px);
+    color: var(--pi-ann-text, #ffffff);
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text a {
+    color: var(--pi-ann-text, #ffffff) !important;
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__location-list li,
+  .pi-announcement-{{ section.id }} .pi-announcement__locations {
+    font-size: var(--pi-ann-location-size, 11px);
+    color: var(--pi-ann-text, #ffffff);
+  }
+
+  .pi-announcement-mobile-{{ section.id }} .pi-announcement-mobile__text,
+  .pi-announcement-mobile-{{ section.id }} .pi-announcement-mobile__text a {
+    font-size: var(--pi-ann-text-size, 13px);
+    color: var(--pi-ann-text, #ffffff) !important;
+  }
+</style>
+
 <script>
 (function () {
   function initStickyBar() {
@@ -50,7 +91,7 @@
 })();
 </script>
 
-<div class="pi-announcement">
+<div class="pi-announcement pi-announcement-{{ section.id }}" style="background:{{ section.settings.bg_color }};">
   <div class="pi-announcement__inner">
 
     <!-- Left: Social Icons -->
@@ -101,7 +142,7 @@
     <!-- Center: Announcement Text -->
     <div class="pi-announcement__text">
       {%- if section.settings.announcement_link != blank -%}
-        <a href="{{ section.settings.announcement_link }}" style="color:#ffffff; text-decoration:none;">
+        <a href="{{ section.settings.announcement_link }}" style="color:{{ section.settings.text_color }}; text-decoration:none;">
           {{ section.settings.announcement_text }}
         </a>
       {%- else -%}
@@ -127,10 +168,10 @@
 </div>
 
 <!-- Mobile Announcement Bar -->
-<div class="pi-announcement-mobile">
+<div class="pi-announcement-mobile pi-announcement-mobile-{{ section.id }}" style="background:{{ section.settings.bg_color }};">
   <span class="pi-announcement-mobile__text">
     {%- if section.settings.announcement_link != blank -%}
-      <a href="{{ section.settings.announcement_link }}" style="color:#ffffff;text-decoration:none;">{{ section.settings.announcement_text }}</a>
+      <a href="{{ section.settings.announcement_link }}" style="color:{{ section.settings.text_color }};text-decoration:none;">{{ section.settings.announcement_text }}</a>
     {%- else -%}
       {{ section.settings.announcement_text }}
     {%- endif -%}
@@ -189,6 +230,58 @@
       "id": "locations",
       "label": "Locations (comma separated)",
       "default": "Crete, Athens, Antwerp, Amsterdam"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Bar background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Social icon size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Announcement text size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "location_size",
+      "label": "Location text size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
     }
   ],
   "presets": [

@@ -1,4 +1,24 @@
 <style>
+  /* ═══ PI NEWSLETTER & FOOTER — CUSTOMIZER VARIABLES ═════ */
+  #shopify-section-{{ section.id }} {
+    --pi-nf-card-bg:        {{ section.settings.newsletter_card_bg }};
+    --pi-nf-nl-heading-color: {{ section.settings.newsletter_heading_color }};
+    --pi-nf-nl-heading-size:  {{ section.settings.newsletter_heading_size }}px;
+    --pi-nf-form-bg:        {{ section.settings.newsletter_form_bg }};
+    --pi-nf-input-color:    {{ section.settings.newsletter_input_color }};
+    --pi-nf-btn-bg:         {{ section.settings.newsletter_btn_bg }};
+    --pi-nf-btn-text:       {{ section.settings.newsletter_btn_text }};
+    --pi-nf-btn-radius:     {{ section.settings.newsletter_btn_radius }}px;
+    --pi-nf-footer-bg:      {{ section.settings.footer_bg }};
+    --pi-nf-footer-text:    {{ section.settings.footer_text_color }};
+    --pi-nf-link-color:     {{ section.settings.footer_link_color }};
+    --pi-nf-heading-color:  {{ section.settings.footer_heading_color }};
+    --pi-nf-divider-color:  {{ section.settings.divider_color }};
+    --pi-nf-copyright-text: {{ section.settings.copyright_text_color }};
+  }
+</style>
+
+<style>
   /* ═══ PI NEWSLETTER & FOOTER ═══════════════════════ */
 
   #shopify-section-{{ section.id }} {
@@ -9,7 +29,7 @@
   }
 
   .pi-nf {
-    background: #000;
+    background: var(--pi-nf-footer-bg, #000);
     position: relative;
     overflow: visible;
     margin-top: -123px;
@@ -24,7 +44,7 @@
   .pi-nf__nl-card {
     position: absolute;
     inset: 0 210px;
-    background-color: #f5f0ea;
+    background-color: var(--pi-nf-card-bg, #f5f0ea);
     background-size: cover;
     background-position: center;
     border-radius: 20px;
@@ -49,10 +69,10 @@
   /* Figma: 362px × 140px, Playfair Display SemiBold 600, 54px, 70px lh, Uppercase, #000 */
   .pi-nf__nl-heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(28px, 2.8vw, 54px);
+    font-size: clamp(28px, 2.8vw, var(--pi-nf-nl-heading-size, 54px));
     font-weight: 600;
     text-transform: uppercase;
-    color: #000;
+    color: var(--pi-nf-nl-heading-color, #000);
     margin: 0;
     line-height: 1.3;
     flex: 0 0 auto;
@@ -74,7 +94,7 @@
     align-items: center;
     width: 100%;
     height: 75px;
-    background: #000 !important;
+    background: var(--pi-nf-form-bg, #000) !important;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: 8px;
     padding: 10px 10px 10px 20px;
@@ -494,6 +514,26 @@
   "name": "PI Newsletter & Footer",
   "tag": "section",
   "settings": [
+    { "type": "header", "content": "Newsletter Appearance" },
+    { "type": "color",  "id": "newsletter_card_bg",       "label": "Card background color",  "default": "#f5f0ea" },
+    { "type": "color",  "id": "newsletter_heading_color", "label": "Heading color",           "default": "#000000" },
+    { "type": "range",  "id": "newsletter_heading_size",  "label": "Heading font size",       "min": 24, "max": 64, "step": 2, "unit": "px", "default": 54 },
+
+    { "type": "header", "content": "Newsletter Form" },
+    { "type": "color",  "id": "newsletter_form_bg",   "label": "Form background",         "default": "#000000" },
+    { "type": "color",  "id": "newsletter_input_color","label": "Input text color",        "default": "#ffffff" },
+    { "type": "color",  "id": "newsletter_btn_bg",    "label": "Subscribe button color",  "default": "#ffffff" },
+    { "type": "color",  "id": "newsletter_btn_text",  "label": "Subscribe button text",   "default": "#000000" },
+    { "type": "range",  "id": "newsletter_btn_radius","label": "Subscribe button radius", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Footer Appearance" },
+    { "type": "color",  "id": "footer_bg",           "label": "Footer background",       "default": "#000000" },
+    { "type": "color",  "id": "footer_text_color",   "label": "Footer body text",        "default": "#ffffff" },
+    { "type": "color",  "id": "footer_link_color",   "label": "Footer link color",       "default": "#ffffff" },
+    { "type": "color",  "id": "footer_heading_color","label": "Column heading color",    "default": "#ffffff" },
+    { "type": "color",  "id": "divider_color",       "label": "Divider line color",      "default": "#808080" },
+    { "type": "color",  "id": "copyright_text_color","label": "Copyright text color",    "default": "#ffffff" },
+
     { "type": "header", "content": "Newsletter" },
     { "type": "image_picker", "id": "newsletter_bg_image",  "label": "Background image" },
     { "type": "text",         "id": "newsletter_heading",   "label": "Heading",            "default": "Join Our Newsletter" },
