@@ -1,20 +1,48 @@
-<link rel="preconnect" href="https://fonts.googleapis.com">
+﻿<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+<style>
+  .pi-hero-{{ section.id }} {
+    --pi-hero-side-margin: {{ section.settings.side_margin_desktop }}px;
+    --pi-hero-border-radius: {{ section.settings.border_radius }}px;
+    --pi-hero-desktop-height: {{ section.settings.desktop_height }}px;
+    --pi-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --pi-hero-heading-size: {{ section.settings.heading_size }}px;
+    --pi-hero-heading-color: {{ section.settings.heading_color }};
+    --pi-hero-subheading-size: {{ section.settings.subheading_size }}px;
+    --pi-hero-subheading-color: {{ section.settings.subheading_color }};
+    --pi-hero-btn-bg: {{ section.settings.btn_bg }};
+    --pi-hero-btn-text-color: {{ section.settings.btn_text_color }};
+    --pi-hero-btn-border-color: {{ section.settings.btn_border_color }};
+    --pi-hero-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-hero-btn-size: {{ section.settings.btn_size }}px;
+    --pi-hero-side-label-size: {{ section.settings.side_label_size }}px;
+    --pi-hero-side-label-color: {{ section.settings.side_label_color }};
+    --pi-hero-mobile-height: {{ section.settings.mobile_height }}px;
+    --pi-hero-mobile-main-height: {{ section.settings.mobile_main_height }}px;
+    --pi-hero-mobile-side-height: {{ section.settings.mobile_side_height }}px;
+  }
+  @media (max-width: 749px) {
+    .pi-hero-{{ section.id }} {
+      --pi-hero-side-margin: {{ section.settings.side_margin_mobile }}px;
+    }
+  }
+</style>
 
 <style>
   .pi-hero {
     display: grid;
     grid-template-columns: 71.5fr 28.5fr;
     gap: 0;
-    margin: 0 60px;
-    height: 829px;
+    margin: 0 var(--pi-hero-side-margin, 60px);
+    height: var(--pi-hero-desktop-height, 829px);
     min-height: 500px;
-    max-height: 829px;
+    max-height: var(--pi-hero-desktop-height, 829px);
     box-sizing: border-box;
     overflow: hidden;
-    border-radius: 20px;
-    clip-path: inset(0 round 20px);
+    border-radius: var(--pi-hero-border-radius, 20px);
+    clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
   }
 
   .pi-hero__main {
@@ -27,7 +55,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(0, 0, 0, var(--pi-hero-overlay-opacity, 0.45));
     pointer-events: none;
     z-index: 1;
   }
@@ -54,11 +82,12 @@
   .pi-hero__main-content h1 {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: clamp(36px, 4.4vw, 64px);
+    font-size: clamp(36px, 4.4vw, var(--pi-hero-heading-size, 64px));
     line-height: 1.3;
     letter-spacing: 0;
     text-transform: uppercase;
-    color: #ffffff;
+    color: var(--pi-hero-heading-color, #ffffff);
+    text-align: {{ section.settings.text_alignment }};
     margin: 0;
     padding: 0;
     max-width: 100%;
@@ -71,8 +100,8 @@
   }
 
   .pi-hero__main-content p {
-    color: #ffffff;
-    font-size: 18px;
+    color: var(--pi-hero-subheading-color, #ffffff);
+    font-size: var(--pi-hero-subheading-size, 18px);
     line-height: 29px;
     font-weight: 400;
     letter-spacing: 0;
@@ -84,16 +113,16 @@
   .pi-hero__btn {
     display: inline-block;
     padding: 16px 32px;
-    border: 2px solid #ffffff;
-    border-radius: 8px;
-    color: #000000;
+    border: 2px solid var(--pi-hero-btn-border-color, #ffffff);
+    border-radius: var(--pi-hero-btn-radius, 8px);
+    color: var(--pi-hero-btn-text-color, #000000);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 18px;
+    font-size: var(--pi-hero-btn-size, 18px);
     line-height: 23px;
     letter-spacing: 0;
     font-weight: 600;
-    background: #ffffff;
+    background: var(--pi-hero-btn-bg, #ffffff);
     width: fit-content;
   }
 
@@ -137,9 +166,9 @@
   .pi-hero__side-label span {
     font-family: 'Playfair Display', serif;
     font-weight: 700;
-    font-size: 36px;
+    font-size: var(--pi-hero-side-label-size, 36px);
     line-height: 57px;
-    color: #ffffff;
+    color: var(--pi-hero-side-label-color, #ffffff);
     display: block;
   }
 
@@ -149,9 +178,9 @@
       height: auto;
       max-height: none;
       min-height: unset;
-      margin: 0 18px;
-      border-radius: 20px;
-      clip-path: inset(0 round 20px);
+      margin: 0 var(--pi-hero-side-margin, 18px);
+      border-radius: var(--pi-hero-border-radius, 20px);
+      clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
     }
 
     .pi-hero__main {
@@ -188,18 +217,18 @@
 
   @media (max-width: 480px) {
     .pi-hero {
-      margin: 0 18px;
-      border-radius: 20px;
-      clip-path: inset(0 round 20px);
-      height: 514px;
-      max-height: 514px;
-      min-height: 514px;
+      margin: 0 var(--pi-hero-side-margin, 18px);
+      border-radius: var(--pi-hero-border-radius, 20px);
+      clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
+      height: var(--pi-hero-mobile-height, 514px);
+      max-height: var(--pi-hero-mobile-height, 514px);
+      min-height: var(--pi-hero-mobile-height, 514px);
     }
 
     .pi-hero__main {
-      height: 364px;
-      min-height: 364px;
-      max-height: 364px;
+      height: var(--pi-hero-mobile-main-height, 364px);
+      min-height: var(--pi-hero-mobile-main-height, 364px);
+      max-height: var(--pi-hero-mobile-main-height, 364px);
     }
 
     .pi-hero__main-content {
@@ -230,12 +259,17 @@
     }
 
     .pi-hero__side {
-      height: 150px;
+      height: var(--pi-hero-mobile-side-height, 150px);
     }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
-<div class="pi-hero">
+<div class="pi-hero pi-hero-{{ section.id }}">
   {%- comment -%} Main Banner {%- endcomment -%}
   <div class="pi-hero__main">
     {%- if section.settings.main_image != blank -%}
@@ -384,6 +418,231 @@
       "type": "url",
       "id": "banner3_link",
       "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "side_margin_desktop",
+      "label": "Side margin (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "side_margin_mobile",
+      "label": "Side margin (mobile)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 830
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile overall height",
+      "min": 350,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 510
+    },
+    {
+      "type": "range",
+      "id": "mobile_main_height",
+      "label": "Mobile main image height",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_height",
+      "label": "Mobile side strip height",
+      "min": 80,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop max)",
+      "min": 36,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Side Banner Labels"
+    },
+    {
+      "type": "range",
+      "id": "side_label_size",
+      "label": "Side label font size",
+      "min": 18,
+      "max": 54,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "side_label_color",
+      "label": "Side label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
     }
   ],
   "presets": [

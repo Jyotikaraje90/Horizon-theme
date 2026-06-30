@@ -1,8 +1,33 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-usp-pad-top: {{ section.settings.padding_top }}px;
+    --pi-usp-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-usp-label-size: {{ section.settings.label_size }}px;
+    --pi-usp-label-color: {{ section.settings.label_color }};
+    --pi-usp-icon-size: {{ section.settings.icon_size }}px;
+    --pi-usp-divider-opacity: {{ section.settings.divider_opacity | times: 1.0 | divided_by: 100 }};
+    --pi-usp-divider-height: {{ section.settings.divider_height }}px;
+    --pi-usp-min-height: {{ section.settings.min_height }}px;
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-usp-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-usp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-usp-label-size: {{ section.settings.mobile_label_size }}px;
+      --pi-usp-icon-size: {{ section.settings.mobile_icon_size }}px;
+    }
+  }
+</style>
+
 <style>
   /* ─── Section wrapper ─────────────────────────── */
   .pi-usp {
     position: relative;
-    min-height: 374px;
+    min-height: var(--pi-usp-min-height, 374px);
     overflow: hidden;
     display: flex;
     align-items: center;
@@ -39,7 +64,7 @@
     z-index: 2;
     max-width: 1500px;
     margin-inline: auto;
-    padding: 100px 0;
+    padding: var(--pi-usp-pad-top, 100px) 0 var(--pi-usp-pad-bottom, 100px);
     width: 100%;
     box-sizing: border-box;
   }
@@ -64,15 +89,15 @@
   /* ─── Vertical dividers ───────────────────────── */
   .pi-usp__divider {
     width: 1px;
-    height: 174px;
-    background: rgba(255, 255, 255, 0.70);
+    height: var(--pi-usp-divider-height, 174px);
+    background: rgba(255, 255, 255, var(--pi-usp-divider-opacity, 0.70));
     flex-shrink: 0;
   }
 
   /* ─── Icon ────────────────────────────────────── */
   .pi-usp__icon {
-    width: 100px;
-    height: 100px;
+    width: var(--pi-usp-icon-size, 100px);
+    height: var(--pi-usp-icon-size, 100px);
     flex-shrink: 0;
     display: flex;
     align-items: center;
@@ -89,12 +114,12 @@
   /* ─── Label ───────────────────────────────────── */
   .pi-usp__label {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 34px;
+    font-size: var(--pi-usp-label-size, 34px);
     font-weight: 500;
     line-height: 44px;
     letter-spacing: 0;
-    text-align: center;
-    color: #ffffff;
+    text-align: {{ section.settings.text_alignment }};
+    color: var(--pi-usp-label-color, #ffffff);
     text-transform: uppercase;
     margin: 0;
   }
@@ -115,7 +140,7 @@
   @media (max-width: 749px) {
     .pi-usp { min-height: 199px; }
     .pi-usp__inner {
-      padding: 50px 0;
+      padding: var(--pi-usp-pad-top, 50px) 0 var(--pi-usp-pad-bottom, 50px);
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
@@ -133,8 +158,8 @@
       display: block;
       height: 99px;
     }
-    .pi-usp__icon { width: 50px; height: 50px; }
-    .pi-usp__label { font-size: 22px; line-height: 29px; }
+    .pi-usp__icon { width: var(--pi-usp-icon-size, 50px); height: var(--pi-usp-icon-size, 50px); }
+    .pi-usp__label { font-size: var(--pi-usp-label-size, 22px); line-height: 29px; }
   }
 
   /* ─── Icon placeholder (no image uploaded) ───── */
@@ -146,7 +171,7 @@
   }
 </style>
 
-<div class="pi-usp">
+<div class="pi-usp pi-usp-{{ section.id }}">
 
   {%- comment -%} Background image {%- endcomment -%}
   <div class="pi-usp__bg">
@@ -222,6 +247,177 @@
       "unit": "%",
       "label": "Image overlay opacity",
       "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Section minimum height",
+      "default": 370
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Label font size",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_label_size",
+      "min": 14,
+      "max": 34,
+      "step": 2,
+      "unit": "px",
+      "label": "Label font size (mobile)",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 140,
+      "step": 10,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon size (mobile)",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Dividers"
+    },
+    {
+      "type": "range",
+      "id": "divider_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Divider opacity",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 60,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Divider height",
+      "default": 175
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Text Alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     }
   ],
   "blocks": [
