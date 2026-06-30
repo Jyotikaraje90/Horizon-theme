@@ -63,6 +63,19 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
+  {%- comment -%} Wishlist Icon {%- endcomment -%}
+  <a
+    href="/pages/wishlist"
+    class="header-actions__action pi-wishlist-action"
+    aria-label="Wishlist"
+  >
+    <span class="svg-wrapper" aria-hidden="true">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+      </svg>
+    </span>
+  </a>
+
   {% if shop.customer_accounts_enabled %}
     {% liquid
       assign account_actions_style = ''
@@ -250,6 +263,14 @@
       {{ cart_icon }}
     </a>
   {% endif %}
+
+  {%- comment -%} Inquire Now Button {%- endcomment -%}
+  <a
+    href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
+    class="pi-inquire-btn"
+  >
+    {{- section.settings.inquire_label | default: 'Inquire Now' -}}
+  </a>
 
   <span
     ref="liveRegion"
@@ -538,9 +559,73 @@
 
   header-actions {
     display: flex;
+    align-items: center;
+
+    @media screen and (min-width: 750px) {
+      margin-inline: -8px;
+    }
 
     @media screen and (max-width: 749px) {
       justify-self: flex-end;
+    }
+  }
+
+  .pi-wishlist-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-foreground);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .pi-wishlist-action:hover {
+    color: var(--color-foreground);
+    opacity: 0.7;
+  }
+
+  .pi-wishlist-action .svg-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--button-size);
+    height: var(--button-size);
+  }
+
+  .pi-wishlist-action svg {
+    width: var(--icon-size-md);
+    height: var(--icon-size-md);
+  }
+
+  .pi-inquire-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 32px;
+    background-color: #000000;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 18px;
+    line-height: 23px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+    margin-left: 32px;
+  }
+
+  .pi-inquire-btn:hover {
+    background-color: #333333;
+    color: #ffffff;
+  }
+
+  @media screen and (max-width: 749px) {
+    .pi-inquire-btn,
+    .pi-wishlist-action,
+    .account-button {
+      display: none;
     }
   }
 

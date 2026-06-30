@@ -1,0 +1,747 @@
+﻿<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+  #pi-ts-{{ section.id }} {
+    --pi-ts-pad-top: {{ section.settings.padding_top }}px;
+    --pi-ts-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-ts-bg-color: {{ section.settings.bg_color }};
+    --pi-ts-heading-size: {{ section.settings.heading_size }}px;
+    --pi-ts-heading-color: {{ section.settings.heading_color }};
+    --pi-ts-card-radius: {{ section.settings.card_radius }}px;
+    --pi-ts-card-title-size: {{ section.settings.card_title_size }}px;
+    --pi-ts-card-title-color: {{ section.settings.card_title_color }};
+    --pi-ts-card-desc-size: {{ section.settings.card_desc_size }}px;
+    --pi-ts-card-desc-color: {{ section.settings.card_desc_color }};
+    --pi-ts-btn-bg: {{ section.settings.btn_bg }};
+    --pi-ts-btn-text: {{ section.settings.btn_text }};
+    --pi-ts-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-ts-btn-size: {{ section.settings.btn_size }}px;
+    --pi-ts-btn-hover-bg: {{ section.settings.btn_hover_bg }};
+    --pi-ts-btn-hover-text: {{ section.settings.btn_hover_text }};
+  }
+  @media (max-width: 749px) {
+    #pi-ts-{{ section.id }} {
+      --pi-ts-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-ts-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-ts-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  .pi-ts {
+    background: var(--pi-ts-bg-color, #ffffff);
+    padding-top: var(--pi-ts-pad-top, 50px);
+    padding-bottom: var(--pi-ts-pad-bottom, 80px);
+  }
+
+  .pi-ts__inner {
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    box-sizing: border-box;
+  }
+
+  /* ─── Header row ──────────────────────────────── */
+  .pi-ts__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-height: 70px;
+  }
+
+  .pi-ts__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 3.75vw, var(--pi-ts-heading-size, 54px));
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--pi-ts-heading-color, #000000);
+    letter-spacing: 0;
+    margin: 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  /* ─── Arrow buttons ───────────────────────────── */
+  .pi-ts__arrows--desktop {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pi-ts__arrow {
+    width: 50px !important;
+    height: 50px !important;
+    min-width: 50px;
+    border-radius: 50% !important;
+    border: 1.5px solid #000000 !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+    padding: 0 !important;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+  }
+
+  /* Prev: outlined */
+  .pi-ts__arrow--prev {
+    background-color: #ffffff !important;
+  }
+  .pi-ts__arrow--prev svg path {
+    fill: #000000 !important;
+  }
+  .pi-ts__arrow--prev:hover {
+    background-color: #000000 !important;
+  }
+  .pi-ts__arrow--prev:hover svg path {
+    fill: #ffffff !important;
+  }
+
+  /* Next: filled */
+  .pi-ts__arrow--next {
+    background-color: #000000 !important;
+    border-color: #000000 !important;
+  }
+  .pi-ts__arrow--next svg path {
+    fill: #ffffff !important;
+  }
+  .pi-ts__arrow--next:hover {
+    background-color: #333333 !important;
+  }
+
+  /* ─── Content area ────────────────────────────── */
+  .pi-ts__content {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* ─── Carousel container (for overlay arrows) ─── */
+  .pi-ts__carousel-container {
+    position: relative;
+  }
+
+  /* ─── Mobile overlay arrows (hidden on desktop) ── */
+  .pi-ts__arrows--mobile-overlay {
+    display: none;
+  }
+
+  /* ─── Carousel track ──────────────────────────── */
+  .pi-ts__track-wrap {
+    overflow: hidden;
+  }
+
+  .pi-ts__track {
+    display: flex;
+    gap: 20px;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+
+  /* ─── Card ────────────────────────────────────── */
+  .pi-ts__card {
+    flex: 0 0 360px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pi-ts__card-img {
+    width: 360px;
+    height: 360px;
+    overflow: hidden;
+    border-radius: var(--pi-ts-card-radius, 10px);
+    flex-shrink: 0;
+    background: #f3f3f3;
+  }
+
+  .pi-ts__card-img img,
+  .pi-ts__card-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-ts__card-body {
+    width: 360px;
+    box-sizing: border-box;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 0 0 var(--pi-ts-card-radius, 10px) var(--pi-ts-card-radius, 10px);
+    background: #ffffff;
+  }
+
+  .pi-ts__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: var(--pi-ts-card-title-size, 20px);
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--pi-ts-card-title-color, #000000);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pi-ts__card-desc {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: var(--pi-ts-card-desc-size, 18px);
+    font-weight: 400;
+    line-height: 29px;
+    color: var(--pi-ts-card-desc-color, #121212);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ─── Footer / Button ─────────────────────────── */
+  .pi-ts__footer {
+    display: flex;
+    justify-content: center;
+  }
+
+  .pi-ts__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--pi-ts-btn-bg, #000000);
+    color: var(--pi-ts-btn-text, #ffffff);
+    height: 55px;
+    padding: 16px 32px;
+    border-radius: var(--pi-ts-btn-radius, 8px);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: var(--pi-ts-btn-size, 16px);
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .pi-ts__btn:hover {
+    background: var(--pi-ts-btn-hover-bg, #222222);
+    text-decoration: none;
+    color: var(--pi-ts-btn-hover-text, #ffffff);
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 989px) {
+    .pi-ts__inner { padding-inline: 24px; }
+    .pi-ts__card { flex: 0 0 280px; width: 280px; }
+    .pi-ts__card-img { width: 280px; height: 300px; }
+    .pi-ts__card-body { width: 280px; }
+    .pi-ts__card-title { font-size: 18px; }
+    .pi-ts__card-desc { font-size: 16px; line-height: 26px; }
+  }
+
+  @media (max-width: 600px) {
+    .pi-ts__inner { padding-inline: 18px; gap: 20px; }
+    .pi-ts__track { gap: 10px; }
+    .pi-ts__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
+    .pi-ts__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .pi-ts__card-body { width: 100%; gap: 5px; padding: 0; margin-top: 10px; }
+    .pi-ts__card-title { font-size: 18px; line-height: 23px; -webkit-line-clamp: 2; -webkit-font-smoothing: antialiased; }
+    .pi-ts__card-desc { font-size: 14px; line-height: 22px; -webkit-line-clamp: 2; -webkit-font-smoothing: antialiased; color: #121212; }
+    .pi-ts__heading { font-size: var(--pi-ts-heading-size, 30px); }
+
+    /* Button: full width */
+    .pi-ts__btn { height: 50px; font-size: 14px; line-height: 18px; width: 100%; box-sizing: border-box; }
+
+    /* Hide header arrows */
+    .pi-ts__arrows--desktop { display: none; }
+
+    /* Show overlay arrows — JS sets top dynamically like best sellers */
+    .pi-ts__arrows--mobile-overlay {
+      display: flex;
+      position: absolute;
+      top: 0;
+      transform: translateY(-50%);
+      left: -17px;
+      right: -17px;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .pi-ts__arrows--mobile-overlay .pi-ts__arrow {
+      pointer-events: auto;
+      width: 35px !important;
+      height: 35px !important;
+      min-width: 35px;
+    }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<div class="pi-ts" id="pi-ts-{{ section.id }}">
+  <div class="pi-ts__inner">
+
+    {%- comment -%} Header: heading + desktop arrows {%- endcomment -%}
+    <div class="pi-ts__header">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="pi-ts__heading">{{ section.settings.heading }}</h2>
+      {%- endif -%}
+
+      <div class="pi-ts__arrows--desktop">
+        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--prev" aria-label="Previous services">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+        <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--next" aria-label="Next services">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Content: carousel + button {%- endcomment -%}
+    <div class="pi-ts__content">
+      <div class="pi-ts__carousel-container">
+        <div class="pi-ts__track-wrap">
+          <div class="pi-ts__track" id="pi-ts-track-{{ section.id }}">
+            {%- for block in section.blocks -%}
+              {%- if block.type == 'card' -%}
+                <div class="pi-ts__card" {{ block.shopify_attributes }}>
+                  <div class="pi-ts__card-img">
+                    {%- if block.settings.image != blank -%}
+                      <img
+                        src="{{ block.settings.image | image_url: width: 720 }}"
+                        alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                        width="360"
+                        height="360"
+                        loading="lazy"
+                      >
+                    {%- else -%}
+                      {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                    {%- endif -%}
+                  </div>
+                  <div class="pi-ts__card-body">
+                    {%- if block.settings.title != blank -%}
+                      <h4 class="pi-ts__card-title">{{ block.settings.title }}</h4>
+                    {%- endif -%}
+                    {%- if block.settings.description != blank -%}
+                      <p class="pi-ts__card-desc">{{ block.settings.description }}</p>
+                    {%- endif -%}
+                  </div>
+                </div>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+        </div>
+
+        {%- comment -%} Mobile overlay arrows {%- endcomment -%}
+        <div class="pi-ts__arrows--mobile-overlay">
+          <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--prev" aria-label="Previous services">
+            <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+              <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+          </div>
+          <div role="button" tabindex="0" class="pi-ts__arrow pi-ts__arrow--next" aria-label="Next services">
+            <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+              <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      {%- if section.settings.button_label != blank -%}
+        <div class="pi-ts__footer">
+          <a href="{{ section.settings.button_link }}" class="pi-ts__btn">
+            {{ section.settings.button_label }}
+          </a>
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var section = document.getElementById('pi-ts-{{ section.id }}');
+    if (!section) return;
+
+    var track = section.querySelector('#pi-ts-track-{{ section.id }}');
+    var trackWrap = section.querySelector('.pi-ts__track-wrap');
+    var prevBtns = section.querySelectorAll('.pi-ts__arrow--prev');
+    var nextBtns = section.querySelectorAll('.pi-ts__arrow--next');
+    var mobileArrows = section.querySelector('.pi-ts__arrows--mobile-overlay');
+
+    var currentIndex = 0;
+
+    function updateMobileArrowPos() {
+      if (!mobileArrows) return;
+      var imgWrap = track.querySelector('.pi-ts__card-img');
+      if (!imgWrap) return;
+      mobileArrows.style.top = (imgWrap.offsetHeight / 2) + 'px';
+    }
+
+    function getCardWidth() {
+      var card = track.querySelector('.pi-ts__card');
+      if (!card) return 380;
+      var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
+      return card.offsetWidth + gap;
+    }
+
+    function getVisibleCount() {
+      var wrapWidth = trackWrap.offsetWidth;
+      return Math.floor(wrapWidth / getCardWidth()) || 1;
+    }
+
+    function getTotalCards() {
+      return track.querySelectorAll('.pi-ts__card').length;
+    }
+
+    function slideTo(index) {
+      var total = getTotalCards();
+      var visible = getVisibleCount();
+      var maxIndex = Math.max(0, total - visible);
+      currentIndex = Math.max(0, Math.min(index, maxIndex));
+      track.style.transform = 'translateX(-' + (currentIndex * getCardWidth()) + 'px)';
+    }
+
+    prevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { slideTo(currentIndex - 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex - 1); });
+    });
+    nextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { slideTo(currentIndex + 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
+    });
+
+    function updateDescClamp() {
+      if (window.innerWidth > 600) return;
+      track.querySelectorAll('.pi-ts__card').forEach(function (card) {
+        var title = card.querySelector('.pi-ts__card-title');
+        var desc = card.querySelector('.pi-ts__card-desc');
+        if (!title || !desc) return;
+        var titleLines = Math.round(title.offsetHeight / 23);
+        desc.style.webkitLineClamp = titleLines >= 2 ? '1' : '2';
+      });
+    }
+
+    window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); updateDescClamp(); });
+    updateMobileArrowPos();
+    updateDescClamp();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "PI Tattoo Services",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Tattoo Services"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "View All Tattoo Services"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Colors"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading font size",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Heading font size (mobile)",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Service Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card border radius",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card title font size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card description font size",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card description color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Button font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Service Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tattoo Style"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Describe this tattoo style in a few words."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Tattoo Services",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Realistic Tattoos",
+            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Micro-Realistic Tattoos",
+            "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Blackwork",
+            "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Fine Line Tattoos",
+            "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

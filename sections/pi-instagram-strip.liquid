@@ -1,0 +1,250 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-ig-pad-top: {{ section.settings.padding_top }}px;
+    --pi-ig-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-ig-height: {{ section.settings.strip_height }}px;
+    --pi-ig-overlay-opacity: {{ section.settings.hover_overlay_opacity | divided_by: 100.0 }};
+    --pi-ig-cols-desktop: {{ section.settings.desktop_columns }};
+    --pi-ig-cols-mobile: {{ section.settings.mobile_columns }};
+    --pi-ig-border-radius: {{ section.settings.border_radius }}px;
+    --pi-ig-bg: {{ section.settings.bg_color }};
+    padding-top: var(--pi-ig-pad-top);
+    padding-bottom: var(--pi-ig-pad-bottom);
+    background-color: var(--pi-ig-bg);
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<style>
+  .pi-ig-strip {
+    display: grid;
+    grid-template-columns: repeat(var(--pi-ig-cols-desktop, 6), 1fr);
+    width: 100%;
+    height: var(--pi-ig-height, 311px);
+    overflow: hidden;
+    border-radius: var(--pi-ig-border-radius, 0px);
+  }
+  .pi-ig-strip__cell {
+    overflow: hidden;
+    position: relative;
+    background: #111;
+    cursor: pointer;
+  }
+  .pi-ig-strip__cell img,
+  .pi-ig-strip__cell .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+  .pi-ig-strip__cell:hover img,
+  .pi-ig-strip__cell:hover .placeholder-svg {
+    transform: scale({{ section.settings.hover_scale | divided_by: 100.0 }});
+  }
+  .pi-ig-strip__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--pi-ig-overlay-opacity, 0.45));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .pi-ig-strip__cell:hover .pi-ig-strip__overlay {
+    opacity: 1;
+  }
+  .pi-ig-strip__overlay svg {
+    width: 40px;
+    height: 40px;
+  }
+
+  @media (max-width: 749px) {
+    .pi-ig-strip {
+      grid-template-columns: repeat(var(--pi-ig-cols-mobile, 3), 1fr);
+      height: auto;
+    }
+    .pi-ig-strip__cell {
+      aspect-ratio: 1 / 1;
+    }
+  }
+  @media (max-width: 479px) {
+    .pi-ig-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+{%- if section.settings.instagram_url != blank -%}
+  <a href="{{ section.settings.instagram_url }}" class="pi-ig-strip" target="_blank" rel="noopener noreferrer" aria-label="Visit our Instagram">
+{%- else -%}
+  <div class="pi-ig-strip">
+{%- endif -%}
+
+  {%- for i in (1..6) -%}
+    {%- assign img_key = 'image_' | append: i -%}
+    {%- assign img = section.settings[img_key] -%}
+    <div class="pi-ig-strip__cell">
+      {%- if img != blank -%}
+        <img
+          src="{{ img | image_url: width: 640 }}"
+          alt="{{ img.alt | escape }}"
+          width="320"
+          height="311"
+          loading="lazy"
+        >
+      {%- else -%}
+        {{ 'lifestyle-' | append: i | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+      <div class="pi-ig-strip__overlay">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z" fill="white"/>
+        </svg>
+      </div>
+    </div>
+  {%- endfor -%}
+
+{%- if section.settings.instagram_url != blank -%}
+  </a>
+{%- else -%}
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PI Instagram Strip",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    { "type": "header", "content": "Style" },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "strip_height",
+      "label": "Strip height (desktop)",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 310
+    },
+    {
+      "type": "select",
+      "id": "desktop_columns",
+      "label": "Desktop columns",
+      "options": [
+        { "value": "4", "label": "4" },
+        { "value": "5", "label": "5" },
+        { "value": "6", "label": "6" }
+      ],
+      "default": "6"
+    },
+    {
+      "type": "select",
+      "id": "mobile_columns",
+      "label": "Mobile columns",
+      "options": [
+        { "value": "2", "label": "2" },
+        { "value": "3", "label": "3" }
+      ],
+      "default": "3"
+    },
+    { "type": "header", "content": "Appearance" },
+    {
+      "type": "range",
+      "id": "hover_overlay_opacity",
+      "label": "Hover overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "range",
+      "id": "hover_scale",
+      "label": "Hover zoom (100 = no zoom)",
+      "min": 100,
+      "max": 120,
+      "step": 1,
+      "default": 105
+    },
+    { "type": "header", "content": "Instagram Link" },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram profile link"
+    },
+    { "type": "header", "content": "Instagram Images" },
+    { "type": "image_picker", "id": "image_1", "label": "Image 1" },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2" },
+    { "type": "image_picker", "id": "image_3", "label": "Image 3" },
+    { "type": "image_picker", "id": "image_4", "label": "Image 4" },
+    { "type": "image_picker", "id": "image_5", "label": "Image 5" },
+    { "type": "image_picker", "id": "image_6", "label": "Image 6" }
+  ],
+  "presets": [
+    {
+      "name": "PI Instagram Strip"
+    }
+  ]
+}
+{% endschema %}

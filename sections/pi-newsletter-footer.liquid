@@ -1,0 +1,689 @@
+<style>
+  /* ═══ PI NEWSLETTER & FOOTER — CUSTOMIZER VARIABLES ═════ */
+  #shopify-section-{{ section.id }} {
+    --pi-nf-card-bg:        {{ section.settings.newsletter_card_bg }};
+    --pi-nf-nl-heading-color: {{ section.settings.newsletter_heading_color }};
+    --pi-nf-nl-heading-size:  {{ section.settings.newsletter_heading_size }}px;
+    --pi-nf-form-bg:        {{ section.settings.newsletter_form_bg }};
+    --pi-nf-input-color:    {{ section.settings.newsletter_input_color }};
+    --pi-nf-btn-bg:         {{ section.settings.newsletter_btn_bg }};
+    --pi-nf-btn-text:       {{ section.settings.newsletter_btn_text }};
+    --pi-nf-btn-radius:     {{ section.settings.newsletter_btn_radius }}px;
+    --pi-nf-footer-bg:      {{ section.settings.footer_bg }};
+    --pi-nf-footer-text:    {{ section.settings.footer_text_color }};
+    --pi-nf-link-color:     {{ section.settings.footer_link_color }};
+    --pi-nf-heading-color:  {{ section.settings.footer_heading_color }};
+    --pi-nf-divider-color:  {{ section.settings.divider_color }};
+    --pi-nf-copyright-text: {{ section.settings.copyright_text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+</style>
+
+<style>
+  /* ═══ PI NEWSLETTER & FOOTER ═══════════════════════ */
+
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 5;
+    background: transparent;
+  }
+
+  .pi-nf {
+    background: var(--pi-nf-footer-bg, #000);
+    position: relative;
+    overflow: visible;
+    margin-top: -123px;
+  }
+
+  /* ── Newsletter area — Figma: 1920×246px card, left/right 210px ── */
+  .pi-nf__nl {
+    position: relative;
+    height: 246px;
+    z-index: 2;
+  }
+  .pi-nf__nl-card {
+    position: absolute;
+    inset: 0 210px;
+    background-color: var(--pi-nf-card-bg, #f5f0ea);
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    overflow: hidden;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+  }
+  /* Inner row: Figma Frame 1171275767 — 1310px wide, top:50px, left:95px within card */
+  /* max-width:1310px + margin:auto centers it with 95px auto-margins inside the 1500px card */
+  .pi-nf__nl-inner {
+    width: 100%;
+    max-width: 1310px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    box-sizing: border-box;
+  }
+  /* Figma: 362px × 140px, Playfair Display SemiBold 600, 54px, 70px lh, Uppercase, #000 */
+  .pi-nf__nl-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 2.8vw, var(--pi-nf-nl-heading-size, 54px));
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--pi-nf-nl-heading-color, #000);
+    margin: 0;
+    line-height: 1.3;
+    flex: 0 0 auto;
+    max-width: 362px;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+  /* Figma Frame 1171275768: 740px fixed × 75px hug, radius 8px, padding 10/10/10/20, bg #000 */
+  .pi-nf__nl-form-wrap {
+    flex: 1 1 auto;
+    max-width: 740px;
+    min-width: 0;
+  }
+  .pi-nf__nl-form-wrap form,
+  .pi-nf__nl-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 75px;
+    background: var(--pi-nf-form-bg, #000) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 8px;
+    padding: 10px 10px 10px 20px;
+    box-sizing: border-box;
+    gap: 10px;
+  }
+  /* Figma: Proxima Nova 400, 14px, 21px lh, #fff */
+  .pi-nf__nl-input {
+    flex: 1;
+    min-width: 0;
+    background: #000 !important;
+    border: none;
+    outline: none;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: #fff !important;
+    line-height: 21px;
+  }
+  .pi-nf__nl-input::placeholder { color: rgba(255, 255, 255, 0.7); }
+  .pi-nf__nl-input:-webkit-autofill,
+  .pi-nf__nl-input:-webkit-autofill:hover,
+  .pi-nf__nl-input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+    -webkit-text-fill-color: #fff !important;
+  }
+  /* Figma Btn: 150px × 55px, radius 8px, padding 16/32, bg #fff, text #000 */
+  .pi-nf__nl-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 150px;
+    height: 55px;
+    background: #fff;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .pi-nf__nl-btn:hover { background: #e8e8e8; }
+  .pi-nf__nl-success {
+    display: none;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    color: #fff;
+    padding: 10px 20px;
+  }
+
+  /* ── Footer body — 172px clears card overlap into .pi-nf + 60px design gap ── */
+  .pi-nf__footer-body {
+    padding: 183px 210px 0;
+    box-sizing: border-box;
+  }
+  /* Figma Group 36264: 1px border all sides #808080, columns inside */
+  .pi-nf__footer-inner {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  /* Figma Frame 1171275773: 265px × 162px hug, gap 20px vertical */
+  .pi-nf__brand {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 265px;
+    flex-shrink: 0;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  .pi-nf__logo { display: block; }
+  .pi-nf__logo img {
+    max-width: 129px;
+    height: auto;
+    display: block;
+  }
+  .pi-nf__tagline {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: #fff;
+    margin: 0;
+  }
+
+  /* Figma Line 4: 1px #808080 vertical divider, align-self: stretch */
+  .pi-nf__vdivider {
+    width: 1px;
+    background: #808080;
+    align-self: stretch;
+    flex-shrink: 0;
+  }
+
+  /* Figma link columns: vertical, gap 20px */
+  .pi-nf__col {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+  .pi-nf__col-heading {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #fff !important;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .pi-nf__links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pi-nf__link {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #fff !important;
+    text-decoration: none;
+    white-space: nowrap;
+    display: block;
+    transition: opacity 0.2s;
+  }
+  .pi-nf__link:hover { opacity: 0.65; color: #fff !important; }
+
+  .pi-nf__studio-row {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  .pi-nf__studio-icon { flex-shrink: 0; line-height: 0; }
+
+  /* Figma Copyright: 1920×61px, border-top 1px #808080, left:210px content */
+  .pi-nf__copyright {
+    margin-top: 47px;
+    border-top: 1px solid #808080;
+    height: 61px;
+    display: flex;
+    align-items: center;
+    padding: 0 210px;
+    box-sizing: border-box;
+  }
+  .pi-nf__copyright-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+  .pi-nf__copyright-left {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+  }
+  /* Figma Frame 48095950: gap 10px, horizontal */
+  .pi-nf__copyright-text {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+    color: #fff;
+    margin: 0;
+    white-space: nowrap;
+  }
+  .pi-nf__copyright-sep {
+    width: 1px;
+    height: 21px;
+    background: #808080;
+    flex-shrink: 0;
+  }
+  /* Figma Frame 1 (social): horizontal, gap 20px */
+  .pi-nf__social {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+  .pi-nf__social-link { line-height: 0; transition: opacity 0.2s; }
+  .pi-nf__social-link:hover { opacity: 0.65; }
+
+  .pi-nf__nl-heading {
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-nf__nl-btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1200px) {
+    .pi-nf__nl-card { inset: 0 80px; }
+    .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
+    .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
+  }
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} { padding-top: 0; }
+    .pi-nf { margin-top: 0; }
+    .pi-nf__nl { height: auto; z-index: auto; }
+    .pi-nf__nl-card { position: static; border-radius: 0; }
+    .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 32px; gap: 24px; max-width: 100%; }
+    .pi-nf__nl-heading { color: #000; }
+    .pi-nf__nl-form-wrap { max-width: 100%; }
+    .pi-nf__footer-body { padding-top: 40px; padding-left: 32px; padding-right: 32px; }
+    .pi-nf__footer-inner { flex-wrap: wrap; }
+    .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
+    .pi-nf__col { border-bottom: 1px solid #808080; }
+    .pi-nf__vdivider { display: none; }
+    .pi-nf__copyright { padding-left: 32px; padding-right: 32px; height: auto; padding-top: 12px; padding-bottom: 12px; }
+    .pi-nf__copyright-inner { flex-wrap: wrap; }
+  }
+  @media (max-width: 749px) {
+    .pi-nf__nl-heading { font-size: clamp(22px, 6vw, 40px); }
+    .pi-nf__nl-form-wrap form,
+    .pi-nf__nl-form { height: auto; flex-direction: column; padding: 16px; gap: 12px; }
+    .pi-nf__nl-btn { width: 100%; }
+    .pi-nf__footer-body { padding-left: 20px; padding-right: 20px; }
+    .pi-nf__copyright { padding-left: 20px; padding-right: 20px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+{%- assign quick_link_blocks  = section.blocks | where: "type", "quick_link" -%}
+{%- assign resource_blocks    = section.blocks | where: "type", "resource_link" -%}
+{%- assign studio_blocks      = section.blocks | where: "type", "studio" -%}
+
+{%- comment -%}── NEWSLETTER (white bg from section wrapper) ──{%- endcomment -%}
+<div class="pi-nf__nl">
+
+  <div class="pi-nf__nl-card"{% if section.settings.newsletter_bg_image != blank %} style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"{% endif %}>
+    <div class="pi-nf__nl-inner">
+
+      <h2 class="pi-nf__nl-heading">
+        {{- section.settings.newsletter_heading | default: 'Join Our Newsletter' -}}
+      </h2>
+
+      <div class="pi-nf__nl-form-wrap">
+        {%- form 'customer', id: 'pi-newsletter-{{ section.id }}' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="pi-nf__nl-success" style="display:block;">
+              {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
+            </p>
+          {%- else -%}
+            <input type="hidden" name="contact[tags]" value="newsletter,email">
+            <input
+              class="pi-nf__nl-input"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.newsletter_placeholder | default: 'Enter your email address' }}"
+              required
+              autocomplete="email"
+            >
+            <button type="submit" class="pi-nf__nl-btn">
+              {{- section.settings.newsletter_btn_label | default: 'Subscribe' -}}
+            </button>
+          {%- endif -%}
+        {%- endform -%}
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{%- comment -%}── BLACK FOOTER ────────────────────────────{%- endcomment -%}
+<div class="pi-nf">
+
+  {%- comment -%}── FOOTER BODY ─────────────────────────{%- endcomment -%}
+  <div class="pi-nf__footer-body">
+    <div class="pi-nf__footer-inner">
+
+      {%- comment -%} Brand {%- endcomment -%}
+      <div class="pi-nf__brand">
+        {%- if section.settings.footer_logo != blank -%}
+          {%- assign _footer_logo = section.settings.footer_logo -%}
+        {%- elsif settings.logo_inverse != blank -%}
+          {%- assign _footer_logo = settings.logo_inverse -%}
+        {%- elsif settings.logo != blank -%}
+          {%- assign _footer_logo = settings.logo -%}
+        {%- else -%}
+          {%- assign _footer_logo = nil -%}
+        {%- endif -%}
+        {%- if _footer_logo != blank -%}
+          <a class="pi-nf__logo" href="{{ routes.root_url }}">
+            <img
+              src="{{ _footer_logo | image_url: width: 260 }}"
+              alt="{{ shop.name }}"
+              width="129"
+              loading="lazy"
+            >
+          </a>
+        {%- endif -%}
+        {%- if section.settings.footer_tagline != blank -%}
+          <p class="pi-nf__tagline">{{ section.settings.footer_tagline }}</p>
+        {%- endif -%}
+      </div>
+
+      <div class="pi-nf__vdivider"></div>
+
+      {%- comment -%} Quick Links {%- endcomment -%}
+      {%- if quick_link_blocks.size > 0 -%}
+        <div class="pi-nf__col">
+          <h4 class="pi-nf__col-heading">{{ section.settings.quick_links_heading | default: 'Quick Links' }}</h4>
+          <ul class="pi-nf__links">
+            {%- for block in quick_link_blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link }}" class="pi-nf__link">{{ block.settings.label }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="pi-nf__vdivider"></div>
+      {%- endif -%}
+
+      {%- comment -%} Resources {%- endcomment -%}
+      {%- if resource_blocks.size > 0 -%}
+        <div class="pi-nf__col">
+          <h4 class="pi-nf__col-heading">{{ section.settings.resources_heading | default: 'Resources' }}</h4>
+          <ul class="pi-nf__links">
+            {%- for block in resource_blocks -%}
+              <li {{ block.shopify_attributes }}>
+                <a href="{{ block.settings.link }}" class="pi-nf__link">{{ block.settings.label }}</a>
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+        <div class="pi-nf__vdivider"></div>
+      {%- endif -%}
+
+      {%- comment -%} Our Studios {%- endcomment -%}
+      {%- if studio_blocks.size > 0 -%}
+        <div class="pi-nf__col">
+          <h4 class="pi-nf__col-heading">{{ section.settings.studios_heading | default: 'Our Studios' }}</h4>
+          <ul class="pi-nf__links">
+            {%- for block in studio_blocks -%}
+              <li class="pi-nf__studio-row" {{ block.shopify_attributes }}>
+                <span class="pi-nf__studio-icon">
+                  <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7 0C3.134 0 0 3.134 0 7C0 12.25 7 20 7 20C7 20 14 12.25 14 7C14 3.134 10.866 0 7 0ZM7 9.5C5.619 9.5 4.5 8.381 4.5 7C4.5 5.619 5.619 4.5 7 4.5C8.381 4.5 9.5 5.619 9.5 7C9.5 8.381 8.381 9.5 7 9.5Z" fill="white"/>
+                  </svg>
+                </span>
+                {%- if block.settings.link != blank -%}
+                  <a href="{{ block.settings.link }}" class="pi-nf__link">{{ block.settings.name }}</a>
+                {%- else -%}
+                  <span class="pi-nf__link" style="cursor:default;">{{ block.settings.name }}</span>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+    </div>
+
+  </div>
+
+  {%- comment -%}── COPYRIGHT ───────────────────────────{%- endcomment -%}
+  <div class="pi-nf__copyright">
+      <div class="pi-nf__copyright-inner">
+        <div class="pi-nf__copyright-left">
+          {%- if section.settings.copyright_text != blank -%}
+            <p class="pi-nf__copyright-text">{{ section.settings.copyright_text }}</p>
+          {%- endif -%}
+          {%- if section.settings.copyright_text != blank and section.settings.developer_text != blank -%}
+            <span class="pi-nf__copyright-sep"></span>
+          {%- endif -%}
+          {%- if section.settings.developer_text != blank -%}
+            <p class="pi-nf__copyright-text">{{ section.settings.developer_text }}</p>
+          {%- endif -%}
+        </div>
+        <div class="pi-nf__social">
+          {%- if section.settings.facebook_url != blank -%}
+            <a href="{{ section.settings.facebook_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="Facebook">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="Facebook">
+          {%- endif -%}
+              <svg width="8" height="15" viewBox="0 0 8 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5.2 2.5H7.5V0H5.2C3.3 0 1.7 1.6 1.7 3.5V5H0V7.5H1.7V15H4.2V7.5H6.5L7.2 5H4.2V3.5C4.2 2.95 4.65 2.5 5.2 2.5Z" fill="white"/>
+              </svg>
+          {%- if section.settings.facebook_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+
+          {%- if section.settings.twitter_url != blank -%}
+            <a href="{{ section.settings.twitter_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="X (Twitter)">
+          {%- endif -%}
+              <svg width="15" height="14" viewBox="0 0 15 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8.92 5.93L14.5 0H13.17L8.32 5.15L4.44 0H0L5.85 7.78L0 14H1.33L6.44 8.55L10.56 14H15L8.92 5.93ZM7.1 7.85L6.52 7.07L1.8 0.91H3.78L7.62 6.01L8.2 6.79L13.17 13.13H11.19L7.1 7.85Z" fill="white"/>
+              </svg>
+          {%- if section.settings.twitter_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+
+          {%- if section.settings.instagram_url != blank -%}
+            <a href="{{ section.settings.instagram_url }}" class="pi-nf__social-link" target="_blank" rel="noopener" aria-label="Instagram">
+          {%- else -%}
+            <span class="pi-nf__social-link" aria-label="Instagram">
+          {%- endif -%}
+              <svg width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7.5 0C5.464 0 5.208 0.009 4.41 0.045C1.722 0.169 0.169 1.722 0.045 4.41C0.009 5.208 0 5.464 0 7.5C0 9.536 0.009 9.792 0.045 10.59C0.169 13.278 1.722 14.831 4.41 14.955C5.208 14.991 5.464 15 7.5 15C9.536 15 9.792 14.991 10.59 14.955C13.278 14.831 14.831 13.278 14.955 10.59C14.991 9.792 15 9.536 15 7.5C15 5.464 14.991 5.208 14.955 4.41C14.831 1.722 13.278 0.169 10.59 0.045C9.792 0.009 9.536 0 7.5 0ZM7.5 1.35C9.504 1.35 9.742 1.358 10.532 1.394C12.573 1.487 13.513 2.442 13.606 4.468C13.642 5.258 13.65 5.496 13.65 7.5C13.65 9.504 13.642 9.742 13.606 10.532C13.513 12.558 12.573 13.513 10.532 13.606C9.742 13.642 9.504 13.65 7.5 13.65C5.496 13.65 5.258 13.642 4.468 13.606C2.427 13.513 1.487 12.557 1.394 10.532C1.358 9.742 1.35 9.504 1.35 7.5C1.35 5.496 1.358 5.258 1.394 4.468C1.487 2.442 2.427 1.487 4.468 1.394C5.258 1.358 5.496 1.35 7.5 1.35ZM7.5 3.649C5.37 3.649 3.649 5.37 3.649 7.5C3.649 9.63 5.37 11.351 7.5 11.351C9.63 11.351 11.351 9.63 11.351 7.5C11.351 5.37 9.63 3.649 7.5 3.649ZM7.5 9.999C6.119 9.999 4.999 8.881 4.999 7.5C4.999 6.119 6.119 4.999 7.5 4.999C8.881 4.999 9.999 6.119 9.999 7.5C9.999 8.881 8.881 9.999 7.5 9.999ZM11.506 2.595C11.011 2.595 10.61 2.996 10.61 3.491C10.61 3.986 11.011 4.387 11.506 4.387C12.001 4.387 12.402 3.986 12.402 3.491C12.402 2.996 12.001 2.595 11.506 2.595Z" fill="white"/>
+              </svg>
+          {%- if section.settings.instagram_url != blank -%}</a>{%- else -%}</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI Newsletter & Footer",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Newsletter Appearance" },
+    { "type": "color",  "id": "newsletter_card_bg",       "label": "Card background color",  "default": "#f5f0ea" },
+    { "type": "color",  "id": "newsletter_heading_color", "label": "Heading color",           "default": "#000000" },
+    { "type": "range",  "id": "newsletter_heading_size",  "label": "Heading font size",       "min": 24, "max": 64, "step": 2, "unit": "px", "default": 54 },
+
+    { "type": "header", "content": "Newsletter Form" },
+    { "type": "color",  "id": "newsletter_form_bg",   "label": "Form background",         "default": "#000000" },
+    { "type": "color",  "id": "newsletter_input_color","label": "Input text color",        "default": "#ffffff" },
+    { "type": "color",  "id": "newsletter_btn_bg",    "label": "Subscribe button color",  "default": "#ffffff" },
+    { "type": "color",  "id": "newsletter_btn_text",  "label": "Subscribe button text",   "default": "#000000" },
+    { "type": "range",  "id": "newsletter_btn_radius","label": "Subscribe button radius", "min": 0, "max": 20, "step": 2, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Footer Appearance" },
+    { "type": "color",  "id": "footer_bg",           "label": "Footer background",       "default": "#000000" },
+    { "type": "color",  "id": "footer_text_color",   "label": "Footer body text",        "default": "#ffffff" },
+    { "type": "color",  "id": "footer_link_color",   "label": "Footer link color",       "default": "#ffffff" },
+    { "type": "color",  "id": "footer_heading_color","label": "Column heading color",    "default": "#ffffff" },
+    { "type": "color",  "id": "divider_color",       "label": "Divider line color",      "default": "#808080" },
+    { "type": "color",  "id": "copyright_text_color","label": "Copyright text color",    "default": "#ffffff" },
+
+    { "type": "header", "content": "Newsletter" },
+    { "type": "image_picker", "id": "newsletter_bg_image",  "label": "Background image" },
+    { "type": "text",         "id": "newsletter_heading",   "label": "Heading",            "default": "Join Our Newsletter" },
+    { "type": "text",         "id": "newsletter_placeholder","label": "Input placeholder",  "default": "Enter your email address" },
+    { "type": "text",         "id": "newsletter_btn_label", "label": "Button label",        "default": "Subscribe" },
+    { "type": "text",         "id": "newsletter_success",   "label": "Success message",     "default": "Thanks for subscribing!" },
+
+    { "type": "header", "content": "Footer Brand" },
+    { "type": "image_picker", "id": "footer_logo",    "label": "Logo (white version)" },
+    { "type": "text",         "id": "footer_tagline", "label": "Tagline", "default": "Expert Tattoos, Precision Piercings, Premium Jewelry." },
+
+    { "type": "header", "content": "Quick Links Column" },
+    { "type": "text", "id": "quick_links_heading", "label": "Heading", "default": "Quick Links" },
+
+    { "type": "header", "content": "Resources Column" },
+    { "type": "text", "id": "resources_heading", "label": "Heading", "default": "Resources" },
+
+    { "type": "header", "content": "Our Studios Column" },
+    { "type": "text", "id": "studios_heading", "label": "Heading", "default": "Our Studios" },
+
+    { "type": "header", "content": "Copyright" },
+    { "type": "text", "id": "copyright_text",  "label": "Copyright line",   "default": "Copyright © 2025 Puerto Ink, All Rights Reserved." },
+    { "type": "text", "id": "developer_text",  "label": "Developer credit",  "default": "Designed & Developed by Alian Software." },
+
+    { "type": "header", "content": "Social Links" },
+    { "type": "url", "id": "facebook_url",  "label": "Facebook URL" },
+    { "type": "url", "id": "twitter_url",   "label": "X (Twitter) URL" },
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+
+    { "type": "header", "content": "Newsletter Text Alignment" },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "center"
+    },
+
+    { "type": "header", "content": "Subscribe Button Hover" },
+    { "type": "color", "id": "btn_hover_bg",   "label": "Button Hover Background", "default": "#B49146" },
+    { "type": "color", "id": "btn_hover_text", "label": "Button Hover Text Color",  "default": "#ffffff" },
+
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Section Padding" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "quick_link",
+      "name": "Quick Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Page" },
+        { "type": "url",  "id": "link",  "label": "URL" }
+      ]
+    },
+    {
+      "type": "resource_link",
+      "name": "Resource Link",
+      "settings": [
+        { "type": "text", "id": "label", "label": "Label", "default": "Resource" },
+        { "type": "url",  "id": "link",  "label": "URL" }
+      ]
+    },
+    {
+      "type": "studio",
+      "name": "Studio Location",
+      "settings": [
+        { "type": "text", "id": "name", "label": "City name", "default": "City" },
+        { "type": "url",  "id": "link", "label": "URL" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Newsletter & Footer",
+      "blocks": [
+        { "type": "quick_link",    "settings": { "label": "Home",             "link": "/" } },
+        { "type": "quick_link",    "settings": { "label": "About",            "link": "/pages/about" } },
+        { "type": "quick_link",    "settings": { "label": "Tattoo Services",  "link": "/collections/all" } },
+        { "type": "quick_link",    "settings": { "label": "Piercing Services","link": "/collections/all" } },
+        { "type": "quick_link",    "settings": { "label": "Shop Jewelry",     "link": "/collections/all" } },
+        { "type": "resource_link", "settings": { "label": "Blogs",            "link": "/blogs" } },
+        { "type": "resource_link", "settings": { "label": "FAQs",             "link": "/pages/faqs" } },
+        { "type": "resource_link", "settings": { "label": "Contact Us",       "link": "/pages/contact" } },
+        { "type": "resource_link", "settings": { "label": "Privacy Policy",   "link": "/policies/privacy-policy" } },
+        { "type": "resource_link", "settings": { "label": "Terms & Conditions","link": "/policies/terms-of-service" } },
+        { "type": "studio",        "settings": { "name": "Crete",     "link": "" } },
+        { "type": "studio",        "settings": { "name": "Athens",    "link": "" } },
+        { "type": "studio",        "settings": { "name": "Antwerp",   "link": "" } },
+        { "type": "studio",        "settings": { "name": "Amsterdam", "link": "" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

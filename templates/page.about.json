@@ -1,0 +1,314 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_about": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "About Us",
+        "background_image": "shopify://shop_images/About_Us.png",
+        "overlay_opacity": 40
+      }
+    },
+    "pi_founders_about": {
+      "type": "pi-founders",
+      "settings": {
+        "image": "shopify://shop_images/Frame_1171275733.png",
+        "subheading": "Behind Puerto Ink",
+        "text_1": "<p>Puerto Ink was founded in <strong>2016</strong> by two brothers, <strong>Vangelis and Michalis</strong>, from <strong>Heraklion, Crete</strong>. With a deep passion for art and craftsmanship, they started their journey with a vision to create a <strong>tattoo and piercing studio</strong> that blended creativity, precision, and professionalism.</p>",
+        "text_2": "<p>What began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their <strong>first studio in Heraklion</strong>, setting the foundation for what would become a renowned name in the industry.</p>",
+        "text_3": "<p>In six years, they expanded internationally, opening a studio in <strong>Antwerp, Belgium</strong>, followed by <strong>Amsterdam and Athens</strong>, establishing Puerto Ink as a global brand.</p>",
+        "text_4": "<p>Today, with a team of <strong>35+ skilled professionals</strong>, Puerto Ink continues to grow, offering <strong>world-class tattoos, piercings, and premium jewelry</strong> while staying true to its artistic roots.</p>",
+        "text": "Puerto Ink was founded in 2016 by two brothers, Vangelis and Michalis, from Heraklion, Crete. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.\n\nWhat began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their first studio in Heraklion, setting the foundation for what would become a renowned name in the industry.\n\nIn six years, they expanded internationally, opening a studio in Antwerp, Belgium, followed by Amsterdam and Athens, establishing Puerto Ink as a global brand.\n\nToday, with a team of 35+ skilled professionals, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots."
+      }
+    },
+    "pi_team_about": {
+      "type": "pi-team-banner",
+      "settings": {
+        "heading": "The Puerto Ink Team",
+        "text": "At Puerto Ink, we are more than a team — we are a family of passionate artists and piercing specialists dedicated to turning visions into reality. With diverse styles, exceptional skill, and years of experience, we create custom tattoos and flawless piercings tailored to each client. Rooted in creativity, professionalism, and trust, we foster a welcoming community where artistry thrives, and every visit is a memorable experience.",
+        "team_image": "shopify://shop_images/Mask_group_1.png"
+      }
+    },
+    "pi_vision_about": {
+      "type": "pi-vision",
+      "settings": {
+        "heading": "Our Vision",
+        "subheading": "Redefining Self-Expression Through Artistry",
+        "text": "<p>Our vision is to redefine body art by blending creativity, precision, and individuality. We strive to be a global leader in <strong>tattoo artistry and piercing craftsmanship</strong>, offering a space where self-expression meets innovation. Our commitment to excellence, safety, and client satisfaction drives us to continuously evolve, pushing the boundaries of modern tattooing and piercing. Through our passionate team and welcoming atmosphere, we aim to create meaningful, lasting art while building a community founded on trust and artistry.</p>",
+        "image": "shopify://shop_images/Frame_1171275733_1.png"
+      }
+    },
+    "pi_usp_about": {
+      "type": "pi-usp",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
+            "label": "Authentic"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1.png",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
+            "label": "Creative"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
+        "overlay_opacity": 10
+      }
+    },
+    "pi_tb_about": {
+      "type": "pi-trusted-by",
+      "blocks": {
+        "tb_1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mohamed_Salah_4b85f63d-cca5-4464-86ff-4d020a27c7ce.png",
+            "name": "Mohamed Salah"
+          }
+        },
+        "tb_2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Kostas_Tsimikas_d1e408a7-3140-4efb-a494-ad51d4e388ae.png",
+            "name": "Kostas Tsimikas"
+          }
+        },
+        "tb_3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Thiago_Alcantara_c7d53efd-9a33-4239-92a9-778d41555329.png",
+            "name": "Thiago Alcantara"
+          }
+        },
+        "tb_4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Theodoridi_6f7b3de4-57a4-43ed-b0b2-186e6eeeba00.png",
+            "name": "Anna Theodoridi"
+          }
+        },
+        "tb_5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mykola_Shaparenko.png",
+            "name": "Mykola Shaparenko"
+          }
+        }
+      },
+      "block_order": [
+        "tb_1",
+        "tb_2",
+        "tb_3",
+        "tb_4",
+        "tb_5"
+      ],
+      "settings": {
+        "heading": "Trusted By The Best",
+        "deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png",
+        "button_label": "Explore More",
+        "button_link": ""
+      }
+    },
+    "pi_studios_about": {
+      "type": "pi-our-studios",
+      "blocks": {
+        "os_1": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Crete",
+            "hover_image": "shopify://shop_images/image_69_1.png",
+            "link": ""
+          }
+        },
+        "os_2": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Athens",
+            "hover_image": "shopify://shop_images/1_7.png",
+            "link": ""
+          }
+        },
+        "os_3": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Antwerp",
+            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
+            "link": ""
+          }
+        },
+        "os_4": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Amsterdam",
+            "hover_image": "shopify://shop_images/1.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "os_1",
+        "os_2",
+        "os_3",
+        "os_4"
+      ],
+      "settings": {
+        "heading": "Our Studios",
+        "background_image": "shopify://shop_images/Our_Studios.png",
+        "overlay_opacity": 10
+      }
+    },
+    "pi_faqs_about": {
+      "type": "pi-faqs",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there an age requirement for tattoos and piercings?",
+            "answer": "Yes, you must be 18+ for tattoos. For piercings, 16+ with parental consent (valid ID required)."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": ""
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I do before getting a tattoo?",
+            "answer": ""
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What material do you use for initial piercings?",
+            "answer": ""
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean and maintain my jewelry?",
+            "answer": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
+      "settings": {
+        "button_label": "VIEW ALL FAQS",
+        "button_link": ""
+      }
+    },
+    "pi_contact_about": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background.png"
+      }
+    },
+    "pi_instagram_about": {
+      "type": "pi-instagram-strip",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_about",
+    "pi_founders_about",
+    "pi_team_about",
+    "pi_vision_about",
+    "pi_usp_about",
+    "pi_tb_about",
+    "pi_studios_about",
+    "pi_faqs_about",
+    "pi_contact_about",
+    "pi_instagram_about"
+  ]
+}

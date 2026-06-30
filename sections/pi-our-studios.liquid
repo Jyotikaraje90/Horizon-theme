@@ -1,0 +1,526 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-PAD-TOP: {{ section.settings.padding_top }}px;
+    --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+    --pi-os-section-height: {{ section.settings.section_height }}px;
+    --pi-os-heading-size: {{ section.settings.heading_size }}px;
+    --pi-os-heading-color: {{ section.settings.heading_color }};
+    --pi-os-card-radius: {{ section.settings.card_radius }}px;
+    --pi-os-card-bg: {{ section.settings.card_bg }};
+    --pi-os-card-height: {{ section.settings.card_height }}px;
+    --pi-os-card-shadow-opacity: {{ section.settings.card_shadow_opacity | times: 1.0 | divided_by: 100 }};
+    --pi-os-city-size: {{ section.settings.city_size }}px;
+    --pi-os-city-color: {{ section.settings.city_color }};
+    --pi-os-city-hover-color: {{ section.settings.city_hover_color }};
+    --pi-os-pin-color: {{ section.settings.pin_color }};
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-PAD-TOP: {{ section.settings.mobile_padding_top }}px;
+      --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+      --pi-os-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  #shopify-section-{{ section.id }} {
+    padding-top: var(--pi-PAD-TOP);
+    padding-bottom: var(--pi-PAD-BOTTOM);
+    background: #ffffff;
+  }
+
+  .pi-os {
+    position: relative;
+    width: 100%;
+    height: var(--pi-os-section-height);
+    overflow: hidden;
+    background-color: #172532;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+  }
+
+  /* ─── Dark overlay ────────────────────────────── */
+  .pi-os__overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 1;
+  }
+
+  /* ─── Content frame (Frame 1171275737)            */
+  /* Figma: 1500×370, left:210px, top:100px          */
+  .pi-os__inner {
+    position: absolute;
+    z-index: 2;
+    width: 1500px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+    padding: 0;
+  }
+
+  /* ─── Heading ─────────────────────────────────── */
+  .pi-os__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: var(--pi-os-heading-size);
+    font-weight: 600;
+    line-height: 70px;
+    letter-spacing: 0;
+    text-align: {{ section.settings.text_alignment }};
+    color: var(--pi-os-heading-color);
+    text-transform: uppercase;
+    margin: 0;
+    width: 1500px;
+    height: 70px;
+  }
+
+  /* ─── Cards row (Frame 1171275739) ──────────────── */
+  .pi-os__grid {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0;
+    gap: 20px;
+    width: 1500px;
+    height: var(--pi-os-card-height);
+    flex-wrap: nowrap;
+  }
+
+  /* ─── Card ────────────────────────────────────── */
+  .pi-os__card {
+    position: relative;
+    width: 360px;
+    height: var(--pi-os-card-height);
+    background: var(--pi-os-card-bg) !important;
+    background-image: none !important;
+    border-radius: var(--pi-os-card-radius);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, var(--pi-os-card-shadow-opacity));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    text-decoration: none;
+    flex-shrink: 0;
+    overflow: hidden;
+    isolation: isolate;
+    box-sizing: border-box;
+  }
+
+  /* ─── Card hover image ────────────────────────── */
+  .pi-os__card-img {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    z-index: 1;
+    border-radius: 0;
+  }
+
+  .pi-os__card:hover .pi-os__card-img {
+    opacity: 1;
+  }
+
+  /* ─── Pin icon — above hover image ───────────── */
+  .pi-os__pin {
+    position: relative;
+    z-index: 2;
+    width: 35px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .pi-os__pin svg {
+    width: 35px;
+    height: 50px;
+    display: block;
+  }
+
+  .pi-os__pin svg path {
+    fill: var(--pi-os-pin-color);
+  }
+
+  .pi-os__card:hover .pi-os__pin {
+    opacity: 0;
+  }
+
+  /* ─── City name ───────────────────────────────── */
+  .pi-os__city {
+    position: relative;
+    z-index: 2;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: var(--pi-os-city-size);
+    font-weight: 500;
+    line-height: 44px;
+    letter-spacing: 0;
+    text-align: center;
+    color: var(--pi-os-city-color);
+    margin: 0;
+    transition: color 0.3s ease;
+  }
+
+  .pi-os__card:hover .pi-os__city {
+    color: var(--pi-os-city-hover-color);
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 1599px) {
+    .pi-os__inner { width: calc(100% - 80px); left: 40px; transform: none; }
+    .pi-os__heading { width: 100%; }
+    .pi-os__grid { width: 100%; }
+    .pi-os__card { flex: 1; min-width: 0; }
+    .pi-os__city { font-size: 28px; }
+  }
+
+  @media (max-width: 1199px) {
+    .pi-os { height: auto; min-height: 480px; }
+    .pi-os__bg { height: 700px; bottom: -100px; }
+    .pi-os__inner { position: relative; left: auto; top: auto; transform: none; width: 100%; padding: 80px 40px; box-sizing: border-box; }
+    .pi-os__heading { width: 100%; height: auto; font-size: 42px; line-height: 56px; }
+    .pi-os__grid { width: 100%; height: auto; }
+    .pi-os__card { flex: 1; min-width: 200px; height: 200px; }
+    .pi-os__city { font-size: 24px; line-height: 32px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-os__inner { padding: 60px 24px; gap: 36px; }
+    .pi-os__heading { font-size: 36px; line-height: 48px; }
+    .pi-os__card { height: 180px; gap: 14px; }
+    .pi-os__city { font-size: 20px; line-height: 28px; }
+    .pi-os__pin { width: 26px; height: 38px; }
+    .pi-os__pin svg { width: 26px; height: 38px; }
+  }
+
+  @media (max-width: 749px) {
+    .pi-os__inner { padding: 40px 16px; gap: 24px; }
+    .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
+    .pi-os__card { flex: 0 0 calc(50% - 6px); height: 140px; gap: 10px; }
+    .pi-os__city { font-size: 17px; line-height: 24px; }
+    .pi-os__pin { width: 20px; height: 30px; }
+    .pi-os__pin svg { width: 20px; height: 30px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<div class="pi-os"
+  {%- if section.settings.background_image != blank -%}
+    style="background-image: url('{{ section.settings.background_image | image_url: width: 1920 }}');"
+  {%- endif -%}
+>
+
+  {%- comment -%} Dark overlay {%- endcomment -%}
+  <div class="pi-os__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+
+  {%- comment -%} Content {%- endcomment -%}
+  <div class="pi-os__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pi-os__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pi-os__grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'studio' -%}
+          {%- if block.settings.link != blank -%}
+            <a href="{{ block.settings.link }}" class="pi-os__card" {{ block.shopify_attributes }}>
+          {%- else -%}
+            <div class="pi-os__card" {{ block.shopify_attributes }}>
+          {%- endif -%}
+
+            {%- if block.settings.hover_image != blank -%}
+              <div
+                class="pi-os__card-img"
+                style="background-image: url('{{ block.settings.hover_image | image_url: width: 720 }}')"
+                role="img"
+                aria-label="{{ block.settings.hover_image.alt | default: block.settings.city_name | escape }}"
+              ></div>
+            {%- endif -%}
+
+            <div class="pi-os__pin" aria-hidden="true">
+              <svg viewBox="0 0 35 50" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M17.5 0C7.835 0 0 7.835 0 17.5C0 30.625 17.5 50 17.5 50C17.5 50 35 30.625 35 17.5C35 7.835 27.165 0 17.5 0ZM17.5 23.75C14.05 23.75 11.25 20.95 11.25 17.5C11.25 14.05 14.05 11.25 17.5 11.25C20.95 11.25 23.75 14.05 23.75 17.5C23.75 20.95 20.95 23.75 17.5 23.75Z" fill="#000000"/>
+              </svg>
+            </div>
+
+            {%- if block.settings.city_name != blank -%}
+              <p class="pi-os__city">{{ block.settings.city_name }}</p>
+            {%- endif -%}
+
+          {%- if block.settings.link != blank -%}
+            </a>
+          {%- else -%}
+            </div>
+          {%- endif -%}
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PI Our Studios",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Studios"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay opacity",
+      "default": 75
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 570
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Studio Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card height",
+      "min": 150,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "label": "Card shadow opacity",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "City Labels"
+    },
+    {
+      "type": "range",
+      "id": "city_size",
+      "label": "City name size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "city_color",
+      "label": "City name color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "city_hover_color",
+      "label": "City name hover color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pin_color",
+      "label": "Pin icon color",
+      "default": "#000000"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "studio",
+      "name": "Studio Location",
+      "settings": [
+        {
+          "type": "text",
+          "id": "city_name",
+          "label": "City name",
+          "default": "City"
+        },
+        {
+          "type": "image_picker",
+          "id": "hover_image",
+          "label": "Hover image (studio photo)"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "PI Our Studios",
+      "blocks": [
+        { "type": "studio", "settings": { "city_name": "Crete" } },
+        { "type": "studio", "settings": { "city_name": "Athens" } },
+        { "type": "studio", "settings": { "city_name": "Antwerp" } },
+        { "type": "studio", "settings": { "city_name": "Amsterdam" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

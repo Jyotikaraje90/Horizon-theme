@@ -1,57 +1,344 @@
+﻿<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
 <style>
-.pi-main-banner {
-  position: relative;
-  width: 100%;
-  height: 75vh;
-  min-height: 450px;
-  border-radius: 20px;
-  overflow: hidden;
-}
-.pi-main-banner img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-.pi-main-banner__content {
-  position: absolute;
-  bottom: 40px;
-  left: 40px;
-  color: #fff;
-}
-.pi-main-banner__content h1 {
-  font-size: 3rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-.pi-main-banner__content p {
-  margin-bottom: 24px;
-  max-width: 400px;
-}
-.pi-main-banner__btn {
-  display: inline-block;
-  padding: 12px 24px;
-  border: 2px solid #fff;
-  color: #fff;
-  text-decoration: none;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 0.1em;
-  background: transparent;
-}
-.pi-main-banner__btn:hover {
-  background: #fff;
-  color: #000;
-}
+  .pi-hero-{{ section.id }} {
+    --pi-hero-side-margin: {{ section.settings.side_margin_desktop }}px;
+    --pi-hero-border-radius: {{ section.settings.border_radius }}px;
+    --pi-hero-desktop-height: {{ section.settings.desktop_height }}px;
+    --pi-hero-overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --pi-hero-heading-size: {{ section.settings.heading_size }}px;
+    --pi-hero-heading-color: {{ section.settings.heading_color }};
+    --pi-hero-subheading-size: {{ section.settings.subheading_size }}px;
+    --pi-hero-subheading-color: {{ section.settings.subheading_color }};
+    --pi-hero-btn-bg: {{ section.settings.btn_bg }};
+    --pi-hero-btn-text-color: {{ section.settings.btn_text_color }};
+    --pi-hero-btn-border-color: {{ section.settings.btn_border_color }};
+    --pi-hero-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-hero-btn-size: {{ section.settings.btn_size }}px;
+    --pi-hero-side-label-size: {{ section.settings.side_label_size }}px;
+    --pi-hero-side-label-color: {{ section.settings.side_label_color }};
+    --pi-hero-mobile-height: {{ section.settings.mobile_height }}px;
+    --pi-hero-mobile-main-height: {{ section.settings.mobile_main_height }}px;
+    --pi-hero-mobile-side-height: {{ section.settings.mobile_side_height }}px;
+  }
+  @media (max-width: 749px) {
+    .pi-hero-{{ section.id }} {
+      --pi-hero-side-margin: {{ section.settings.side_margin_mobile }}px;
+    }
+  }
 </style>
 
-<div class="pi-main-banner">
-  <img src="{{ section.settings.image | image_url: width: 1800 }}" alt="{{ section.settings.image.alt | escape }}">
-  <div class="pi-main-banner__content">
-    <h1>{{ section.settings.heading }}</h1>
-    <p>{{ section.settings.subheading }}</p>
-    <a href="{{ section.settings.button_link }}" class="pi-main-banner__btn">{{ section.settings.button_label }}</a>
+<style>
+  .pi-hero {
+    display: grid;
+    grid-template-columns: 71.5fr 28.5fr;
+    gap: 0;
+    margin: 0 var(--pi-hero-side-margin, 60px);
+    height: var(--pi-hero-desktop-height, 829px);
+    min-height: 500px;
+    max-height: var(--pi-hero-desktop-height, 829px);
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: var(--pi-hero-border-radius, 20px);
+    clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
+  }
+
+  .pi-hero__main {
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+  }
+
+  .pi-hero__main::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, var(--pi-hero-overlay-opacity, 0.45));
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .pi-hero__main img,
+  .pi-hero__main .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-hero__main-content {
+    position: absolute;
+    top: 80px;
+    left: 61px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: calc(100% - 122px);
+    z-index: 2;
+  }
+
+  .pi-hero__main-content h1 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(36px, 4.4vw, var(--pi-hero-heading-size, 64px));
+    line-height: 1.3;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: var(--pi-hero-heading-color, #ffffff);
+    text-align: {{ section.settings.text_alignment }};
+    margin: 0;
+    padding: 0;
+    max-width: 100%;
+  }
+
+  .pi-hero__subframe {
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+  }
+
+  .pi-hero__main-content p {
+    color: var(--pi-hero-subheading-color, #ffffff);
+    font-size: var(--pi-hero-subheading-size, 18px);
+    line-height: 29px;
+    font-weight: 400;
+    letter-spacing: 0;
+    margin: 0;
+    max-width: 100%;
+    white-space: nowrap;
+  }
+
+  .pi-hero__btn {
+    display: inline-block;
+    padding: 16px 32px;
+    border: 2px solid var(--pi-hero-btn-border-color, #ffffff);
+    border-radius: var(--pi-hero-btn-radius, 8px);
+    color: var(--pi-hero-btn-text-color, #000000);
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: var(--pi-hero-btn-size, 18px);
+    line-height: 23px;
+    letter-spacing: 0;
+    font-weight: 600;
+    background: var(--pi-hero-btn-bg, #ffffff);
+    width: fit-content;
+  }
+
+  .pi-hero__side {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+  }
+
+  .pi-hero__side-banner {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .pi-hero__side-banner a {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .pi-hero__side-banner img,
+  .pi-hero__side-banner .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-hero__side-label {
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 13px;
+    pointer-events: none;
+  }
+
+  .pi-hero__side-label span {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: var(--pi-hero-side-label-size, 36px);
+    line-height: 57px;
+    color: var(--pi-hero-side-label-color, #ffffff);
+    display: block;
+  }
+
+  @media (max-width: 989px) {
+    .pi-hero {
+      grid-template-columns: 1fr;
+      height: auto;
+      max-height: none;
+      min-height: unset;
+      margin: 0 var(--pi-hero-side-margin, 18px);
+      border-radius: var(--pi-hero-border-radius, 20px);
+      clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
+    }
+
+    .pi-hero__main {
+      height: 65vw;
+      min-height: 320px;
+      max-height: 520px;
+    }
+
+    .pi-hero__main-content {
+      top: 40px;
+      left: 30px;
+      max-width: calc(100% - 60px);
+    }
+
+    .pi-hero__main-content h1 {
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.2;
+    }
+
+    .pi-hero__side {
+      flex-direction: row;
+      height: 220px;
+    }
+
+    .pi-hero__side-label {
+      bottom: 24px;
+      left: 24px;
+    }
+
+    .pi-hero__side-label span {
+      font-size: 24px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .pi-hero {
+      margin: 0 var(--pi-hero-side-margin, 18px);
+      border-radius: var(--pi-hero-border-radius, 20px);
+      clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
+      height: var(--pi-hero-mobile-height, 514px);
+      max-height: var(--pi-hero-mobile-height, 514px);
+      min-height: var(--pi-hero-mobile-height, 514px);
+    }
+
+    .pi-hero__main {
+      height: var(--pi-hero-mobile-main-height, 364px);
+      min-height: var(--pi-hero-mobile-main-height, 364px);
+      max-height: var(--pi-hero-mobile-main-height, 364px);
+    }
+
+    .pi-hero__main-content {
+      top: 40px;
+      left: 20px;
+      max-width: 314px;
+      gap: 20px;
+    }
+
+    .pi-hero__main-content h1 {
+      font-size: 32px;
+      line-height: 42px;
+    }
+
+    .pi-hero__main-content p {
+      font-size: 16px;
+      line-height: 26px;
+      white-space: normal;
+    }
+
+    .pi-hero__btn {
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    .pi-hero__subframe {
+      gap: 20px;
+    }
+
+    .pi-hero__side {
+      height: var(--pi-hero-mobile-side-height, 150px);
+    }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<div class="pi-hero pi-hero-{{ section.id }}">
+  {%- comment -%} Main Banner {%- endcomment -%}
+  <div class="pi-hero__main">
+    {%- if section.settings.main_image != blank -%}
+      <img
+        src="{{ section.settings.main_image | image_url: width: 1800 }}"
+        alt="{{ section.settings.main_image.alt | escape }}"
+        loading="eager"
+        width="{{ section.settings.main_image.width }}"
+        height="{{ section.settings.main_image.height }}"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    <div class="pi-hero__main-content">
+      {%- if section.settings.main_heading != blank -%}
+        <h1>{{ section.settings.main_heading }}</h1>
+      {%- endif -%}
+      <div class="pi-hero__subframe">
+        {%- if section.settings.main_subheading != blank -%}
+          <p>{{ section.settings.main_subheading }}</p>
+        {%- endif -%}
+        {%- if section.settings.main_button_label != blank -%}
+          <a href="{{ section.settings.main_button_link }}" class="pi-hero__btn">
+            {{ section.settings.main_button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%} Right Side Banners {%- endcomment -%}
+  <div class="pi-hero__side">
+    <div class="pi-hero__side-banner">
+      <a href="{{ section.settings.banner2_link }}">
+        {%- if section.settings.banner2_image != blank -%}
+          <img
+            src="{{ section.settings.banner2_image | image_url: width: 600 }}"
+            alt="{{ section.settings.banner2_image.alt | escape }}"
+            loading="eager"
+          >
+        {%- else -%}
+          {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- if section.settings.banner2_label != blank -%}
+          <div class="pi-hero__side-label">
+            <span>{{ section.settings.banner2_label }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <div class="pi-hero__side-banner">
+      <a href="{{ section.settings.banner3_link }}">
+        {%- if section.settings.banner3_image != blank -%}
+          <img
+            src="{{ section.settings.banner3_image | image_url: width: 600 }}"
+            alt="{{ section.settings.banner3_image.alt | escape }}"
+            loading="eager"
+          >
+        {%- else -%}
+          {{ 'lifestyle-3' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- if section.settings.banner3_label != blank -%}
+          <div class="pi-hero__side-label">
+            <span>{{ section.settings.banner3_label }}</span>
+          </div>
+        {%- endif -%}
+      </a>
+    </div>
   </div>
 </div>
 
@@ -60,12 +347,308 @@
   "name": "PI Main Banner",
   "tag": "section",
   "settings": [
-    { "type": "image_picker", "id": "image", "label": "Background image" },
-    { "type": "text", "id": "heading", "label": "Heading", "default": "The Art of Self Expression With Puerto Ink" },
-    { "type": "text", "id": "subheading", "label": "Subheading", "default": "The #1 Tattoo and Piercing Studio." },
-    { "type": "text", "id": "button_label", "label": "Button text", "default": "Book an Appointment" },
-    { "type": "url", "id": "button_link", "label": "Button link" }
+    {
+      "type": "header",
+      "content": "Main Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Background image"
+    },
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Heading",
+      "default": "The Art of Self Expression With Puerto Ink"
+    },
+    {
+      "type": "text",
+      "id": "main_subheading",
+      "label": "Subheading",
+      "default": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens."
+    },
+    {
+      "type": "text",
+      "id": "main_button_label",
+      "label": "Button text",
+      "default": "Book an Appointment"
+    },
+    {
+      "type": "url",
+      "id": "main_button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Tattoos Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner2_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner2_label",
+      "label": "Label",
+      "default": "Tattoos"
+    },
+    {
+      "type": "url",
+      "id": "banner2_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Piercings Banner"
+    },
+    {
+      "type": "image_picker",
+      "id": "banner3_image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "banner3_label",
+      "label": "Label",
+      "default": "Piercings"
+    },
+    {
+      "type": "url",
+      "id": "banner3_link",
+      "label": "Link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "side_margin_desktop",
+      "label": "Side margin (desktop)",
+      "min": 0,
+      "max": 120,
+      "step": 2,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "side_margin_mobile",
+      "label": "Side margin (mobile)",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "desktop_height",
+      "label": "Desktop height",
+      "min": 400,
+      "max": 1000,
+      "step": 10,
+      "unit": "px",
+      "default": 830
+    },
+    {
+      "type": "range",
+      "id": "mobile_height",
+      "label": "Mobile overall height",
+      "min": 350,
+      "max": 700,
+      "step": 10,
+      "unit": "px",
+      "default": 510
+    },
+    {
+      "type": "range",
+      "id": "mobile_main_height",
+      "label": "Mobile main image height",
+      "min": 200,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "default": 360
+    },
+    {
+      "type": "range",
+      "id": "mobile_side_height",
+      "label": "Mobile side strip height",
+      "min": 80,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "default": 150
+    },
+    {
+      "type": "header",
+      "content": "Overlay"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 80,
+      "step": 5,
+      "unit": "%",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size (desktop max)",
+      "min": 36,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 64
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_text_color",
+      "label": "Button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_border_color",
+      "label": "Button border color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Side Banner Labels"
+    },
+    {
+      "type": "range",
+      "id": "side_label_size",
+      "label": "Side label font size",
+      "min": 18,
+      "max": 54,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "color",
+      "id": "side_label_color",
+      "label": "Side label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
   ],
-  "presets": [{ "name": "PI Main Banner" }]
+  "presets": [
+    {
+      "name": "PI Main Banner"
+    }
+  ]
 }
 {% endschema %}

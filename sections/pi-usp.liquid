@@ -1,0 +1,455 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-usp-pad-top: {{ section.settings.padding_top }}px;
+    --pi-usp-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-usp-label-size: {{ section.settings.label_size }}px;
+    --pi-usp-label-color: {{ section.settings.label_color }};
+    --pi-usp-icon-size: {{ section.settings.icon_size }}px;
+    --pi-usp-divider-opacity: {{ section.settings.divider_opacity | times: 1.0 | divided_by: 100 }};
+    --pi-usp-divider-height: {{ section.settings.divider_height }}px;
+    --pi-usp-min-height: {{ section.settings.min_height }}px;
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-usp-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-usp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-usp-label-size: {{ section.settings.mobile_label_size }}px;
+      --pi-usp-icon-size: {{ section.settings.mobile_icon_size }}px;
+    }
+  }
+</style>
+
+<style>
+  /* ─── Section wrapper ─────────────────────────── */
+  .pi-usp {
+    position: relative;
+    min-height: var(--pi-usp-min-height, 374px);
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  /* ─── Background image ────────────────────────── */
+  .pi-usp__bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .pi-usp__bg img,
+  .pi-usp__bg .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+
+  /* ─── Dark overlay ────────────────────────────── */
+  .pi-usp__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  /* ─── Content container ───────────────────────── */
+  .pi-usp__inner {
+    position: relative;
+    z-index: 2;
+    max-width: 1500px;
+    margin-inline: auto;
+    padding: var(--pi-usp-pad-top, 100px) 0 var(--pi-usp-pad-bottom, 100px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ─── Items grid ──────────────────────────────── */
+  .pi-usp__grid {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 30px;
+  }
+
+  .pi-usp__item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    min-width: 0;
+  }
+
+  /* ─── Vertical dividers ───────────────────────── */
+  .pi-usp__divider {
+    width: 1px;
+    height: var(--pi-usp-divider-height, 174px);
+    background: rgba(255, 255, 255, var(--pi-usp-divider-opacity, 0.70));
+    flex-shrink: 0;
+  }
+
+  /* ─── Icon ────────────────────────────────────── */
+  .pi-usp__icon {
+    width: var(--pi-usp-icon-size, 100px);
+    height: var(--pi-usp-icon-size, 100px);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pi-usp__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  /* ─── Label ───────────────────────────────────── */
+  .pi-usp__label {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: var(--pi-usp-label-size, 34px);
+    font-weight: 500;
+    line-height: 44px;
+    letter-spacing: 0;
+    text-align: {{ section.settings.text_alignment }};
+    color: var(--pi-usp-label-color, #ffffff);
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  /* ─── Responsive ──────────────────────────────── */
+  @media (max-width: 1199px) {
+    .pi-usp__label { font-size: 26px; line-height: 36px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-usp__inner { padding: 60px 24px; }
+    .pi-usp__grid { gap: 20px; }
+    .pi-usp__icon { width: 72px; height: 72px; }
+    .pi-usp__label { font-size: 22px; line-height: 30px; }
+    .pi-usp__divider { height: 130px; }
+  }
+
+  @media (max-width: 749px) {
+    .pi-usp { min-height: 199px; }
+    .pi-usp__inner {
+      padding: var(--pi-usp-pad-top, 50px) 0 var(--pi-usp-pad-bottom, 50px);
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .pi-usp__grid {
+      flex-wrap: nowrap;
+      gap: 0;
+      width: max-content;
+    }
+    .pi-usp__item {
+      flex: 0 0 200px;
+      width: 200px;
+      gap: 20px;
+    }
+    .pi-usp__divider {
+      display: block;
+      height: 99px;
+    }
+    .pi-usp__icon { width: var(--pi-usp-icon-size, 50px); height: var(--pi-usp-icon-size, 50px); }
+    .pi-usp__label { font-size: var(--pi-usp-label-size, 22px); line-height: 29px; }
+  }
+
+  /* ─── Icon placeholder (no image uploaded) ───── */
+  .pi-usp__icon-placeholder {
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.15);
+    border-radius: 8px;
+  }
+</style>
+
+<div class="pi-usp pi-usp-{{ section.id }}">
+
+  {%- comment -%} Background image {%- endcomment -%}
+  <div class="pi-usp__bg">
+    {%- if section.settings.background_image != blank -%}
+      <img
+        src="{{ section.settings.background_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.background_image.alt | default: '' | escape }}"
+        width="1920"
+        height="374"
+        loading="lazy"
+      >
+    {%- else -%}
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+  </div>
+
+  {%- comment -%} Dark overlay {%- endcomment -%}
+  <div class="pi-usp__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+
+  {%- comment -%} Items {%- endcomment -%}
+  <div class="pi-usp__inner">
+    <div class="pi-usp__grid">
+
+      {%- for block in section.blocks -%}
+
+        {%- unless forloop.first -%}
+          <div class="pi-usp__divider" aria-hidden="true"></div>
+        {%- endunless -%}
+
+        <div class="pi-usp__item" {{ block.shopify_attributes }}>
+
+          <div class="pi-usp__icon">
+            {%- if block.settings.icon != blank -%}
+              <img
+                src="{{ block.settings.icon | image_url: width: 200 }}"
+                alt="{{ block.settings.icon.alt | default: block.settings.label | escape }}"
+                width="100"
+                height="100"
+                loading="lazy"
+              >
+            {%- else -%}
+              <div class="pi-usp__icon-placeholder"></div>
+            {%- endif -%}
+          </div>
+
+          <p class="pi-usp__label">{{ block.settings.label }}</p>
+
+        </div>
+
+      {%- endfor -%}
+
+    </div>
+  </div>
+
+</div>
+
+{% schema %}
+{
+  "name": "PI USPs",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Image overlay opacity",
+      "default": 45
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "min": 150,
+      "max": 500,
+      "step": 10,
+      "unit": "px",
+      "label": "Section minimum height",
+      "default": 370
+    },
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "color",
+      "id": "label_color",
+      "label": "Label color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "label": "Label font size",
+      "default": 34
+    },
+    {
+      "type": "range",
+      "id": "mobile_label_size",
+      "min": 14,
+      "max": 34,
+      "step": 2,
+      "unit": "px",
+      "label": "Label font size (mobile)",
+      "default": 22
+    },
+    {
+      "type": "header",
+      "content": "Icons"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "min": 40,
+      "max": 140,
+      "step": 10,
+      "unit": "px",
+      "label": "Icon size",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_icon_size",
+      "min": 30,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "label": "Icon size (mobile)",
+      "default": 50
+    },
+    {
+      "type": "header",
+      "content": "Dividers"
+    },
+    {
+      "type": "range",
+      "id": "divider_opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "label": "Divider opacity",
+      "default": 70
+    },
+    {
+      "type": "range",
+      "id": "divider_height",
+      "min": 60,
+      "max": 250,
+      "step": 5,
+      "unit": "px",
+      "label": "Divider height",
+      "default": 175
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Text Alignment"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "usp",
+      "name": "USP Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon image"
+        },
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Authentic"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "PI USPs",
+      "blocks": [
+        { "type": "usp", "settings": { "label": "Authentic" } },
+        { "type": "usp", "settings": { "label": "Premium" } },
+        { "type": "usp", "settings": { "label": "Inclusive" } },
+        { "type": "usp", "settings": { "label": "Creative" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

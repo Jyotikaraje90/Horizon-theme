@@ -1,0 +1,761 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-hc-pad-top: {{ section.settings.padding_top }}px;
+    --pi-hc-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-hc-bg: {{ section.settings.bg_color }};
+    --pi-hc-heading-size: {{ section.settings.heading_size }}px;
+    --pi-hc-heading-color: {{ section.settings.heading_color }};
+    --pi-hc-card-radius: {{ section.settings.card_radius }}px;
+    --pi-hc-card-bg: {{ section.settings.card_bg }};
+    --pi-hc-card-padding: {{ section.settings.card_padding }}px;
+    --pi-hc-review-size: {{ section.settings.review_size }}px;
+    --pi-hc-review-color: {{ section.settings.review_color }};
+    --pi-hc-author-size: {{ section.settings.author_size }}px;
+    --pi-hc-author-color: {{ section.settings.author_color }};
+    --pi-hc-star-color: {{ section.settings.star_color }};
+    --pi-hc-shadow-opacity: {{ section.settings.shadow_opacity | divided_by: 100.0 }};
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-hc-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-hc-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-hc-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: var(--pi-hc-bg);
+    padding: var(--pi-hc-pad-top) 0 var(--pi-hc-pad-bottom);
+    overflow: hidden;
+  }
+
+  .pi-hc {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 60px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+  }
+
+  .pi-hc__heading {
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    font-size: var(--pi-hc-heading-size);
+    line-height: 70px;
+    text-transform: uppercase;
+    color: var(--pi-hc-heading-color);
+    text-align: {{ section.settings.text_alignment }};
+    margin: 0;
+  }
+
+  .pi-hc__slider-wrap {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .pi-hc__track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s ease;
+  }
+
+  .pi-hc__card {
+    flex: 0 0 calc(33.333% - 20px);
+    background: var(--pi-hc-card-bg);
+    border-radius: var(--pi-hc-card-radius);
+    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, var(--pi-hc-shadow-opacity));
+    padding: var(--pi-hc-card-padding);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pi-hc__card-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .pi-hc__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #e0e0e0;
+  }
+  .pi-hc__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-hc__stars {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+    height: 20px;
+  }
+  .pi-hc__star {
+    font-size: 18px;
+    line-height: 1;
+    color: var(--pi-hc-star-color);
+  }
+
+  .pi-hc__review {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: var(--pi-hc-review-size);
+    line-height: 26px;
+    text-align: center;
+    color: var(--pi-hc-review-color);
+    margin: 0;
+  }
+
+  .pi-hc__author {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: var(--pi-hc-author-size);
+    line-height: 18px;
+    text-transform: uppercase;
+    color: var(--pi-hc-author-color);
+    text-align: center;
+    margin: 0;
+  }
+
+  /* Mobile in-card nav: hidden on desktop */
+  .pi-hc__nav--card { display: none; }
+
+  .pi-hc__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .pi-hc__nav-btn {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 1.5px solid #000000;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    padding: 0;
+    flex-shrink: 0;
+  }
+  .pi-hc__nav-btn:hover { background: #000000; }
+  .pi-hc__nav-btn:hover svg path { stroke: #ffffff; }
+  .pi-hc__nav-btn svg {
+    width: 12px;
+    height: 12px;
+    display: block;
+  }
+
+  @media (max-width: 1279px) {
+    .pi-hc__heading { font-size: 44px; line-height: 58px; }
+  }
+
+  @media (max-width: 989px) {
+    .pi-hc { padding: 0 32px; gap: 40px; }
+    .pi-hc__heading { font-size: 38px; line-height: 50px; }
+    .pi-hc__card { flex: 0 0 calc(50% - 15px); }
+  }
+
+  /* ── Mobile (Figma 354px fixed spec) ────────────── */
+  @media (max-width: 749px) {
+
+    /* Section: no overflow:hidden → lets card shadow breathe */
+    #shopify-section-{{ section.id }} {
+      overflow: visible;
+    }
+
+    /* .pi-hc clips tiny-screen horizontal overflow instead */
+    .pi-hc {
+      padding: 0 10px;
+      gap: 30px;
+      overflow: hidden;
+    }
+
+    /* Heading: never wraps on any screen size */
+    .pi-hc__heading {
+      font-size: clamp(18px, 7.5vw, 30px);
+      line-height: 1.3;
+      white-space: nowrap;
+    }
+
+    /* Slider: show/hide on mobile — no translateX, no track overflow */
+    .pi-hc__slider-wrap { overflow: visible; }
+    .pi-hc__track { gap: 0; }
+
+    /* Card: position:relative so in-card nav can be absolute at bottom */
+    .pi-hc__card {
+      display: none;
+      position: relative;
+      width: 354px;
+      flex: 0 0 auto;
+      flex-direction: column;
+      align-items: center;
+      margin: 0 auto;
+      background: var(--pi-hc-card-bg);
+      border-radius: var(--pi-hc-card-radius);
+      box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, var(--pi-hc-shadow-opacity));
+      padding: 20px 0 55px;
+      gap: 20px;
+      box-sizing: border-box;
+    }
+
+    /* Active card shown */
+    .pi-hc__card.pi-hc--active { display: flex; }
+
+    /* Inner frame: avatar + stars + review, gap 10px */
+    .pi-hc__card-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      padding: 0;
+    }
+
+    /* Avatar: 50×50px circle */
+    .pi-hc__avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* Stars: 5 stars, 20px, gap 6px — no fixed height so all 5 render */
+    .pi-hc__stars {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 6px;
+    }
+    .pi-hc__star {
+      font-size: 20px;
+      line-height: 1;
+      color: var(--pi-hc-star-color);
+    }
+
+    /* Review: full 354px width = exactly 8 lines at 16px/26px */
+    .pi-hc__review {
+      font-size: var(--pi-hc-review-size);
+      line-height: 26px;
+      text-align: center;
+      color: var(--pi-hc-review-color);
+      margin: 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* Author: Proxima Nova 600, 14px/18px, uppercase, 1 line */
+    .pi-hc__author {
+      font-size: var(--pi-hc-author-size);
+      line-height: 18px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--pi-hc-author-color);
+      text-align: center;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      width: 100%;
+      padding: 0 15px;
+      box-sizing: border-box;
+      margin: 0;
+    }
+
+    /* Desktop nav: hidden on mobile */
+    .pi-hc__nav--desktop { display: none; }
+
+    /* In-card nav: absolute at bottom of card */
+    .pi-hc__nav--card {
+      display: flex;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+      flex-direction: row;
+      align-items: center;
+      gap: 10px;
+    }
+    .pi-hc__nav--card .pi-hc__nav-btn {
+      width: 35px;
+      height: 35px;
+      border-radius: 50%;
+      border: 1.5px solid #000000;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      padding: 0;
+    }
+  }
+</style>
+
+<div class="pi-hc">
+
+  {%- if section.settings.heading != blank -%}
+    <h2 class="pi-hc__heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+
+  <div class="pi-hc__slider-wrap">
+    <div class="pi-hc__track" id="pi-hc-track-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'testimonial' -%}
+          {%- assign rating = block.settings.rating | plus: 0 -%}
+          <div class="pi-hc__card" {{ block.shopify_attributes }}>
+
+            <div class="pi-hc__card-inner">
+
+              <div class="pi-hc__avatar">
+                {%- if block.settings.avatar != blank -%}
+                  <img
+                    src="{{ block.settings.avatar | image_url: width: 100 }}"
+                    alt="{{ block.settings.author | default: '' | escape }}"
+                    loading="lazy"
+                    width="50"
+                    height="50"
+                  >
+                {%- endif -%}
+              </div>
+
+              <div class="pi-hc__stars" aria-label="{{ rating }} out of 5 stars">
+                {%- for i in (1..5) -%}
+                  <span class="pi-hc__star" aria-hidden="true">
+                    {%- if i <= rating -%}★{%- else -%}☆{%- endif -%}
+                  </span>
+                {%- endfor -%}
+              </div>
+
+              {%- if block.settings.review != blank -%}
+                <p class="pi-hc__review">{{ block.settings.review }}</p>
+              {%- endif -%}
+
+            </div>
+
+            {%- if block.settings.author != blank -%}
+              <p class="pi-hc__author">- {{ block.settings.author }}</p>
+            {%- endif -%}
+
+            {%- if section.blocks.size > 1 -%}
+              <div class="pi-hc__nav pi-hc__nav--card" role="group" aria-label="Testimonial navigation">
+                <button class="pi-hc__nav-btn pi-hc__nav-prev" aria-label="Previous testimonial">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+                <button class="pi-hc__nav-btn pi-hc__nav-next" aria-label="Next testimonial">
+                  <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </button>
+              </div>
+            {%- endif -%}
+
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="pi-hc__nav pi-hc__nav--desktop" role="group" aria-label="Testimonial navigation">
+      <button class="pi-hc__nav-btn" id="pi-hc-prev-{{ section.id }}" aria-label="Previous testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.5 9L4.5 6L7.5 3" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="pi-hc__nav-btn" id="pi-hc-next-{{ section.id }}" aria-label="Next testimonial">
+        <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4.5 3L7.5 6L4.5 9" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  {%- endif -%}
+
+</div>
+
+<script>
+(function () {
+  var trackEl = document.getElementById('pi-hc-track-{{ section.id }}');
+  var prevBtn  = document.getElementById('pi-hc-prev-{{ section.id }}');
+  var nextBtn  = document.getElementById('pi-hc-next-{{ section.id }}');
+  if (!trackEl) return;
+
+  var cards   = Array.prototype.slice.call(trackEl.querySelectorAll('.pi-hc__card'));
+  var current = 0;
+
+  function isMobile() { return window.innerWidth <= 749; }
+
+  function visibleCount() {
+    var w = window.innerWidth;
+    if (w > 989) return 3;
+    if (w > 749) return 2;
+    return 1;
+  }
+
+  function maxIndex() {
+    return Math.max(0, cards.length - visibleCount());
+  }
+
+  function slide() {
+    if (!cards.length) return;
+    if (isMobile()) {
+      /* Show/hide — no translateX, no overflow */
+      cards.forEach(function (c, i) {
+        c.classList.toggle('pi-hc--active', i === current);
+      });
+      trackEl.style.transform = '';
+    } else {
+      /* Desktop/tablet: translateX slider */
+      var gap = 30;
+      var cw  = cards[0].offsetWidth;
+      trackEl.style.transform = 'translateX(-' + (current * (cw + gap)) + 'px)';
+      cards.forEach(function (c) { c.classList.remove('pi-hc--active'); });
+    }
+  }
+
+  /* Init: show first card on mobile */
+  if (isMobile() && cards.length) {
+    cards[0].classList.add('pi-hc--active');
+  }
+
+  /* Desktop nav (ID-based) */
+  if (prevBtn) {
+    prevBtn.addEventListener('click', function () {
+      current = current > 0 ? current - 1 : cards.length - 1;
+      slide();
+    });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', function () {
+      current = current < cards.length - 1 ? current + 1 : 0;
+      slide();
+    });
+  }
+
+  /* Mobile in-card nav (class-based, event delegation) */
+  trackEl.addEventListener('click', function (e) {
+    if (!isMobile()) return;
+    var isPrev = e.target.closest('.pi-hc__nav-prev');
+    var isNext = e.target.closest('.pi-hc__nav-next');
+    if (isPrev) { current = current > 0 ? current - 1 : cards.length - 1; slide(); }
+    if (isNext) { current = current < cards.length - 1 ? current + 1 : 0; slide(); }
+  });
+
+  var resizeTimer;
+  window.addEventListener('resize', function () {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      current = Math.min(current, maxIndex());
+      slide();
+    }, 100);
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PI Happy Customers",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section heading",
+      "default": "Happy Customers"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Review Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "Card shadow opacity",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "review_size",
+      "label": "Review text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "review_color",
+      "label": "Review text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "author_size",
+      "label": "Author name size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author name color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Stars"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FFB800"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "avatar",
+          "label": "Customer photo"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Star rating",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "textarea",
+          "id": "review",
+          "label": "Review text",
+          "default": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process."
+        },
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Customer name & title",
+          "default": "Emily Carter, Fashion Designer"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "PI Happy Customers",
+      "blocks": [
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process. The precision and attention to detail are unmatched. The studio has a clean, professional atmosphere, and the artist worked patiently with me to perfect my design. I couldn't have asked for a better experience",
+            "author": "Emily Carter, Fashion Designer"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "An incredible experience from start to finish. The team listened to exactly what I wanted and delivered something even better. The studio is spotless and the artists are true professionals.",
+            "author": "Marcus Rivera, Graphic Artist"
+          }
+        },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review": "Puerto Ink is hands down the best tattoo studio I've visited. The attention to detail and artistic vision are on another level. I'll definitely be back for my next piece.",
+            "author": "Sofia Morales, Photographer"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

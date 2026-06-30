@@ -1,0 +1,337 @@
+
+<style>
+  .pi-announcement-{{ section.id }},
+  .pi-announcement-mobile-{{ section.id }} {
+    --pi-ann-bg: {{ section.settings.bg_color }};
+    --pi-ann-text: {{ section.settings.text_color }};
+    --pi-ann-icon: {{ section.settings.icon_color }};
+    --pi-ann-icon-size: {{ section.settings.icon_size }}px;
+    --pi-ann-text-size: {{ section.settings.text_size }}px;
+    --pi-ann-location-size: {{ section.settings.location_size }}px;
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__social a svg,
+  .pi-announcement-{{ section.id }} .pi-announcement__social span svg,
+  .pi-announcement-{{ section.id }} .pi-announcement__locations svg {
+    fill: var(--pi-ann-icon, #ffffff);
+    width: var(--pi-ann-icon-size, 20px);
+    height: var(--pi-ann-icon-size, 20px);
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text {
+    font-size: var(--pi-ann-text-size, 13px);
+    color: var(--pi-ann-text, #ffffff);
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text a {
+    color: var(--pi-ann-text, #ffffff) !important;
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__location-list li,
+  .pi-announcement-{{ section.id }} .pi-announcement__locations {
+    font-size: var(--pi-ann-location-size, 11px);
+    color: var(--pi-ann-text, #ffffff);
+  }
+
+  .pi-announcement-mobile-{{ section.id }} .pi-announcement-mobile__text,
+  .pi-announcement-mobile-{{ section.id }} .pi-announcement-mobile__text a {
+    font-size: var(--pi-ann-text-size, 13px);
+    color: var(--pi-ann-text, #ffffff) !important;
+  }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text {
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<script>
+(function () {
+  function initStickyBar() {
+    var bar = document.querySelector('.pi-announcement');
+    if (!bar) return;
+
+    var h = bar.offsetHeight;
+
+    /* Fix bar to top of viewport at all times */
+    bar.style.position = 'fixed';
+    bar.style.top = '0';
+    bar.style.left = '0';
+    bar.style.right = '0';
+    bar.style.zIndex = '9999';
+    bar.style.width = '100%';
+
+    /* Insert spacer so the header section stays in the correct flow position */
+    var spacer = document.createElement('div');
+    spacer.style.height = h + 'px';
+    bar.parentNode.insertBefore(spacer, bar.nextSibling);
+
+    /* Push the sticky navbar so it sticks just below the announcement bar.
+       On mobile the desktop bar is hidden (h=0) so override to 42px for the mobile bar. */
+    var st = document.createElement('style');
+    st.textContent = '.header-section { top: ' + h + 'px !important; } @media (max-width: 768px) { .header-section { top: 42px !important; } }';
+    document.head.appendChild(st);
+
+    /* Toggle data-mobile based on actual rendered width (works in editor too) */
+    function checkWidth() {
+      if (bar.offsetWidth <= 768) {
+        bar.setAttribute('data-mobile', '');
+      } else {
+        bar.removeAttribute('data-mobile');
+      }
+    }
+
+    checkWidth();
+
+    if (window.ResizeObserver) {
+      new ResizeObserver(checkWidth).observe(bar);
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initStickyBar);
+  } else {
+    initStickyBar();
+  }
+})();
+</script>
+
+<div class="pi-announcement pi-announcement-{{ section.id }}" style="background:{{ section.settings.bg_color }};">
+  <div class="pi-announcement__inner">
+
+    <!-- Left: Social Icons -->
+    <div class="pi-announcement__social">
+      {%- if section.settings.facebook_url != blank -%}
+        <a href="{{ section.settings.facebook_url }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+      {%- else -%}
+        <span aria-label="Facebook">
+      {%- endif -%}
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
+      {%- if section.settings.facebook_url != blank -%}
+        </a>
+      {%- else -%}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.twitter_url != blank -%}
+        <a href="{{ section.settings.twitter_url }}" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)">
+      {%- else -%}
+        <span aria-label="X (Twitter)">
+      {%- endif -%}
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L1.254 2.25H8.08l4.254 5.622 5.91-5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+      {%- if section.settings.twitter_url != blank -%}
+        </a>
+      {%- else -%}
+        </span>
+      {%- endif -%}
+
+      {%- if section.settings.instagram_url != blank -%}
+        <a href="{{ section.settings.instagram_url }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+      {%- else -%}
+        <span aria-label="Instagram">
+      {%- endif -%}
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+      {%- if section.settings.instagram_url != blank -%}
+        </a>
+      {%- else -%}
+        </span>
+      {%- endif -%}
+    </div>
+
+    <!-- Center: Announcement Text -->
+    <div class="pi-announcement__text">
+      {%- if section.settings.announcement_link != blank -%}
+        <a href="{{ section.settings.announcement_link }}" style="color:{{ section.settings.text_color }}; text-decoration:none;">
+          {{ section.settings.announcement_text }}
+        </a>
+      {%- else -%}
+        {{ section.settings.announcement_text }}
+      {%- endif -%}
+    </div>
+
+    <!-- Right: Locations -->
+    <div class="pi-announcement__locations">
+      <svg viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+        <path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13C14 3.13 10.87 0 7 0z"/>
+        <circle cx="7" cy="6.5" r="2"/>
+      </svg>
+      <ul class="pi-announcement__location-list">
+        {%- assign locations = section.settings.locations | split: ',' -%}
+        {%- for location in locations -%}
+          <li>{{ location | strip }}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<!-- Mobile Announcement Bar -->
+<div class="pi-announcement-mobile pi-announcement-mobile-{{ section.id }}" style="background:{{ section.settings.bg_color }};">
+  <span class="pi-announcement-mobile__text">
+    {%- if section.settings.announcement_link != blank -%}
+      <a href="{{ section.settings.announcement_link }}" style="color:{{ section.settings.text_color }};text-decoration:none;">{{ section.settings.announcement_text }}</a>
+    {%- else -%}
+      {{ section.settings.announcement_text }}
+    {%- endif -%}
+  </span>
+</div>
+<div class="pi-announcement-mobile-spacer"></div>
+
+{% schema %}
+{
+  "name": "PI Announcement Bar",
+  "tag": "section",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Social Media"
+    },
+    {
+      "type": "url",
+      "id": "facebook_url",
+      "label": "Facebook URL"
+    },
+    {
+      "type": "url",
+      "id": "twitter_url",
+      "label": "X (Twitter) URL"
+    },
+    {
+      "type": "url",
+      "id": "instagram_url",
+      "label": "Instagram URL"
+    },
+    {
+      "type": "header",
+      "content": "Announcement"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Text",
+      "default": "Sign up and get 10% off on Piercing Jewelry"
+    },
+    {
+      "type": "url",
+      "id": "announcement_link",
+      "label": "Link (optional)"
+    },
+    {
+      "type": "header",
+      "content": "Locations"
+    },
+    {
+      "type": "text",
+      "id": "locations",
+      "label": "Locations (comma separated)",
+      "default": "Crete, Athens, Antwerp, Amsterdam"
+    },
+    {
+      "type": "header",
+      "content": "Appearance"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Bar background color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "icon_size",
+      "label": "Social icon size",
+      "min": 14,
+      "max": 28,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "text_size",
+      "label": "Announcement text size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 13
+    },
+    {
+      "type": "range",
+      "id": "location_size",
+      "label": "Location text size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 11
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

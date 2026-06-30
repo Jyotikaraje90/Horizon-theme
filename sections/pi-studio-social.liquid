@@ -1,0 +1,1046 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;1,400;1,600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ─── Shared arrow ──────────────────────────────── */
+  .pi-ss-arrow {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1.5px solid #000;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .pi-ss-arrow:hover { background: #000; }
+  .pi-ss-arrow:hover svg path { stroke: #fff; }
+
+  /* ════════════════════════════════════════════════
+     FRAME 1 — PIERCING SERVICES
+  ════════════════════════════════════════════════ */
+  .pi-ps {
+    padding: 80px 0;
+    background: #fff;
+  }
+  .pi-ps__inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+  .pi-ps__header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    min-height: 70px;
+  }
+  .pi-ps__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 3.75vw, 54px);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+    line-height: 1.2;
+  }
+  .pi-ps__arrows { display: flex; gap: 20px; }
+  .pi-ps__track-wrap { overflow: hidden; }
+  .pi-ps__track {
+    display: flex;
+    gap: 30px;
+    transition: transform 0.4s ease;
+    will-change: transform;
+  }
+  .pi-ps__card {
+    flex: 0 0 360px;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+  }
+  .pi-ps__card-img {
+    width: 360px;
+    height: 360px;
+    overflow: hidden;
+    border-radius: 10px;
+    flex-shrink: 0;
+    background: #f3f3f3;
+  }
+  .pi-ps__card-img img,
+  .pi-ps__card-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pi-ps__card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .pi-ps__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    letter-spacing: 0;
+    color: #000000;
+    margin: 0;
+  }
+  .pi-ps__card-desc {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0;
+    color: #121212;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .pi-ps__carousel-container { position: relative; }
+  .pi-ps__arrows--mobile-overlay { display: none; }
+  .pi-ps__footer { display: flex; justify-content: center; }
+  .pi-ps__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+    height: 55px;
+    padding: 16px 40px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .pi-ps__btn:hover { background: #222; color: #fff; text-decoration: none; }
+
+  /* ════════════════════════════════════════════════
+     FRAME 2 — HAPPY CUSTOMERS
+  ════════════════════════════════════════════════ */
+  .pi-hc {
+    padding: 64px 0;
+    background: #fff;
+  }
+  .pi-hc__inner {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+  }
+  .pi-hc__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 3.75vw, 54px);
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #000;
+    margin: 0;
+    text-align: center;
+  }
+  .pi-hc__row {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 1090px;
+    justify-content: center;
+  }
+  .pi-hc__card-wrap {
+    flex: 1;
+    max-width: 930px;
+    overflow: hidden;
+  }
+  .pi-hc__card {
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
+    padding: 40px 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    text-align: center;
+  }
+  .pi-hc__slide { display: none; }
+  .pi-hc__slide.is-active {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+  .pi-hc__avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: #f3f3f3;
+  }
+  .pi-hc__avatar img,
+  .pi-hc__avatar .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pi-hc__stars {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+  }
+  .pi-hc__stars svg { flex-shrink: 0; }
+  .pi-hc__text {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 29px;
+    letter-spacing: 0;
+    color: #121212;
+    max-width: 830px;
+    width: 100%;
+    margin: 0;
+    text-align: center;
+  }
+  .pi-hc__author {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #000;
+    margin: 0;
+  }
+
+  /* ════════════════════════════════════════════════
+     FRAME 3 — TRUSTED BY THE BEST
+  ════════════════════════════════════════════════ */
+  .pi-tb { background: #fff; overflow: visible; }
+  .pi-tb__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .pi-tb__title-cell {
+    position: relative;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 640 / 489;
+    padding: 32px 32px 32px 33%;
+    overflow: visible;
+    box-sizing: border-box;
+  }
+  .pi-tb__deco {
+    position: absolute;
+    top: -20%;
+    left: 0;
+    width: 31%;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .pi-tb__deco img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .pi-tb__title-content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    text-align: center;
+    width: 100%;
+  }
+  .pi-tb__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(30px, 3.4vw, 54px);
+    font-weight: 600;
+    text-transform: uppercase;
+    line-height: 1.3;
+    letter-spacing: 0;
+    color: #000;
+    margin: 0;
+    text-align: center;
+    max-width: 360px;
+  }
+  .pi-tb__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: #000;
+    color: #fff;
+    height: 55px;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+  }
+  .pi-tb__btn:hover { background: #222; color: #fff; text-decoration: none; }
+  .pi-tb__photo {
+    position: relative;
+    aspect-ratio: 640 / 489;
+    overflow: hidden;
+    background: #111;
+  }
+  .pi-tb__photo img,
+  .pi-tb__photo .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .pi-tb__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.35s ease;
+    pointer-events: none;
+  }
+  .pi-tb__photo:hover .pi-tb__overlay {
+    opacity: 1;
+  }
+  .pi-tb__name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 2.4vw, 40px);
+    font-weight: 600;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    padding: 0 24px;
+    line-height: 1.25;
+    letter-spacing: 0;
+  }
+
+  /* ─── Responsive ────────────────────────────── */
+  @media (max-width: 989px) {
+    .pi-ps__inner, .pi-hc__inner { padding: 0 24px; }
+    .pi-ps__card { flex: 0 0 280px; width: 280px; }
+    .pi-ps__card-img { width: 280px; height: 280px; }
+  }
+  @media (max-width: 749px) {
+    .pi-hc__inner { padding: 0 16px; }
+    .pi-hc__row { gap: 12px; }
+    .pi-hc__card { padding: 24px; }
+    .pi-tb__grid { grid-template-columns: repeat(2, 1fr); }
+    .pi-tb__title-cell {
+      grid-column: 1 / -1;
+      aspect-ratio: unset;
+      min-height: 260px;
+      padding: 32px 32px 40px 32px;
+    }
+  }
+  @media (max-width: 600px) {
+    .pi-ps__inner { padding: 0 18px; gap: 30px; }
+    .pi-ps__track { gap: 10px; }
+    .pi-ps__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
+    .pi-ps__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
+    .pi-ps__card-body { width: 100%; }
+    .pi-ps__heading { font-size: 30px; }
+    .pi-ps__btn { height: 50px; font-size: 14px; line-height: 18px; width: 100%; box-sizing: border-box; }
+    .pi-ps__arrows--desktop { display: none; }
+    .pi-ps__arrows--mobile-overlay {
+      display: flex;
+      position: absolute;
+      top: 0;
+      transform: translateY(-50%);
+      left: -17px;
+      right: -17px;
+      justify-content: space-between;
+      align-items: center;
+      pointer-events: none;
+      z-index: 5;
+    }
+    .pi-ps__arrows--mobile-overlay .pi-ss-arrow {
+      pointer-events: auto;
+      width: 35px !important;
+      height: 35px !important;
+      min-width: 35px;
+    }
+  }
+
+  /* ─── Customizer-driven styles ───────────────── */
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  #pi-ps-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+  #pi-hc-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+  }
+  .pi-ps__heading {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-hc__heading {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-tb__heading {
+    color: {{ section.settings.heading_color }};
+  }
+  .pi-ps__card-img {
+    border-radius: {{ section.settings.card_radius }}px;
+  }
+  .pi-ps__card-body {
+    background: {{ section.settings.card_bg }};
+  }
+  .pi-ps__card-title {
+    color: {{ section.settings.card_title_color }};
+    font-size: {{ section.settings.card_title_size }}px;
+  }
+  .pi-ps__card-desc {
+    color: {{ section.settings.card_desc_color }};
+    font-size: {{ section.settings.card_desc_size }}px;
+  }
+  .pi-hc__card {
+    background: {{ section.settings.testimonial_card_bg }};
+    border-radius: {{ section.settings.testimonial_card_radius }}px;
+  }
+  .pi-hc__stars svg[fill] { fill: {{ section.settings.star_color }}; }
+  .pi-hc__text {
+    color: {{ section.settings.review_color }};
+  }
+  .pi-ps__btn {
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-size: {{ section.settings.btn_size }}px;
+  }
+  .pi-ps__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+  .pi-tb__btn {
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-size: {{ section.settings.btn_size }}px;
+  }
+  .pi-tb__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+  @media (max-width: 600px) {
+    .pi-ps__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    .pi-hc__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    #pi-ps-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+    #pi-hc-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
+</style>
+
+{%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
+{%- assign testimonials   = section.blocks | where: "type", "testimonial" -%}
+{%- assign social_photos  = section.blocks | where: "type", "social_photo" -%}
+
+{%- comment -%} ── FRAME 1: PIERCING SERVICES ── {%- endcomment -%}
+<div class="pi-ps" id="pi-ps-{{ section.id }}">
+  <div class="pi-ps__inner">
+
+    <div class="pi-ps__header">
+      {%- if section.settings.piercing_heading != blank -%}
+        <h2 class="pi-ps__heading">{{ section.settings.piercing_heading }}</h2>
+      {%- endif -%}
+      <div class="pi-ps__arrows pi-ps__arrows--desktop">
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing" style="width:50px;height:50px;border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__next" aria-label="Next piercing" style="width:50px;height:50px;border-radius:50%;background:#000000;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="pi-ps__carousel-container">
+      <div class="pi-ps__track-wrap">
+        <div class="pi-ps__track" id="pi-ps-track-{{ section.id }}">
+        {%- for block in piercing_cards -%}
+          <div class="pi-ps__card" {{ block.shopify_attributes }}>
+            <div class="pi-ps__card-img">
+              {%- if block.settings.image != blank -%}
+                <img
+                  src="{{ block.settings.image | image_url: width: 720 }}"
+                  alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                  width="360"
+                  height="360"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="pi-ps__card-body">
+              {%- if block.settings.title != blank -%}
+                <h4 class="pi-ps__card-title">{{ block.settings.title }}</h4>
+              {%- endif -%}
+              {%- if block.settings.description != blank -%}
+                <p class="pi-ps__card-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="pi-ps__arrows--mobile-overlay">
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__prev" aria-label="Previous piercing" style="border-radius:50%;background:#ffffff;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+        <div role="button" tabindex="0" class="pi-ss-arrow pi-ps__next" aria-label="Next piercing" style="border-radius:50%;background:#000000;border:1.5px solid #000000;box-sizing:border-box;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <svg width="14" height="14" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#ffffff" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    {%- if section.settings.piercing_button_label != blank -%}
+      <div class="pi-ps__footer">
+        <a href="{{ section.settings.piercing_button_link }}" class="pi-ps__btn">
+          {{ section.settings.piercing_button_label }}
+        </a>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- comment -%} ── FRAME 2: HAPPY CUSTOMERS ── {%- endcomment -%}
+<div class="pi-hc" id="pi-hc-{{ section.id }}">
+  <div class="pi-hc__inner">
+
+    {%- if section.settings.customers_heading != blank -%}
+      <h2 class="pi-hc__heading">{{ section.settings.customers_heading }}</h2>
+    {%- endif -%}
+
+    {%- if testimonials.size > 0 -%}
+      <div class="pi-hc__row">
+        <button class="pi-ss-arrow pi-hc__prev" aria-label="Previous testimonial">
+          <svg width="16" height="16" viewBox="4 4 16 16" fill="#000000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+
+        <div class="pi-hc__card-wrap">
+          <div class="pi-hc__card">
+            {%- for block in testimonials -%}
+              <div class="pi-hc__slide{% if forloop.first %} is-active{% endif %}" {{ block.shopify_attributes }}>
+                <div class="pi-hc__avatar">
+                  {%- if block.settings.avatar != blank -%}
+                    <img
+                      src="{{ block.settings.avatar | image_url: width: 160 }}"
+                      alt="{{ block.settings.author_name | escape }}"
+                      width="80"
+                      height="80"
+                      loading="lazy"
+                    >
+                  {%- else -%}
+                    {{ 'customer' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+                <div class="pi-hc__stars">
+                  {%- assign rating = block.settings.rating | default: 5 -%}
+                  {%- for i in (1..5) -%}
+                    {%- if i <= rating -%}
+                      <svg width="24" height="24" viewBox="0 0 20 20" fill="#FFBA00" xmlns="http://www.w3.org/2000/svg"><path d="M10 0L12.35 6.76L19.51 6.91L13.8 11.24L15.88 18.09L10 14L4.12 18.09L6.2 11.24L0.49 6.91L7.65 6.76Z"/></svg>
+                    {%- else -%}
+                      <svg width="24" height="24" viewBox="0 0 20 20" fill="none" stroke="#FFBA00" stroke-width="1" xmlns="http://www.w3.org/2000/svg"><path d="M10 0L12.35 6.76L19.51 6.91L13.8 11.24L15.88 18.09L10 14L4.12 18.09L6.2 11.24L0.49 6.91L7.65 6.76Z"/></svg>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+                {%- if block.settings.review_text != blank -%}
+                  <p class="pi-hc__text">{{ block.settings.review_text }}</p>
+                {%- endif -%}
+                {%- if block.settings.author_name != blank -%}
+                  <p class="pi-hc__author">
+                    — {{ block.settings.author_name }}
+                    {%- if block.settings.author_role != blank -%}, {{ block.settings.author_role }}{%- endif -%}
+                  </p>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <button class="pi-ss-arrow pi-hc__next" aria-label="Next testimonial">
+          <svg width="16" height="16" viewBox="4 4 16 16" fill="#000000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{%- comment -%} ── FRAME 3: TRUSTED BY THE BEST ── {%- endcomment -%}
+<div class="pi-tb">
+  <div class="pi-tb__grid">
+
+    <div class="pi-tb__title-cell">
+      {%- if section.settings.trusted_deco_image != blank -%}
+        <div class="pi-tb__deco">
+          <img
+            src="{{ section.settings.trusted_deco_image | image_url: width: 400 }}"
+            alt=""
+            loading="lazy"
+          >
+        </div>
+      {%- endif -%}
+      <div class="pi-tb__title-content">
+        {%- if section.settings.trusted_heading != blank -%}
+          <h2 class="pi-tb__heading">{{ section.settings.trusted_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.trusted_button_label != blank -%}
+          <a href="{{ section.settings.trusted_button_link }}" class="pi-tb__btn">
+            {{ section.settings.trusted_button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- for block in social_photos -%}
+      <div class="pi-tb__photo" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img
+            src="{{ block.settings.image | image_url: width: 1280 }}"
+            alt="{{ block.settings.image.alt | default: block.settings.name | escape }}"
+            loading="lazy"
+            width="640"
+            height="489"
+          >
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+        {%- if block.settings.name != blank -%}
+          <div class="pi-tb__overlay" aria-hidden="true">
+            <span class="pi-tb__name">{{ block.settings.name }}</span>
+          </div>
+        {%- endif -%}
+      </div>
+    {%- endfor -%}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  /* Piercing Services carousel */
+  var psWrap = document.getElementById('pi-ps-{{ section.id }}');
+  if (psWrap) {
+    var psTrack    = document.getElementById('pi-ps-track-{{ section.id }}');
+    var psTrackWrap = psTrack.parentElement;
+    var psMobileArrows = psWrap.querySelector('.pi-ps__arrows--mobile-overlay');
+    var psIdx = 0;
+
+    function psGetCardWidth() {
+      var card = psTrack.querySelector('.pi-ps__card');
+      if (!card) return 390;
+      var gap = parseFloat(window.getComputedStyle(psTrack).gap) || 30;
+      return card.offsetWidth + gap;
+    }
+    function psVisible() { return Math.floor(psTrackWrap.offsetWidth / psGetCardWidth()) || 1; }
+    function psSlide(i) {
+      var total = psTrack.querySelectorAll('.pi-ps__card').length;
+      psIdx = Math.max(0, Math.min(i, Math.max(0, total - psVisible())));
+      psTrack.style.transform = 'translateX(-' + (psIdx * psGetCardWidth()) + 'px)';
+    }
+    function psUpdateArrowPos() {
+      if (!psMobileArrows) return;
+      var img = psTrack.querySelector('.pi-ps__card-img');
+      if (!img) return;
+      psMobileArrows.style.top = (img.offsetHeight / 2) + 'px';
+    }
+    var psPrevBtns = psWrap.querySelectorAll('.pi-ps__prev');
+    var psNextBtns = psWrap.querySelectorAll('.pi-ps__next');
+    psPrevBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { psSlide(psIdx - 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx - 1); });
+    });
+    psNextBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () { psSlide(psIdx + 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx + 1); });
+    });
+    window.addEventListener('resize', function () { psSlide(0); psUpdateArrowPos(); });
+    psUpdateArrowPos();
+  }
+
+  /* Happy Customers slider */
+  var hcWrap = document.getElementById('pi-hc-{{ section.id }}');
+  if (hcWrap) {
+    var hcSlides = hcWrap.querySelectorAll('.pi-hc__slide');
+    var hcIdx    = 0;
+
+    function hcShow(i) {
+      hcSlides[hcIdx].classList.remove('is-active');
+      hcIdx = (i + hcSlides.length) % hcSlides.length;
+      hcSlides[hcIdx].classList.add('is-active');
+    }
+
+    var hcPrev = hcWrap.querySelector('.pi-hc__prev');
+    var hcNext = hcWrap.querySelector('.pi-hc__next');
+    if (hcPrev) hcPrev.addEventListener('click', function () { hcShow(hcIdx - 1); });
+    if (hcNext) hcNext.addEventListener('click', function () { hcShow(hcIdx + 1); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PI Studio Social",
+  "tag": "section",
+  "settings": [
+    { "type": "header", "content": "Piercing Services" },
+    {
+      "type": "text",
+      "id": "piercing_heading",
+      "label": "Heading",
+      "default": "Piercing Services"
+    },
+    {
+      "type": "text",
+      "id": "piercing_button_label",
+      "label": "Button text",
+      "default": "View All Piercing Services"
+    },
+    { "type": "url", "id": "piercing_button_link", "label": "Button link" },
+    { "type": "header", "content": "Happy Customers" },
+    {
+      "type": "text",
+      "id": "customers_heading",
+      "label": "Heading",
+      "default": "Happy Customers"
+    },
+    { "type": "header", "content": "Trusted by the Best" },
+    {
+      "type": "text",
+      "id": "trusted_heading",
+      "label": "Heading",
+      "default": "Trusted by the Best"
+    },
+    {
+      "type": "text",
+      "id": "trusted_button_label",
+      "label": "Button text",
+      "default": "Explore More"
+    },
+    { "type": "url",          "id": "trusted_button_link",  "label": "Button link" },
+    { "type": "image_picker", "id": "trusted_deco_image",   "label": "Decorative illustration" },
+
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0, "max": 100, "step": 4, "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0, "max": 100, "step": 4, "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 24,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0, "max": 100, "step": 4, "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 0,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Colors" },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+
+    { "type": "header", "content": "Typography" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 20, "max": 60, "step": 2, "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile Heading Size",
+      "min": 16, "max": 40, "step": 2, "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
+
+    { "type": "header", "content": "Card Styles" },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Border Radius",
+      "min": 0, "max": 24, "step": 2, "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card Title Size",
+      "min": 14, "max": 28, "step": 2, "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Card Description Size",
+      "min": 12, "max": 20, "step": 1, "default": 14,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Testimonial" },
+    {
+      "type": "color",
+      "id": "testimonial_card_bg",
+      "label": "Testimonial Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_card_radius",
+      "label": "Testimonial Card Radius",
+      "min": 0, "max": 24, "step": 2, "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "review_color",
+      "label": "Review Text Color",
+      "default": "#333333"
+    },
+
+    { "type": "header", "content": "Button Styles" },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button Border Radius",
+      "min": 0, "max": 40, "step": 2, "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button Font Size",
+      "min": 12, "max": 20, "step": 1, "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "piercing_card",
+      "name": "Piercing Card",
+      "settings": [
+        { "type": "image_picker", "id": "image",       "label": "Image" },
+        { "type": "text",         "id": "title",       "label": "Title",       "default": "Piercing Style" },
+        { "type": "textarea",     "id": "description", "label": "Description", "default": "Describe this piercing style." }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "image_picker", "id": "avatar",      "label": "Customer photo" },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Rating",
+          "min": 1, "max": 5, "step": 1, "default": 5
+        },
+        { "type": "textarea", "id": "review_text",  "label": "Review",           "default": "Amazing experience at PuertoInk!" },
+        { "type": "text",     "id": "author_name",  "label": "Customer name",    "default": "Customer Name" },
+        { "type": "text",     "id": "author_role",  "label": "Customer title",   "default": "Fashion Designer" }
+      ]
+    },
+    {
+      "type": "social_photo",
+      "name": "Social Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name (shown on hover)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Studio Social",
+      "blocks": [
+        { "type": "piercing_card", "settings": { "title": "Earlobe Piercing",  "description": "A classic and versatile piercing for effortless style." } },
+        { "type": "piercing_card", "settings": { "title": "Navel Piercing",    "description": "A trendy and stylish piercing on belly button for body jewelry lovers." } },
+        { "type": "piercing_card", "settings": { "title": "Septum Piercing",   "description": "A bold, central nose piercing with customizable jewelry options." } },
+        { "type": "piercing_card", "settings": { "title": "Helix Piercing",    "description": "A stylish cartilage piercing along the upper ear." } },
+        {
+          "type": "testimonial",
+          "settings": {
+            "rating": 5,
+            "review_text": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process. The precision and attention to detail are unmatched. The studio has a clean, professional atmosphere, and the artist worked patiently with me to perfect my design. I couldn't have asked for a better experience.",
+            "author_name": "Emily Carter",
+            "author_role": "Fashion Designer"
+          }
+        },
+        { "type": "social_photo", "settings": { "name": "Mohamed Salah" } },
+        { "type": "social_photo", "settings": { "name": "Kostas Tsimikas" } },
+        { "type": "social_photo", "settings": { "name": "Thiago Alcantara" } },
+        { "type": "social_photo", "settings": { "name": "Anna Theodoridi" } },
+        { "type": "social_photo", "settings": { "name": "Mykola Shaparenko" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

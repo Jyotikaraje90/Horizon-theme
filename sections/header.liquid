@@ -409,14 +409,14 @@
 
 {% stylesheet %}
   body {
-    --header-height: 60px;
+    --header-height: 95px;
     --header-group-height: var(--header-height);
     --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
 
   .header {
     /* Set header paddings based on height setting */
-    --header-padding: var(--padding-sm);
+    --header-padding: 20px;
     --font-paragraph--line-height: 1;
     --header-content-transition-timing: 0s;
 
@@ -713,6 +713,10 @@
     grid-area: left;
   }
 
+  .header__column--left {
+    gap: 40px;
+  }
+
   .header__column--center {
     justify-content: center;
     grid-area: center;
@@ -895,6 +899,10 @@
 
   .header:has(#Details-menu-drawer-container[open]) {
     contain: style;
+  }
+
+  .header .menu-list {
+    --menu-horizontal-gap: 40px;
   }
 
   .header.header--compact {
@@ -1112,6 +1120,45 @@
   .dropdown-localization:not(dropdown-localization-component) .language-selector {
     font-family: var(--menu-localization-font);
     font-size: var(--menu-localization-font-size);
+  }
+
+  @media screen and (max-width: 749px) {
+    body {
+      --header-height: 60px;
+    }
+
+    /* Shift logo to left column beside hamburger, widen leftB to 140px */
+    .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      --header-template-columns: 44px 140px 1fr 44px 44px;
+      padding-block: 10px;
+      padding-inline: 20px;
+    }
+
+    /* Logo: move from center → leftB, left-aligned */
+    .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      grid-area: leftB;
+      justify-self: start;
+      max-width: 140px;
+      height: 40px;
+    }
+
+    .header__columns .header-logo img,
+    .header__columns .header-logo svg,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
+      max-width: 140px;
+      height: 40px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    /* Move search to rightA instead of leftB */
+    .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      grid-area: rightA;
+    }
   }
 {% endstylesheet %}
 
@@ -1455,6 +1502,21 @@
       "step": 0.5,
       "unit": "px",
       "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Inquire Button"
+    },
+    {
+      "type": "text",
+      "id": "inquire_label",
+      "label": "Button text",
+      "default": "Inquire Now"
+    },
+    {
+      "type": "url",
+      "id": "inquire_link",
+      "label": "Button link"
     },
     {
       "type": "header",

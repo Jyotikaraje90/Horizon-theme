@@ -1,4 +1,130 @@
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  /* ── Arrow buttons: 50×50px with 20px gap ── */
+  .section-resource-list .slideshow-control.slideshow-control--shape-circle,
+  .section-resource-list .slideshow-control.slideshow-control--shape-square {
+    width: 50px;
+    height: 50px;
+  }
+
+  .section-resource-list .slideshow-controls__arrows {
+    gap: 20px;
+    height: 50px;
+  }
+
+  /* ── Gap between slides: 30px ── */
+  .section-resource-list slideshow-slides {
+    gap: 30px !important;
+  }
+
+  /* ── Image area: #E6E6E6 bg, 20px radius all corners ── */
+  .section-resource-list .card-gallery {
+    --border-radius: 20px !important;
+    background-color: #E6E6E6 !important;
+    border-radius: 20px !important;
+    overflow: hidden !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* ── Image: contain inside gray area, blend with white ── */
+  .section-resource-list .card-gallery img {
+    object-fit: contain !important;
+    mix-blend-mode: multiply;
+  }
+
+  /* ── Card content: white bg, zero gap (gallery flush with info box) ── */
+  .section-resource-list .product-card__content {
+    background: #ffffff;
+    gap: 0 !important;
+  }
+
+  /* ── Info box: product title ── */
+  .section-resource-list rte-formatter.text-block {
+    background: #ffffff;
+    padding: 16px 16px 0 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ── Info box: price ── */
+  .section-resource-list product-price {
+    background: #ffffff;
+    padding: 20px 16px 0 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ── Info box: buy-buttons block — closes the box with bottom border ── */
+  .section-resource-list .buy-buttons-block {
+    background: #ffffff;
+    padding: 20px 16px 16px 16px !important;
+    border-left: 1px dashed #000000;
+    border-right: 1px dashed #000000;
+    border-bottom: 1px dashed #000000;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    align-self: stretch !important;
+    box-sizing: border-box !important;
+  }
+
+  /* ── Buy-buttons chain: full width ── */
+  .section-resource-list .buy-buttons-block product-form-component,
+  .section-resource-list .buy-buttons-block form,
+  .section-resource-list .buy-buttons-block add-to-cart-component {
+    display: block !important;
+    width: 100% !important;
+  }
+
+  /* ── ADD TO CART: full-width solid black button, 55px tall ── */
+  .section-resource-list add-to-cart-component .button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 55px !important;
+    background: #000000 !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 8px !important;
+    padding: 16px 32px !important;
+    box-shadow: none !important;
+    min-height: unset !important;
+    cursor: pointer;
+    text-decoration: none !important;
+  }
+
+  .section-resource-list add-to-cart-component .button:hover {
+    background: #222222 !important;
+  }
+
+  /* ── Button text ── */
+  .section-resource-list add-to-cart-component .add-to-cart-text {
+    color: #ffffff !important;
+    text-decoration: none !important;
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── Hide cart icon — text only ── */
+  .section-resource-list add-to-cart-component .add-to-cart-icon {
+    display: none !important;
+  }
+</style>
 
 {% liquid
   assign max_items = section.settings.max_products
@@ -77,6 +203,27 @@
     style="--horizontal-alignment: {{ section.settings.horizontal_alignment }};"
   >
     {%- content_for 'blocks' -%}
+  </div>
+
+  {%- assign explore_block = section.blocks | where: 'type', '_product-list-button' | first -%}
+  {%- if explore_block == blank -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '_product-list-content' -%}
+        {%- for child in block.blocks -%}
+          {%- if child.type == '_product-list-button' -%}
+            {%- assign explore_block = child -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+  <div class="pi-explore-footer">
+    <a
+      href="{{ section.settings.collection.url }}"
+      class="pi-explore-btn"
+    >
+      Explore Our Jewelry Collection
+    </a>
   </div>
 </div>
 

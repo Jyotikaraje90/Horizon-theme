@@ -6,285 +6,467 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
-    "hero_jVaWmY": {
-      "type": "hero",
+    "pi_main_banner_xKpQmR": {
+      "type": "pi-main-banner",
+      "name": "PI Main Banner",
+      "settings": {
+        "main_image": "shopify://shop_images/Main_Banner.png",
+        "main_heading": "The Art of Self Expression With Puerto Ink",
+        "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
+        "main_button_label": "Book an Appointment",
+        "main_button_link": "",
+        "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
+        "banner2_label": "Tattoos",
+        "banner2_link": "",
+        "banner3_image": "shopify://shop_images/IMG_4558_1_bb261ca3-c878-4f11-957b-e8416116b683.png",
+        "banner3_label": "Piercings",
+        "banner3_link": ""
+      }
+    },
+    "pi_best_sellers_Kx4mQz": {
+      "type": "pi-best-sellers",
+      "name": "PI Best Sellers",
+      "settings": {
+        "heading": "Best Sellers",
+        "collection": "best-sellers",
+        "max_products": 8,
+        "explore_label": "Explore Our Jewelry Collection",
+        "explore_link": "/collections/all",
+        "padding_top": 48,
+        "padding_bottom": 48
+      }
+    },
+    "pi_jewelry_banner_mN8xWq": {
+      "type": "pi-jewelry-banner",
+      "settings": {
+        "background_image": "shopify://shop_images/Products_Banner_2.png",
+        "left_image": "shopify://shop_images/Maskgroup_4.png",
+        "heading": "Luxury Piercing Jewelry For Every Look",
+        "subheading": "Premium designs tailored for elegance and everyday style.",
+        "button_label": "Discover More",
+        "button_link": "/collections/all",
+        "right_image": "shopify://shop_images/Maskgroup_5.png"
+      }
+    },
+    "pi_tattoo_services_Tz3mKw": {
+      "type": "pi-tattoo-services",
       "blocks": {
-        "text_YLPk4p": {
-          "type": "text",
-          "name": "t:names.heading",
+        "ts_card_1": {
+          "type": "card",
           "settings": {
-            "text": "<p>Browse our latest products</p>",
-            "width": "fit-content",
-            "max_width": "normal",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-body--family)",
-            "font_size": "1rem",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "var(--color-foreground-heading)",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/Mask_group_7.png",
+            "title": "Realistic Tattoos",
+            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
+          }
         },
-        "button_H9gpTf": {
-          "type": "button",
-          "name": "t:names.button",
+        "ts_card_2": {
+          "type": "card",
           "settings": {
-            "label": "Shop all",
-            "link": "shopify://collections/all",
-            "open_in_new_tab": false,
-            "style_class": "button-secondary",
-            "width": "fit-content",
-            "custom_width": 100,
-            "width_mobile": "fit-content",
-            "custom_width_mobile": 100
-          },
-          "blocks": {}
+            "image": "shopify://shop_images/Mask_group_8.png",
+            "title": "Micro-Realistic Tattoos",
+            "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
+          }
+        },
+        "ts_card_3": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_9.png",
+            "title": "Blackwork",
+            "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
+          }
+        },
+        "ts_card_4": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_10.png",
+            "title": "Fine Line Tattoos",
+            "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
+          }
         }
       },
       "block_order": [
-        "text_YLPk4p",
-        "button_H9gpTf"
+        "ts_card_1",
+        "ts_card_2",
+        "ts_card_3",
+        "ts_card_4"
       ],
-      "name": "t:names.hero",
       "settings": {
-        "media_type_1": "image",
-        "media_type_2": "image",
-        "stack_media_on_mobile": false,
-        "custom_mobile_media": false,
-        "media_type_1_mobile": "image",
-        "media_type_2_mobile": "image",
-        "open_in_new_tab": false,
-        "content_direction": "column",
-        "vertical_on_mobile": true,
-        "horizontal_alignment": "space-between",
-        "vertical_alignment": "flex-end",
-        "align_baseline": true,
-        "horizontal_alignment_flex_direction_column": "center",
-        "vertical_alignment_flex_direction_column": "flex-end",
-        "gap": 24,
-        "section_width": "page-width",
-        "section_height": "medium",
-        "section_height_custom": 50,
-        "color_scheme": "scheme-6",
-        "toggle_overlay": true,
-        "overlay_color": "#12121266",
-        "overlay_style": "solid",
-        "gradient_direction": "to bottom",
-        "blurred_reflection": false,
-        "reflection_opacity": 75,
-        "padding-block-start": 100,
-        "padding-block-end": 72
+        "heading": "Tattoo Services",
+        "button_label": "View All Tattoo Services",
+        "button_link": "/collections/all"
       }
     },
-    "product_list_fa6P9H": {
-      "type": "product-list",
+    "pi_usp_Qr5yNb": {
+      "type": "pi-usp",
       "blocks": {
-        "static-header": {
-          "type": "_product-list-content",
-          "name": "t:names.header",
-          "static": true,
+        "usp_1": {
+          "type": "usp",
           "settings": {
-            "content_direction": "row",
-            "vertical_on_mobile": false,
-            "horizontal_alignment": "space-between",
-            "vertical_alignment": "flex-end",
-            "align_baseline": true,
-            "horizontal_alignment_flex_direction_column": "flex-start",
-            "vertical_alignment_flex_direction_column": "center",
-            "gap": 12,
-            "width": "fill",
-            "custom_width": 100,
-            "width_mobile": "fill",
-            "custom_width_mobile": 100,
-            "height": "fit",
-            "custom_height": 100,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "background_media": "none",
-            "video_position": "cover",
-            "background_image_position": "cover",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_list_text_YFtzcL": {
-              "type": "_product-list-text",
-              "name": "t:names.collection_title",
-              "settings": {
-                "text": "<h3>{{ closest.collection.title }}</h3>",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "h4",
-                "font": "var(--font-body--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_list_button_MWeP9V": {
-              "type": "_product-list-button",
-              "name": "t:names.product_list_button",
-              "settings": {
-                "label": "View all",
-                "open_in_new_tab": false,
-                "style_class": "link",
-                "width": "fit-content",
-                "custom_width": 100,
-                "width_mobile": "fit-content",
-                "custom_width_mobile": 100
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_list_text_YFtzcL",
-            "product_list_button_MWeP9V"
-          ]
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
+            "label": "Authentic"
+          }
         },
-        "static-product-card": {
-          "type": "_product-card",
-          "name": "t:names.product_card",
-          "static": true,
+        "usp_2": {
+          "type": "usp",
           "settings": {
-            "product_card_gap": 4,
-            "inherit_color_scheme": true,
-            "color_scheme": "",
-            "border": "none",
-            "border_width": 1,
-            "border_opacity": 100,
-            "border_radius": 0,
-            "padding-block-start": 0,
-            "padding-block-end": 0,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {
-            "product_card_gallery_677WP3": {
-              "type": "_product-card-gallery",
-              "name": "t:names.product_card_media",
-              "settings": {
-                "image_ratio": "adapt",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 0,
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "product_title_YXxMTj": {
-              "type": "product-title",
-              "name": "t:names.product_title",
-              "settings": {
-                "width": "100%",
-                "max_width": "normal",
-                "alignment": "left",
-                "type_preset": "rte",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "var(--color-foreground)",
-                "background": false,
-                "background_color": "#00000026",
-                "corner_radius": 0,
-                "padding-block-start": 4,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "price_JQzVV4": {
-              "type": "price",
-              "name": "t:names.product_price",
-              "settings": {
-                "show_sale_price_first": true,
-                "show_installments": false,
-                "show_tax_info": false,
-                "type_preset": "h6",
-                "width": "100%",
-                "alignment": "left",
-                "font": "var(--font-body--family)",
-                "font_size": "1rem",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "color": "var(--color-foreground)",
-                "padding-block-start": 0,
-                "padding-block-end": 0,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": [
-            "product_card_gallery_677WP3",
-            "product_title_YXxMTj",
-            "price_JQzVV4"
-          ]
+            "icon": "shopify://shop_images/PREMIUM1.png",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
+            "label": "Creative"
+          }
         }
       },
-      "name": "Featured collection",
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
       "settings": {
-        "collection": "all",
-        "layout_type": "grid",
-        "carousel_on_mobile": false,
-        "max_products": 8,
-        "columns": 4,
-        "mobile_columns": "2",
-        "mobile_card_size": "60cqw",
-        "columns_gap": 8,
-        "rows_gap": 24,
-        "icons_style": "arrow",
-        "icons_shape": "none",
-        "section_width": "page-width",
-        "horizontal_alignment": "flex-start",
-        "gap": 28,
-        "color_scheme": "scheme-1",
-        "padding-block-start": 48,
-        "padding-block-end": 48
+        "background_image": "shopify://shop_images/Our_Studios.png",
+        "overlay_opacity": 30
+      }
+    },
+    "pi_studio_social_Vn7qRx": {
+      "type": "pi-studio-social",
+      "blocks": {
+        "ps_card_1": {
+          "type": "piercing_card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_15.png",
+            "title": "Earlobe Piercing",
+            "description": "A classic and versatile piercing for effortless style."
+          }
+        },
+        "ps_card_2": {
+          "type": "piercing_card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png",
+            "title": "Navel Piercing",
+            "description": "A trendy and stylish piercing on belly button for body jewelry lovers."
+          }
+        },
+        "ps_card_3": {
+          "type": "piercing_card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png",
+            "title": "Septum Piercing",
+            "description": "A bold, central nose piercing with customizable jewelry options."
+          }
+        },
+        "ps_card_4": {
+          "type": "piercing_card",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_13_7a2c3591-6fd6-438d-ae64-b4d0d1bdfe57.png",
+            "title": "Helix Piercing",
+            "description": "A stylish cartilage piercing along the upper ear."
+          }
+        },
+        "testimonial_1": {
+          "type": "testimonial",
+          "settings": {
+            "avatar": "shopify://shop_images/Mask_group_14_4fdd2c92-1456-40d3-ad40-2c07fd103ae0.png",
+            "rating": 5,
+            "review_text": "Absolutely in love with my new tattoo! The artists at Puertoink are incredibly skilled and made me feel comfortable throughout the entire process. The precision and attention to detail are unmatched. The studio has a clean, professional atmosphere, and the artist worked patiently with me to perfect my design. I couldn't have asked for a better experience.",
+            "author_name": "Emily Carter",
+            "author_role": "Fashion Designer"
+          }
+        },
+        "sp_photo_1": {
+          "type": "social_photo",
+          "settings": {
+            "image": "shopify://shop_images/Mohamed_Salah_4b85f63d-cca5-4464-86ff-4d020a27c7ce.png",
+            "name": "Mohamed Salah"
+          }
+        },
+        "sp_photo_2": {
+          "type": "social_photo",
+          "settings": {
+            "image": "shopify://shop_images/Kostas_Tsimikas_d1e408a7-3140-4efb-a494-ad51d4e388ae.png",
+            "name": "Kostas Tsimikas"
+          }
+        },
+        "sp_photo_3": {
+          "type": "social_photo",
+          "settings": {
+            "image": "shopify://shop_images/Thiago_Alcantara_c7d53efd-9a33-4239-92a9-778d41555329.png",
+            "name": "Thiago Alcantara"
+          }
+        },
+        "sp_photo_4": {
+          "type": "social_photo",
+          "settings": {
+            "image": "shopify://shop_images/Anna_Theodoridi_6f7b3de4-57a4-43ed-b0b2-186e6eeeba00.png",
+            "name": "Anna Theodoridi"
+          }
+        },
+        "sp_photo_5": {
+          "type": "social_photo",
+          "settings": {
+            "image": "shopify://shop_images/Mykola_Shaparenko.png",
+            "name": "Mykola Shaparenko"
+          }
+        }
+      },
+      "block_order": [
+        "ps_card_1",
+        "ps_card_2",
+        "ps_card_3",
+        "ps_card_4",
+        "testimonial_1",
+        "sp_photo_1",
+        "sp_photo_2",
+        "sp_photo_3",
+        "sp_photo_4",
+        "sp_photo_5"
+      ],
+      "settings": {
+        "piercing_heading": "Piercing Services",
+        "piercing_button_label": "View All Piercing Services",
+        "piercing_button_link": "",
+        "customers_heading": "Happy Customers",
+        "trusted_heading": "Trusted by the Best",
+        "trusted_button_label": "Explore More",
+        "trusted_button_link": "",
+        "trusted_deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png"
+      }
+    },
+    "pi_our_studios_Jm2vLp": {
+      "type": "pi-our-studios",
+      "blocks": {
+        "os_studio_1": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Crete",
+            "hover_image": "shopify://shop_images/image_69_1.png",
+            "link": ""
+          }
+        },
+        "os_studio_2": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Athens",
+            "hover_image": "shopify://shop_images/1_7.png",
+            "link": ""
+          }
+        },
+        "os_studio_3": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Antwerp",
+            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
+            "link": ""
+          }
+        },
+        "os_studio_4": {
+          "type": "studio",
+          "settings": {
+            "city_name": "Amsterdam",
+            "hover_image": "shopify://shop_images/1.png",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "os_studio_1",
+        "os_studio_2",
+        "os_studio_3",
+        "os_studio_4"
+      ],
+      "settings": {
+        "heading": "Our Studios",
+        "background_image": "shopify://shop_images/Our_Studios.png",
+        "overlay_opacity": 55
+      }
+    },
+    "pi_about_us_Wr9kBm": {
+      "type": "pi-about-us",
+      "settings": {
+        "heading": "About Us",
+        "image_1": "shopify://shop_images/Frame_1171275729.png",
+        "image_2": "shopify://shop_images/1_5978060f-e96b-4218-ab81-1a8f4b26a528.png",
+        "subheading": "Turning Visions into Timeless Tattoos",
+        "text": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together.",
+        "button_1_label": "Book a Session",
+        "button_1_link": "",
+        "button_2_label": "Shop Piercing Jewelry",
+        "button_2_link": "/collections/all"
+      }
+    },
+    "pi_latest_blogs_Nb3kPw": {
+      "type": "pi-latest-blogs",
+      "blocks": {
+        "lb_post_1": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image.png",
+            "date": "Feb 28, 2025",
+            "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
+            "link": ""
+          }
+        },
+        "lb_post_2": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image_1.png",
+            "date": "Feb 27, 2025",
+            "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
+            "link": ""
+          }
+        },
+        "lb_post_3": {
+          "type": "post",
+          "settings": {
+            "image": "shopify://shop_images/Blog_Image_2.png",
+            "date": "Feb 26, 2025",
+            "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "lb_post_1",
+        "lb_post_2",
+        "lb_post_3"
+      ],
+      "settings": {
+        "heading": "Latest Blogs",
+        "button_label": "View All Blogs",
+        "button_link": ""
+      }
+    },
+    "pi_faqs_Xc6dYn": {
+      "type": "pi-faqs",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there an age requirement for tattoos and piercings?",
+            "answer": "Yes, you must be 18+ for tattoos. For piercings, 16+ with parental consent (valid ID required)."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": ""
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I do before getting a tattoo?",
+            "answer": ""
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What material do you use for initial piercings?",
+            "answer": ""
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean and maintain my jewelry?",
+            "answer": ""
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5"
+      ],
+      "settings": {
+        "button_label": "VIEW ALL FAQS",
+        "button_link": ""
+      }
+    },
+    "pi_contact_us_Hg4wJk": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background.png"
+      }
+    },
+    "pi_instagram_strip_Lq8vTc": {
+      "type": "pi-instagram-strip",
+      "settings": {
+        "image_1": "shopify://shop_images/1_23e39253-e234-4e1d-a48e-04d8e6494dce.png",
+        "image_2": "shopify://shop_images/2.png",
+        "image_3": "shopify://shop_images/3.png",
+        "image_4": "shopify://shop_images/4.png",
+        "image_5": "shopify://shop_images/5.png",
+        "image_6": "shopify://shop_images/6.png"
       }
     }
   },
   "order": [
-    "hero_jVaWmY",
-    "product_list_fa6P9H"
+    "pi_main_banner_xKpQmR",
+    "pi_best_sellers_Kx4mQz",
+    "pi_jewelry_banner_mN8xWq",
+    "pi_tattoo_services_Tz3mKw",
+    "pi_usp_Qr5yNb",
+    "pi_studio_social_Vn7qRx",
+    "pi_our_studios_Jm2vLp",
+    "pi_about_us_Wr9kBm",
+    "pi_latest_blogs_Nb3kPw",
+    "pi_faqs_Xc6dYn",
+    "pi_contact_us_Hg4wJk",
+    "pi_instagram_strip_Lq8vTc"
   ]
 }
