@@ -178,9 +178,10 @@
     .pi-hc__slider-wrap { overflow: visible; }
     .pi-hc__track { gap: 0; }
 
-    /* Card: always 354px fixed — text never changes line count */
+    /* Card: position:relative so in-card nav can be absolute at bottom */
     .pi-hc__card {
       display: none;
+      position: relative;
       width: 354px;
       flex: 0 0 auto;
       flex-direction: column;
@@ -189,7 +190,7 @@
       background: #ffffff;
       border-radius: 30px;
       box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
-      padding: 20px 0;
+      padding: 20px 0 55px;
       gap: 20px;
       box-sizing: border-box;
     }
@@ -255,12 +256,6 @@
       padding: 0 15px;
       box-sizing: border-box;
       margin: 0;
-    }
-
-    /* Card: position relative so in-card nav can be absolute */
-    .pi-hc__card {
-      position: relative;
-      padding-bottom: 55px;
     }
 
     /* Desktop nav: hidden on mobile */
