@@ -414,6 +414,12 @@
     --transparent-header-offset-boolean: 0; /* stylelint-disable-line declaration-property-value-disallowed-list */
   }
 
+  header-component {
+    display: block;
+    height: var(--header-height);
+    overflow: visible;
+  }
+
   .header {
     /* Set header paddings based on height setting */
     --header-padding: 20px;
@@ -421,6 +427,7 @@
     --header-content-transition-timing: 0s;
 
     display: block;
+    height: var(--header-height);
     contain: layout style;
     background: transparent;
 
@@ -912,6 +919,8 @@
   .header__columns {
     --padding-block-start: var(--header-padding);
     --padding-block-end: var(--header-padding);
+    height: var(--header-height);
+    box-sizing: border-box;
   }
 
   .header:not(.header--compact) .header__row--bottom {
