@@ -1,7 +1,41 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-lb-pad-top: {{ section.settings.padding_top }}px;
+    --pi-lb-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-lb-bg: {{ section.settings.bg_color }};
+    --pi-lb-heading-size: {{ section.settings.heading_size }}px;
+    --pi-lb-heading-color: {{ section.settings.heading_color }};
+    --pi-lb-card-img-radius: {{ section.settings.card_img_radius }}px;
+    --pi-lb-card-text-bg: {{ section.settings.card_text_bg }};
+    --pi-lb-card-text-radius: {{ section.settings.card_text_radius }}px;
+    --pi-lb-card-title-size: {{ section.settings.card_title_size }}px;
+    --pi-lb-card-title-color: {{ section.settings.card_title_color }};
+    --pi-lb-date-badge-bg: {{ section.settings.date_badge_bg }};
+    --pi-lb-date-badge-radius: {{ section.settings.date_badge_radius }}px;
+    --pi-lb-btn-bg: {{ section.settings.btn_bg }};
+    --pi-lb-btn-text: {{ section.settings.btn_text }};
+    --pi-lb-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-lb-btn-size: {{ section.settings.btn_size }}px;
+    --pi-lb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
+    --pi-lb-btn-hover-text: {{ section.settings.btn_hover_text }};
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-lb-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-lb-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-lb-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    padding: 80px 0;
-    background: #ffffff;
+    padding: var(--pi-lb-pad-top) 0 var(--pi-lb-pad-bottom);
+    background: var(--pi-lb-bg);
   }
 
   .pi-lb {
@@ -18,11 +52,11 @@
   .pi-lb__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
+    font-size: var(--pi-lb-heading-size);
     line-height: 70px;
-    text-align: center;
+    text-align: {{ section.settings.text_alignment }};
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-lb-heading-color);
     margin: 0;
   }
 
@@ -52,14 +86,14 @@
     color: inherit;
   }
 
-  /* Image: full width × 360px, radius 20px */
+  /* Image: full width × 360px, radius from setting */
   .pi-lb__card-img {
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     height: 360px;
-    border-radius: 20px;
+    border-radius: var(--pi-lb-card-img-radius);
     overflow: hidden;
     background: #e0e0e0;
     z-index: 1;
@@ -73,15 +107,15 @@
     display: block;
   }
 
-  /* Text overlay: top 270px, width ~87.7%, #F0F0F0
-     radius 0 top-left / 20px on other three corners */
+  /* Text overlay: top 270px, width ~87.7%, background from setting
+     radius 0 top-left / setting on other three corners */
   .pi-lb__card-text {
     position: absolute;
     top: 270px;
     left: 0;
     width: calc(100% - 60px);
-    background: #F0F0F0;
-    border-radius: 0 20px 20px 20px;
+    background: var(--pi-lb-card-text-bg);
+    border-radius: 0 var(--pi-lb-card-text-radius) var(--pi-lb-card-text-radius) var(--pi-lb-card-text-radius);
     padding: 30px;
     box-sizing: border-box;
     display: flex;
@@ -96,13 +130,13 @@
     gap: 10px;
   }
 
-  /* Date badge: #CCCCCC, radius 4px, padding 5px 10px */
+  /* Date badge */
   .pi-lb__card-date-wrap {
     display: inline-flex;
     align-items: center;
     padding: 5px 10px;
-    background: #CCCCCC;
-    border-radius: 4px;
+    background: var(--pi-lb-date-badge-bg);
+    border-radius: var(--pi-lb-date-badge-radius);
     align-self: flex-start;
   }
 
@@ -114,13 +148,13 @@
     color: #000000;
   }
 
-  /* Title: Proxima Nova SemiBold 20px/26px */
+  /* Title */
   .pi-lb__card-title {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 20px;
+    font-size: var(--pi-lb-card-title-size);
     line-height: 26px;
-    color: #000000;
+    color: var(--pi-lb-card-title-color);
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -128,19 +162,19 @@
     overflow: hidden;
   }
 
-  /* CTA button: black 55px height, radius 8px, uppercase */
+  /* CTA button */
   .pi-lb__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: 55px;
     padding: 16px 32px;
-    background: #000000;
-    color: #ffffff;
-    border-radius: 8px;
+    background: var(--pi-lb-btn-bg);
+    color: var(--pi-lb-btn-text);
+    border-radius: var(--pi-lb-btn-radius);
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--pi-lb-btn-size);
     line-height: 21px;
     text-transform: uppercase;
     text-decoration: none;
@@ -148,7 +182,11 @@
     transition: opacity 0.2s ease;
   }
 
-  .pi-lb__btn:hover { opacity: 0.82; }
+  .pi-lb__btn:hover {
+    background: var(--pi-lb-btn-hover-bg);
+    color: var(--pi-lb-btn-hover-text);
+    opacity: 1;
+  }
 
   /* ─── Responsive ─────────────────────────────────────── */
   @media (max-width: 1540px) {
@@ -171,9 +209,9 @@
   }
 
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} { padding: 50px 0; }
+    #shopify-section-{{ section.id }} { padding: var(--pi-lb-pad-top) 0 var(--pi-lb-pad-bottom); }
     .pi-lb { padding: 0 20px; gap: 30px; }
-    .pi-lb__heading { font-size: 28px; line-height: 38px; }
+    .pi-lb__heading { font-size: var(--pi-lb-heading-size); line-height: 38px; }
     .pi-lb__grid { flex-direction: column; }
     .pi-lb__card { flex: none; width: 100%; height: 360px; }
     .pi-lb__card-img { height: 290px; }
@@ -286,6 +324,187 @@
     },
     {
       "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Blog Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_img_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_text_bg",
+      "label": "Text overlay background",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "range",
+      "id": "card_text_radius",
+      "label": "Text overlay border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Date Badge"
+    },
+    {
+      "type": "color",
+      "id": "date_badge_bg",
+      "label": "Badge background",
+      "default": "#CCCCCC"
+    },
+    {
+      "type": "range",
+      "id": "date_badge_radius",
+      "label": "Badge border radius",
+      "min": 0,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
       "content": "Button"
     },
     {
@@ -298,6 +517,50 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
     }
   ],
   "presets": [

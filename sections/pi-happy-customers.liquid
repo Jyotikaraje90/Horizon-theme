@@ -1,7 +1,37 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-hc-pad-top: {{ section.settings.padding_top }}px;
+    --pi-hc-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-hc-bg: {{ section.settings.bg_color }};
+    --pi-hc-heading-size: {{ section.settings.heading_size }}px;
+    --pi-hc-heading-color: {{ section.settings.heading_color }};
+    --pi-hc-card-radius: {{ section.settings.card_radius }}px;
+    --pi-hc-card-bg: {{ section.settings.card_bg }};
+    --pi-hc-card-padding: {{ section.settings.card_padding }}px;
+    --pi-hc-review-size: {{ section.settings.review_size }}px;
+    --pi-hc-review-color: {{ section.settings.review_color }};
+    --pi-hc-author-size: {{ section.settings.author_size }}px;
+    --pi-hc-author-color: {{ section.settings.author_color }};
+    --pi-hc-star-color: {{ section.settings.star_color }};
+    --pi-hc-shadow-opacity: {{ section.settings.shadow_opacity | divided_by: 100.0 }};
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-hc-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-hc-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-hc-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    background: #ffffff;
-    padding: 80px 0;
+    background: var(--pi-hc-bg);
+    padding: var(--pi-hc-pad-top) 0 var(--pi-hc-pad-bottom);
     overflow: hidden;
   }
 
@@ -19,11 +49,11 @@
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
+    font-size: var(--pi-hc-heading-size);
     line-height: 70px;
     text-transform: uppercase;
-    color: #000000;
-    text-align: center;
+    color: var(--pi-hc-heading-color);
+    text-align: {{ section.settings.text_alignment }};
     margin: 0;
   }
 
@@ -40,10 +70,10 @@
 
   .pi-hc__card {
     flex: 0 0 calc(33.333% - 20px);
-    background: #ffffff;
-    border-radius: 30px;
-    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
-    padding: 30px;
+    background: var(--pi-hc-card-bg);
+    border-radius: var(--pi-hc-card-radius);
+    box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, var(--pi-hc-shadow-opacity));
+    padding: var(--pi-hc-card-padding);
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -84,26 +114,26 @@
   .pi-hc__star {
     font-size: 18px;
     line-height: 1;
-    color: #FFB800;
+    color: var(--pi-hc-star-color);
   }
 
   .pi-hc__review {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
-    font-size: 16px;
+    font-size: var(--pi-hc-review-size);
     line-height: 26px;
     text-align: center;
-    color: #121212;
+    color: var(--pi-hc-review-color);
     margin: 0;
   }
 
   .pi-hc__author {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 14px;
+    font-size: var(--pi-hc-author-size);
     line-height: 18px;
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-hc-author-color);
     text-align: center;
     margin: 0;
   }
@@ -156,7 +186,6 @@
 
     /* Section: no overflow:hidden → lets card shadow breathe */
     #shopify-section-{{ section.id }} {
-      padding: 60px 0;
       overflow: visible;
     }
 
@@ -187,9 +216,9 @@
       flex-direction: column;
       align-items: center;
       margin: 0 auto;
-      background: #ffffff;
-      border-radius: 30px;
-      box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, 0.10);
+      background: var(--pi-hc-card-bg);
+      border-radius: var(--pi-hc-card-radius);
+      box-shadow: 0px 10px 40px 0px rgba(0, 0, 0, var(--pi-hc-shadow-opacity));
       padding: 20px 0 55px;
       gap: 20px;
       box-sizing: border-box;
@@ -227,15 +256,15 @@
     .pi-hc__star {
       font-size: 20px;
       line-height: 1;
-      color: #FFB800;
+      color: var(--pi-hc-star-color);
     }
 
     /* Review: full 354px width = exactly 8 lines at 16px/26px */
     .pi-hc__review {
-      font-size: 16px;
+      font-size: var(--pi-hc-review-size);
       line-height: 26px;
       text-align: center;
-      color: #121212;
+      color: var(--pi-hc-review-color);
       margin: 0;
       width: 100%;
       box-sizing: border-box;
@@ -243,11 +272,11 @@
 
     /* Author: Proxima Nova 600, 14px/18px, uppercase, 1 line */
     .pi-hc__author {
-      font-size: 14px;
+      font-size: var(--pi-hc-author-size);
       line-height: 18px;
       font-weight: 600;
       text-transform: uppercase;
-      color: #000000;
+      color: var(--pi-hc-author-color);
       text-align: center;
       white-space: nowrap;
       overflow: hidden;
@@ -459,6 +488,207 @@
       "id": "heading",
       "label": "Section heading",
       "default": "Happy Customers"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Padding bottom (mobile)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Review Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 50,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "shadow_opacity",
+      "label": "Card shadow opacity",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "%",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "review_size",
+      "label": "Review text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "review_color",
+      "label": "Review text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "author_size",
+      "label": "Author name size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author name color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Stars"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star color",
+      "default": "#FFB800"
     }
   ],
   "blocks": [

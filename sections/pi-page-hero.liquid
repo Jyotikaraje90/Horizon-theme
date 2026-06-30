@@ -83,7 +83,7 @@
   .pi-ph__content {
     position: relative;
     z-index: 3;
-    text-align: center;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   .pi-ph__heading {
@@ -105,6 +105,11 @@
   @media (max-width: 749px) {
     .pi-ph          { height: 160px; }
     .pi-ph__heading { font-size: 28px; line-height: 38px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
@@ -165,6 +170,17 @@
     { "type": "range", "id": "tablet_heading_size",  "label": "Tablet font size",     "min": 20, "max": 56, "step": 2, "unit": "px", "default": 40 },
     { "type": "range", "id": "mobile_heading_size",  "label": "Mobile font size",     "min": 16, "max": 44, "step": 2, "unit": "px", "default": 28 },
     { "type": "color", "id": "heading_color",        "label": "Heading color",        "default": "#ffffff" },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
 
     { "type": "header", "content": "Decorative Elements" },
     { "type": "range", "id": "deco_opacity",         "label": "Swirl opacity",        "min": 0, "max": 100, "step": 5, "unit": "%", "default": 30 },
@@ -204,6 +220,28 @@
       "type": "image_picker",
       "id": "deco_right",
       "label": "Right swirl image"
+    },
+
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
     }
   ],
   "presets": [

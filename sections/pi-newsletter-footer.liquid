@@ -15,6 +15,8 @@
     --pi-nf-heading-color:  {{ section.settings.footer_heading_color }};
     --pi-nf-divider-color:  {{ section.settings.divider_color }};
     --pi-nf-copyright-text: {{ section.settings.copyright_text_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 </style>
 
@@ -25,7 +27,6 @@
     position: relative;
     z-index: 5;
     background: transparent;
-    padding-top: 100px;
   }
 
   .pi-nf {
@@ -294,6 +295,14 @@
   .pi-nf__social-link { line-height: 0; transition: opacity 0.2s; }
   .pi-nf__social-link:hover { opacity: 0.65; }
 
+  .pi-nf__nl-heading {
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-nf__nl-btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+
   /* ── Responsive ── */
   @media (max-width: 1200px) {
     .pi-nf__nl-card { inset: 0 80px; }
@@ -323,6 +332,11 @@
     .pi-nf__nl-btn { width: 100%; }
     .pi-nf__footer-body { padding-left: 20px; padding-right: 20px; }
     .pi-nf__copyright { padding-left: 20px; padding-right: 20px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
@@ -561,7 +575,68 @@
     { "type": "header", "content": "Social Links" },
     { "type": "url", "id": "facebook_url",  "label": "Facebook URL" },
     { "type": "url", "id": "twitter_url",   "label": "X (Twitter) URL" },
-    { "type": "url", "id": "instagram_url", "label": "Instagram URL" }
+    { "type": "url", "id": "instagram_url", "label": "Instagram URL" },
+
+    { "type": "header", "content": "Newsletter Text Alignment" },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "center"
+    },
+
+    { "type": "header", "content": "Subscribe Button Hover" },
+    { "type": "color", "id": "btn_hover_bg",   "label": "Button Hover Background", "default": "#B49146" },
+    { "type": "color", "id": "btn_hover_text", "label": "Button Hover Text Color",  "default": "#ffffff" },
+
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Section Padding" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 100,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
   ],
   "blocks": [
     {

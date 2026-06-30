@@ -38,6 +38,15 @@
     font-size: var(--pi-ann-text-size, 13px);
     color: var(--pi-ann-text, #ffffff) !important;
   }
+
+  .pi-announcement-{{ section.id }} .pi-announcement__text {
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
 </style>
 
 <script>
@@ -282,6 +291,41 @@
       "step": 1,
       "unit": "px",
       "default": 11
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
     }
   ],
   "presets": [

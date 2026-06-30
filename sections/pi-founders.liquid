@@ -1,7 +1,29 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-PAD-TOP: {{ section.settings.padding_top }}px;
+    --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+    --pi-founders-bg: {{ section.settings.bg_color }};
+    --pi-founders-image-radius: {{ section.settings.image_radius }}px;
+    --pi-founders-subheading-size: {{ section.settings.subheading_size }}px;
+    --pi-founders-subheading-color: {{ section.settings.subheading_color }};
+    --pi-founders-accent-border-color: {{ section.settings.accent_border_color }};
+    --pi-founders-accent-border-width: {{ section.settings.accent_border_width }}px;
+    --pi-founders-body-size: {{ section.settings.body_text_size }}px;
+    --pi-founders-body-color: {{ section.settings.body_text_color }};
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-PAD-TOP: {{ section.settings.mobile_padding_top }}px;
+      --pi-PAD-BOTTOM: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-founders-body-size: {{ section.settings.mobile_body_text_size }}px;
+    }
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    padding: 100px 0;
-    background: #ffffff;
+    padding: var(--pi-PAD-TOP) 0 var(--pi-PAD-BOTTOM);
+    background: var(--pi-founders-bg);
   }
 
   .pi-founders {
@@ -19,7 +41,7 @@
   .pi-founders__image {
     flex: 0 0 49.33%;
     aspect-ratio: 740 / 663;
-    border-radius: 8px;
+    border-radius: var(--pi-founders-image-radius);
     overflow: hidden;
     background: #121212;
   }
@@ -42,7 +64,7 @@
 
   /* Subheading with left border — Proxima Nova Medium 34px */
   .pi-founders__subheading-wrap {
-    border-left: 3px solid #000000;
+    border-left: var(--pi-founders-accent-border-width) solid var(--pi-founders-accent-border-color);
     padding-left: 15px;
     display: flex;
     align-items: center;
@@ -51,9 +73,9 @@
   .pi-founders__subheading {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
     font-weight: 500;
-    font-size: 34px;
+    font-size: var(--pi-founders-subheading-size);
     line-height: 44px;
-    color: #000000;
+    color: var(--pi-founders-subheading-color);
     margin: 0;
   }
 
@@ -66,9 +88,9 @@
   .pi-founders__text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, sans-serif;
     font-weight: 400;
-    font-size: 18px;
+    font-size: var(--pi-founders-body-size);
     line-height: 29px;
-    color: #121212;
+    color: var(--pi-founders-body-color);
     margin: 0;
   }
   .pi-founders__text strong { font-weight: 700; }
@@ -87,11 +109,17 @@
   }
 
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} { padding: 50px 0; }
     .pi-founders               { padding: 0 20px; gap: 30px; }
     .pi-founders__image        { height: 280px; }
     .pi-founders__subheading   { font-size: 22px; line-height: 30px; }
-    .pi-founders__text         { font-size: 16px; line-height: 26px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  .pi-founders__subheading {
+    text-align: {{ section.settings.text_alignment }};
   }
 </style>
 
@@ -188,6 +216,171 @@
       "type": "textarea",
       "id": "text",
       "label": "Body text (plain — use paragraphs above instead)"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_border_color",
+      "label": "Accent border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "accent_border_width",
+      "label": "Accent border width",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Body Text"
+    },
+    {
+      "type": "range",
+      "id": "body_text_size",
+      "label": "Body text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "Body text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_text_size",
+      "label": "Mobile body text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
     }
   ],
   "presets": [

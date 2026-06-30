@@ -35,6 +35,7 @@
     text-transform: uppercase;
     color: var(--pi-bs-heading-color, #000000);
     margin: 0;
+    text-align: var(--pi-bs-text-align, center);
   }
 
   /* ── Arrow frame (Frame 48095942): Horizontal, Hug 120×50px, gap 20px ── */
@@ -263,8 +264,8 @@
   }
 
   .pi-bs__explore-btn:hover {
-    background: #222222;
-    color: #ffffff;
+    background: var(--pi-bs-btn-hover-bg, #222222);
+    color: var(--pi-bs-btn-hover-text, #ffffff);
     text-decoration: none;
   }
 
@@ -282,6 +283,11 @@
     .pi-bs__card {
       flex: 0 0 calc((100% - 30px) / 2);
     }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 
   @media (max-width: 600px) {
@@ -400,7 +406,7 @@
 
 <div
   class="pi-bs"
-  style="--pi-bs-pad-top: {{ section.settings.padding_top }}px; --pi-bs-pad-bottom: {{ section.settings.padding_bottom }}px; --pi-bs-bg: {{ section.settings.bg_color }}; --pi-bs-heading-size: {{ section.settings.heading_size }}px; --pi-bs-heading-size-mobile: {{ section.settings.mobile_heading_size }}px; --pi-bs-heading-color: {{ section.settings.heading_color }}; --pi-bs-card-radius: {{ section.settings.card_radius }}px; --pi-bs-card-bg: {{ section.settings.card_bg }}; --pi-bs-btn-bg: {{ section.settings.btn_bg }}; --pi-bs-btn-text: {{ section.settings.btn_text }}; --pi-bs-btn-radius: {{ section.settings.btn_radius }}px; --pi-bs-btn-size: {{ section.settings.btn_size }}px; --pi-bs-arrow-prev-bg: {{ section.settings.arrow_prev_bg }}; --pi-bs-arrow-next-bg: {{ section.settings.arrow_next_bg }};"
+  style="--pi-bs-pad-top: {{ section.settings.padding_top }}px; --pi-bs-pad-bottom: {{ section.settings.padding_bottom }}px; --pi-bs-bg: {{ section.settings.bg_color }}; --pi-bs-heading-size: {{ section.settings.heading_size }}px; --pi-bs-heading-size-mobile: {{ section.settings.mobile_heading_size }}px; --pi-bs-heading-color: {{ section.settings.heading_color }}; --pi-bs-text-align: {{ section.settings.text_alignment }}; --pi-bs-card-radius: {{ section.settings.card_radius }}px; --pi-bs-card-bg: {{ section.settings.card_bg }}; --pi-bs-btn-bg: {{ section.settings.btn_bg }}; --pi-bs-btn-text: {{ section.settings.btn_text }}; --pi-bs-btn-radius: {{ section.settings.btn_radius }}px; --pi-bs-btn-size: {{ section.settings.btn_size }}px; --pi-bs-btn-hover-bg: {{ section.settings.btn_hover_bg }}; --pi-bs-btn-hover-text: {{ section.settings.btn_hover_text }}; --pi-bs-arrow-prev-bg: {{ section.settings.arrow_prev_bg }}; --pi-bs-arrow-next-bg: {{ section.settings.arrow_next_bg }};"
 >
   <div class="pi-bs__inner">
 
@@ -700,6 +706,17 @@
       "default": "#000000"
     },
     {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
       "type": "header",
       "content": "Product Cards"
     },
@@ -767,6 +784,18 @@
       "default": 16
     },
     {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
       "type": "header",
       "content": "Arrow Buttons"
     },
@@ -805,6 +834,30 @@
       "step": 4,
       "unit": "px",
       "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
     }
   ],
   "presets": [

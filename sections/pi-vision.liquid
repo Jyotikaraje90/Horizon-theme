@@ -1,7 +1,37 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-PAD-TOP: {{ section.settings.padding_top }}px;
+    --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+    --pi-vision-bg: {{ section.settings.bg_color }};
+    --pi-vision-heading-size: {{ section.settings.heading_size }}px;
+    --pi-vision-heading-color: {{ section.settings.heading_color }};
+    --pi-vision-subheading-size: {{ section.settings.subheading_size }}px;
+    --pi-vision-subheading-color: {{ section.settings.subheading_color }};
+    --pi-vision-accent-border-color: {{ section.settings.accent_border_color }};
+    --pi-vision-accent-border-width: {{ section.settings.accent_border_width }}px;
+    --pi-vision-body-size: {{ section.settings.body_text_size }}px;
+    --pi-vision-body-color: {{ section.settings.body_text_color }};
+    --pi-vision-image-radius: {{ section.settings.image_radius }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-PAD-TOP: {{ section.settings.mobile_padding_top }}px;
+      --pi-PAD-BOTTOM: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-vision-heading-size: {{ section.settings.mobile_heading_size }}px;
+      --pi-vision-subheading-size: {{ section.settings.mobile_subheading_size }}px;
+      --pi-vision-body-size: {{ section.settings.mobile_body_text_size }}px;
+    }
+  }
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    background: #ffffff;
-    padding: 100px 0;
+    background: var(--pi-vision-bg);
+    padding: var(--pi-PAD-TOP) 0 var(--pi-PAD-BOTTOM);
   }
 
   .pi-vision {
@@ -26,10 +56,11 @@
   .pi-vision__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
+    font-size: var(--pi-vision-heading-size);
     line-height: 70px;
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-vision-heading-color);
+    text-align: {{ section.settings.text_alignment }};
     margin: 0;
   }
 
@@ -40,7 +71,7 @@
   }
 
   .pi-vision__subheading-wrap {
-    border-left: 3px solid #000000;
+    border-left: var(--pi-vision-accent-border-width) solid var(--pi-vision-accent-border-color);
     padding-left: 15px;
     display: flex;
     align-items: center;
@@ -50,19 +81,19 @@
   .pi-vision__subheading {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 500;
-    font-size: 30px;
+    font-size: var(--pi-vision-subheading-size);
     line-height: 40px;
-    color: #000000;
+    color: var(--pi-vision-subheading-color);
     margin: 0;
     white-space: nowrap;
   }
 
   .pi-vision__text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 18px;
+    font-size: var(--pi-vision-body-size);
     line-height: 29px;
     font-weight: 400;
-    color: #121212;
+    color: var(--pi-vision-body-color);
     margin: 0;
   }
   .pi-vision__text p      { margin: 0; }
@@ -71,7 +102,7 @@
   .pi-vision__image {
     flex: 0 0 49.33%;
     aspect-ratio: 740 / 500;
-    border-radius: 8px;
+    border-radius: var(--pi-vision-image-radius);
     overflow: hidden;
   }
 
@@ -98,12 +129,11 @@
   }
 
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} { padding: 50px 0; }
     .pi-vision { padding: 0 20px; }
-    .pi-vision__heading { font-size: 28px; line-height: 38px; }
-    .pi-vision__subheading { font-size: 20px; line-height: 28px; }
+    .pi-vision__heading { line-height: 38px; }
+    .pi-vision__subheading { line-height: 28px; }
     .pi-vision__image { height: 260px; }
-    .pi-vision__text { font-size: 16px; line-height: 26px; }
+    .pi-vision__text { line-height: 26px; }
   }
 </style>
 
@@ -168,6 +198,211 @@
       "type": "image_picker",
       "id": "image",
       "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Subheading"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Subheading size",
+      "min": 16,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "range",
+      "id": "mobile_subheading_size",
+      "label": "Mobile subheading size",
+      "min": 14,
+      "max": 34,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "subheading_color",
+      "label": "Subheading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "accent_border_color",
+      "label": "Accent border color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "accent_border_width",
+      "label": "Accent border width",
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "unit": "px",
+      "default": 3
+    },
+    {
+      "type": "header",
+      "content": "Body Text"
+    },
+    {
+      "type": "range",
+      "id": "body_text_size",
+      "label": "Body text size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "body_text_color",
+      "label": "Body text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "mobile_body_text_size",
+      "label": "Mobile body text size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "label": "Image border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
     }
   ],
   "presets": [

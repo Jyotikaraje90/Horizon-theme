@@ -1,8 +1,33 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-tb-pad-top: {{ section.settings.padding_top }}px;
+    --pi-tb-bg: {{ section.settings.bg_color }};
+    --pi-tb-heading-size: {{ section.settings.heading_size }}px;
+    --pi-tb-heading-color: {{ section.settings.heading_color }};
+    --pi-tb-overlay-opacity: {{ section.settings.photo_overlay_opacity | divided_by: 100.0 }};
+    --pi-tb-name-size: {{ section.settings.photo_name_size }}px;
+    --pi-tb-name-color: {{ section.settings.photo_name_color }};
+    --pi-tb-btn-bg: {{ section.settings.btn_bg }};
+    --pi-tb-btn-text: {{ section.settings.btn_text }};
+    --pi-tb-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-tb-btn-size: {{ section.settings.btn_size }}px;
+    --pi-tb-row-height: {{ section.settings.grid_row_height }}px;
+    --pi-tb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
+    --pi-tb-btn-hover-text: {{ section.settings.btn_hover_text }};
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-tb-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-tb-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    background: #ffffff;
+    background: var(--pi-tb-bg);
     overflow: visible;
-    padding-top: 100px;
+    padding-top: var(--pi-tb-pad-top);
   }
 
   /*
@@ -17,7 +42,7 @@
   .pi-tb {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 489px);
+    grid-template-rows: repeat(2, var(--pi-tb-row-height, 489px));
     width: 100%;
   }
 
@@ -32,7 +57,7 @@
     align-items: center;
     padding: 60px 40px;
     box-sizing: border-box;
-    background: #ffffff;
+    background: var(--pi-tb-bg);
     overflow: visible;
   }
 
@@ -71,12 +96,12 @@
   .pi-tb__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
+    font-size: var(--pi-tb-heading-size);
     line-height: 70px;
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-tb-heading-color);
     margin: 0;
-    text-align: center;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   .pi-tb__btn {
@@ -87,13 +112,13 @@
     padding: 16px 32px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: var(--pi-tb-btn-size);
     line-height: 21px;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 8px;
-    background: #000000;
-    color: #ffffff;
+    border-radius: var(--pi-tb-btn-radius);
+    background: var(--pi-tb-btn-bg);
+    color: var(--pi-tb-btn-text);
     border: none;
     width: fit-content;
     transition: opacity 0.2s ease;
@@ -101,7 +126,11 @@
     white-space: nowrap;
   }
 
-  .pi-tb__btn:hover { opacity: 0.82; }
+  .pi-tb__btn:hover {
+    opacity: 0.82;
+    background: var(--pi-tb-btn-hover-bg);
+    color: var(--pi-tb-btn-hover-text);
+  }
 
   /* ── Celebrity photo cells ────────────────────────── */
   .pi-tb__photo {
@@ -120,7 +149,7 @@
   .pi-tb__photo-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
+    background: rgba(0, 0, 0, var(--pi-tb-overlay-opacity));
     display: flex;
     align-items: center;
     justify-content: center;
@@ -135,9 +164,9 @@
 
   .pi-tb__photo-name {
     font-family: 'Playfair Display', serif;
-    font-size: 40px;
+    font-size: var(--pi-tb-name-size);
     font-weight: 600;
-    color: #ffffff;
+    color: var(--pi-tb-name-color);
     text-align: center;
     padding: 0 12px;
   }
@@ -169,9 +198,14 @@
   @media (max-width: 749px) {
     .pi-tb { grid-template-columns: 1fr 1fr; }
     .pi-tb__text-panel { padding: 40px 20px; min-height: 220px; }
-    .pi-tb__heading { font-size: 28px; line-height: 38px; }
+    .pi-tb__heading { font-size: var(--pi-tb-heading-size); line-height: 38px; }
     .pi-tb__btn { font-size: 14px; height: auto; padding: 14px 24px; }
-    .pi-tb__photo { height: 160px; }
+    .pi-tb__photo { height: var(--pi-tb-mobile-photo-height, 200px); }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
@@ -255,6 +289,203 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Padding top (mobile)",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "grid_row_height",
+      "label": "Grid row height",
+      "min": 300,
+      "max": 600,
+      "step": 10,
+      "unit": "px",
+      "default": 490
+    },
+    {
+      "type": "range",
+      "id": "mobile_photo_height",
+      "label": "Photo height (mobile)",
+      "min": 100,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 200
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Heading size (mobile)",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Photo Grid"
+    },
+    {
+      "type": "range",
+      "id": "photo_overlay_opacity",
+      "label": "Hover overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 65
+    },
+    {
+      "type": "header",
+      "content": "Celebrity Name"
+    },
+    {
+      "type": "range",
+      "id": "photo_name_size",
+      "label": "Name font size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "color",
+      "id": "photo_name_color",
+      "label": "Name color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
     }
   ],
   "blocks": [

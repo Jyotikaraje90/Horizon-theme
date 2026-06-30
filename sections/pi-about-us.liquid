@@ -1,7 +1,37 @@
+﻿<style>
+  /* ═══ PI ABOUT US — CUSTOMIZER VARIABLES ════════════ */
+  #shopify-section-{{ section.id }} {
+    --pi-au-pad-top:            {{ section.settings.padding_top }}px;
+    --pi-au-pad-bottom:         {{ section.settings.padding_bottom }}px;
+    --pi-au-bg:                 {{ section.settings.bg_color }};
+    --pi-au-heading-size:       {{ section.settings.heading_size }}px;
+    --pi-au-heading-color:      {{ section.settings.heading_color }};
+    --pi-au-subheading-size:    {{ section.settings.subheading_size }}px;
+    --pi-au-subheading-color:   {{ section.settings.subheading_color }};
+    --pi-au-accent-border:      {{ section.settings.accent_border_color }};
+    --pi-au-body-size:          {{ section.settings.body_text_size }}px;
+    --pi-au-body-color:         {{ section.settings.body_text_color }};
+    --pi-au-btn-primary-bg:     {{ section.settings.btn_primary_bg }};
+    --pi-au-btn-primary-text:   {{ section.settings.btn_primary_text }};
+    --pi-au-btn-secondary-bg:   {{ section.settings.btn_secondary_bg }};
+    --pi-au-btn-secondary-text: {{ section.settings.btn_secondary_text }};
+    --pi-au-btn-border:         {{ section.settings.btn_border_color }};
+    --pi-au-btn-radius:         {{ section.settings.btn_radius }}px;
+    --pi-au-btn-size:           {{ section.settings.btn_size }}px;
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-au-pad-top:    {{ section.settings.mobile_padding_top }}px;
+      --pi-au-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-au-body-size:  {{ section.settings.mobile_body_text_size }}px;
+    }
+  }
+</style>
+
 <style>
   #shopify-section-{{ section.id }} {
-    padding: 100px 0;
-    background: #ffffff;
+    padding: var(--pi-au-pad-top, 100px) 0 var(--pi-au-pad-bottom, 100px);
+    background: var(--pi-au-bg, #ffffff);
   }
 
   /* ─── Outer wrapper — 1500px centred ───────────────── */
@@ -18,7 +48,7 @@
     font-weight: 600;
     font-size: 54px;
     line-height: 70px;
-    text-align: center;
+    text-align: {{ section.settings.text_alignment }};
     text-transform: uppercase;
     color: #000000;
     margin: 0 0 60px;
@@ -131,7 +161,11 @@
     box-sizing: border-box;
   }
 
-  .pi-au__btn:hover { opacity: 0.82; }
+  .pi-au__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+    opacity: 1;
+  }
 
   .pi-au__btn--primary {
     background: #000000;
@@ -187,6 +221,11 @@
     .pi-au__subheading { font-size: 22px; line-height: 30px; }
     .pi-au__text { font-size: 16px; line-height: 26px; }
     .pi-au__btn { font-size: 14px; padding: 14px 24px; height: auto; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
@@ -276,6 +315,52 @@
   "name": "PI About Us",
   "tag": "section",
   "settings": [
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "padding_top",         "label": "Top padding (desktop)",    "min": 0, "max": 148, "step": 4, "unit": "px", "default": 100 },
+    { "type": "range", "id": "padding_bottom",      "label": "Bottom padding (desktop)",  "min": 0, "max": 148, "step": 4, "unit": "px", "default": 100 },
+    { "type": "range", "id": "mobile_padding_top",  "label": "Top padding (mobile)",      "min": 0, "max": 80,  "step": 4, "unit": "px", "default": 48 },
+    { "type": "range", "id": "mobile_padding_bottom","label": "Bottom padding (mobile)",  "min": 0, "max": 80,  "step": 4, "unit": "px", "default": 48 },
+    { "type": "header", "content": "Section Margin" },
+    { "type": "range", "id": "margin_top",    "label": "Margin Top",    "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "color", "id": "bg_color",            "label": "Background color",          "default": "#ffffff" },
+
+    { "type": "header", "content": "Heading" },
+    { "type": "range", "id": "heading_size",        "label": "Heading font size",         "min": 28, "max": 72, "step": 2, "unit": "px", "default": 54 },
+    { "type": "color", "id": "heading_color",       "label": "Heading color",             "default": "#000000" },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right" }
+      ],
+      "default": "center"
+    },
+
+    { "type": "header", "content": "Subheading" },
+    { "type": "range", "id": "subheading_size",     "label": "Subheading font size",      "min": 18, "max": 48, "step": 2, "unit": "px", "default": 34 },
+    { "type": "color", "id": "subheading_color",    "label": "Subheading color",          "default": "#000000" },
+    { "type": "color", "id": "accent_border_color", "label": "Left accent border color",  "default": "#000000" },
+
+    { "type": "header", "content": "Body Text" },
+    { "type": "range", "id": "body_text_size",        "label": "Body font size (desktop)",  "min": 12, "max": 24, "step": 1, "unit": "px", "default": 18 },
+    { "type": "range", "id": "mobile_body_text_size", "label": "Body font size (mobile)",   "min": 12, "max": 20, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "body_text_color",       "label": "Body text color",           "default": "#121212" },
+
+    { "type": "header", "content": "Buttons" },
+    { "type": "color", "id": "btn_primary_bg",      "label": "Primary button background", "default": "#000000" },
+    { "type": "color", "id": "btn_primary_text",    "label": "Primary button text",       "default": "#ffffff" },
+    { "type": "color", "id": "btn_secondary_bg",    "label": "Secondary button background","default": "#ffffff" },
+    { "type": "color", "id": "btn_secondary_text",  "label": "Secondary button text",     "default": "#000000" },
+    { "type": "color", "id": "btn_border_color",    "label": "Button border color",       "default": "#000000" },
+    { "type": "range", "id": "btn_radius",          "label": "Button corner radius",      "min": 0, "max": 40, "step": 2, "unit": "px", "default": 8 },
+    { "type": "range", "id": "btn_size",            "label": "Button font size",          "min": 12, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "btn_hover_bg",        "label": "Button Hover Background",   "default": "#B49146" },
+    { "type": "color", "id": "btn_hover_text",      "label": "Button Hover Text Color",   "default": "#ffffff" },
+
     {
       "type": "text",
       "id": "heading",

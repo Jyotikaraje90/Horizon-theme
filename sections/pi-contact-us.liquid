@@ -2,6 +2,8 @@
   #shopify-section-{{ section.id }} {
     padding: 0;
     background: #ffffff;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 
   .pi-contact-us {
@@ -20,12 +22,13 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 30px;
+    padding: {{ section.settings.padding_top }}px 30px {{ section.settings.padding_bottom }}px;
     gap: 10px;
     flex: 0 0 60.67%;
-    background: #F0F0F0;
+    background: {{ section.settings.form_bg_color }};
     border-radius: 15px 0 0 15px;
     box-sizing: border-box;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   .pi-contact-us__details {
@@ -55,10 +58,11 @@
   .pi-contact-us__title {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 44px;
-    line-height: 57px;
-    color: #000000;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 1.3;
+    color: {{ section.settings.heading_color }};
     margin: 0;
+    text-align: {{ section.settings.text_alignment }};
   }
 
   .pi-contact-us__rule {
@@ -73,9 +77,9 @@
   .pi-contact-us__subtitle {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 29px;
-    color: #000000;
+    font-size: {{ section.settings.subtitle_size }}px;
+    line-height: 1.6;
+    color: {{ section.settings.subtitle_color }};
     margin: 0;
     width: 100%;
   }
@@ -107,19 +111,19 @@
     flex: 1;
     height: 55px;
     padding: 20px;
-    background: #FFFFFF;
-    border: 1px solid #808080;
+    background: {{ section.settings.input_bg }};
+    border: 1px solid {{ section.settings.input_border_color }};
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    color: #666666;
+    color: {{ section.settings.input_text_color }};
     outline: none;
   }
 
-  .pi-contact-us__field::placeholder { color: #666666; }
-  .pi-contact-us__field:focus { border-color: #000000; }
+  .pi-contact-us__field::placeholder { color: {{ section.settings.input_text_color }}; opacity: 0.6; }
+  .pi-contact-us__field:focus { border-color: {{ section.settings.input_focus_border_color }}; }
 
   .pi-contact-us__select-wrap {
     position: relative;
@@ -131,21 +135,21 @@
     width: 100%;
     height: 55px;
     padding: 0 44px 0 20px;
-    background: #FFFFFF;
-    border: 1px solid #808080;
+    background: {{ section.settings.input_bg }};
+    border: 1px solid {{ section.settings.input_border_color }};
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    color: #666666;
+    color: {{ section.settings.input_text_color }};
     outline: none;
     appearance: none;
     -webkit-appearance: none;
     cursor: pointer;
   }
 
-  .pi-contact-us__select:focus { border-color: #000000; }
+  .pi-contact-us__select:focus { border-color: {{ section.settings.input_focus_border_color }}; }
 
   .pi-contact-us__select-icon {
     position: absolute;
@@ -162,20 +166,20 @@
     width: 100%;
     height: 150px;
     padding: 20px;
-    background: #FFFFFF;
-    border: 1px solid #808080;
+    background: {{ section.settings.input_bg }};
+    border: 1px solid {{ section.settings.input_border_color }};
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 21px;
-    color: #666666;
+    color: {{ section.settings.input_text_color }};
     outline: none;
     resize: vertical;
   }
 
-  .pi-contact-us__textarea::placeholder { color: #666666; }
-  .pi-contact-us__textarea:focus { border-color: #000000; }
+  .pi-contact-us__textarea::placeholder { color: {{ section.settings.input_text_color }}; opacity: 0.6; }
+  .pi-contact-us__textarea:focus { border-color: {{ section.settings.input_focus_border_color }}; }
 
   /* Submit row */
   .pi-contact-us__submit-row {
@@ -193,23 +197,26 @@
     padding: 16px 32px;
     gap: 20px;
     height: 55px;
-    background: #000000;
+    background: {{ section.settings.btn_bg }};
     border: none;
-    border-radius: 8px;
+    border-radius: {{ section.settings.btn_radius }}px;
     cursor: pointer;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 16px;
+    font-size: {{ section.settings.btn_size }}px;
     line-height: 21px;
     text-align: center;
     text-transform: uppercase;
-    color: #FFFFFF;
+    color: {{ section.settings.btn_text }};
     white-space: nowrap;
     box-sizing: border-box;
-    transition: opacity 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
-  .pi-contact-us__btn:hover { opacity: 0.82; }
+  .pi-contact-us__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
 
   .pi-contact-us__success {
     display: none;
@@ -253,6 +260,8 @@
       flex: none;
       width: 100%;
       border-radius: 15px 15px 0 0;
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
     }
 
     .pi-contact-us__image-panel {
@@ -261,8 +270,8 @@
     }
 
     .pi-contact-us__title {
-      font-size: 36px;
-      line-height: 46px;
+      font-size: {{ section.settings.mobile_heading_size }}px;
+      line-height: 1.3;
     }
   }
 
@@ -276,13 +285,13 @@
     }
 
     .pi-contact-us__title {
-      font-size: 28px;
-      line-height: 36px;
+      font-size: {{ section.settings.mobile_heading_size }}px;
+      line-height: 1.3;
     }
 
     .pi-contact-us__subtitle {
-      font-size: 16px;
-      line-height: 26px;
+      font-size: {{ section.settings.subtitle_size }}px;
+      line-height: 1.6;
     }
 
     .pi-contact-us__image-panel {
@@ -433,6 +442,235 @@
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 64,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors & Typography"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle Color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile Heading Size",
+      "min": 16,
+      "max": 40,
+      "step": 2,
+      "default": 28,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Form Styles"
+    },
+    {
+      "type": "color",
+      "id": "form_bg_color",
+      "label": "Form Panel Background",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "color",
+      "id": "input_bg",
+      "label": "Input Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input Border Color",
+      "default": "#808080"
+    },
+    {
+      "type": "color",
+      "id": "input_text_color",
+      "label": "Input Text Color",
+      "default": "#666666"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_border_color",
+      "label": "Input Focus Border Color",
+      "default": "#B49146"
+    },
+    {
+      "type": "header",
+      "content": "Button Styles"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button Font Size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "default": 16,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Location Tabs"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_bg",
+      "label": "Active Tab Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "tab_active_color",
+      "label": "Active Tab Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "tab_inactive_color",
+      "label": "Inactive Tab Text Color",
+      "default": "#cccccc"
     }
   ],
   "blocks": [

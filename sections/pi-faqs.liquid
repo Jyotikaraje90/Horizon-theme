@@ -1,9 +1,38 @@
-<style>
+﻿<style>
   #shopify-section-{{ section.id }} {
-    padding: 100px 0;
-    background: #ffffff;
+    --pi-faqs-pad-top: {{ section.settings.padding_top }}px;
+    --pi-faqs-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-faqs-bg: {{ section.settings.bg_color }};
+    --pi-faqs-title-size: {{ section.settings.title_size }}px;
+    --pi-faqs-title-color: {{ section.settings.title_color }};
+    --pi-faqs-question-size: {{ section.settings.question_size }}px;
+    --pi-faqs-question-color: {{ section.settings.question_color }};
+    --pi-faqs-answer-size: {{ section.settings.answer_size }}px;
+    --pi-faqs-answer-color: {{ section.settings.answer_color }};
+    --pi-faqs-divider-color: {{ section.settings.divider_color }};
+    --pi-faqs-icon-color: {{ section.settings.icon_color }};
+    --pi-faqs-btn-bg: {{ section.settings.btn_bg }};
+    --pi-faqs-btn-text: {{ section.settings.btn_text }};
+    --pi-faqs-btn-radius: {{ section.settings.btn_radius }}px;
+    --pi-faqs-btn-size: {{ section.settings.btn_size }}px;
+    --pi-faqs-btn-hover-bg: {{ section.settings.btn_hover_bg }};
+    --pi-faqs-btn-hover-text: {{ section.settings.btn_hover_text }};
+    padding: var(--pi-faqs-pad-top) 0 var(--pi-faqs-pad-bottom);
+    background: var(--pi-faqs-bg);
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-faqs-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-faqs-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-faqs-title-size: {{ section.settings.mobile_title_size }}px;
+    }
+  }
+</style>
+
+<style>
   .pi-faqs {
     max-width: 1120px;
     margin: 0 auto;
@@ -18,11 +47,11 @@
   .pi-faqs__title {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
-    line-height: 70px;
-    text-align: center;
+    font-size: var(--pi-faqs-title-size, 54px);
+    line-height: 1.3;
+    text-align: {{ section.settings.text_alignment }};
     text-transform: uppercase;
-    color: #000000;
+    color: var(--pi-faqs-title-color, #000000);
     margin: 0;
   }
 
@@ -63,9 +92,9 @@
   .pi-faqs__question {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 20px;
-    line-height: 26px;
-    color: #000000;
+    font-size: var(--pi-faqs-question-size, 20px);
+    line-height: 1.3;
+    color: var(--pi-faqs-question-color, #000000);
   }
 
   .pi-faqs__icon {
@@ -76,6 +105,11 @@
     align-items: center;
     justify-content: center;
     margin-left: 20px;
+    color: var(--pi-faqs-icon-color, #000000);
+  }
+
+  .pi-faqs__icon svg rect {
+    fill: var(--pi-faqs-icon-color, #000000);
   }
 
   .pi-faqs__icon-minus { display: none; }
@@ -95,16 +129,16 @@
   .pi-faqs__answer-text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 29px;
-    color: #121212;
+    font-size: var(--pi-faqs-answer-size, 18px);
+    line-height: 1.6;
+    color: var(--pi-faqs-answer-color, #121212);
     margin: 0;
   }
 
   .pi-faqs__divider {
     width: 100%;
     height: 1px;
-    background: #000000;
+    background: var(--pi-faqs-divider-color, #000000);
     flex-shrink: 0;
   }
 
@@ -116,32 +150,34 @@
     padding: 16px 32px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
-    font-size: 16px;
-    line-height: 21px;
+    font-size: var(--pi-faqs-btn-size, 16px);
+    line-height: 1.3;
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 8px;
+    border-radius: var(--pi-faqs-btn-radius, 8px);
     white-space: nowrap;
     cursor: pointer;
-    background: #000000;
-    color: #ffffff;
-    border: 1px solid #000000;
+    background: var(--pi-faqs-btn-bg, #000000);
+    color: var(--pi-faqs-btn-text, #ffffff);
+    border: 1px solid var(--pi-faqs-btn-bg, #000000);
     transition: opacity 0.2s ease;
     box-sizing: border-box;
   }
 
-  .pi-faqs__btn:hover { opacity: 0.82; }
+  .pi-faqs__btn:hover {
+    background: var(--pi-faqs-btn-hover-bg, #B49146);
+    color: var(--pi-faqs-btn-hover-text, #ffffff);
+    border-color: var(--pi-faqs-btn-hover-bg, #B49146);
+    opacity: 1;
+  }
 
   @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} { padding: 70px 0; }
     .pi-faqs { padding: 0 32px; gap: 40px; }
-    .pi-faqs__title { font-size: 40px; line-height: 52px; }
+    .pi-faqs__title { font-size: clamp(32px, 4vw, var(--pi-faqs-title-size, 54px)); line-height: 1.3; }
   }
 
   @media (max-width: 749px) {
-    #shopify-section-{{ section.id }} { padding: 50px 0; }
     .pi-faqs { padding: 0 20px; gap: 30px; }
-    .pi-faqs__title { font-size: 32px; line-height: 42px; }
     .pi-faqs__question { font-size: 17px; line-height: 22px; }
     .pi-faqs__answer-text { font-size: 16px; line-height: 26px; }
     .pi-faqs__btn { font-size: 14px; padding: 14px 24px; height: auto; }
@@ -150,7 +186,7 @@
 
 <div class="pi-faqs">
 
-  <h2 class="pi-faqs__title">FAQs</h2>
+  <h2 class="pi-faqs__title">{{ section.settings.title }}</h2>
 
   <div class="pi-faqs__body">
 
@@ -164,11 +200,11 @@
             <span class="pi-faqs__question">{{ block.settings.question }}</span>
             <span class="pi-faqs__icon" aria-hidden="true">
               <svg class="pi-faqs__icon-plus" width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect x="5" y="0" width="2" height="12" fill="#000000"/>
-                <rect x="0" y="5" width="12" height="2" fill="#000000"/>
+                <rect x="5" y="0" width="2" height="12" fill="currentColor"/>
+                <rect x="0" y="5" width="12" height="2" fill="currentColor"/>
               </svg>
               <svg class="pi-faqs__icon-minus" width="12" height="2" viewBox="0 0 12 2" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <rect width="12" height="2" fill="#000000"/>
+                <rect width="12" height="2" fill="currentColor"/>
               </svg>
             </span>
           </button>
@@ -216,6 +252,164 @@
 {
   "name": "PI FAQs",
   "settings": [
+    { "type": "header", "content": "Layout" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile padding bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    { "type": "header", "content": "Title" },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section title",
+      "default": "FAQs"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size (desktop)",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_title_size",
+      "label": "Title size (mobile)",
+      "min": 18,
+      "max": 44,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title color",
+      "default": "#000000"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    { "type": "header", "content": "Questions & Answers" },
+    {
+      "type": "range",
+      "id": "question_size",
+      "label": "Question font size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "question_color",
+      "label": "Question color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "answer_size",
+      "label": "Answer font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "color",
+      "id": "answer_color",
+      "label": "Answer color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon color",
+      "default": "#000000"
+    },
+    { "type": "header", "content": "Button" },
     {
       "type": "text",
       "id": "button_label",
@@ -226,6 +420,50 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button font size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
     }
   ],
   "blocks": [

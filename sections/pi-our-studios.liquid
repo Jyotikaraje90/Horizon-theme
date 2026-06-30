@@ -1,14 +1,40 @@
+﻿<style>
+  #shopify-section-{{ section.id }} {
+    --pi-PAD-TOP: {{ section.settings.padding_top }}px;
+    --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+    --pi-os-section-height: {{ section.settings.section_height }}px;
+    --pi-os-heading-size: {{ section.settings.heading_size }}px;
+    --pi-os-heading-color: {{ section.settings.heading_color }};
+    --pi-os-card-radius: {{ section.settings.card_radius }}px;
+    --pi-os-card-bg: {{ section.settings.card_bg }};
+    --pi-os-card-height: {{ section.settings.card_height }}px;
+    --pi-os-card-shadow-opacity: {{ section.settings.card_shadow_opacity | times: 1.0 | divided_by: 100 }};
+    --pi-os-city-size: {{ section.settings.city_size }}px;
+    --pi-os-city-color: {{ section.settings.city_color }};
+    --pi-os-city-hover-color: {{ section.settings.city_hover_color }};
+    --pi-os-pin-color: {{ section.settings.pin_color }};
+  }
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-PAD-TOP: {{ section.settings.mobile_padding_top }}px;
+      --pi-PAD-BOTTOM: {{ section.settings.padding_bottom }}px;
+      --pi-os-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
+</style>
+
 <style>
   /* ─── Section wrapper ─────────────────────────── */
   #shopify-section-{{ section.id }} {
-    padding-top: 100px;
+    padding-top: var(--pi-PAD-TOP);
+    padding-bottom: var(--pi-PAD-BOTTOM);
     background: #ffffff;
   }
 
   .pi-os {
     position: relative;
     width: 100%;
-    height: 570px;
+    height: var(--pi-os-section-height);
     overflow: hidden;
     background-color: #172532;
     background-size: cover;
@@ -45,12 +71,12 @@
   /* ─── Heading ─────────────────────────────────── */
   .pi-os__heading {
     font-family: 'Playfair Display', serif;
-    font-size: 54px;
+    font-size: var(--pi-os-heading-size);
     font-weight: 600;
     line-height: 70px;
     letter-spacing: 0;
-    text-align: center;
-    color: #ffffff;
+    text-align: {{ section.settings.text_alignment }};
+    color: var(--pi-os-heading-color);
     text-transform: uppercase;
     margin: 0;
     width: 1500px;
@@ -65,7 +91,7 @@
     padding: 0;
     gap: 20px;
     width: 1500px;
-    height: 250px;
+    height: var(--pi-os-card-height);
     flex-wrap: nowrap;
   }
 
@@ -73,11 +99,11 @@
   .pi-os__card {
     position: relative;
     width: 360px;
-    height: 250px;
-    background: #ffffff !important;
+    height: var(--pi-os-card-height);
+    background: var(--pi-os-card-bg) !important;
     background-image: none !important;
-    border-radius: 8px;
-    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.20);
+    border-radius: var(--pi-os-card-radius);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, var(--pi-os-card-shadow-opacity));
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -126,6 +152,10 @@
     display: block;
   }
 
+  .pi-os__pin svg path {
+    fill: var(--pi-os-pin-color);
+  }
+
   .pi-os__card:hover .pi-os__pin {
     opacity: 0;
   }
@@ -135,18 +165,18 @@
     position: relative;
     z-index: 2;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 34px;
+    font-size: var(--pi-os-city-size);
     font-weight: 500;
     line-height: 44px;
     letter-spacing: 0;
     text-align: center;
-    color: #000000;
+    color: var(--pi-os-city-color);
     margin: 0;
     transition: color 0.3s ease;
   }
 
   .pi-os__card:hover .pi-os__city {
-    color: #ffffff;
+    color: var(--pi-os-city-hover-color);
   }
 
   /* ─── Responsive ──────────────────────────────── */
@@ -179,12 +209,16 @@
 
   @media (max-width: 749px) {
     .pi-os__inner { padding: 40px 16px; gap: 24px; }
-    .pi-os__heading { font-size: 28px; line-height: 38px; }
     .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
     .pi-os__card { flex: 0 0 calc(50% - 6px); height: 140px; gap: 10px; }
     .pi-os__city { font-size: 17px; line-height: 24px; }
     .pi-os__pin { width: 20px; height: 30px; }
     .pi-os__pin svg { width: 20px; height: 30px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 </style>
 
@@ -269,6 +303,187 @@
       "unit": "%",
       "label": "Overlay opacity",
       "default": 75
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile padding top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "section_height",
+      "label": "Section height",
+      "min": 300,
+      "max": 800,
+      "step": 10,
+      "unit": "px",
+      "default": 570
+    },
+    {
+      "type": "header",
+      "content": "Heading"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 28,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 54
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile heading size",
+      "min": 18,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 28
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Studio Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "card_height",
+      "label": "Card height",
+      "min": 150,
+      "max": 350,
+      "step": 10,
+      "unit": "px",
+      "default": 250
+    },
+    {
+      "type": "range",
+      "id": "card_shadow_opacity",
+      "label": "Card shadow opacity",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "%",
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "City Labels"
+    },
+    {
+      "type": "range",
+      "id": "city_size",
+      "label": "City name size",
+      "min": 16,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 34
+    },
+    {
+      "type": "color",
+      "id": "city_color",
+      "label": "City name color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "city_hover_color",
+      "label": "City name hover color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "pin_color",
+      "label": "Pin icon color",
+      "default": "#000000"
     }
   ],
   "blocks": [

@@ -396,6 +396,91 @@
       min-width: 35px;
     }
   }
+
+  /* ─── Customizer-driven styles ───────────────── */
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  #pi-ps-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.bg_color }};
+  }
+  #pi-hc-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+  }
+  .pi-ps__heading {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-hc__heading {
+    color: {{ section.settings.heading_color }};
+    font-size: {{ section.settings.heading_size }}px;
+    text-align: {{ section.settings.text_alignment }};
+  }
+  .pi-tb__heading {
+    color: {{ section.settings.heading_color }};
+  }
+  .pi-ps__card-img {
+    border-radius: {{ section.settings.card_radius }}px;
+  }
+  .pi-ps__card-body {
+    background: {{ section.settings.card_bg }};
+  }
+  .pi-ps__card-title {
+    color: {{ section.settings.card_title_color }};
+    font-size: {{ section.settings.card_title_size }}px;
+  }
+  .pi-ps__card-desc {
+    color: {{ section.settings.card_desc_color }};
+    font-size: {{ section.settings.card_desc_size }}px;
+  }
+  .pi-hc__card {
+    background: {{ section.settings.testimonial_card_bg }};
+    border-radius: {{ section.settings.testimonial_card_radius }}px;
+  }
+  .pi-hc__stars svg[fill] { fill: {{ section.settings.star_color }}; }
+  .pi-hc__text {
+    color: {{ section.settings.review_color }};
+  }
+  .pi-ps__btn {
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-size: {{ section.settings.btn_size }}px;
+  }
+  .pi-ps__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+  .pi-tb__btn {
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    font-size: {{ section.settings.btn_size }}px;
+  }
+  .pi-tb__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+  @media (max-width: 600px) {
+    .pi-ps__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    .pi-hc__heading {
+      font-size: {{ section.settings.mobile_heading_size }}px;
+    }
+    #pi-ps-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+    #pi-hc-{{ section.id }} {
+      padding-top: {{ section.settings.mobile_padding_top }}px;
+      padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
@@ -700,7 +785,202 @@
       "default": "Explore More"
     },
     { "type": "url",          "id": "trusted_button_link",  "label": "Button link" },
-    { "type": "image_picker", "id": "trusted_deco_image",   "label": "Decorative illustration" }
+    { "type": "image_picker", "id": "trusted_deco_image",   "label": "Decorative illustration" },
+
+    { "type": "header", "content": "Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0, "max": 100, "step": 4, "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 48,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0, "max": 100, "step": 4, "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 24,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Section Margin" },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0, "max": 100, "step": 4, "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0, "max": 100, "step": 4, "default": 0,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Colors" },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+
+    { "type": "header", "content": "Typography" },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 20, "max": 60, "step": 2, "default": 36,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_heading_size",
+      "label": "Mobile Heading Size",
+      "min": 16, "max": 40, "step": 2, "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left",   "label": "Left"   },
+        { "value": "center", "label": "Center" },
+        { "value": "right",  "label": "Right"  }
+      ],
+      "default": "center"
+    },
+
+    { "type": "header", "content": "Card Styles" },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "label": "Card Border Radius",
+      "min": 0, "max": 24, "step": 2, "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "card_bg",
+      "label": "Card Background",
+      "default": "#f8f8f8"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card Title Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card Title Size",
+      "min": 14, "max": 28, "step": 2, "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card Description Color",
+      "default": "#555555"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "label": "Card Description Size",
+      "min": 12, "max": 20, "step": 1, "default": 14,
+      "unit": "px"
+    },
+
+    { "type": "header", "content": "Testimonial" },
+    {
+      "type": "color",
+      "id": "testimonial_card_bg",
+      "label": "Testimonial Card Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_card_radius",
+      "label": "Testimonial Card Radius",
+      "min": 0, "max": 24, "step": 2, "default": 12,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "review_color",
+      "label": "Review Text Color",
+      "default": "#333333"
+    },
+
+    { "type": "header", "content": "Button Styles" },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button Background",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button Border Radius",
+      "min": 0, "max": 40, "step": 2, "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "btn_size",
+      "label": "Button Font Size",
+      "min": 12, "max": 20, "step": 1, "default": 14,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button Hover Background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button Hover Text Color",
+      "default": "#ffffff"
+    }
   ],
   "blocks": [
     {
