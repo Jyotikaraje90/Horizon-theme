@@ -15,8 +15,21 @@
       "type": "pi-announcement-bar",
       "name": "PI Announcement Bar",
       "settings": {
+        "facebook_url": "",
+        "twitter_url": "",
+        "instagram_url": "",
         "announcement_text": "Sign up and get 10% off on Piercing Jewelry",
-        "locations": "Crete, Athens, Antwerp, Amsterdam"
+        "announcement_link": "",
+        "locations": "Crete, Athens, Antwerp, Amsterdam",
+        "bg_color": "#000000",
+        "text_color": "#ffffff",
+        "icon_color": "#ffffff",
+        "icon_size": 20,
+        "text_size": 13,
+        "location_size": 11,
+        "text_alignment": "center",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "header_section": {
@@ -59,6 +72,7 @@
         "logo_position": "left",
         "menu_position": "left",
         "menu_row": "top",
+        "customer_account_menu": "customer-account-main-menu",
         "show_search": true,
         "search_position": "right",
         "search_row": "top",
@@ -66,15 +80,21 @@
         "country_selector_style": false,
         "show_language": false,
         "localization_font": "heading",
-        "localization_font_size": "0.875rem",
+        "localization_font_size": "0.75rem",
         "localization_position": "right",
         "localization_row": "top",
         "section_width": "page-width",
-        "section_height": "standard",
+        "section_height": "compact",
         "enable_sticky_header": "always",
         "divider_width": 0,
         "divider_size": "page-width",
         "border_width": 1,
+        "inquire_label": "Inquire Now",
+        "inquire_link": "/pages/contact",
+        "actions_display_style": "icon",
+        "actions_font_size": "0.875rem",
+        "actions_font": "body",
+        "actions_text_case": "none",
         "color_scheme_top": "scheme-1",
         "color_scheme_bottom": "",
         "color_scheme_transparent": "scheme-6",
@@ -83,9 +103,7 @@
         "enable_transparent_header_product": false,
         "product_color_scheme": "default",
         "enable_transparent_header_collection": false,
-        "collection_color_scheme": "default",
-        "inquire_label": "Inquire Now",
-        "inquire_link": "/pages/contact"
+        "collection_color_scheme": "default"
       }
     }
   },
