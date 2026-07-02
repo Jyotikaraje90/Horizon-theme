@@ -11,6 +11,36 @@
   "type": "header",
   "name": "Header",
   "sections": {
+    "header_announcements_gLcbam": {
+      "type": "header-announcements",
+      "blocks": {
+        "announcement_hci6ER": {
+          "type": "_announcement",
+          "settings": {
+            "text": "Shop our latest arrivals!",
+            "link": "",
+            "font": "var(--font-body--family)",
+            "font_size": "1rem",
+            "weight": "",
+            "letter_spacing": "normal",
+            "case": "none"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "announcement_hci6ER"
+      ],
+      "name": "t:names.announcement_bar",
+      "settings": {
+        "speed": 5,
+        "section_width": "page-width",
+        "color_scheme": "scheme-4",
+        "divider_width": 0,
+        "padding-block-start": 15,
+        "padding-block-end": 15
+      }
+    },
     "pi_announcement_bar_xKpQmR": {
       "type": "pi-announcement-bar",
       "name": "PI Announcement Bar",
@@ -108,6 +138,7 @@
     }
   },
   "order": [
+    "header_announcements_gLcbam",
     "pi_announcement_bar_xKpQmR",
     "header_section"
   ]
