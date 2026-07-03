@@ -11,6 +11,71 @@
   <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
 </div>
 {% endif %}
+<style>
+  .hero-banner-meta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #fff8f5;
+    border-radius: 12px;
+    margin: 2rem auto;
+    max-width: 900px;
+  }
+
+  .hero-banner-meta img {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .hero-banner-meta .subheading {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #e07b4f;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-banner-meta h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1rem;
+  }
+
+  .hero-banner-meta p {
+    font-size: 1rem;
+    color: #555;
+    max-width: 600px;
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-banner-meta .btn {
+    display: inline-block;
+    padding: 0.75rem 2rem;
+    background: #e07b4f;
+    color: #fff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+
+  .hero-banner-meta .btn:hover {
+    background: #c9623a;
+  }
+
+  @media (max-width: 768px) {
+    .hero-banner-meta h2 { font-size: 1.5rem; }
+    .hero-banner-meta { padding: 2rem 1rem; }
+  }
+</style>
+
 
 {% schema %}
 {
