@@ -415,11 +415,17 @@
         "padding-block-start": 48,
         "padding-block-end": 48
       }
+    },
+    "hero_banner_metaobjects_zXKYwq": {
+      "type": "hero-banner-metaobjects",
+      "name": "Hero Banner Metaobject",
+      "settings": {}
     }
   },
   "order": [
     "main",
     "product_metafields_MYLAFL",
-    "product_recommendations_qggXJq"
+    "product_recommendations_qggXJq",
+    "hero_banner_metaobjects_zXKYwq"
   ]
 }
