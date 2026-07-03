@@ -7,7 +7,9 @@
   {% endif %}
   
   <p class="subheading">{{ banner.subheading.value }}</p>
-  <h2>{{ banner.heading.value }}</h2>
+
+  <h2>{{ section.settings.custom_heading | default: banner.heading.value }}</h2>
+
   <p>{{ banner.description.value }}</p>
 
   {% if section.settings.show_button %}
@@ -16,6 +18,7 @@
 
 </div>
 {% endif %}
+
 
 
 <style>
@@ -93,6 +96,12 @@
       "id": "show_button",
       "label": "Show Button",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "custom_heading",
+      "label": "Custom Heading",
+      "placeholder": "Leave blank to use Metaobject heading"
     }
   ],
   "presets": [{ "name": "Hero Banner Metaobject" }]
