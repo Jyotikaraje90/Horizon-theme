@@ -1,27 +1,29 @@
 {% assign banner = product.metafields.custom.hero_banner.value %}
 
 {% if banner %}
-<div class="hero-banner-meta">
-  {% if banner.image.value != blank %}
+<div class="hero-banner-meta" style="text-align: {{ section.settings.text_align }};">
+
+  {% if section.settings.banner_image %}
+    {{ section.settings.banner_image | image_url: width: 1200 | image_tag }}
+  {% elsif banner.image.value != blank %}
     <img src="{{ banner.image.value | image_url: width: 1200 }}" alt="{{ banner.heading.value }}">
   {% endif %}
-  
+
   <p class="subheading">{{ banner.subheading.value }}</p>
 
-  <h2>{{ section.settings.custom_heading | default: banner.heading.value }}</h2>
+  <h2 style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_size }}px;">
+    {{ section.settings.custom_heading | default: banner.heading.value }}
+  </h2>
 
   <p>{{ banner.description.value }}</p>
 
   {% if section.settings.show_button %}
     <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
   {% endif %}
-  style="color: {{ section.settings.heading_color }}"
-  style="font-size: {{ section.settings.heading_size }}px"
-  {{section.settings.banner_image | image_url: width: 1200 | image_tag }}
-  style="text-align: {{ section.settings.text_align }}"
 
 </div>
 {% endif %}
+
 
 
 
