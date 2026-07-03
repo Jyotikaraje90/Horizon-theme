@@ -48,6 +48,7 @@
     border-radius: 12px;
     margin: 2rem auto;
     max-width: 900px;
+     
   }
 
   .hero-banner-meta img {
@@ -124,11 +125,13 @@
 {% schema %}
 {
   "name": "Hero Banner (Metaobject)",
+  "limit":1, 
   "settings": [
     {
       "type": "checkbox",
       "id": "show_button",
       "label": "Show Button",
+        
       "default": true
     },
     {
