@@ -418,8 +418,25 @@
     },
     "hero_banner_metaobjects_zXKYwq": {
       "type": "hero-banner-metaobjects",
+      "blocks": {
+        "badge_HVP89f": {
+          "type": "badge",
+          "settings": {
+            "badge_text": "Safe Materials"
+          }
+        }
+      },
+      "block_order": [
+        "badge_HVP89f"
+      ],
       "name": "Hero Banner Metaobject",
-      "settings": {}
+      "settings": {
+        "show_button": true,
+        "custom_heading": "",
+        "heading_color": "#1a1a1a",
+        "heading_size": 32,
+        "text_align": "center"
+      }
     }
   },
   "order": [
