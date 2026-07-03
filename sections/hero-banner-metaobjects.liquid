@@ -2,6 +2,15 @@
 
 {% if banner %}
 <div class="hero-banner-meta" style="text-align: {{ section.settings.text_align }};">
+{% if section.blocks.size > 0 %}
+  <div class="hero-badges">
+    {% for block in section.blocks %}
+      <span class="badge" {{ block.shopify_attributes }}>
+        {{ block.settings.badge_text }}
+      </span>
+    {% endfor %}
+  </div>
+{% endif %}
 
   {% if section.settings.banner_image %}
     {{ section.settings.banner_image | image_url: width: 1200 | image_tag }}
