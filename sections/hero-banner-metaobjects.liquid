@@ -1,0 +1,9 @@
+{% assign banner = product.metafields.custom.hero_banner.value %}
+
+<div class="hero-banner">
+  <img src="{{ banner.image.value | image_url: width: 1200 }}" alt="{{ banner.heading.value }}">
+  <p class="subheading">{{ banner.subheading.value }}</p>
+  <h2>{{ banner.heading.value }}</h2>
+  <p>{{ banner.description.value }}</p>
+  <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
+</div>
