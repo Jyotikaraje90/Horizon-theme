@@ -10,7 +10,14 @@
   <p>{{ banner.description.value }}</p>
   <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
 </div>
+
 {% endif %}
+{% if section.settings.show_button %}
+  <a href="{{ banner.button_url.value }}" class="btn">
+    {{ banner.button_label.value }}
+  </a>
+{% endif %}
+
 <style>
   .hero-banner-meta {
     display: flex;
@@ -80,7 +87,14 @@
 {% schema %}
 {
   "name": "Hero Banner (Metaobject)",
-  "settings": [],
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show Button",
+      "default": true
+    }
+  ],
   "presets": [{ "name": "Hero Banner Metaobject" }]
 }
 {% endschema %}
