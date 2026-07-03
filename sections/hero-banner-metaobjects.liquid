@@ -1,22 +1,22 @@
 {% assign banner = product.metafields.custom.hero_banner.value %}
 
-{% if banner != blank %}
+{% if banner %}
 <div class="hero-banner-meta">
   {% if banner.image.value != blank %}
     <img src="{{ banner.image.value | image_url: width: 1200 }}" alt="{{ banner.heading.value }}">
   {% endif %}
+  
   <p class="subheading">{{ banner.subheading.value }}</p>
   <h2>{{ banner.heading.value }}</h2>
   <p>{{ banner.description.value }}</p>
-  <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
-</div>
 
+  {% if section.settings.show_button %}
+    <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
+  {% endif %}
+
+</div>
 {% endif %}
-{% if section.settings.show_button %}
-  <a href="{{ banner.button_url.value }}" class="btn">
-    {{ banner.button_label.value }}
-  </a>
-{% endif %}
+
 
 <style>
   .hero-banner-meta {
