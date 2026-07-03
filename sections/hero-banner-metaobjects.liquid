@@ -15,6 +15,10 @@
   {% if section.settings.show_button %}
     <a href="{{ banner.button_url.value }}" class="btn">{{ banner.button_label.value }}</a>
   {% endif %}
+  style="color: {{ section.settings.heading_color }}"
+  style="font-size: {{ section.settings.heading_size }}px"
+  {{section.settings.banner_image | image_url: width: 1200 | image_tag }}
+  style="text-align: {{ section.settings.text_align }}"
 
 </div>
 {% endif %}
@@ -102,6 +106,38 @@
       "id": "custom_heading",
       "label": "Custom Heading",
       "placeholder": "Leave blank to use Metaobject heading"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading Size",
+      "min": 16,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 32
+    },
+    {
+      "type": "image_picker",
+      "id": "banner_image",
+      "label": "Banner Image"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
     }
   ],
   "presets": [{ "name": "Hero Banner Metaobject" }]
