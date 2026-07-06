@@ -33,9 +33,8 @@
         "deco_opacity": 30,
         "bg_fallback_color": "#000000",
         "heading": "Tattoo Services",
+        "background_image": "shopify://shop_images/About_Us.png",
         "overlay_opacity": 0,
-        "deco_left": "shopify://shop_images/Group.png",
-        "deco_right": "shopify://shop_images/Group.png",
         "margin_top": 0,
         "margin_bottom": 0
       }
