@@ -170,7 +170,7 @@
         "heading": "",
         "text_alignment": "center",
         "heading_color": "#000000",
-        "cards_per_page": 12,
+        "cards_per_page": 4,
         "page_number_active_color": "#000000",
         "page_number_inactive_color": "#b3b3b3",
         "padding_top": 60,
