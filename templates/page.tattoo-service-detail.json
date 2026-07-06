@@ -199,43 +199,63 @@
       "blocks": {
         "photo_1": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_10_b7cf75f9-f22d-44b8-b525-d78f4a84f1a9.png"
+          }
         },
         "photo_2": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_11_4788ddf0-d4a8-4c42-9bb1-ce0f27d1b40f.png"
+          }
         },
         "photo_3": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_12_15b823b2-dd7f-43da-a383-1bce3c3268f7.png"
+          }
         },
         "photo_4": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_13_ad07f491-f2e6-499f-a84d-b1ea1a7a9677.png"
+          }
         },
         "photo_5": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_14_cd08516e-3af1-4afc-8309-7be1b8e38c31.png"
+          }
         },
         "photo_6": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_15_f7efd942-be1d-44cb-ad73-74e933269301.png"
+          }
         },
         "photo_7": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_16.png"
+          }
         },
         "photo_8": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_17.png"
+          }
         },
         "photo_9": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_18.png"
+          }
         },
         "photo_10": {
           "type": "photo",
-          "settings": {}
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_19.png"
+          }
         }
       },
       "block_order": [
