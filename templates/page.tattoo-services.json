@@ -1,0 +1,182 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_tattoo": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Tattoo Services",
+        "overlay_opacity": 0,
+        "bg_fallback_color": "#000000"
+      }
+    },
+    "pi_tsg_tattoo": {
+      "type": "pi-tattoo-services-grid",
+      "blocks": {
+        "sc_1": {
+          "type": "service_card",
+          "settings": {
+            "title": "Realistic Tattoos",
+            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
+          }
+        },
+        "sc_2": {
+          "type": "service_card",
+          "settings": {
+            "title": "Micro-Realistic Tattoos",
+            "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
+          }
+        },
+        "sc_3": {
+          "type": "service_card",
+          "settings": {
+            "title": "Blackwork",
+            "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
+          }
+        },
+        "sc_4": {
+          "type": "service_card",
+          "settings": {
+            "title": "Fine Line Tattoos",
+            "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
+          }
+        },
+        "sc_5": {
+          "type": "service_card",
+          "settings": {
+            "title": "Minimalist Tattoos",
+            "description": "Clean and simple designs that speak volumes through subtlety, perfect for understated body art."
+          }
+        },
+        "sc_6": {
+          "type": "service_card",
+          "settings": {
+            "title": "Traditional Tattoos",
+            "description": "Bold outlines and vibrant colors inspired by classic tattoo artistry that never goes out of style."
+          }
+        },
+        "sc_7": {
+          "type": "service_card",
+          "settings": {
+            "title": "Watercolor Tattoos",
+            "description": "Soft blends and vibrant splashes of color that mimic the flowing beauty of watercolor paintings."
+          }
+        },
+        "sc_8": {
+          "type": "service_card",
+          "settings": {
+            "title": "Geometric Tattoos",
+            "description": "Precise lines and symmetrical patterns that turn mathematical elegance into striking body art."
+          }
+        },
+        "sc_9": {
+          "type": "service_card",
+          "settings": {
+            "title": "Script & Lettering Tattoos",
+            "description": "Personalized quotes, meaningful names, and calligraphy in custom fonts that tell your story."
+          }
+        },
+        "sc_10": {
+          "type": "service_card",
+          "settings": {
+            "title": "Dotwork & Mandala Tattoos",
+            "description": "Intricate stippling and radial patterns creating mesmerizing, symmetrical works of art."
+          }
+        },
+        "sc_11": {
+          "type": "service_card",
+          "settings": {
+            "title": "Tribal & Polynesian Tattoos",
+            "description": "Bold tribal patterns with deep cultural roots, symbolizing strength, heritage and identity."
+          }
+        },
+        "sc_12": {
+          "type": "service_card",
+          "settings": {
+            "title": "Maori Tattoos",
+            "description": "Dark, swirling patterns steeped in Maori heritage, honoring tradition through storytelling in ink."
+          }
+        }
+      },
+      "block_order": [
+        "sc_1",
+        "sc_2",
+        "sc_3",
+        "sc_4",
+        "sc_5",
+        "sc_6",
+        "sc_7",
+        "sc_8",
+        "sc_9",
+        "sc_10",
+        "sc_11",
+        "sc_12"
+      ],
+      "settings": {}
+    },
+    "pi_contact_tattoo": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon."
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_tattoo",
+    "pi_tsg_tattoo",
+    "pi_contact_tattoo"
+  ]
+}

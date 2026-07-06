@@ -1,0 +1,519 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  #pi-tsg-{{ section.id }} {
+    --pi-tsg-pad-top: {{ section.settings.padding_top }}px;
+    --pi-tsg-pad-bottom: {{ section.settings.padding_bottom }}px;
+    --pi-tsg-bg: {{ section.settings.bg_color }};
+    --pi-tsg-heading-color: {{ section.settings.heading_color }};
+    --pi-tsg-card-radius: {{ section.settings.card_radius }}px;
+    --pi-tsg-card-title-size: {{ section.settings.card_title_size }}px;
+    --pi-tsg-card-title-color: {{ section.settings.card_title_color }};
+    --pi-tsg-card-desc-size: {{ section.settings.card_desc_size }}px;
+    --pi-tsg-card-desc-color: {{ section.settings.card_desc_color }};
+    --pi-tsg-page-active: {{ section.settings.page_number_active_color }};
+    --pi-tsg-page-inactive: {{ section.settings.page_number_inactive_color }};
+  }
+  @media (max-width: 749px) {
+    #pi-tsg-{{ section.id }} {
+      --pi-tsg-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-tsg-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
+</style>
+
+<style>
+  .pi-tsg {
+    background: var(--pi-tsg-bg, #ffffff);
+    padding-top: var(--pi-tsg-pad-top, 60px);
+    padding-bottom: var(--pi-tsg-pad-bottom, 60px);
+  }
+
+  .pi-tsg__inner {
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pi-tsg__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.75vw, 54px);
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--pi-tsg-heading-color, #000000);
+    margin: 0;
+    text-align: {{ section.settings.text_alignment }};
+  }
+
+  /* ─── Grid ─────────────────────────────────────── */
+  .pi-tsg__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 20px;
+    row-gap: 30px;
+  }
+
+  .pi-tsg__card {
+    display: flex;
+    flex-direction: column;
+  }
+  .pi-tsg__card.is-hidden { display: none; }
+
+  .pi-tsg__card-img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: var(--pi-tsg-card-radius, 10px);
+    background: #f3f3f3;
+    display: block;
+  }
+  .pi-tsg__card-img img,
+  .pi-tsg__card-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-tsg__card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 20px;
+  }
+
+  .pi-tsg__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: var(--pi-tsg-card-title-size, 20px);
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--pi-tsg-card-title-color, #000000);
+    margin: 0;
+  }
+  a.pi-tsg__card-title {
+    text-decoration: none;
+    display: inline-block;
+  }
+  a.pi-tsg__card-title:hover {
+    text-decoration: underline;
+  }
+
+  .pi-tsg__card-desc {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: var(--pi-tsg-card-desc-size, 16px);
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--pi-tsg-card-desc-color, #121212);
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ─── Pagination ───────────────────────────────── */
+  .pi-tsg__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 20px;
+  }
+
+  .pi-tsg__page-arrow {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    border: 1.5px solid #000000;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .pi-tsg__page-arrow svg path { fill: #000000; }
+  .pi-tsg__page-arrow:hover:not([disabled]) { background: #000000; }
+  .pi-tsg__page-arrow:hover:not([disabled]) svg path { fill: #ffffff; }
+  .pi-tsg__page-arrow[disabled] {
+    opacity: 0.3;
+    cursor: default;
+  }
+
+  .pi-tsg__page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pi-tsg__page-number {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 23px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: var(--pi-tsg-page-inactive, #B3B3B3);
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+  }
+  .pi-tsg__page-number.is-active {
+    color: var(--pi-tsg-page-active, #000000);
+    cursor: default;
+  }
+
+  /* ─── Responsive (desktop-first: placeholder until mobile spec arrives) ─── */
+  @media (max-width: 989px) {
+    .pi-tsg__inner { padding-inline: 24px; }
+    .pi-tsg__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+{%- assign service_cards = section.blocks | where: 'type', 'service_card' -%}
+{%- assign total_cards = service_cards.size -%}
+{%- assign per_page = section.settings.cards_per_page -%}
+{%- assign total_pages = total_cards | plus: per_page | minus: 1 | divided_by: per_page -%}
+
+<div class="pi-tsg" id="pi-tsg-{{ section.id }}" data-per-page="{{ per_page }}">
+  <div class="pi-tsg__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pi-tsg__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    <div class="pi-tsg__grid" id="pi-tsg-grid-{{ section.id }}">
+      {%- for block in service_cards -%}
+        <div class="pi-tsg__card" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <div class="pi-tsg__card-img">
+            {%- if block.settings.image != blank -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 720 }}"
+                alt="{{ block.settings.image.alt | default: block.settings.title | escape }}"
+                width="360"
+                height="360"
+                loading="lazy"
+              >
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+          <div class="pi-tsg__card-body">
+            {%- if block.settings.title != blank -%}
+              {%- if block.settings.title_link != blank -%}
+                <a href="{{ block.settings.title_link }}" class="pi-tsg__card-title">{{ block.settings.title }}</a>
+              {%- else -%}
+                <h4 class="pi-tsg__card-title">{{ block.settings.title }}</h4>
+              {%- endif -%}
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="pi-tsg__card-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if total_pages > 1 -%}
+      <div class="pi-tsg__pagination">
+        <button type="button" class="pi-tsg__page-arrow pi-tsg__page-prev" aria-label="Previous page">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+        <div class="pi-tsg__page-numbers">
+          {%- for i in (1..total_pages) -%}
+            <button type="button" class="pi-tsg__page-number{% if forloop.first %} is-active{% endif %}" data-page="{{ i }}">{{ i }}</button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="pi-tsg__page-arrow pi-tsg__page-next" aria-label="Next page">
+          <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('pi-tsg-{{ section.id }}');
+    if (!root) return;
+
+    var grid = document.getElementById('pi-tsg-grid-{{ section.id }}');
+    var cards = Array.prototype.slice.call(grid.querySelectorAll('.pi-tsg__card'));
+    var perPage = parseInt(root.dataset.perPage, 10) || 12;
+    var totalPages = Math.max(1, Math.ceil(cards.length / perPage));
+    var pageButtons = Array.prototype.slice.call(root.querySelectorAll('.pi-tsg__page-number'));
+    var prevBtn = root.querySelector('.pi-tsg__page-prev');
+    var nextBtn = root.querySelector('.pi-tsg__page-next');
+    var currentPage = 1;
+
+    function showPage(page) {
+      currentPage = Math.max(1, Math.min(page, totalPages));
+      var start = (currentPage - 1) * perPage;
+      var end = start + perPage;
+      cards.forEach(function (card, index) {
+        card.classList.toggle('is-hidden', index < start || index >= end);
+      });
+      pageButtons.forEach(function (btn) {
+        btn.classList.toggle('is-active', parseInt(btn.dataset.page, 10) === currentPage);
+      });
+      if (prevBtn) prevBtn.disabled = currentPage === 1;
+      if (nextBtn) nextBtn.disabled = currentPage === totalPages;
+    }
+
+    pageButtons.forEach(function (btn) {
+      btn.addEventListener('click', function () { showPage(parseInt(btn.dataset.page, 10)); });
+    });
+    if (prevBtn) prevBtn.addEventListener('click', function () { showPage(currentPage - 1); });
+    if (nextBtn) nextBtn.addEventListener('click', function () { showPage(currentPage + 1); });
+
+    showPage(1);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "PI Tattoo Services Grid",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading (optional)"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Heading alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Grid & Pagination"
+    },
+    {
+      "type": "range",
+      "id": "cards_per_page",
+      "min": 4,
+      "max": 24,
+      "step": 4,
+      "label": "Cards per page",
+      "default": 12
+    },
+    {
+      "type": "color",
+      "id": "page_number_active_color",
+      "label": "Active page number color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "page_number_inactive_color",
+      "label": "Inactive page number color",
+      "default": "#B3B3B3"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Colors"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding top",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "unit": "px",
+      "label": "Mobile padding bottom",
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Service Cards"
+    },
+    {
+      "type": "range",
+      "id": "card_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Card image radius",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "min": 14,
+      "max": 32,
+      "step": 1,
+      "unit": "px",
+      "label": "Card title font size",
+      "default": 20
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "card_desc_size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Card description font size",
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "card_desc_color",
+      "label": "Card description color",
+      "default": "#121212"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "service_card",
+      "name": "Service Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Tattoo Style"
+        },
+        {
+          "type": "url",
+          "id": "title_link",
+          "label": "Link (optional)"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Describe this tattoo style in a few words."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Tattoo Services Grid",
+      "blocks": [
+        { "type": "service_card", "settings": { "title": "Realistic Tattoos", "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect." } },
+        { "type": "service_card", "settings": { "title": "Micro-Realistic Tattoos", "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art." } },
+        { "type": "service_card", "settings": { "title": "Blackwork", "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs." } },
+        { "type": "service_card", "settings": { "title": "Fine Line Tattoos", "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication." } },
+        { "type": "service_card", "settings": { "title": "Minimalist Tattoos", "description": "Clean and simple designs that speak volumes through subtlety, perfect for understated body art." } },
+        { "type": "service_card", "settings": { "title": "Traditional Tattoos", "description": "Bold outlines and vibrant colors inspired by classic tattoo artistry that never goes out of style." } },
+        { "type": "service_card", "settings": { "title": "Watercolor Tattoos", "description": "Soft blends and vibrant splashes of color that mimic the flowing beauty of watercolor paintings." } },
+        { "type": "service_card", "settings": { "title": "Geometric Tattoos", "description": "Precise lines and symmetrical patterns that turn mathematical elegance into striking body art." } },
+        { "type": "service_card", "settings": { "title": "Script & Lettering Tattoos", "description": "Personalized quotes, meaningful names, and calligraphy in custom fonts that tell your story." } },
+        { "type": "service_card", "settings": { "title": "Dotwork & Mandala Tattoos", "description": "Intricate stippling and radial patterns creating mesmerizing, symmetrical works of art." } },
+        { "type": "service_card", "settings": { "title": "Tribal & Polynesian Tattoos", "description": "Bold tribal patterns with deep cultural roots, symbolizing strength, heritage and identity." } },
+        { "type": "service_card", "settings": { "title": "Maori Tattoos", "description": "Dark, swirling patterns steeped in Maori heritage, honoring tradition through storytelling in ink." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
