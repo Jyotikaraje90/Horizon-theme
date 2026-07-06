@@ -22,9 +22,21 @@
     "pi_ph_detail": {
       "type": "pi-page-hero",
       "settings": {
+        "desktop_height": 270,
+        "tablet_height": 200,
+        "mobile_height": 160,
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "deco_opacity": 30,
+        "bg_fallback_color": "#000000",
         "heading": "Realistic Tattoos",
+        "background_image": "shopify://shop_images/About_Us.png",
         "overlay_opacity": 0,
-        "bg_fallback_color": "#000000"
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "pi_tdc_detail": {
@@ -61,7 +73,22 @@
         "about_heading": "About Realistic Tattoos",
         "about_text": "Realistic tattoos bring lifelike detail and depth to the skin, capturing portraits, animals, and nature with striking precision. Using advanced shading and fine linework, our artists create pieces that look like photographs come to life.",
         "button_label": "Book Now",
-        "button_link": "#shopify-section-pi_book_detail"
+        "button_link": "#shopify-section-pi_book_detail",
+        "left_image": "shopify://shop_images/Frame_1618872911.png",
+        "right_image": "shopify://shop_images/Frame_1618872905_3.png",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#121212",
+        "image_radius": 10,
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "pi_usp_detail": {
@@ -104,7 +131,22 @@
       ],
       "settings": {
         "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
-        "overlay_opacity": 10
+        "overlay_opacity": 10,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48,
+        "min_height": 370,
+        "label_color": "#ffffff",
+        "label_size": 34,
+        "mobile_label_size": 22,
+        "icon_size": 100,
+        "mobile_icon_size": 50,
+        "divider_opacity": 70,
+        "divider_height": 175,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "text_alignment": "center"
       }
     },
     "pi_hiw_detail": {
@@ -138,24 +180,71 @@
         "step_3"
       ],
       "settings": {
-        "heading": "How It Works"
+        "heading": "How It Works",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "icon_bg": "#000000",
+        "icon_color": "#ffffff",
+        "step_title_color": "#000000",
+        "step_desc_color": "#555555",
+        "line_color": "#cccccc",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "pi_owg_detail": {
       "type": "pi-our-work-gallery",
       "blocks": {
-        "photo_1": { "type": "photo", "settings": {} },
-        "photo_2": { "type": "photo", "settings": {} },
-        "photo_3": { "type": "photo", "settings": {} },
-        "photo_4": { "type": "photo", "settings": {} },
-        "photo_5": { "type": "photo", "settings": {} },
-        "photo_6": { "type": "photo", "settings": {} },
-        "photo_7": { "type": "photo", "settings": {} },
-        "photo_8": { "type": "photo", "settings": {} },
-        "photo_9": { "type": "photo", "settings": {} },
-        "photo_10": { "type": "photo", "settings": {} },
-        "photo_11": { "type": "photo", "settings": {} },
-        "photo_12": { "type": "photo", "settings": {} }
+        "photo_1": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_7": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_8": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_9": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_10": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_11": {
+          "type": "photo",
+          "settings": {}
+        },
+        "photo_12": {
+          "type": "photo",
+          "settings": {}
+        }
       },
       "block_order": [
         "photo_1",
@@ -172,7 +261,17 @@
         "photo_12"
       ],
       "settings": {
-        "heading": "Our Work"
+        "heading": "Our Work",
+        "columns_desktop": 6,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "image_radius": 8,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     },
     "pi_book_detail": {
@@ -214,7 +313,32 @@
         "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
-        "text_alignment": "center"
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "center",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
       }
     }
   },
