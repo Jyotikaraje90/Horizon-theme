@@ -49,6 +49,10 @@
     gap: 24px;
   }
 
+  @media (min-width: 1100px) {
+    .pi-hiw__steps { gap: 56px; }
+  }
+
   .pi-hiw__step {
     display: flex;
     flex-direction: column;
@@ -64,7 +68,7 @@
     flex: 0 0 auto;
     width: 166px;
     height: 32px;
-    margin-top: 34px;
+    margin-top: 12px;
     color: var(--pi-hiw-icon-color, #000000);
   }
 
@@ -75,13 +79,13 @@
   }
 
   .pi-hiw__arrow--flip {
-    margin-top: 150px;
+    margin-top: 188px;
     transform: scaleY(-1);
   }
 
   .pi-hiw__icon {
-    width: 100px;
-    height: 100px;
+    width: 108px;
+    height: 108px;
     border-radius: 50%;
     background: var(--pi-hiw-icon-bg, #f0f0f0);
     display: flex;
@@ -91,28 +95,28 @@
   }
 
   .pi-hiw__icon img {
-    width: 40px;
-    height: 40px;
+    width: 44px;
+    height: 44px;
     object-fit: contain;
     display: block;
   }
 
-  .pi-hiw__icon svg { width: 40px; height: 40px; }
+  .pi-hiw__icon svg { width: 44px; height: 44px; }
   .pi-hiw__icon svg * { stroke: var(--pi-hiw-icon-color, #000000); }
 
   .pi-hiw__step-title {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 18px;
-    font-weight: 600;
+    font-size: 19px;
+    font-weight: 700;
     color: var(--pi-hiw-step-title-color, #000000);
     margin: 0;
   }
 
   .pi-hiw__step-desc {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
-    line-height: 22px;
+    line-height: 24px;
     color: var(--pi-hiw-step-desc-color, #555555);
     margin: 0;
   }
