@@ -99,19 +99,23 @@
 
   .pi-hiw__connector {
     /* Fixed percentage (not flex-grow) so both connectors resolve to the
-       exact same width deterministically — flex-grow with an "auto" basis
-       let the two arrows land on different widths, which threw off their
-       vertical alignment. */
+       exact same width deterministically. */
     flex: 0 0 14%;
     width: 14%;
     min-width: 60px;
     max-width: 200px;
     height: 32px;
+    /* Zigzag: sits at icon height by default; the flipped (2nd, 4th...)
+       connector drops down to text height instead — this is intentional,
+       not a misalignment. */
     margin-top: 34px;
     align-self: flex-start;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .pi-hiw__connector--flip {
+    margin-top: 180px;
   }
   .pi-hiw__connector svg {
     width: 100%;
