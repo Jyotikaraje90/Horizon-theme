@@ -197,8 +197,8 @@
             {%- assign is_flip = forloop.index0 | modulo: 2 -%}
             <div class="pi-hiw__connector{% if is_flip == 1 %} pi-hiw__connector--flip{% endif %}" aria-hidden="true">
               <svg viewBox="0 0 166 32" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 20Q83 -4 160 16" stroke="{{ section.settings.line_color }}" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="1 7"/>
-                <path d="M153 11L161 16.5L154 21.5" stroke="{{ section.settings.line_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 20Q83 -4 160 16" stroke="{{ section.settings.line_color }}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 6"/>
+                <path d="M151 9L162 16.5L152 24" stroke="{{ section.settings.line_color }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
           {%- endunless -%}
