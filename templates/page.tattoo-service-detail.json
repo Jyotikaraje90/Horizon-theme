@@ -155,6 +155,7 @@
         "step_1": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/Nutrition.png",
             "title": "Consultation & Design Preparation",
             "description": "We discuss your vision and prepare a custom design tailored to your style."
           }
@@ -162,6 +163,7 @@
         "step_2": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/Digestion.png",
             "title": "Tattooing Process",
             "description": "Our artist brings the design to life with precision and care from start to finish."
           }
@@ -169,6 +171,7 @@
         "step_3": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/Metabolism.png",
             "title": "Aftercare & Healing",
             "description": "We guide you through aftercare so your new tattoo heals beautifully."
           }
