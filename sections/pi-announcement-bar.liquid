@@ -47,55 +47,82 @@
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
   }
+
+  /* ── Sticky stacking ──────────────────────────────────
+     Use native position:sticky (not fixed+spacer) so the bar keeps its own
+     flow space and the browser handles re-stacking on its own — no JS race
+     with the theme's own sticky-header logic. */
+  .pi-announcement {
+    position: sticky;
+    top: 0;
+    z-index: 9999;
+  }
+  .pi-announcement-mobile {
+    position: sticky !important;
+    top: 0;
+    z-index: 9999;
+  }
+  .pi-announcement-mobile-spacer {
+    display: none !important;
+  }
+  /* Push the real header nav down so it sticks just below this bar instead
+     of underneath/behind it. Targets the same element the theme's own
+     sticky rule targets, so it works whether sticky mode is "always" or
+     "scroll-up". */
+  .header-section:has(> #header-component[sticky]) {
+    top: var(--pi-ann-offset, 0px) !important;
+  }
 </style>
 
 <script>
 (function () {
-  function initStickyBar() {
+  function updateAnnOffset() {
+    var desktopBar = document.querySelector('.pi-announcement');
+    var mobileBar = document.querySelector('.pi-announcement-mobile');
+    var h = 0;
+    if (desktopBar && desktopBar.offsetHeight > 0) {
+      h = desktopBar.offsetHeight;
+    } else if (mobileBar && mobileBar.offsetHeight > 0) {
+      h = mobileBar.offsetHeight;
+    }
+    document.documentElement.style.setProperty('--pi-ann-offset', h + 'px');
+  }
+
+  function checkWidth(bar) {
+    if (bar.offsetWidth <= 768) {
+      bar.setAttribute('data-mobile', '');
+    } else {
+      bar.removeAttribute('data-mobile');
+    }
+  }
+
+  function init() {
     var bar = document.querySelector('.pi-announcement');
     if (!bar) return;
 
-    var h = bar.offsetHeight;
-
-    /* Fix bar to top of viewport at all times */
-    bar.style.position = 'fixed';
-    bar.style.top = '0';
-    bar.style.left = '0';
-    bar.style.right = '0';
-    bar.style.zIndex = '9999';
-    bar.style.width = '100%';
-
-    /* Insert spacer so the header section stays in the correct flow position */
-    var spacer = document.createElement('div');
-    spacer.style.height = h + 'px';
-    bar.parentNode.insertBefore(spacer, bar.nextSibling);
-
-    /* Push the sticky navbar so it sticks just below the announcement bar.
-       On mobile the desktop bar is hidden (h=0) so override to 42px for the mobile bar. */
-    var st = document.createElement('style');
-    st.textContent = '.header-section { top: ' + h + 'px !important; } @media (max-width: 768px) { .header-section { top: 42px !important; } }';
-    document.head.appendChild(st);
-
-    /* Toggle data-mobile based on actual rendered width (works in editor too) */
-    function checkWidth() {
-      if (bar.offsetWidth <= 768) {
-        bar.setAttribute('data-mobile', '');
-      } else {
-        bar.removeAttribute('data-mobile');
-      }
-    }
-
-    checkWidth();
+    checkWidth(bar);
+    updateAnnOffset();
 
     if (window.ResizeObserver) {
-      new ResizeObserver(checkWidth).observe(bar);
+      var observer = new ResizeObserver(function () {
+        checkWidth(bar);
+        updateAnnOffset();
+      });
+      observer.observe(bar);
+      var mobileBar = document.querySelector('.pi-announcement-mobile');
+      if (mobileBar) observer.observe(mobileBar);
+    } else {
+      window.addEventListener('resize', function () {
+        checkWidth(bar);
+        updateAnnOffset();
+      });
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initStickyBar);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initStickyBar();
+    init();
   }
 })();
 </script>
