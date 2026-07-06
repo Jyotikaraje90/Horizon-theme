@@ -106,6 +106,12 @@
     width: 100%;
   }
 
+  .pi-contact-us__row > * {
+    flex: 1 1 0%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
   .pi-contact-us__field {
     box-sizing: border-box;
     flex: 1;
@@ -148,6 +154,10 @@
     outline: none;
     appearance: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
   }
 
