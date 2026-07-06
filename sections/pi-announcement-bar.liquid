@@ -57,7 +57,10 @@
     margin-bottom: {{ section.settings.margin_bottom }}px;
     position: sticky;
     top: 0;
-    z-index: 9999;
+    /* Use the theme's own z-index scale (theme-styles-variables.liquid),
+       not an arbitrary large number — otherwise this bar would render
+       above the cart drawer, mega-menu, and modals instead of below them. */
+    z-index: var(--layer-sticky, 8);
   }
   .pi-announcement-mobile-spacer {
     display: none !important;
