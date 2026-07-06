@@ -36,11 +36,12 @@
   }
 
   /* Full-bleed, edge-to-edge grid — intentionally not constrained to the
-     1500px content width like the heading above it. */
+     1500px content width like the heading above it, and no gap between
+     cells so photos sit flush against each other. */
   .pi-owg__grid {
     display: grid;
     grid-template-columns: repeat({{ section.settings.columns_desktop }}, 1fr);
-    gap: 16px;
+    gap: 0;
     width: 100%;
   }
 
@@ -62,12 +63,12 @@
   /* ─── Responsive ───────────────────────────────── */
   @media (max-width: 989px) {
     .pi-owg__heading-wrap { padding-inline: 24px; }
-    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); gap: 10px; }
+    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
   }
 
   @media (max-width: 600px) {
     .pi-owg__heading-wrap { padding-inline: 18px; margin-bottom: 24px; }
-    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); gap: 6px; }
+    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); }
   }
 
   #shopify-section-{{ section.id }} {
@@ -158,7 +159,7 @@
       "step": 2,
       "unit": "px",
       "label": "Image border radius",
-      "default": 8
+      "default": 0
     },
     {
       "type": "header",
