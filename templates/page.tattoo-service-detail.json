@@ -157,7 +157,7 @@
           "settings": {
             "icon": "shopify://shop_images/Nutrition.png",
             "title": "Consultation & Design Preparation",
-            "description": "We discuss your vision and prepare a custom design tailored to your style."
+            "description": "Discuss your ideas, choose the design, and finalize the perfect placement."
           }
         },
         "step_2": {
@@ -165,7 +165,7 @@
           "settings": {
             "icon": "shopify://shop_images/Digestion.png",
             "title": "Tattooing Process",
-            "description": "Our artist brings the design to life with precision and care from start to finish."
+            "description": "Our artists bring your design to life with precision and high-quality ink."
           }
         },
         "step_3": {
@@ -173,7 +173,7 @@
           "settings": {
             "icon": "shopify://shop_images/Metabolism.png",
             "title": "Aftercare & Healing",
-            "description": "We guide you through aftercare so your new tattoo heals beautifully."
+            "description": "Follow expert aftercare tips to ensure smooth healing and long-lasting vibrancy."
           }
         }
       },
