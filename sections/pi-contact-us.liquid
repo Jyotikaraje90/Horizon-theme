@@ -249,6 +249,15 @@
     display: none;
   }
 
+  /* ── No-image variant: single centered panel ───────── */
+  .pi-contact-us--no-image {
+    max-width: 800px;
+  }
+  .pi-contact-us--no-image .pi-contact-us__form-panel {
+    flex: 1 1 100%;
+    border-radius: 15px;
+  }
+
   /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 989px) {
     .pi-contact-us {
@@ -300,7 +309,7 @@
   }
 </style>
 
-<div class="pi-contact-us">
+<div class="pi-contact-us{% if section.settings.background_image == blank %} pi-contact-us--no-image{% endif %}">
 
   <div class="pi-contact-us__form-panel">
     <div class="pi-contact-us__details">
@@ -395,8 +404,8 @@
     </div>
   </div>
 
-  <div class="pi-contact-us__image-panel">
-    {%- if section.settings.background_image != blank -%}
+  {%- if section.settings.background_image != blank -%}
+    <div class="pi-contact-us__image-panel">
       {{
         section.settings.background_image
         | image_url: width: 1300
@@ -405,8 +414,8 @@
           alt: section.settings.background_image.alt
       }}
       <div class="pi-contact-us__overlay"></div>
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
 
 </div>
 
