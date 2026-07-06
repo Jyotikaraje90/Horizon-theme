@@ -98,13 +98,17 @@
   }
 
   .pi-hiw__connector {
-    /* Stretch to fill the actual gap between step columns instead of a
-       fixed width, so it visually connects them at any viewport size. */
-    flex: 1 1 auto;
+    /* Fixed percentage (not flex-grow) so both connectors resolve to the
+       exact same width deterministically — flex-grow with an "auto" basis
+       let the two arrows land on different widths, which threw off their
+       vertical alignment. */
+    flex: 0 0 14%;
+    width: 14%;
     min-width: 60px;
     max-width: 200px;
     height: 32px;
     margin-top: 34px;
+    align-self: flex-start;
     display: flex;
     align-items: center;
     justify-content: center;
