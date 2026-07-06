@@ -62,8 +62,13 @@
   .pi-tsg__card {
     display: flex;
     flex-direction: column;
+    text-decoration: none;
+    color: inherit;
   }
   .pi-tsg__card.is-hidden { display: none; }
+  a.pi-tsg__card:hover .pi-tsg__card-title {
+    text-decoration: underline;
+  }
 
   .pi-tsg__card-img {
     width: 100%;
@@ -96,14 +101,6 @@
     color: var(--pi-tsg-card-title-color, #000000);
     margin: 0;
   }
-  a.pi-tsg__card-title {
-    text-decoration: none;
-    display: inline-block;
-  }
-  a.pi-tsg__card-title:hover {
-    text-decoration: underline;
-  }
-
   .pi-tsg__card-desc {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: var(--pi-tsg-card-desc-size, 16px);
@@ -202,7 +199,14 @@
 
     <div class="pi-tsg__grid" id="pi-tsg-grid-{{ section.id }}">
       {%- for block in service_cards -%}
-        <div class="pi-tsg__card" data-index="{{ forloop.index0 }}" {{ block.shopify_attributes }}>
+        {%- assign card_tag = 'div' -%}
+        {%- if block.settings.title_link != blank -%}{%- assign card_tag = 'a' -%}{%- endif -%}
+        <{{ card_tag }}
+          class="pi-tsg__card"
+          data-index="{{ forloop.index0 }}"
+          {%- if card_tag == 'a' %} href="{{ block.settings.title_link }}"{% endif %}
+          {{ block.shopify_attributes }}
+        >
           <div class="pi-tsg__card-img">
             {%- if block.settings.image != blank -%}
               <img
@@ -218,17 +222,13 @@
           </div>
           <div class="pi-tsg__card-body">
             {%- if block.settings.title != blank -%}
-              {%- if block.settings.title_link != blank -%}
-                <a href="{{ block.settings.title_link }}" class="pi-tsg__card-title">{{ block.settings.title }}</a>
-              {%- else -%}
-                <h4 class="pi-tsg__card-title">{{ block.settings.title }}</h4>
-              {%- endif -%}
+              <h4 class="pi-tsg__card-title">{{ block.settings.title }}</h4>
             {%- endif -%}
             {%- if block.settings.description != blank -%}
               <p class="pi-tsg__card-desc">{{ block.settings.description }}</p>
             {%- endif -%}
           </div>
-        </div>
+        </{{ card_tag }}>
       {%- endfor -%}
     </div>
 
