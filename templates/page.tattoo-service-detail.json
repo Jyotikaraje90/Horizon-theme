@@ -252,7 +252,7 @@
       ],
       "settings": {
         "heading": "Our Work",
-        "columns_desktop": 6,
+        "columns_desktop": 5,
         "columns_tablet": 3,
         "columns_mobile": 2,
         "image_radius": 8,
