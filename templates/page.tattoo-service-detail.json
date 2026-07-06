@@ -236,14 +236,6 @@
         "photo_10": {
           "type": "photo",
           "settings": {}
-        },
-        "photo_11": {
-          "type": "photo",
-          "settings": {}
-        },
-        "photo_12": {
-          "type": "photo",
-          "settings": {}
         }
       },
       "block_order": [
@@ -256,9 +248,7 @@
         "photo_7",
         "photo_8",
         "photo_9",
-        "photo_10",
-        "photo_11",
-        "photo_12"
+        "photo_10"
       ],
       "settings": {
         "heading": "Our Work",
