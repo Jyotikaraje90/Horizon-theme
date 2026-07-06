@@ -329,7 +329,7 @@
       ],
       "settings": {
         "title": "Book An Appointment",
-        "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can!",
         "detailed_booking_form": true,
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
