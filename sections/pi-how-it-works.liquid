@@ -9,7 +9,6 @@
     --pi-hiw-step-desc-color: {{ section.settings.step_desc_color }};
     --pi-hiw-icon-bg: {{ section.settings.icon_bg }};
     --pi-hiw-icon-color: {{ section.settings.icon_color }};
-    --pi-hiw-line-color: {{ section.settings.line_color }};
   }
 </style>
 
@@ -97,44 +96,13 @@
     margin: 0;
   }
 
-  .pi-hiw__connector {
-    /* Fixed percentage (not flex-grow) so both connectors resolve to the
-       exact same width deterministically. */
-    flex: 0 0 14%;
-    width: 14%;
-    min-width: 60px;
-    max-width: 200px;
-    height: 32px;
-    /* Zigzag: sits at icon height by default; the flipped (2nd, 4th...)
-       connector drops down to text height instead — this is intentional,
-       not a misalignment. */
-    margin-top: 34px;
-    align-self: flex-start;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .pi-hiw__connector--flip {
-    margin-top: 180px;
-  }
-  .pi-hiw__connector svg {
-    width: 100%;
-    height: 100%;
-    display: block;
-  }
-  .pi-hiw__connector--flip svg {
-    transform: scaleY(-1);
-  }
-
   /* ─── Responsive ───────────────────────────────── */
   @media (max-width: 989px) {
     .pi-hiw__inner { padding-inline: 24px; gap: 40px; }
-    .pi-hiw__connector { width: 80px; }
   }
 
   @media (max-width: 749px) {
     .pi-hiw__steps { flex-direction: column; align-items: center; gap: 40px; }
-    .pi-hiw__connector { display: none; }
     .pi-hiw__step { max-width: 400px; }
   }
 
@@ -193,15 +161,6 @@
               <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
             {%- endif -%}
           </div>
-          {%- unless forloop.last -%}
-            {%- assign is_flip = forloop.index0 | modulo: 2 -%}
-            <div class="pi-hiw__connector{% if is_flip == 1 %} pi-hiw__connector--flip{% endif %}" aria-hidden="true">
-              <svg viewBox="0 0 166 32" fill="none" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 29C35 -6 125 -8 156 14" stroke="{{ section.settings.line_color }}" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="7 6"/>
-                <path d="M147 8L160 14L149 19" stroke="{{ section.settings.line_color }}" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-          {%- endunless -%}
         {%- endfor -%}
       </div>
     {%- endif -%}
@@ -283,12 +242,6 @@
       "id": "step_desc_color",
       "label": "Step description color",
       "default": "#555555"
-    },
-    {
-      "type": "color",
-      "id": "line_color",
-      "label": "Connector line color",
-      "default": "#000000"
     },
     {
       "type": "header",
