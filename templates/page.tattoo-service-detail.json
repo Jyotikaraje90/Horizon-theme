@@ -312,28 +312,36 @@
           "settings": {
             "location_name": "Amsterdam"
           }
+        },
+        "artist_1": {
+          "type": "artist",
+          "settings": {
+            "artist_name": "No Preference"
+          }
         }
       },
       "block_order": [
         "loc_1",
         "loc_2",
         "loc_3",
-        "loc_4"
+        "loc_4",
+        "artist_1"
       ],
       "settings": {
         "title": "Book An Appointment",
         "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "detailed_booking_form": true,
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
-        "padding_top": 64,
-        "padding_bottom": 64,
+        "padding_top": 32,
+        "padding_bottom": 32,
         "mobile_padding_top": 40,
         "mobile_padding_bottom": 40,
         "margin_top": 0,
         "margin_bottom": 0,
         "heading_color": "#000000",
         "subtitle_color": "#000000",
-        "text_alignment": "center",
+        "text_alignment": "left",
         "heading_size": 40,
         "mobile_heading_size": 28,
         "subtitle_size": 14,
