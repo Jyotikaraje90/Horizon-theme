@@ -43,22 +43,19 @@
     text-align: {{ section.settings.text_alignment }};
   }
 
+  /* ── Sticky stacking ──────────────────────────────────
+     Sticky must be applied to the actual Shopify section wrapper, not the
+     inner .pi-announcement div. #header-group (the parent) is set to
+     display:contents by the theme when the header is sticky, which promotes
+     this wrapper to a direct child of <body> — giving it the full page
+     height as its containing block. If we stick the inner div instead, its
+     containing block is just this same wrapper sized to the bar's own
+     height, which leaves zero room to stay stuck past the first scroll
+     pixel. Matches exactly how the theme's own .header-section does it. */
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
-  }
-
-  /* ── Sticky stacking ──────────────────────────────────
-     Use native position:sticky (not fixed+spacer) so the bar keeps its own
-     flow space and the browser handles re-stacking on its own — no JS race
-     with the theme's own sticky-header logic. */
-  .pi-announcement {
     position: sticky;
-    top: 0;
-    z-index: 9999;
-  }
-  .pi-announcement-mobile {
-    position: sticky !important;
     top: 0;
     z-index: 9999;
   }
