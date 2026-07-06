@@ -1,0 +1,230 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_detail": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Realistic Tattoos",
+        "overlay_opacity": 0,
+        "bg_fallback_color": "#000000"
+      }
+    },
+    "pi_tdc_detail": {
+      "type": "pi-tattoo-detail-content",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Bold Outlines & Vibrant Colors",
+            "description": "Crisp linework and rich color saturation that keeps the design sharp for years."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Custom Design Options",
+            "description": "Every piece is tailored to your vision, sized and styled to fit your body."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Expert Artists & Premium Inks",
+            "description": "Skilled artists using skin-safe, high-pigment inks for a lasting finish."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3"
+      ],
+      "settings": {
+        "about_heading": "About Realistic Tattoos",
+        "about_text": "Realistic tattoos bring lifelike detail and depth to the skin, capturing portraits, animals, and nature with striking precision. Using advanced shading and fine linework, our artists create pieces that look like photographs come to life.",
+        "button_label": "Book Now",
+        "button_link": "#shopify-section-pi_book_detail"
+      }
+    },
+    "pi_usp_detail": {
+      "type": "pi-usp",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
+            "label": "Authentic"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1.png",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
+            "label": "Creative"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
+        "overlay_opacity": 10
+      }
+    },
+    "pi_hiw_detail": {
+      "type": "pi-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "title": "Consultation & Design Preparation",
+            "description": "We discuss your vision and prepare a custom design tailored to your style."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "title": "Tattooing Process",
+            "description": "Our artist brings the design to life with precision and care from start to finish."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "title": "Aftercare & Healing",
+            "description": "We guide you through aftercare so your new tattoo heals beautifully."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How It Works"
+      }
+    },
+    "pi_owg_detail": {
+      "type": "pi-our-work-gallery",
+      "blocks": {
+        "photo_1": { "type": "photo", "settings": {} },
+        "photo_2": { "type": "photo", "settings": {} },
+        "photo_3": { "type": "photo", "settings": {} },
+        "photo_4": { "type": "photo", "settings": {} },
+        "photo_5": { "type": "photo", "settings": {} },
+        "photo_6": { "type": "photo", "settings": {} },
+        "photo_7": { "type": "photo", "settings": {} },
+        "photo_8": { "type": "photo", "settings": {} },
+        "photo_9": { "type": "photo", "settings": {} },
+        "photo_10": { "type": "photo", "settings": {} },
+        "photo_11": { "type": "photo", "settings": {} },
+        "photo_12": { "type": "photo", "settings": {} }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+        "photo_7",
+        "photo_8",
+        "photo_9",
+        "photo_10",
+        "photo_11",
+        "photo_12"
+      ],
+      "settings": {
+        "heading": "Our Work"
+      }
+    },
+    "pi_book_detail": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Book An Appointment",
+        "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "text_alignment": "center"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_detail",
+    "pi_tdc_detail",
+    "pi_usp_detail",
+    "pi_hiw_detail",
+    "pi_owg_detail",
+    "pi_book_detail"
+  ]
+}
