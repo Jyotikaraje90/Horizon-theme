@@ -421,28 +421,6 @@
         "padding-block-end": 48
       }
     },
-    "hero_banner_metaobjects_zXKYwq": {
-      "type": "hero-banner-metaobjects",
-      "blocks": {
-        "badge_HVP89f": {
-          "type": "badge",
-          "settings": {
-            "badge_text": "Studio Certified"
-          }
-        }
-      },
-      "block_order": [
-        "badge_HVP89f"
-      ],
-      "name": "Hero Banner Metaobject",
-      "settings": {
-        "show_button": true,
-        "custom_heading": "",
-        "heading_color": "#1a1a1a",
-        "heading_size": 32,
-        "text_align": "center"
-      }
-    },
     "1783416835c8045ee7": {
       "type": "_blocks",
       "blocks": {
@@ -491,13 +469,35 @@
         "padding-block-start": 0,
         "padding-block-end": 0
       }
+    },
+    "hero_banner_metaobjects_zXKYwq": {
+      "type": "hero-banner-metaobjects",
+      "blocks": {
+        "badge_HVP89f": {
+          "type": "badge",
+          "settings": {
+            "badge_text": "Studio Certified"
+          }
+        }
+      },
+      "block_order": [
+        "badge_HVP89f"
+      ],
+      "name": "Hero Banner Metaobject",
+      "settings": {
+        "show_button": true,
+        "custom_heading": "",
+        "heading_color": "#1a1a1a",
+        "heading_size": 32,
+        "text_align": "center"
+      }
     }
   },
   "order": [
     "main",
     "product_metafields_MYLAFL",
     "product_recommendations_qggXJq",
-    "hero_banner_metaobjects_zXKYwq",
-    "1783416835c8045ee7"
+    "1783416835c8045ee7",
+    "hero_banner_metaobjects_zXKYwq"
   ]
 }
