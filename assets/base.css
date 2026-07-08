@@ -4617,4 +4617,8 @@ product-recommendations:has([data-has-recommendations='false']) {
     display: flex;
   }
 }
+/* Hide Judge.me reviews in cart drawer */
+cart-items-component [class*="jm-"] {
+  display: none !important;
+}
 
