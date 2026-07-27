@@ -1198,11 +1198,13 @@
     position: absolute !important;
     width: auto !important;
     left: 50% !important;
-    top: calc(100% + var(--padding-block-end, 0px)) !important;
+    top: 100% !important;
     transform: translateX(-50%) !important;
     clip-path: none !important;
     padding-inline: 0 !important;
     margin-top: 0 !important;
+    height: 0 !important;
+    overflow: visible !important;
   }
 
   .pi-simple-dropdown__inner {
@@ -1212,6 +1214,8 @@
     padding: 20px 28px;
     transform: none !important;
     opacity: 1 !important;
+    position: relative;
+    z-index: var(--layer-header-menu, 100);
   }
 
   .pi-simple-dropdown__list {
