@@ -106,11 +106,15 @@
             {% endif %}
             ref="menuitem"
           >
-            <span class="menu-list__link-title">{{- link.title -}}</span>
             {%- if link.links != blank -%}
-              <span class="svg-wrapper pi-menu-caret" aria-hidden="true">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
+              <span class="pi-menu-link-with-caret">
+                <span class="menu-list__link-title">{{- link.title -}}</span>
+                <span class="svg-wrapper pi-menu-caret" aria-hidden="true">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
               </span>
+            {%- else -%}
+              <span class="menu-list__link-title">{{- link.title -}}</span>
             {%- endif -%}
           </a>
           {%- if link.links != blank -%}

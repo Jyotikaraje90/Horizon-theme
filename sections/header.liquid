@@ -1172,13 +1172,18 @@
     }
   }
 
-  /* PI: dropdown caret for menu items with submenus (Figma: 11×7, #000, 10px gap) */
+  /* PI: dropdown caret beside menu link text (Figma: horizontal, 10px gap, 11×7 caret) */
+  .pi-menu-link-with-caret {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
   .pi-menu-caret {
     display: inline-flex;
     align-items: center;
     width: 11px;
     height: 7px;
-    margin-left: 10px;
     flex-shrink: 0;
     color: #000000;
   }
