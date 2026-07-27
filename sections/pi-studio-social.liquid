@@ -149,7 +149,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 50px;
   }
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
@@ -163,7 +163,7 @@
   .pi-hc__row {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 30px;
     width: 100%;
     max-width: 1090px;
     justify-content: center;
@@ -177,11 +177,11 @@
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
-    padding: 40px 48px;
+    padding: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     text-align: center;
   }
   .pi-hc__slide { display: none; }
@@ -189,12 +189,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 30px;
     width: 100%;
   }
   .pi-hc__avatar {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
@@ -209,11 +209,11 @@
   }
   .pi-hc__stars {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     align-items: center;
     justify-content: center;
   }
-  .pi-hc__stars svg { flex-shrink: 0; }
+  .pi-hc__stars svg { flex-shrink: 0; width: 20px; height: 20px; }
   .pi-hc__text {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: 18px;
@@ -221,7 +221,7 @@
     line-height: 29px;
     letter-spacing: 0;
     color: #121212;
-    max-width: 830px;
+    max-width: 930px;
     width: 100%;
     margin: 0;
     text-align: center;
@@ -438,13 +438,41 @@
     color: {{ section.settings.card_desc_color }};
     font-size: {{ section.settings.card_desc_size }}px;
   }
+  .pi-hc__inner {
+    gap: {{ section.settings.hc_content_gap }}px;
+  }
+  .pi-hc__row {
+    gap: {{ section.settings.hc_row_gap }}px;
+  }
   .pi-hc__card {
     background: {{ section.settings.testimonial_card_bg }};
     border-radius: {{ section.settings.testimonial_card_radius }}px;
+    padding: {{ section.settings.testimonial_card_padding }}px;
+  }
+  .pi-hc__card,
+  .pi-hc__slide.is-active {
+    gap: {{ section.settings.testimonial_card_gap }}px;
+  }
+  .pi-hc__avatar {
+    width: {{ section.settings.avatar_size }}px;
+    height: {{ section.settings.avatar_size }}px;
+  }
+  .pi-hc__stars {
+    gap: {{ section.settings.star_gap }}px;
+  }
+  .pi-hc__stars svg {
+    width: {{ section.settings.star_size }}px;
+    height: {{ section.settings.star_size }}px;
   }
   .pi-hc__stars svg[fill] { fill: {{ section.settings.star_color }}; }
   .pi-hc__text {
     color: {{ section.settings.review_color }};
+    font-size: {{ section.settings.review_size }}px;
+    max-width: {{ section.settings.review_max_width }}px;
+  }
+  .pi-hc__author {
+    color: {{ section.settings.author_color }};
+    font-size: {{ section.settings.author_size }}px;
   }
   .pi-ps__btn {
     background: {{ section.settings.btn_bg }};
@@ -918,6 +946,20 @@
 
     { "type": "header", "content": "Testimonial" },
     {
+      "type": "range",
+      "id": "hc_content_gap",
+      "label": "Gap: heading to card",
+      "min": 0, "max": 100, "step": 2, "default": 50,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "hc_row_gap",
+      "label": "Gap: arrows to card",
+      "min": 0, "max": 80, "step": 2, "default": 30,
+      "unit": "px"
+    },
+    {
       "type": "color",
       "id": "testimonial_card_bg",
       "label": "Testimonial Card Background",
@@ -927,7 +969,28 @@
       "type": "range",
       "id": "testimonial_card_radius",
       "label": "Testimonial Card Radius",
-      "min": 0, "max": 24, "step": 2, "default": 12,
+      "min": 0, "max": 40, "step": 2, "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_card_padding",
+      "label": "Testimonial Card Padding",
+      "min": 0, "max": 80, "step": 2, "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "testimonial_card_gap",
+      "label": "Card Content Gap",
+      "min": 0, "max": 60, "step": 2, "default": 30,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "avatar_size",
+      "label": "Avatar Size",
+      "min": 40, "max": 120, "step": 2, "default": 70,
       "unit": "px"
     },
     {
@@ -937,10 +1000,51 @@
       "default": "#FFBA00"
     },
     {
+      "type": "range",
+      "id": "star_size",
+      "label": "Star Size",
+      "min": 12, "max": 40, "step": 2, "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "star_gap",
+      "label": "Star Gap",
+      "min": 0, "max": 20, "step": 1, "default": 6,
+      "unit": "px"
+    },
+    {
       "type": "color",
       "id": "review_color",
       "label": "Review Text Color",
-      "default": "#333333"
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "review_size",
+      "label": "Review Text Size",
+      "min": 12, "max": 28, "step": 1, "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "review_max_width",
+      "label": "Review Text Max Width",
+      "min": 400, "max": 1000, "step": 10, "default": 930,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "author_color",
+      "label": "Author Name Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "author_size",
+      "label": "Author Name Size",
+      "min": 10, "max": 24, "step": 1, "default": 14,
+      "unit": "px"
     },
 
     { "type": "header", "content": "Button Styles" },
