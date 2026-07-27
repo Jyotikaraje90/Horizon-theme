@@ -1160,6 +1160,17 @@
       grid-area: rightA;
     }
   }
+
+  /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
+  @media screen and (min-width: 750px) {
+    .header__row--top .header__columns {
+      height: 95px;
+      box-sizing: border-box;
+      --padding-block-start: 0px;
+      --padding-block-end: 0px;
+      align-items: center;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
