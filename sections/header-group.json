@@ -88,7 +88,7 @@
         "enable_sticky_header": "always",
         "divider_width": 0,
         "divider_size": "page-width",
-        "border_width": 1,
+        "border_width": 0,
         "inquire_label": "Inquire Now",
         "inquire_link": "/pages/contact",
         "actions_display_style": "icon",
