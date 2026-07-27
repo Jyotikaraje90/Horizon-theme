@@ -1171,6 +1171,11 @@
       align-items: center;
     }
   }
+
+  /* PI: all nav links pure black — disable subdued opacity on non-active links */
+  #header-component .menu-list .menu-list__link {
+    color: var(--menu-top-level-font-color) !important;
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
