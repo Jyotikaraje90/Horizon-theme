@@ -362,9 +362,9 @@
         "testimonial_card_radius": 12,
         "star_color": "#b49146",
         "review_color": "#333333",
-        "btn_bg": "#1a1a1a",
+        "btn_bg": "#000000",
         "btn_text": "#ffffff",
-        "btn_radius": 0,
+        "btn_radius": 8,
         "btn_size": 14,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff"
