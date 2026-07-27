@@ -1161,10 +1161,14 @@
     }
   }
 
-  /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
+  /* PI: pin desktop navbar to Figma spec (95px total incl. 1px bottom border) */
   @media screen and (min-width: 750px) {
+    .header__row--top {
+      border-bottom: 1px solid var(--color-border) !important;
+    }
+
     .header__row--top .header__columns {
-      height: 95px;
+      height: 94px;
       box-sizing: border-box;
       --padding-block-start: 0px;
       --padding-block-end: 0px;
