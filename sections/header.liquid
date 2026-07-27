@@ -1172,9 +1172,13 @@
     }
   }
 
-  /* PI: all nav links pure black — disable subdued opacity on non-active links */
+  /* PI: all nav links pure black, active link grayish to indicate current page */
   #header-component .menu-list .menu-list__link {
     color: var(--menu-top-level-font-color) !important;
+  }
+
+  #header-component .menu-list .menu-list__link--active {
+    color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text)) !important;
   }
 {% endstylesheet %}
 
