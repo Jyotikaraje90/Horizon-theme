@@ -120,31 +120,20 @@
             {%- endif -%}
           </a>
           {%- if link.links != blank -%}
-            <div class="menu-list__submenu{{ color_scheme_classes }}" ref="submenu[]">
+            <div class="menu-list__submenu pi-simple-dropdown{{ color_scheme_classes }}" ref="submenu[]">
               <div
                 id="submenu-{{ forloop.index }}"
-                class="menu-list__submenu-inner"
-                style="{% render 'submenu-font-styles', settings: block_settings %}"
+                class="menu-list__submenu-inner pi-simple-dropdown__inner"
               >
-                {% assign list_id = 'MegaMenuList-' | append: forloop.index %}
-                <div class="mega-menu section section--full-width-margin section--{{ section.settings.section_width }}">
-                  <div
-                    class="mega-menu__grid"
-                    data-menu-grid-id="{{ list_id }}"
-                  >
-                    {% render 'mega-menu-list',
-                      parent_link: link,
-                      id: list_id,
-                      section: section,
-                      grid_columns_count: 6,
-                      grid_columns_count_tablet: 4,
-                      grid_columns_count_collection_images: 8,
-                      menu_content_type: menu_content_type,
-                      content_aspect_ratio: ratio,
-                      image_border_radius: image_border_radius
-                    %}
-                  </div>
-                </div>
+                <ul class="pi-simple-dropdown__list">
+                  {%- for child_link in link.links -%}
+                    <li class="pi-simple-dropdown__item">
+                      <a href="{{ child_link.url }}" class="pi-simple-dropdown__link">
+                        {{- child_link.title | upcase -}}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
               </div>
             </div>
           {%- endif -%}
