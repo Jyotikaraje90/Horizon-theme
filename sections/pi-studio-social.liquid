@@ -418,7 +418,7 @@
   }
   .pi-hc__heading {
     color: {{ section.settings.heading_color }};
-    font-size: {{ section.settings.heading_size }}px;
+    font-size: {{ section.settings.customers_heading_size }}px;
     text-align: {{ section.settings.text_alignment }};
   }
   .pi-tb__heading {
@@ -499,7 +499,7 @@
       font-size: {{ section.settings.mobile_heading_size }}px;
     }
     .pi-hc__heading {
-      font-size: {{ section.settings.mobile_heading_size }}px;
+      font-size: {{ section.settings.customers_mobile_heading_size }}px;
     }
     #pi-ps-{{ section.id }} {
       padding-top: {{ section.settings.mobile_padding_top }}px;
@@ -799,6 +799,20 @@
       "id": "customers_heading",
       "label": "Heading",
       "default": "Happy Customers"
+    },
+    {
+      "type": "range",
+      "id": "customers_heading_size",
+      "label": "Heading Size",
+      "min": 24, "max": 72, "step": 2, "default": 54,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "customers_mobile_heading_size",
+      "label": "Heading Size (mobile)",
+      "min": 16, "max": 48, "step": 2, "default": 30,
+      "unit": "px"
     },
     { "type": "header", "content": "Trusted by the Best" },
     {
