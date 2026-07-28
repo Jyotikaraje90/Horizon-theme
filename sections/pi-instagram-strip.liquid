@@ -64,16 +64,18 @@
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding-top: 30px; padding-left: 0; padding-right: 0; }
     .pi-ig-strip {
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
+      flex-direction: row;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
       height: auto;
-      gap: 0;
       border-radius: 0;
     }
+    .pi-ig-strip::-webkit-scrollbar { display: none; }
     .pi-ig-strip__cell {
+      flex: 0 0 50%;
       aspect-ratio: 205 / 200;
-    }
-    .pi-ig-strip__cell:nth-child(n+3) {
-      display: none;
     }
   }
 </style>
