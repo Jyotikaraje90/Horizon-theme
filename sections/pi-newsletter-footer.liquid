@@ -334,14 +334,14 @@
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 16px; gap: 12px; }
-    .pi-nf__nl-btn { width: 100%; }
+    .pi-nf__nl-btn { width: auto; align-self: flex-start; }
 
     .pi-nf { margin-top: 0; }
     .pi-nf__footer-body { padding: 30px 20px; }
     .pi-nf__footer-inner { flex-direction: column; gap: 0; }
     .pi-nf__brand { width: 100%; padding: 0 0 20px; border-bottom: none; }
     .pi-nf__brand .pi-nf__logo { margin: 0 auto; }
-    .pi-nf__tagline { font-size: 14px; line-height: 22px; text-align: center; }
+    .pi-nf__tagline { font-size: 14px; line-height: 22px; text-align: left; }
     .pi-nf__vdivider { display: none; }
 
     .pi-nf__col { width: 100%; padding: 0; border-bottom: none; border-top: 1px solid #808080; }
@@ -352,10 +352,11 @@
     .pi-nf__col.is-open .pi-nf__links { display: flex; }
     .pi-nf__link { font-size: 14px; line-height: 22px; }
 
-    .pi-nf__copyright { padding: 0 40px 30px; height: auto; border-top: none; margin-top: 20px; }
+    .pi-nf__copyright { padding: 0 20px 30px; height: auto; border-top: none; margin-top: 20px; }
     .pi-nf__copyright-inner { flex-direction: column; align-items: center; gap: 20px; }
-    .pi-nf__copyright-left { flex-direction: column; align-items: center; gap: 4px; }
-    .pi-nf__copyright-sep { display: none; }
+    .pi-nf__copyright-left { flex-direction: row; align-items: center; flex-wrap: wrap; justify-content: center; gap: 4px; }
+    .pi-nf__copyright-sep { width: auto; height: auto; background: none; }
+    .pi-nf__copyright-sep::after { content: '|'; color: #fff; font-size: 12px; }
     .pi-nf__copyright-text { font-size: 12px; line-height: 18px; text-align: center; white-space: normal; }
     .pi-nf__social { gap: 20px; }
   }
@@ -553,6 +554,8 @@
 <script>
   (function(){
     if(window.innerWidth > 749) return;
+    var cols = document.querySelectorAll('.pi-nf__col');
+    if(cols.length > 0) cols[0].classList.add('is-open');
     document.querySelectorAll('.pi-nf__col-heading').forEach(function(h){
       h.addEventListener('click', function(){
         this.closest('.pi-nf__col').classList.toggle('is-open');
