@@ -267,10 +267,12 @@
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
     padding: 0 !important;
+    font-size: 0;
+    line-height: 0;
   }
-  .content-for-layout {
-    margin-top: -1px !important;
-    padding-top: 0 !important;
+  #shopify-section-{{ section.id }} .pi-hero {
+    font-size: 14px;
+    line-height: normal;
   }
 </style>
 
