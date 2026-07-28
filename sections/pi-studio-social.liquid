@@ -112,6 +112,11 @@
   .pi-ps__carousel-container { position: relative; }
   .pi-ps__arrows--mobile-overlay { display: none; }
   .pi-ps__footer { display: flex; justify-content: center; }
+  .pi-ps__btn-mobile { display: none; }
+  @media (max-width: 749px) {
+    .pi-ps__btn-desktop { display: none; }
+    .pi-ps__btn-mobile { display: inline; }
+  }
   .pi-ps__btn {
     display: inline-flex;
     align-items: center;
@@ -589,7 +594,8 @@
     {%- if section.settings.piercing_button_label != blank -%}
       <div class="pi-ps__footer">
         <a href="{{ section.settings.piercing_button_link }}" class="pi-ps__btn">
-          {{ section.settings.piercing_button_label }}
+          <span class="pi-ps__btn-desktop">{{ section.settings.piercing_button_label }}</span>
+          <span class="pi-ps__btn-mobile">{{ section.settings.piercing_mobile_button_label | default: section.settings.piercing_button_label }}</span>
         </a>
       </div>
     {%- endif -%}
@@ -794,6 +800,12 @@
       "id": "piercing_button_label",
       "label": "Button text",
       "default": "View All Piercing Services"
+    },
+    {
+      "type": "text",
+      "id": "piercing_mobile_button_label",
+      "label": "Button text (mobile)",
+      "default": "Explore Our Jewelry Collection"
     },
     { "type": "url", "id": "piercing_button_link", "label": "Button link" },
     { "type": "header", "content": "Happy Customers" },
