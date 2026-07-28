@@ -215,6 +215,13 @@
     justify-content: center;
   }
 
+  .pi-ts__btn-mobile { display: none; }
+
+  @media (max-width: 749px) {
+    .pi-ts__btn-desktop { display: none; }
+    .pi-ts__btn-mobile { display: inline; }
+  }
+
   .pi-ts__btn {
     display: inline-flex;
     align-items: center;
@@ -372,7 +379,8 @@
       {%- if section.settings.button_label != blank -%}
         <div class="pi-ts__footer">
           <a href="{{ section.settings.button_link }}" class="pi-ts__btn">
-            {{ section.settings.button_label }}
+            <span class="pi-ts__btn-desktop">{{ section.settings.button_label }}</span>
+            <span class="pi-ts__btn-mobile">{{ section.settings.mobile_button_label | default: section.settings.button_label }}</span>
           </a>
         </div>
       {%- endif -%}
@@ -467,6 +475,12 @@
       "id": "button_label",
       "label": "Button label",
       "default": "View All Tattoo Services"
+    },
+    {
+      "type": "text",
+      "id": "mobile_button_label",
+      "label": "Button label (mobile)",
+      "default": "View Our Jewellery Collection"
     },
     {
       "type": "url",
