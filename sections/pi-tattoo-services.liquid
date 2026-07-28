@@ -442,20 +442,8 @@
       btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
     });
 
-    function updateDescClamp() {
-      if (window.innerWidth > 600) return;
-      track.querySelectorAll('.pi-ts__card').forEach(function (card) {
-        var title = card.querySelector('.pi-ts__card-title');
-        var desc = card.querySelector('.pi-ts__card-desc');
-        if (!title || !desc) return;
-        var titleLines = Math.round(title.offsetHeight / 23);
-        desc.style.webkitLineClamp = titleLines >= 2 ? '1' : '2';
-      });
-    }
-
-    window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); updateDescClamp(); });
+    window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });
     updateMobileArrowPos();
-    updateDescClamp();
   })();
 </script>
 
