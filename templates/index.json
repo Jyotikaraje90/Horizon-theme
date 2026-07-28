@@ -602,9 +602,9 @@
         "faq_5"
       ],
       "settings": {
-        "padding_top": 100,
+        "padding_top": 40,
         "padding_bottom": 100,
-        "mobile_padding_top": 48,
+        "mobile_padding_top": 24,
         "mobile_padding_bottom": 48,
         "bg_color": "#ffffff",
         "margin_top": 0,
