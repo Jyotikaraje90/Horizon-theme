@@ -111,6 +111,7 @@
   }
   .pi-ps__carousel-container { position: relative; }
   .pi-ps__arrows--mobile-overlay { display: none; }
+  .pi-hc__arrows-mobile { display: none; }
   .pi-ps__footer { display: flex; justify-content: center; }
   .pi-ps__btn-mobile { display: none; }
   @media (max-width: 749px) {
@@ -366,9 +367,41 @@
     .pi-ps__card-img { width: 280px; height: 280px; }
   }
   @media (max-width: 749px) {
-    .pi-hc__inner { padding: 0 16px; }
-    .pi-hc__row { gap: 12px; }
-    .pi-hc__card { padding: 24px; }
+    .pi-hc__inner { padding: 0 18px; }
+    .pi-hc__row {
+      flex-direction: column;
+      gap: 0;
+    }
+    .pi-hc__card {
+      padding: 24px 0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      gap: 20px;
+    }
+    .pi-hc__slide.is-active { gap: 20px; }
+    .pi-hc__avatar { width: 50px; height: 50px; }
+    .pi-hc__stars svg { width: 20px; height: 20px; }
+    .pi-hc__stars { gap: 6px; }
+    .pi-hc__text {
+      font-size: 16px;
+      line-height: 26px;
+      padding: 0 20px;
+    }
+    .pi-hc__author { font-size: 14px; }
+    .pi-hc__card-wrap { max-width: 100%; }
+    .pi-hc__arrows-mobile {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pi-hc__arrows-mobile .pi-ss-arrow {
+      width: 35px;
+      height: 35px;
+      min-width: 35px;
+    }
+    .pi-hc__row .pi-ss-arrow.pi-hc__prev,
+    .pi-hc__row .pi-ss-arrow.pi-hc__next { display: none; }
     .pi-tb__grid { grid-template-columns: repeat(2, 1fr); }
     .pi-tb__title-cell {
       grid-column: 1 / -1;
@@ -515,6 +548,18 @@
     .pi-ps__card-desc {
       font-size: 14px;
       line-height: 22px;
+    }
+    .pi-hc__avatar {
+      width: 50px;
+      height: 50px;
+    }
+    .pi-hc__text {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .pi-hc__card,
+    .pi-hc__slide.is-active {
+      gap: 20px;
     }
     .pi-hc__heading {
       font-size: {{ section.settings.customers_mobile_heading_size }}px;
@@ -672,6 +717,19 @@
 
         <button class="pi-ss-arrow pi-hc__next" aria-label="Next testimonial">
           <svg width="16" height="16" viewBox="4 4 16 16" fill="#000000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="pi-hc__arrows-mobile">
+        <button class="pi-ss-arrow pi-hc__prev" aria-label="Previous testimonial">
+          <svg width="14" height="14" viewBox="4 4 16 16" fill="#000000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+          </svg>
+        </button>
+        <button class="pi-ss-arrow pi-hc__next" aria-label="Next testimonial">
+          <svg width="14" height="14" viewBox="4 4 16 16" fill="#000000" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
             <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
           </svg>
         </button>
