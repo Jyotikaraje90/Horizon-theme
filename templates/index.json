@@ -97,7 +97,7 @@
         "min_height": 650,
         "bg_color": "#000000",
         "heading_size": 54,
-        "mobile_heading_size": 36,
+        "mobile_heading_size": 30,
         "heading_color": "#ffffff",
         "subheading_size": 18,
         "subheading_color": "#ffffff",
