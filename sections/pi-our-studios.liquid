@@ -213,6 +213,9 @@
     .pi-os__inner { padding: 50px 18px; gap: 30px; }
     .pi-os__heading { font-size: 30px; line-height: 39px; height: auto; }
     .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
+    {%- if section.settings.mobile_background_image != blank -%}
+    .pi-os { background-image: url('{{ section.settings.mobile_background_image | image_url: width: 800 }}') !important; }
+    {%- endif -%}
     .pi-os__card { flex: 0 0 calc(50% - 6px); min-width: 0; height: 116px; gap: 10px; box-shadow: 1.79px 1.79px 5.96px rgba(0, 0, 0, 0.2); }
     .pi-os__city { font-size: 22px; font-weight: 700; line-height: 29px; }
     .pi-os__pin { width: 24px; height: 34px; }
@@ -297,6 +300,11 @@
       "type": "image_picker",
       "id": "background_image",
       "label": "Background image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_image",
+      "label": "Background image (mobile)"
     },
     {
       "type": "range",

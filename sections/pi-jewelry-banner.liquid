@@ -250,6 +250,10 @@
       overflow: visible;
     }
 
+    {%- if section.settings.mobile_background_image != blank -%}
+    .pi-jb__bg img { content: url('{{ section.settings.mobile_background_image | image_url: width: 800 }}'); }
+    {%- endif -%}
+
     .pi-jb__mobile-imgs {
       display: flex;
       flex-direction: row;
@@ -405,6 +409,7 @@
   "tag": "section",
   "settings": [
     { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "image_picker", "id": "mobile_background_image", "label": "Background image (mobile)" },
     { "type": "image_picker", "id": "left_image", "label": "Left image" },
     { "type": "header", "content": "Center content" },
     {
