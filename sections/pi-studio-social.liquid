@@ -406,12 +406,35 @@
     .pi-hc__row .pi-ss-arrow.pi-hc__prev,
     .pi-hc__row .pi-ss-arrow.pi-hc__next { display: none; }
     .pi-tb__deco { display: none; }
-    .pi-tb__grid { grid-template-columns: repeat(2, 1fr); }
+    .pi-tb__grid { grid-template-columns: 1fr; }
     .pi-tb__title-cell {
-      grid-column: 1 / -1;
       aspect-ratio: unset;
-      min-height: 260px;
-      padding: 32px 32px 40px 32px;
+      min-height: unset;
+      padding: 40px 20px;
+    }
+    .pi-tb__heading {
+      font-size: 30px;
+      line-height: 39px;
+    }
+    .pi-tb__photo {
+      aspect-ratio: unset;
+      height: 298px;
+    }
+    .pi-tb__overlay {
+      opacity: 1;
+      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 50%);
+    }
+    .pi-tb__name {
+      position: absolute;
+      bottom: 24px;
+      left: 0;
+      right: 0;
+      font-size: 24px;
+    }
+    .pi-tb__btn {
+      font-size: 14px;
+      height: 50px;
+      padding: 14px 28px;
     }
   }
   @media (max-width: 600px) {
