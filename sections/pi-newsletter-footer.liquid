@@ -328,7 +328,7 @@
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding-top: 30px; }
     .pi-nf__nl { height: auto; position: relative; z-index: 3; margin-bottom: -145px; }
-    .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 10px; }
+    .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 10px; min-height: 290px; background-size: cover; background-position: center; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 30px 20px; gap: 20px; max-width: 100%; }
     .pi-nf__nl-heading { font-size: clamp(22px, 6vw, 40px); max-width: 100%; }
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
@@ -374,7 +374,14 @@
 {%- comment -%}── NEWSLETTER (white bg from section wrapper) ──{%- endcomment -%}
 <div class="pi-nf__nl">
 
-  <div class="pi-nf__nl-card"{% if section.settings.newsletter_bg_image != blank %} style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"{% endif %}>
+  <div class="pi-nf__nl-card"
+    {% if section.settings.newsletter_bg_image != blank %}
+      style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"
+    {% endif %}
+    {% if section.settings.newsletter_mobile_bg_image != blank %}
+      data-mobile-bg="{{ section.settings.newsletter_mobile_bg_image | image_url: width: 800 }}"
+    {% endif %}
+  >
     <div class="pi-nf__nl-inner">
 
       <h2 class="pi-nf__nl-heading">
@@ -554,6 +561,10 @@
 <script>
   (function(){
     if(window.innerWidth > 749) return;
+    var card = document.querySelector('.pi-nf__nl-card');
+    if(card && card.dataset.mobileBg) {
+      card.style.backgroundImage = "url('" + card.dataset.mobileBg + "')";
+    }
     var cols = document.querySelectorAll('.pi-nf__col');
     if(cols.length > 0) cols[0].classList.add('is-open');
     document.querySelectorAll('.pi-nf__col-heading').forEach(function(h){
@@ -590,7 +601,8 @@
     { "type": "color",  "id": "copyright_text_color","label": "Copyright text color",    "default": "#ffffff" },
 
     { "type": "header", "content": "Newsletter" },
-    { "type": "image_picker", "id": "newsletter_bg_image",  "label": "Background image" },
+    { "type": "image_picker", "id": "newsletter_bg_image",  "label": "Background image (desktop)" },
+    { "type": "image_picker", "id": "newsletter_mobile_bg_image", "label": "Background image (mobile)" },
     { "type": "text",         "id": "newsletter_heading",   "label": "Heading",            "default": "Join Our Newsletter" },
     { "type": "text",         "id": "newsletter_placeholder","label": "Input placeholder",  "default": "Enter your email address" },
     { "type": "text",         "id": "newsletter_btn_label", "label": "Button label",        "default": "Subscribe" },
