@@ -62,17 +62,14 @@
   }
 
   @media (max-width: 749px) {
-    .pi-ig-strip {
-      grid-template-columns: repeat(var(--pi-ig-cols-mobile, 3), 1fr);
-      height: auto;
-    }
-    .pi-ig-strip__cell {
-      aspect-ratio: 1 / 1;
-    }
-  }
-  @media (max-width: 479px) {
+    #shopify-section-{{ section.id }} { padding-top: 30px; }
     .pi-ig-strip {
       grid-template-columns: repeat(2, 1fr);
+      height: auto;
+      gap: 0;
+    }
+    .pi-ig-strip__cell {
+      aspect-ratio: 205 / 200;
     }
   }
 </style>
