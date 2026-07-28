@@ -82,6 +82,7 @@
       "type": "pi-jewelry-banner",
       "settings": {
         "background_image": "shopify://shop_images/Products_Banner_2.png",
+        "mobile_background_image": "shopify://shop_images/Products_Banner_3.png",
         "left_image": "shopify://shop_images/Maskgroup_4.png",
         "heading": "Luxury Piercing Jewelry For Every Look",
         "subheading": "Premium designs tailored for elegance and everyday style.",
@@ -156,6 +157,7 @@
       "settings": {
         "heading": "Tattoo Services",
         "button_label": "View All Tattoo Services",
+        "mobile_button_label": "Explore Our Jewelry Collection",
         "button_link": "/collections/all",
         "padding_top": 48,
         "padding_bottom": 80,
@@ -335,6 +337,7 @@
       "settings": {
         "piercing_heading": "Piercing Services",
         "piercing_button_label": "View All Piercing Services",
+        "piercing_mobile_button_label": "Explore Our Jewelry Collection",
         "piercing_button_link": "",
         "customers_heading": "Happy Customers",
         "customers_heading_size": 54,
@@ -429,6 +432,7 @@
       "settings": {
         "heading": "Our Studios",
         "background_image": "shopify://shop_images/Our_Studios.png",
+        "mobile_background_image": "shopify://shop_images/Our_Studios_bd12e673-4916-4256-982d-6b4c423b2ee8.png",
         "overlay_opacity": 20,
         "padding_top": 100,
         "mobile_padding_top": 48,
