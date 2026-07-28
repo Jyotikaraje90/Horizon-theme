@@ -145,7 +145,6 @@
         "divider_color": "#808080",
         "copyright_text_color": "#ffffff",
         "newsletter_bg_image": "shopify://shop_images/Join_our_Newsletter.png",
-        "newsletter_mobile_bg_image": "shopify://shop_images/USPs_2.png",
         "newsletter_heading": "Join Our Newsletter",
         "newsletter_placeholder": "Enter your email address",
         "newsletter_btn_label": "Subscribe",
