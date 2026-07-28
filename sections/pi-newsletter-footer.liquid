@@ -153,7 +153,7 @@
 
   /* ── Footer body — 172px clears card overlap into .pi-nf + 60px design gap ── */
   .pi-nf__footer-body {
-    padding: 183px 210px 0;
+    padding: 160px 210px 0;
     box-sizing: border-box;
   }
   /* Figma Group 36264: 1px border all sides #808080, columns inside */
@@ -171,7 +171,7 @@
     gap: 20px;
     width: 265px;
     flex-shrink: 0;
-    padding: 24px;
+    padding: 16px 24px;
     box-sizing: border-box;
   }
   .pi-nf__logo { display: block; }
@@ -201,8 +201,8 @@
   .pi-nf__col {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    padding: 24px;
+    gap: 16px;
+    padding: 16px 24px;
     box-sizing: border-box;
   }
   .pi-nf__col-heading {
@@ -247,7 +247,7 @@
 
   /* Figma Copyright: 1920×61px, border-top 1px #808080, left:210px content */
   .pi-nf__copyright {
-    margin-top: 47px;
+    margin-top: 30px;
     border-top: 1px solid #808080;
     height: 61px;
     display: flex;
@@ -454,8 +454,9 @@
             {%- for block in studio_blocks -%}
               <li class="pi-nf__studio-row" {{ block.shopify_attributes }}>
                 <span class="pi-nf__studio-icon">
-                  <svg width="14" height="20" viewBox="0 0 14 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M7 0C3.134 0 0 3.134 0 7C0 12.25 7 20 7 20C7 20 14 12.25 14 7C14 3.134 10.866 0 7 0ZM7 9.5C5.619 9.5 4.5 8.381 4.5 7C4.5 5.619 5.619 4.5 7 4.5C8.381 4.5 9.5 5.619 9.5 7C9.5 8.381 8.381 9.5 7 9.5Z" fill="white"/>
+                  <svg width="14" height="20" viewBox="0 0 35 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.5 2C8.94 2 2 8.94 2 17.5C2 29.5 17.5 48 17.5 48C17.5 48 33 29.5 33 17.5C33 8.94 26.06 2 17.5 2Z" stroke="white" stroke-width="2" fill="none"/>
+                    <circle cx="17.5" cy="17.5" r="5" stroke="white" stroke-width="2" fill="none"/>
                   </svg>
                 </span>
                 {%- if block.settings.link != blank -%}
