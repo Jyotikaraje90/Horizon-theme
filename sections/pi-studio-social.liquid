@@ -387,6 +387,9 @@
       line-height: 26px;
       padding: 0;
     }
+    .pi-hc__text + .pi-hc__text {
+      margin-top: -12px;
+    }
     .pi-hc__author { font-size: 14px; }
     .pi-hc__card-wrap { max-width: 100%; }
     .pi-hc__inner { gap: 30px; }
@@ -711,7 +714,14 @@
                   {%- endfor -%}
                 </div>
                 {%- if block.settings.review_text != blank -%}
-                  <p class="pi-hc__text">{{ block.settings.review_text | newline_to_br }}</p>
+                  {%- assign review_paras = block.settings.review_text | split: '
+' -%}
+                  {%- for para in review_paras -%}
+                    {%- assign trimmed = para | strip -%}
+                    {%- if trimmed != blank -%}
+                      <p class="pi-hc__text">{{ trimmed }}</p>
+                    {%- endif -%}
+                  {%- endfor -%}
                 {%- endif -%}
                 {%- if block.settings.author_name != blank -%}
                   <p class="pi-hc__author">
