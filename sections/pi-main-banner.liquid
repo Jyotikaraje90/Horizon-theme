@@ -263,13 +263,14 @@
     }
   }
 
-  .content-for-layout > #shopify-section-{{ section.id }}:first-child {
-    margin-top: -35px;
-  }
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
     padding: 0 !important;
+  }
+  .content-for-layout {
+    margin-top: -1px !important;
+    padding-top: 0 !important;
   }
 </style>
 
