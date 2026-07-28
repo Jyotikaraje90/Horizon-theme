@@ -1213,13 +1213,15 @@
 
   .pi-simple-dropdown__inner {
     background: #ffffff;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-    padding: 20px 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 20px 28px;
     transform: none !important;
     opacity: 1 !important;
     position: relative;
     z-index: var(--layer-header-menu, 100);
+    min-width: 0;
+    width: max-content;
   }
 
   .pi-simple-dropdown__list {
@@ -1229,7 +1231,7 @@
     display: flex;
     flex-direction: column;
     gap: 18px;
-    text-align: left;
+    text-align: center;
   }
 
   .pi-simple-dropdown__link {
