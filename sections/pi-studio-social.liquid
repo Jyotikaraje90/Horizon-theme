@@ -224,6 +224,11 @@
     justify-content: center;
   }
   .pi-hc__stars svg { flex-shrink: 0; width: 20px; height: 20px; }
+  .pi-hc__text-wrap {
+    max-width: 930px;
+    width: 100%;
+    text-align: center;
+  }
   .pi-hc__text {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: 18px;
@@ -231,11 +236,7 @@
     line-height: 29px;
     letter-spacing: 0;
     color: #121212;
-    max-width: 930px;
-    width: 100%;
     margin: 0;
-    text-align: center;
-    display: inline;
   }
   .pi-hc__author {
     font-family: 'Nunito Sans', sans-serif;
@@ -764,14 +765,16 @@
                   {%- endfor -%}
                 </div>
                 {%- if block.settings.review_text != blank -%}
+                  <div class="pi-hc__text-wrap">
                   {%- assign review_paras = block.settings.review_text | split: '
 ' -%}
                   {%- for para in review_paras -%}
                     {%- assign trimmed = para | strip -%}
                     {%- if trimmed != blank -%}
-                      <p class="pi-hc__text">{{ trimmed }}</p>
+                      <span class="pi-hc__text">{{ trimmed }} </span>
                     {%- endif -%}
                   {%- endfor -%}
+                  </div>
                 {%- endif -%}
                 {%- if block.settings.author_name != blank -%}
                   <p class="pi-hc__author">
