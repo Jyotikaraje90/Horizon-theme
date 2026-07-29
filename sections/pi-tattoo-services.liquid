@@ -213,6 +213,8 @@
   .pi-ts__footer {
     display: flex;
     justify-content: center;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
   .pi-ts__btn-mobile { display: none; }
@@ -271,7 +273,8 @@
     .pi-ts__heading { font-size: var(--pi-ts-heading-size, 30px); }
 
     /* Button: full width like best sellers */
-    .pi-ts__btn { width: 100%; height: 50px; font-size: 14px; font-family: 'Proxima Nova', sans-serif; line-height: 18px; box-sizing: border-box; }
+    .pi-ts__footer { max-width: 100%; overflow: hidden; }
+    .pi-ts__btn { width: 100%; max-width: 100%; height: 50px; font-size: 14px; font-family: 'Proxima Nova', sans-serif; line-height: 18px; box-sizing: border-box; padding: 16px 20px; }
 
     /* Hide header arrows */
     .pi-ts__arrows--desktop { display: none; }
