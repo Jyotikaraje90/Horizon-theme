@@ -1161,16 +1161,19 @@
     }
   }
 
-  /* PI: tablet header — logo left-aligned, proper padding */
+  /* PI: tablet header — match mobile layout with proper spacing */
   @media screen and (min-width: 750px) and (max-width: 989px) {
     .header__columns,
     #header-component[data-menu-style='drawer'] .header__columns {
-      padding-inline: 20px !important;
+      --header-template-columns: 44px auto 1fr auto !important;
+      grid-template-areas: 'leftA leftB center rightB' !important;
+      padding-inline: 24px !important;
+      padding-block: 12px !important;
     }
 
     .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      grid-area: leftB;
+      grid-area: leftB !important;
       justify-self: start;
       max-width: 160px;
       height: 44px;
@@ -1184,6 +1187,11 @@
       height: 44px;
       width: auto;
       object-fit: contain;
+    }
+
+    #header-component[data-menu-style='drawer'] .header__columns header-actions {
+      grid-area: rightB !important;
+      justify-self: end;
     }
 
     .header__columns .search-action,
