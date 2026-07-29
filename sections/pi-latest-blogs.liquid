@@ -4,6 +4,9 @@
     --pi-lb-pad-bottom: {{ section.settings.padding_bottom }}px;
     --pi-lb-bg: {{ section.settings.bg_color }};
     --pi-lb-heading-size: {{ section.settings.heading_size }}px;
+    /* Never overridden — the laptop/tablet steps scale from this so they can't
+       collide with the mobile --pi-lb-heading-size override below. */
+    --pi-lb-heading-base: {{ section.settings.heading_size }}px;
     --pi-lb-heading-color: {{ section.settings.heading_color }};
     --pi-lb-card-img-radius: {{ section.settings.card_img_radius }}px;
     --pi-lb-card-text-bg: {{ section.settings.card_text_bg }};
@@ -53,7 +56,7 @@
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     font-size: var(--pi-lb-heading-size);
-    line-height: 70px;
+    line-height: 1.3;
     text-align: {{ section.settings.text_alignment }};
     text-transform: uppercase;
     color: var(--pi-lb-heading-color);
@@ -195,13 +198,13 @@
 
   @media (max-width: 1279px) {
     .pi-lb { padding: 0 40px; }
-    .pi-lb__heading { font-size: 44px; line-height: 58px; }
+    .pi-lb__heading { font-size: calc(var(--pi-lb-heading-base, 54px) * 0.82); line-height: 1.3; }
   }
 
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} { padding: 60px 0; }
     .pi-lb { padding: 0 40px; gap: 40px; }
-    .pi-lb__heading { font-size: clamp(28px, 5vw, 48px); line-height: 1.2; }
+    .pi-lb__heading { font-size: clamp(28px, 5vw, calc(var(--pi-lb-heading-base, 54px) * 0.89)); line-height: 1.2; }
     .pi-lb__grid { flex-wrap: wrap; }
     .pi-lb__card { flex: 0 0 calc(50% - 10px); height: 380px; }
     .pi-lb__card-img { height: 310px; }
@@ -211,7 +214,7 @@
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding: 0 0 30px; }
     .pi-lb { padding: 0 10px; gap: 20px; }
-    .pi-lb__heading { font-size: 30px; line-height: 39px; }
+    .pi-lb__heading { font-size: var(--pi-lb-heading-size, 30px); line-height: 1.3; }
     .pi-lb__grid { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .pi-lb__grid::-webkit-scrollbar { display: none; }
     .pi-lb__card { flex: 0 0 250px; height: 287px; }

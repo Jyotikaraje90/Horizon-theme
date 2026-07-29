@@ -8,6 +8,9 @@
     --pi-jb-min-height: {{ section.settings.min_height }}px;
     --pi-jb-bg-color: {{ section.settings.bg_color }};
     --pi-jb-heading-size: {{ section.settings.heading_size }}px;
+    /* Never overridden — the laptop/tablet steps scale from this so they can't
+       collide with the mobile --pi-jb-heading-size override below. */
+    --pi-jb-heading-base: {{ section.settings.heading_size }}px;
     --pi-jb-heading-color: {{ section.settings.heading_color }};
     --pi-jb-subheading-size: {{ section.settings.subheading_size }}px;
     --pi-jb-subheading-color: {{ section.settings.subheading_color }};
@@ -19,15 +22,13 @@
     --pi-jb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
     --pi-jb-btn-hover-text: {{ section.settings.btn_hover_text }};
   }
-  @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} {
-      --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
-    }
-  }
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --pi-jb-pad-top: {{ section.settings.mobile_padding_top }}px;
       --pi-jb-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      /* Moved from 989px to 749px so this section switches to its mobile
+         heading size at the same breakpoint as every other homepage section. */
+      --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
     }
   }
 </style>
@@ -177,7 +178,7 @@
 
   .pi-jb__heading {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(36px, 3.75vw, var(--pi-jb-heading-size, 54px));
+    font-size: var(--pi-jb-heading-size, 54px);
     font-weight: 600;
     line-height: 1.3;
     color: var(--pi-jb-heading-color, #FFFFFF);
@@ -227,6 +228,11 @@
   }
 
   /* ─── Responsive ─────────────────────────── */
+  /* Shared laptop heading step (same breakpoint in every homepage section) */
+  @media (max-width: 1279px) {
+    .pi-jb__heading { font-size: calc(var(--pi-jb-heading-base, 54px) * 0.82); line-height: 1.3; }
+  }
+
   @media (max-width: 989px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
@@ -234,7 +240,7 @@
     .pi-jb__center { padding: 48px 40px; }
 
     .pi-jb__heading {
-      font-size: clamp(28px, 5vw, 48px);
+      font-size: clamp(28px, 5vw, calc(var(--pi-jb-heading-base, 54px) * 0.89));
       line-height: 1.2;
     }
 
@@ -313,6 +319,7 @@
   @media (max-width: 749px) {
     .pi-jb__center { padding: var(--pi-jb-pad-top, 40px) 18px var(--pi-jb-pad-bottom, 30px); }
     .pi-jb__mobile-imgs { padding: 0 18px; }
+    .pi-jb__heading { font-size: var(--pi-jb-heading-size, 30px); line-height: 1.3; }
   }
 
   #shopify-section-{{ section.id }} {

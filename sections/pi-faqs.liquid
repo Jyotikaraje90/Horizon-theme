@@ -4,6 +4,9 @@
     --pi-faqs-pad-bottom: {{ section.settings.padding_bottom }}px;
     --pi-faqs-bg: {{ section.settings.bg_color }};
     --pi-faqs-title-size: {{ section.settings.title_size }}px;
+    /* Never overridden — the laptop/tablet steps scale from this so they can't
+       collide with the mobile --pi-faqs-title-size override below. */
+    --pi-faqs-title-base: {{ section.settings.title_size }}px;
     --pi-faqs-title-color: {{ section.settings.title_color }};
     --pi-faqs-question-size: {{ section.settings.question_size }}px;
     --pi-faqs-question-color: {{ section.settings.question_color }};
@@ -171,14 +174,19 @@
     opacity: 1;
   }
 
+  @media (max-width: 1279px) {
+    .pi-faqs__title { font-size: calc(var(--pi-faqs-title-base, 54px) * 0.82); }
+  }
+
   @media (max-width: 989px) {
     .pi-faqs { padding: 0 40px; gap: 40px; }
-    .pi-faqs__title { font-size: clamp(28px, 5vw, 48px); line-height: 1.2; }
+    .pi-faqs__title { font-size: clamp(28px, 5vw, calc(var(--pi-faqs-title-base, 54px) * 0.89)); line-height: 1.2; }
   }
 
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} { padding-top: 0; }
     .pi-faqs { padding: 0 10px; gap: 30px; }
+    .pi-faqs__title { font-size: var(--pi-faqs-title-size, 32px); line-height: 1.3; }
     .pi-faqs__question { font-size: 18px; line-height: 23px; }
     .pi-faqs__answer-text { font-size: 14px; line-height: 22px; color: #121212; }
     .pi-faqs__btn { width: 100%; height: 50px; padding: 16px 32px; font-size: 14px; }
