@@ -1161,6 +1161,32 @@
     }
   }
 
+  /* PI: tablet header — logo left-aligned, not centered */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      grid-area: leftB;
+      justify-self: start;
+      max-width: 160px;
+      height: 44px;
+    }
+
+    .header__columns .header-logo img,
+    .header__columns .header-logo svg,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
+      max-width: 160px;
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      grid-area: rightA;
+    }
+  }
+
   /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
   @media screen and (min-width: 750px) {
     .header__row--top .header__columns {
