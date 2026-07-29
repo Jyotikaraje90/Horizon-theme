@@ -19,11 +19,15 @@
     --pi-jb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
     --pi-jb-btn-hover-text: {{ section.settings.btn_hover_text }};
   }
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} {
+      --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
+    }
+  }
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --pi-jb-pad-top: {{ section.settings.mobile_padding_top }}px;
       --pi-jb-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
     }
   }
 </style>
