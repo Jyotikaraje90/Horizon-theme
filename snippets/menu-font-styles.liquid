@@ -14,8 +14,8 @@
 {%- if settings.type_case_primary_link == 'uppercase' %}uppercase{% else %}none{% endif -%}
 ;
 {% if menu_type == 'drawer' %}
-  --menu-top-level-font-size: var(--menu-font-2xl--size); --menu-top-level-font-line-height:
-  var(--menu-font-2xl--line-height);
+  --menu-top-level-font-size: {{ settings.type_font_primary_size }}; --menu-top-level-font-line-height:
+  1.3;
 {% else %}
   --menu-top-level-font-size: var(--menu-font-sm--size); --menu-top-level-font-line-height:
   var(--menu-font-sm--line-height);
