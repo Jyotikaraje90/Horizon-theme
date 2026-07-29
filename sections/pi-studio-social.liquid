@@ -565,6 +565,12 @@
     background: {{ section.settings.btn_hover_bg }};
     color: {{ section.settings.btn_hover_text }};
   }
+  @media (max-width: 989px) {
+    .pi-ps__heading, .pi-hc__heading, .pi-tb__heading {
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.2;
+    }
+  }
   @media (max-width: 600px) {
     .pi-ps__heading {
       font-size: {{ section.settings.mobile_heading_size }}px;
