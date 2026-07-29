@@ -175,10 +175,28 @@
     .pi-hc__heading { font-size: 44px; line-height: 58px; }
   }
 
-  @media (max-width: 989px) {
+  @media (min-width: 750px) and (max-width: 989px) {
     .pi-hc { padding: 0 32px; gap: 40px; }
     .pi-hc__heading { font-size: 38px; line-height: 50px; }
-    .pi-hc__card { flex: 0 0 calc(50% - 15px); }
+    .pi-hc__card {
+      display: none;
+      flex: 0 0 auto;
+      width: 354px;
+      margin: 0 auto;
+      position: relative;
+      padding-bottom: 55px;
+    }
+    .pi-hc__card.pi-hc--active { display: flex; }
+    .pi-hc__slider-wrap { overflow: visible; }
+    .pi-hc__track { gap: 0; justify-content: center; }
+    .pi-hc__nav--desktop { display: none; }
+    .pi-hc__nav--card {
+      display: flex;
+      position: absolute;
+      bottom: 15px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
   }
 
   /* ── Mobile (Figma 354px fixed spec) ────────────── */
@@ -409,7 +427,7 @@
   var cards   = Array.prototype.slice.call(trackEl.querySelectorAll('.pi-hc__card'));
   var current = 0;
 
-  function isMobile() { return window.innerWidth <= 749; }
+  function isMobile() { return window.innerWidth <= 989; }
 
   function visibleCount() {
     var w = window.innerWidth;
