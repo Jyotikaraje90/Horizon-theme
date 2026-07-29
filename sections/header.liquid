@@ -1161,8 +1161,13 @@
     }
   }
 
-  /* PI: tablet header — logo left-aligned, not centered */
+  /* PI: tablet header — logo left-aligned, proper padding */
   @media screen and (min-width: 750px) and (max-width: 989px) {
+    .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      padding-inline: 20px !important;
+    }
+
     .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
       grid-area: leftB;
