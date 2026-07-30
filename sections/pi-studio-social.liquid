@@ -371,6 +371,9 @@
       min-height: 260px;
       padding: 32px 32px 40px 32px;
     }
+    /* Hide the decorative illustration on mobile — it is sized in fixed
+       pixels and rides up into the section above on narrow screens */
+    .pi-tb__deco { display: none; }
   }
   @media (max-width: 600px) {
     .pi-ps__inner { padding: 0 18px; gap: 30px; }
