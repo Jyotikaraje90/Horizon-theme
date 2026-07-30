@@ -375,7 +375,7 @@
        pixels and rides up into the section above on narrow screens */
     .pi-tb__deco { display: none; }
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .pi-ps__inner { padding: 0 18px; gap: 30px; }
     .pi-ps__track { gap: 10px; }
     .pi-ps__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
@@ -472,7 +472,7 @@
     background: {{ section.settings.btn_hover_bg }};
     color: {{ section.settings.btn_hover_text }};
   }
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
     .pi-ps__heading {
       font-size: {{ section.settings.mobile_heading_size }}px;
     }
@@ -489,14 +489,16 @@
     }
   }
 
-  /* ─── Small mobile (320px) ───────────────────────
-     Scoped to 320px and below only. Must stay last in
-     this <style> block so it overrides the
-     customizer-driven font sizes above. */
-  @media (max-width: 320px) {
-    /* 10px inset matches the Figma frame and gives the heading and card
-       text the widest possible column at this width */
-    .pi-ps__inner { padding: 0 10px; }
+  /* ─── Mobile (768px and below) ────────────────────
+     One block for the whole mobile range so 320, 360, 375, 390, 414 and
+     everything up to 768 render the same layout. Fixed type sizes come
+     from the Figma mobile spec; insets scale with the viewport. Must stay
+     last in this <style> block so it overrides the customizer-driven font
+     sizes above. */
+  @media (max-width: 768px) {
+    /* 10px inset at 320 (matching the Figma frame), growing to 24px by
+       768 so the gutter stays proportional across the range */
+    .pi-ps__inner { padding: 0 clamp(10px, 3.125vw, 24px); }
     /* Figma: Playfair Display 600, 30/39, uppercase — one line */
     .pi-ps__heading {
       font-size: 30px;
@@ -522,12 +524,13 @@
     /* Swap in the alternate button label */
     .pi-ps__btn-text { display: none; }
     .pi-ps__btn-text--sm { display: inline; }
-    /* Tighter inset so the longer label fits on one line */
-    .pi-ps__btn { padding-inline: 8px; }
+    /* 8px at 320 so the longer label fits on one line, easing back out
+       as the viewport grows */
+    .pi-ps__btn { padding-inline: clamp(8px, 2.5vw, 40px); }
 
     /* ── Happy customers (Figma mobile spec) ── */
     /* 20px gap tightens the space between the heading and the card */
-    .pi-hc__inner { padding: 0 10px; gap: 20px; }
+    .pi-hc__inner { padding: 0 clamp(10px, 3.125vw, 24px); gap: 20px; }
     /* Playfair Display 600, 30/39 */
     .pi-hc__heading {
       font-size: 30px;
