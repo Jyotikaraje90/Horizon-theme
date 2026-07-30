@@ -489,21 +489,26 @@
      this <style> block so it overrides the
      customizer-driven font sizes above. */
   @media (max-width: 320px) {
-    .pi-ps__inner { padding: 0 16px; }
-    /* Keep "Piercing Services" on a single line */
+    /* 10px inset matches the Figma frame and gives the heading and card
+       text the widest possible column at this width */
+    .pi-ps__inner { padding: 0 10px; }
+    /* Figma: Playfair Display 600, 30/39, uppercase — one line */
     .pi-ps__heading {
-      font-size: 24px;
+      font-size: 30px;
+      line-height: 39px;
       white-space: nowrap;
     }
     .pi-ps__track { gap: 8px; }
     .pi-ps__card { flex: 0 0 calc((100% - 8px) / 2); }
-    .pi-ps__card-body { padding: 12px 10px; gap: 4px; }
-    /* Card type matches the tattoo services cards (18px / 14px) */
+    /* No side padding, so the text column gets the full card width */
+    .pi-ps__card-body { padding: 12px 0 0; gap: 4px; }
+    /* Figma: Proxima Nova 600, 18/23 — one line */
     .pi-ps__card-title {
       font-size: 18px;
       line-height: 23px;
+      white-space: nowrap;
     }
-    /* Kept at the base 2-line clamp */
+    /* Figma: Proxima Nova 400, 14/22 — two lines */
     .pi-ps__card-desc {
       font-size: 14px;
       line-height: 22px;
