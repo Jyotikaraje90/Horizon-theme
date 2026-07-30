@@ -132,6 +132,8 @@
     white-space: nowrap;
   }
   .pi-ps__btn:hover { background: #222; color: #fff; text-decoration: none; }
+  /* Alternate button label, shown only at 320px and below */
+  .pi-ps__btn-text--sm { display: none; }
 
   /* ════════════════════════════════════════════════
      FRAME 2 — HAPPY CUSTOMERS
@@ -514,6 +516,11 @@
       line-height: 22px;
       -webkit-line-clamp: 2;
     }
+    /* Swap in the alternate button label */
+    .pi-ps__btn-text { display: none; }
+    .pi-ps__btn-text--sm { display: inline; }
+    /* Tighter inset so the longer label fits on one line */
+    .pi-ps__btn { padding-inline: 8px; }
   }
 </style>
 
@@ -591,7 +598,12 @@
     {%- if section.settings.piercing_button_label != blank -%}
       <div class="pi-ps__footer">
         <a href="{{ section.settings.piercing_button_link }}" class="pi-ps__btn">
-          {{ section.settings.piercing_button_label }}
+          {%- if section.settings.piercing_mobile_button_label != blank -%}
+            <span class="pi-ps__btn-text">{{ section.settings.piercing_button_label }}</span>
+            <span class="pi-ps__btn-text--sm">{{ section.settings.piercing_mobile_button_label }}</span>
+          {%- else -%}
+            {{ section.settings.piercing_button_label }}
+          {%- endif -%}
         </a>
       </div>
     {%- endif -%}
@@ -796,6 +808,13 @@
       "id": "piercing_button_label",
       "label": "Button text",
       "default": "View All Piercing Services"
+    },
+    {
+      "type": "text",
+      "id": "piercing_mobile_button_label",
+      "label": "Button text (320px and below)",
+      "info": "Leave blank to use the same text as above.",
+      "default": "Explore Our Jewelry Collection"
     },
     { "type": "url", "id": "piercing_button_link", "label": "Button link" },
     { "type": "header", "content": "Happy Customers" },
