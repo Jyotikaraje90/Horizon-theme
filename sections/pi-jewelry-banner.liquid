@@ -271,7 +271,10 @@
 
     .pi-jb__mobile-img-wrap {
       flex: 1;
-      height: 202px;
+      /* Proportional instead of a fixed 202px height, which made the images
+         change shape at every viewport width (135x202 at 320, 359x202 at
+         768). 170/202 is the ratio from the design at 390px. */
+      aspect-ratio: 170 / 202;
       overflow: hidden;
       position: relative;
       isolation: isolate;
