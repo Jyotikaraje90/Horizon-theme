@@ -521,6 +521,48 @@
     .pi-ps__btn-text--sm { display: inline; }
     /* Tighter inset so the longer label fits on one line */
     .pi-ps__btn { padding-inline: 8px; }
+
+    /* ── Happy customers (Figma mobile spec) ── */
+    .pi-hc__inner { padding: 0 10px; }
+    /* Playfair Display 600, 30/39 */
+    .pi-hc__heading {
+      font-size: 30px;
+      line-height: 39px;
+    }
+    /* Arrows move below the card, centred, 10px apart */
+    .pi-hc__row {
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px 10px;
+    }
+    .pi-hc__card-wrap { flex: 0 0 100%; max-width: 100%; order: 1; }
+    .pi-hc__prev { order: 2; }
+    .pi-hc__next { order: 3; }
+    .pi-ss-arrow.pi-hc__prev,
+    .pi-ss-arrow.pi-hc__next {
+      width: 35px;
+      height: 35px;
+    }
+    /* Card: 20px gap between the content stack and the author line.
+       No side padding — the review text fills the card width. */
+    .pi-hc__card {
+      padding: 24px 0;
+      gap: 20px;
+    }
+    /* Content stack: avatar + stars + review text, 10px apart */
+    .pi-hc__slide.is-active { gap: 10px; }
+    .pi-hc__avatar { width: 50px; height: 50px; }
+    /* Proxima Nova 400, 16/26 */
+    .pi-hc__text {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    /* Proxima Nova 600, 14/18, uppercase */
+    .pi-hc__author {
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+    }
   }
 </style>
 
