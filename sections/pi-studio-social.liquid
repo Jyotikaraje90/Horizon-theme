@@ -506,8 +506,10 @@
       line-height: 39px;
       white-space: nowrap;
     }
-    .pi-ps__track { gap: 8px; }
-    .pi-ps__card { flex: 0 0 calc((100% - 8px) / 2); }
+    /* 20px gap gives a 167px card at 390 (354 inner - 20 / 2), matching the
+       Figma card size used by every carousel section */
+    .pi-ps__track { gap: 20px; }
+    .pi-ps__card { flex: 0 0 calc((100% - 20px) / 2); }
     /* No side padding, so the text column gets the full card width */
     .pi-ps__card-body { padding: 12px 0 0; gap: 4px; }
     /* Figma: Proxima Nova 600, 18/23 — one line */
