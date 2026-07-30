@@ -371,9 +371,6 @@
       min-height: 260px;
       padding: 32px 32px 40px 32px;
     }
-    /* Hide the decorative illustration on mobile — it is sized in fixed
-       pixels and rides up into the section above on narrow screens */
-    .pi-tb__deco { display: none; }
   }
   @media (max-width: 768px) {
     .pi-ps__inner { padding: 0 18px; gap: 30px; }
@@ -582,6 +579,43 @@
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 0;
+    }
+
+    /* ── Trusted by the best ── */
+    /* Hide the decorative illustration: it is sized in fixed pixels and
+       rides up into the section above on narrow screens */
+    .pi-tb__deco { display: none; }
+    /* Single column stack */
+    .pi-tb__grid { grid-template-columns: 1fr; }
+    /* Title block sizes to its content instead of holding a 4:3 ratio */
+    .pi-tb__title-cell {
+      aspect-ratio: auto;
+      min-height: 0;
+      padding: 32px 18px 40px;
+    }
+    .pi-tb__title-content { gap: 20px; }
+    .pi-tb__heading {
+      font-size: 30px;
+      line-height: 1.3;
+    }
+    .pi-tb__btn {
+      height: 50px;
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+    }
+    /* Names must stay visible — there is no hover on touch devices. A
+       bottom-up gradient keeps them legible without darkening the photo. */
+    .pi-tb__overlay {
+      opacity: 1;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0) 55%);
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 20px;
+    }
+    .pi-tb__name {
+      font-size: 30px;
+      line-height: 1.3;
     }
   }
 </style>
