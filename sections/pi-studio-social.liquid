@@ -483,6 +483,35 @@
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
     }
   }
+
+  /* ─── Small mobile (320px) ───────────────────────
+     Scoped to 320px and below only. Must stay last in
+     this <style> block so it overrides the
+     customizer-driven font sizes above. */
+  @media (max-width: 320px) {
+    .pi-ps__inner { padding: 0 16px; }
+    /* Keep "Piercing Services" on a single line */
+    .pi-ps__heading {
+      font-size: 24px;
+      white-space: nowrap;
+    }
+    .pi-ps__track { gap: 8px; }
+    .pi-ps__card { flex: 0 0 calc((100% - 8px) / 2); }
+    .pi-ps__card-body { padding: 12px 10px; gap: 4px; }
+    .pi-ps__card-title {
+      font-size: 13px;
+      line-height: 18px;
+    }
+    /* Show the full description instead of clamping to 2 lines */
+    .pi-ps__card-desc {
+      font-size: 11px;
+      line-height: 16px;
+      display: block;
+      -webkit-line-clamp: initial;
+      -webkit-box-orient: initial;
+      overflow: visible;
+    }
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
