@@ -148,7 +148,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px;
+    gap: 50px;
   }
   .pi-hc__heading {
     font-family: 'Playfair Display', serif;
@@ -162,7 +162,7 @@
   .pi-hc__row {
     display: flex;
     align-items: center;
-    gap: 24px;
+    gap: 30px;
     width: 100%;
     max-width: 1090px;
     justify-content: center;
@@ -176,11 +176,11 @@
     background: #fff;
     border-radius: 30px;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.10);
-    padding: 40px 48px;
+    padding: 40px 0;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 30px;
     text-align: center;
   }
   .pi-hc__slide { display: none; }
@@ -188,7 +188,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 16px;
+    gap: 30px;
     width: 100%;
   }
   .pi-hc__avatar {
@@ -208,11 +208,11 @@
   }
   .pi-hc__stars {
     display: flex;
-    gap: 4px;
+    gap: 6px;
     align-items: center;
     justify-content: center;
   }
-  .pi-hc__stars svg { flex-shrink: 0; }
+  .pi-hc__stars svg { flex-shrink: 0; width: 20px; height: 20px; }
   .pi-hc__text {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: 18px;
@@ -220,7 +220,7 @@
     line-height: 29px;
     letter-spacing: 0;
     color: #121212;
-    max-width: 830px;
+    max-width: 930px;
     width: 100%;
     margin: 0;
     text-align: center;
@@ -251,21 +251,23 @@
     justify-content: center;
     align-items: center;
     aspect-ratio: 640 / 489;
-    padding: 32px 32px 32px 33%;
+    padding: 32px;
     overflow: visible;
     box-sizing: border-box;
   }
   .pi-tb__deco {
     position: absolute;
     top: -20%;
-    left: 0;
-    width: 31%;
+    left: -30px;
+    width: 198px;
+    height: 326px;
     z-index: 2;
     pointer-events: none;
   }
   .pi-tb__deco img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: contain;
     display: block;
   }
   .pi-tb__title-content {
@@ -479,6 +481,38 @@
     #pi-hc-{{ section.id }} {
       padding-top: {{ section.settings.mobile_padding_top }}px;
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
+    }
+  }
+
+  /* ─── Small mobile (320px) ───────────────────────
+     Scoped to 320px and below only. Must stay last in
+     this <style> block so it overrides the
+     customizer-driven font sizes above. */
+  @media (max-width: 320px) {
+    /* 10px inset matches the Figma frame and gives the heading and card
+       text the widest possible column at this width */
+    .pi-ps__inner { padding: 0 10px; }
+    /* Figma: Playfair Display 600, 30/39, uppercase — one line */
+    .pi-ps__heading {
+      font-size: 30px;
+      line-height: 39px;
+      white-space: nowrap;
+    }
+    .pi-ps__track { gap: 8px; }
+    .pi-ps__card { flex: 0 0 calc((100% - 8px) / 2); }
+    /* No side padding, so the text column gets the full card width */
+    .pi-ps__card-body { padding: 12px 0 0; gap: 4px; }
+    /* Figma: Proxima Nova 600, 18/23 — one line */
+    .pi-ps__card-title {
+      font-size: 18px;
+      line-height: 23px;
+      white-space: nowrap;
+    }
+    /* Figma: Proxima Nova 400, 14/22 — two lines */
+    .pi-ps__card-desc {
+      font-size: 14px;
+      line-height: 22px;
+      -webkit-line-clamp: 2;
     }
   }
 </style>
