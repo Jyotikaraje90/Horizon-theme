@@ -649,6 +649,18 @@
     }
     .pi-tb__title-content { gap: 20px; }
   }
+
+  /* Tablet (768–989): Piercing Services & Happy Customers use heading_size = 54
+     from the customizer, which never scaled down — so at 768 they rendered at
+     54px while Best Sellers shows ~38px. Match the Best Sellers tablet scale
+     (clamp 28→48 via 5vw) so all section headings read the same size. */
+  @media (min-width: 768px) and (max-width: 989px) {
+    .pi-ps__heading,
+    .pi-hc__heading {
+      font-size: clamp(28px, 5vw, calc(54px * 0.89));
+      line-height: 1.2;
+    }
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
