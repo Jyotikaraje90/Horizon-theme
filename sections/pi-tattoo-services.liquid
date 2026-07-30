@@ -313,25 +313,6 @@
     }
   }
 
-  /* ─── Small mobile (320px) ───────────────────────
-     Scoped to 320px and below only. Card title and
-     description match the piercing services cards, and
-     the description is unclamped so the full text shows. */
-  @media (max-width: 320px) {
-    .pi-ts__card-title {
-      font-size: 13px;
-      line-height: 18px;
-    }
-    .pi-ts__card-desc {
-      font-size: 11px;
-      line-height: 16px;
-      display: block;
-      -webkit-line-clamp: initial;
-      -webkit-box-orient: initial;
-      overflow: visible;
-    }
-  }
-
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
