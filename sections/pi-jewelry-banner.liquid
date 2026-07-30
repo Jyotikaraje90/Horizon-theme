@@ -393,7 +393,7 @@
     {%- comment -%} Center content {%- endcomment -%}
     <div class="pi-jb__center">
       {%- if section.settings.heading != blank -%}
-        <h2 class="pi-jb__heading">{{ section.settings.heading }}</h2>
+        <h2 class="pi-jb__heading">{{ section.settings.heading | newline_to_br }}</h2>
       {%- endif -%}
       {%- if section.settings.subheading != blank -%}
         <p class="pi-jb__subheading">{{ section.settings.subheading }}</p>
@@ -451,9 +451,10 @@
     { "type": "image_picker", "id": "left_image", "label": "Left image" },
     { "type": "header", "content": "Center content" },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "heading",
       "label": "Heading",
+      "info": "Press Enter to control exactly where the heading breaks on mobile.",
       "default": "Luxury Piercing Jewelry For Every Look"
     },
     {
