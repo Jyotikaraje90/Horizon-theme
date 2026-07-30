@@ -363,12 +363,14 @@
       height: 35px;
     }
 
+    /* 20px gap gives a 167px card at 390 (354 inner - 20 / 2), matching the
+       Figma card size used by every carousel section */
     .pi-bs__track {
-      gap: 10px;
+      gap: 20px;
     }
 
     .pi-bs__card {
-      flex: 0 0 calc((100% - 10px) / 2);
+      flex: 0 0 calc((100% - 20px) / 2);
       gap: 10px;
     }
 

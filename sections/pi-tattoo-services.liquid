@@ -278,8 +278,10 @@
 
   @media (max-width: 768px) {
     .pi-ts__inner { padding-inline: 18px; gap: 20px; }
-    .pi-ts__track { gap: 10px; }
-    .pi-ts__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
+    /* 20px gap gives a 167px card at 390 (354 inner - 20 / 2), matching the
+       Figma card size used by every carousel section */
+    .pi-ts__track { gap: 20px; }
+    .pi-ts__card { flex: 0 0 calc((100% - 20px) / 2); width: auto; }
     .pi-ts__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
     .pi-ts__card-body { width: 100%; gap: 5px; padding: 0; margin-top: 10px; }
     .pi-ts__card-title { font-size: 18px; line-height: 23px; -webkit-line-clamp: 2; -webkit-font-smoothing: antialiased; }

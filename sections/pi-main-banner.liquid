@@ -288,6 +288,29 @@
     }
   }
 
+  /* Narrow phones (360 and below) step the type down. At 320 the h1 text box
+     is only 244px wide, so 32px wraps the heading to 5 lines instead of 3 and
+     the content no longer fits the 514px banner height from the design —
+     which pushed the button out of view. 26/34 keeps it at 3 lines.
+     Must stay after the 768px block so it overrides it. */
+  @media (max-width: 360px) {
+    .pi-hero__main-content {
+      top: 30px;
+      gap: 12px;
+    }
+    .pi-hero__main-content h1 {
+      font-size: 26px;
+      line-height: 34px;
+    }
+    .pi-hero__main-content p {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .pi-hero__btn {
+      padding: 12px 24px;
+    }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
