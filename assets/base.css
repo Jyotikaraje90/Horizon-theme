@@ -4578,18 +4578,15 @@ product-recommendations:has([data-has-recommendations='false']) {
   display: none;
 }
 
-/* ── Mobile Announcement Bar ── */
+/* ── Mobile Announcement Bar ──
+   Positioning is handled by the section wrapper (#shopify-section-{{ section.id }}
+   in pi-announcement-bar.liquid), not this inner element — see that file for why. */
 .pi-announcement-mobile {
   display: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
   width: 100%;
   height: 42px;
   background-color: #111111;
   color: #ffffff;
-  z-index: 9999;
   align-items: center;
   justify-content: center;
 }
@@ -4610,7 +4607,6 @@ product-recommendations:has([data-has-recommendations='false']) {
 
 .pi-announcement-mobile-spacer {
   display: none;
-  height: 42px;
 }
 
 @media (max-width: 768px) {
@@ -4619,9 +4615,6 @@ product-recommendations:has([data-has-recommendations='false']) {
   }
   .pi-announcement-mobile {
     display: flex;
-  }
-  .pi-announcement-mobile-spacer {
-    display: block;
   }
 }
 

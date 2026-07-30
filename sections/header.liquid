@@ -1160,6 +1160,147 @@
       grid-area: rightA;
     }
   }
+
+  /* PI: tablet header — match mobile layout with proper spacing */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      --header-template-columns: 44px auto 1fr auto !important;
+      grid-template-areas: 'leftA leftB center rightB' !important;
+      padding-inline: var(--page-margin) !important;
+      padding-block: 12px !important;
+    }
+
+    .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      grid-area: leftB !important;
+      justify-self: start;
+      max-width: 160px;
+      height: 44px;
+    }
+
+    .header__columns .header-logo img,
+    .header__columns .header-logo svg,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
+      max-width: 160px;
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    #header-component[data-menu-style='drawer'] .header__columns header-actions {
+      grid-area: rightB !important;
+      justify-self: end;
+    }
+
+    .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      display: none !important;
+    }
+  }
+
+  /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
+  @media screen and (min-width: 750px) {
+    .header__row--top .header__columns {
+      height: 95px;
+      box-sizing: border-box;
+      --padding-block-start: 0px;
+      --padding-block-end: 0px;
+      align-items: center;
+    }
+  }
+
+  /* PI: dropdown caret beside menu link text (Figma: horizontal, 10px gap, 11×7 caret) */
+  .pi-menu-link-with-caret {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pi-menu-caret {
+    display: inline-flex;
+    align-items: center;
+    width: 11px;
+    height: 7px;
+    flex-shrink: 0;
+    color: #000000;
+  }
+
+  .pi-menu-caret svg {
+    width: 11px;
+    height: 7px;
+  }
+
+  /* PI: simple dropdown menu (overrides mega-menu positioning) */
+  .menu-list__list-item {
+    position: relative;
+  }
+
+  .menu-list__list-item:where(:not([slot='overflow'])) > .pi-simple-dropdown {
+    position: absolute !important;
+    width: auto !important;
+    left: 50% !important;
+    top: 100% !important;
+    transform: translateX(-50%) !important;
+    clip-path: none !important;
+    padding-inline: 0 !important;
+    margin-top: 0 !important;
+    height: 0 !important;
+    overflow: visible !important;
+  }
+
+  .pi-simple-dropdown__inner {
+    background: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    padding: 20px 40px;
+    transform: none !important;
+    opacity: 1 !important;
+    position: relative;
+    z-index: var(--layer-header-menu, 100);
+    min-width: 200px;
+  }
+
+  .pi-simple-dropdown__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .pi-simple-dropdown__item {
+    text-align: center !important;
+  }
+
+  .pi-simple-dropdown__link {
+    color: #000000;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.3px;
+    white-space: nowrap;
+    transition: color 0.2s ease;
+    text-align: center !important;
+  }
+
+  .pi-simple-dropdown__link:hover {
+    color: rgb(0 0 0 / 0.7);
+  }
+
+  /* PI: all nav links pure black, active/hovered links grayish with underline */
+  #header-component .menu-list .menu-list__link {
+    color: var(--menu-top-level-font-color) !important;
+  }
+
+  #header-component .menu-list .menu-list__link--active,
+  #header-component .menu-list .menu-list__link:hover {
+    color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text)) !important;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}

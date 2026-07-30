@@ -43,59 +43,86 @@
     text-align: {{ section.settings.text_alignment }};
   }
 
+  /* ── Sticky stacking ──────────────────────────────────
+     Sticky must be applied to the actual Shopify section wrapper, not the
+     inner .pi-announcement div. #header-group (the parent) is set to
+     display:contents by the theme when the header is sticky, which promotes
+     this wrapper to a direct child of <body> — giving it the full page
+     height as its containing block. If we stick the inner div instead, its
+     containing block is just this same wrapper sized to the bar's own
+     height, which leaves zero room to stay stuck past the first scroll
+     pixel. Matches exactly how the theme's own .header-section does it. */
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
+    position: sticky;
+    top: 0;
+    /* Use the theme's own z-index scale (theme-styles-variables.liquid),
+       not an arbitrary large number — otherwise this bar would render
+       above the cart drawer, mega-menu, and modals instead of below them. */
+    z-index: var(--layer-sticky, 8);
+  }
+  .pi-announcement-mobile-spacer {
+    display: none !important;
+  }
+  /* Push the real header nav down so it sticks just below this bar instead
+     of underneath/behind it. Targets the same element the theme's own
+     sticky rule targets, so it works whether sticky mode is "always" or
+     "scroll-up". */
+  .header-section:has(> #header-component[sticky]) {
+    top: var(--pi-ann-offset, 0px) !important;
   }
 </style>
 
 <script>
 (function () {
-  function initStickyBar() {
+  function updateAnnOffset() {
+    var desktopBar = document.querySelector('.pi-announcement');
+    var mobileBar = document.querySelector('.pi-announcement-mobile');
+    var h = 0;
+    if (desktopBar && desktopBar.offsetHeight > 0) {
+      h = desktopBar.offsetHeight;
+    } else if (mobileBar && mobileBar.offsetHeight > 0) {
+      h = mobileBar.offsetHeight;
+    }
+    document.documentElement.style.setProperty('--pi-ann-offset', h + 'px');
+  }
+
+  function checkWidth(bar) {
+    if (bar.offsetWidth <= 768) {
+      bar.setAttribute('data-mobile', '');
+    } else {
+      bar.removeAttribute('data-mobile');
+    }
+  }
+
+  function init() {
     var bar = document.querySelector('.pi-announcement');
     if (!bar) return;
 
-    var h = bar.offsetHeight;
-
-    /* Fix bar to top of viewport at all times */
-    bar.style.position = 'fixed';
-    bar.style.top = '0';
-    bar.style.left = '0';
-    bar.style.right = '0';
-    bar.style.zIndex = '9999';
-    bar.style.width = '100%';
-
-    /* Insert spacer so the header section stays in the correct flow position */
-    var spacer = document.createElement('div');
-    spacer.style.height = h + 'px';
-    bar.parentNode.insertBefore(spacer, bar.nextSibling);
-
-    /* Push the sticky navbar so it sticks just below the announcement bar.
-       On mobile the desktop bar is hidden (h=0) so override to 42px for the mobile bar. */
-    var st = document.createElement('style');
-    st.textContent = '.header-section { top: ' + h + 'px !important; } @media (max-width: 768px) { .header-section { top: 42px !important; } }';
-    document.head.appendChild(st);
-
-    /* Toggle data-mobile based on actual rendered width (works in editor too) */
-    function checkWidth() {
-      if (bar.offsetWidth <= 768) {
-        bar.setAttribute('data-mobile', '');
-      } else {
-        bar.removeAttribute('data-mobile');
-      }
-    }
-
-    checkWidth();
+    checkWidth(bar);
+    updateAnnOffset();
 
     if (window.ResizeObserver) {
-      new ResizeObserver(checkWidth).observe(bar);
+      var observer = new ResizeObserver(function () {
+        checkWidth(bar);
+        updateAnnOffset();
+      });
+      observer.observe(bar);
+      var mobileBar = document.querySelector('.pi-announcement-mobile');
+      if (mobileBar) observer.observe(mobileBar);
+    } else {
+      window.addEventListener('resize', function () {
+        checkWidth(bar);
+        updateAnnOffset();
+      });
     }
   }
 
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initStickyBar);
+    document.addEventListener('DOMContentLoaded', init);
   } else {
-    initStickyBar();
+    init();
   }
 })();
 </script>
@@ -161,9 +188,9 @@
 
     <!-- Right: Locations -->
     <div class="pi-announcement__locations">
-      <svg viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg" overflow="visible">
-        <path d="M7 0C3.13 0 0 3.13 0 7c0 5.25 7 13 7 13s7-7.75 7-13C14 3.13 10.87 0 7 0z"/>
-        <circle cx="7" cy="6.5" r="2"/>
+      <svg viewBox="0 0 14 20" xmlns="http://www.w3.org/2000/svg" overflow="visible" fill="none">
+        <path d="M7 1C3.69 1 1 3.69 1 7c0 4.75 6 12 6 12s6-7.25 6-12c0-3.31-2.69-6-6-6z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+        <circle cx="7" cy="7" r="2" stroke="currentColor" stroke-width="1.2" fill="none"/>
       </svg>
       <ul class="pi-announcement__location-list">
         {%- assign locations = section.settings.locations | split: ',' -%}

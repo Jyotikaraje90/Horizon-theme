@@ -59,7 +59,7 @@
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     font-size: {{ section.settings.heading_size }}px;
-    line-height: 1.3;
+    line-height: 57px;
     color: {{ section.settings.heading_color }};
     margin: 0;
     text-align: {{ section.settings.text_alignment }};
@@ -78,7 +78,7 @@
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
     font-size: {{ section.settings.subtitle_size }}px;
-    line-height: 1.6;
+    line-height: 29px;
     color: {{ section.settings.subtitle_color }};
     margin: 0;
     width: 100%;
@@ -106,13 +106,20 @@
     width: 100%;
   }
 
+  .pi-contact-us__row > * {
+    flex: 1 1 0%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
   .pi-contact-us__field {
     box-sizing: border-box;
     flex: 1;
+    min-width: 0;
     height: 55px;
     padding: 20px;
     background: {{ section.settings.input_bg }};
-    border: 1px solid {{ section.settings.input_border_color }};
+    border: 1px solid {{ section.settings.input_border_color }} !important;
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -120,6 +127,7 @@
     line-height: 21px;
     color: {{ section.settings.input_text_color }};
     outline: none;
+    box-shadow: none !important;
   }
 
   .pi-contact-us__field::placeholder { color: {{ section.settings.input_text_color }}; opacity: 0.6; }
@@ -127,7 +135,8 @@
 
   .pi-contact-us__select-wrap {
     position: relative;
-    width: 100%;
+    flex: 1;
+    min-width: 0;
   }
 
   .pi-contact-us__select {
@@ -136,7 +145,7 @@
     height: 55px;
     padding: 0 44px 0 20px;
     background: {{ section.settings.input_bg }};
-    border: 1px solid {{ section.settings.input_border_color }};
+    border: 1px solid {{ section.settings.input_border_color }} !important;
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -144,8 +153,13 @@
     line-height: 21px;
     color: {{ section.settings.input_text_color }};
     outline: none;
+    box-shadow: none !important;
     appearance: none;
     -webkit-appearance: none;
+    -moz-appearance: none;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     cursor: pointer;
   }
 
@@ -167,7 +181,7 @@
     height: 150px;
     padding: 20px;
     background: {{ section.settings.input_bg }};
-    border: 1px solid {{ section.settings.input_border_color }};
+    border: 1px solid {{ section.settings.input_border_color }} !important;
     border-radius: 8px;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 400;
@@ -175,11 +189,100 @@
     line-height: 21px;
     color: {{ section.settings.input_text_color }};
     outline: none;
+    box-shadow: none !important;
     resize: vertical;
   }
 
   .pi-contact-us__textarea::placeholder { color: {{ section.settings.input_text_color }}; opacity: 0.6; }
   .pi-contact-us__textarea:focus { border-color: {{ section.settings.input_focus_border_color }}; }
+
+  .pi-contact-us__textarea--tall {
+    height: 215px;
+    resize: none;
+  }
+
+  .pi-contact-us__row--upload {
+    align-items: stretch;
+  }
+
+  .pi-contact-us__row--upload .pi-contact-us__textarea {
+    flex: 1;
+    width: auto;
+    min-width: 0;
+  }
+
+  .pi-contact-us__dropzone {
+    box-sizing: border-box;
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 8px;
+    min-height: 215px;
+    padding: 20px;
+    background: {{ section.settings.input_bg }};
+    border: 1px dashed {{ section.settings.input_border_color }};
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  .pi-contact-us__dropzone-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .pi-contact-us__dropzone-icon {
+    width: 32px;
+    height: 32px;
+    color: {{ section.settings.input_text_color }};
+  }
+
+  .pi-contact-us__dropzone-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pi-contact-us__dropzone-hint {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    color: {{ section.settings.input_text_color }};
+    margin: 0;
+  }
+
+  .pi-contact-us__dropzone-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 8px;
+    padding: 16px 32px;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    background: #ffffff;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: #000000;
+  }
+
+  .pi-contact-us__dropzone-filename {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 13px;
+    color: {{ section.settings.input_focus_border_color }};
+    margin: 0;
+    word-break: break-all;
+  }
 
   /* Submit row */
   .pi-contact-us__submit-row {
@@ -249,6 +352,18 @@
     display: none;
   }
 
+  /* ── No-image variant: single centered panel ───────── */
+  .pi-contact-us--no-image {
+    max-width: 800px;
+  }
+  .pi-contact-us--no-image.pi-contact-us--wide {
+    max-width: 1500px;
+  }
+  .pi-contact-us--no-image .pi-contact-us__form-panel {
+    flex: 1 1 100%;
+    border-radius: 15px;
+  }
+
   /* ── Responsive ──────────────────────────────────── */
   @media (max-width: 989px) {
     .pi-contact-us {
@@ -270,37 +385,36 @@
     }
 
     .pi-contact-us__title {
-      font-size: {{ section.settings.mobile_heading_size }}px;
-      line-height: 1.3;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.2;
+    }
+    .pi-contact-us__subtitle {
+      font-size: 18px;
+      line-height: 29px;
     }
   }
 
   @media (max-width: 749px) {
-    .pi-contact-us__row {
-      flex-direction: column;
-    }
-
-    .pi-contact-us__field {
-      width: 100%;
-    }
-
-    .pi-contact-us__title {
-      font-size: {{ section.settings.mobile_heading_size }}px;
-      line-height: 1.3;
-    }
-
-    .pi-contact-us__subtitle {
-      font-size: {{ section.settings.subtitle_size }}px;
-      line-height: 1.6;
-    }
-
-    .pi-contact-us__image-panel {
-      min-height: 240px;
-    }
+    .pi-contact-us { margin: 0 10px; }
+    .pi-contact-us__form-panel { padding-left: 20px; padding-right: 20px; }
+    .pi-contact-us__details { gap: 20px; }
+    .pi-contact-us__row { flex-direction: column; gap: 15px; }
+    .pi-contact-us__form { gap: 15px; }
+    .pi-contact-us__field { width: 100%; height: 53px; padding: 20px; border-radius: 8px; }
+    .pi-contact-us__select-wrap { width: 100%; }
+    .pi-contact-us__select { height: 53px; border-radius: 8px; }
+    .pi-contact-us__dropzone { width: 100%; }
+    .pi-contact-us__title { font-size: {{ section.settings.mobile_heading_size }}px; line-height: 1.3; }
+    .pi-contact-us__subtitle { font-size: 16px; line-height: 26px; color: #000000; }
+    .pi-contact-us__heading { gap: 5px; }
+    .pi-contact-us__textarea { height: 150px; border-radius: 8px; }
+    .pi-contact-us__btn { width: 100%; height: 50px; padding: 16px 32px; }
+    .pi-contact-us__submit-row { align-items: stretch; }
+    .pi-contact-us__image-panel { display: none; }
   }
 </style>
 
-<div class="pi-contact-us">
+<div class="pi-contact-us{% if section.settings.background_image == blank %} pi-contact-us--no-image{% endif %}{% if section.settings.detailed_booking_form %} pi-contact-us--wide{% endif %}">
 
   <div class="pi-contact-us__form-panel">
     <div class="pi-contact-us__details">
@@ -321,66 +435,185 @@
           </p>
         {%- endif -%}
 
+        {%- assign location_blocks = section.blocks | where: 'type', 'location' -%}
+        {%- assign artist_blocks = section.blocks | where: 'type', 'artist' -%}
+
         <div class="pi-contact-us__form">
 
-          <div class="pi-contact-us__row">
-            <input
-              class="pi-contact-us__field"
-              type="text"
-              name="contact[First Name]"
-              placeholder="First Name*"
-              required
-              autocomplete="given-name"
-            >
-            <input
-              class="pi-contact-us__field"
-              type="text"
-              name="contact[Last Name]"
-              placeholder="Last Name*"
-              required
-              autocomplete="family-name"
-            >
-          </div>
+          {%- if section.settings.detailed_booking_form -%}
 
-          <div class="pi-contact-us__row">
-            <input
-              class="pi-contact-us__field"
-              type="tel"
-              name="contact[Phone]"
-              placeholder="Phone*"
-              required
-              autocomplete="tel"
-            >
-            <input
-              class="pi-contact-us__field"
-              type="email"
-              name="contact[email]"
-              placeholder="Email*"
-              required
-              autocomplete="email"
-            >
-          </div>
-
-          {%- assign location_blocks = section.blocks | where: 'type', 'location' -%}
-          {%- if location_blocks.size > 0 -%}
-            <div class="pi-contact-us__select-wrap">
-              <select class="pi-contact-us__select" name="contact[Studio Location]" required>
-                <option value="" disabled selected>Select Our Studio Location*</option>
-                {%- for block in location_blocks -%}
-                  <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
-                {%- endfor -%}
-              </select>
-              <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+            <div class="pi-contact-us__row">
+              <input
+                class="pi-contact-us__field"
+                type="text"
+                name="contact[First Name]"
+                placeholder="First Name*"
+                required
+                autocomplete="given-name"
+              >
+              <input
+                class="pi-contact-us__field"
+                type="text"
+                name="contact[Last Name]"
+                placeholder="Last Name*"
+                required
+                autocomplete="family-name"
+              >
+              <input
+                class="pi-contact-us__field"
+                type="tel"
+                name="contact[Phone]"
+                placeholder="Phone*"
+                required
+                autocomplete="tel"
+              >
             </div>
-          {%- endif -%}
 
-          <textarea
-            class="pi-contact-us__textarea"
-            name="contact[body]"
-            placeholder="Message"
-          ></textarea>
+            <div class="pi-contact-us__row">
+              <input
+                class="pi-contact-us__field"
+                type="email"
+                name="contact[email]"
+                placeholder="Email*"
+                required
+                autocomplete="email"
+              >
+              {%- if location_blocks.size > 0 -%}
+                <div class="pi-contact-us__select-wrap">
+                  <select class="pi-contact-us__select" name="contact[Studio Location]" required>
+                    <option value="" disabled selected>Select Our Studio Location*</option>
+                    {%- for block in location_blocks -%}
+                      <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
+                    {%- endfor -%}
+                  </select>
+                  <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </div>
+              {%- endif -%}
+              <div class="pi-contact-us__select-wrap">
+                <select class="pi-contact-us__select" name="contact[Tattoo Size]" required>
+                  <option value="" disabled selected>Tattoo Size Selection*</option>
+                  <option value="Small (up to 2 in)">Small (up to 2 in)</option>
+                  <option value="Medium (2-6 in)">Medium (2-6 in)</option>
+                  <option value="Large (6-10 in)">Large (6-10 in)</option>
+                  <option value="Extra Large (10+ in)">Extra Large (10+ in)</option>
+                </select>
+                <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="pi-contact-us__row">
+              <input
+                class="pi-contact-us__field"
+                type="text"
+                name="contact[Placement On Body]"
+                placeholder="Placement On Body"
+                autocomplete="off"
+              >
+              <div class="pi-contact-us__select-wrap">
+                <select class="pi-contact-us__select" name="contact[Preferred Tattoo Artist]">
+                  <option value="" disabled selected>Preferred Tattoo Artist</option>
+                  {%- for block in artist_blocks -%}
+                    <option value="{{ block.settings.artist_name | escape }}">{{ block.settings.artist_name }}</option>
+                  {%- endfor -%}
+                </select>
+                <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+
+            <div class="pi-contact-us__row pi-contact-us__row--upload">
+              <label class="pi-contact-us__dropzone" for="pi-contact-file-{{ section.id }}">
+                <input
+                  class="pi-contact-us__dropzone-input"
+                  type="file"
+                  id="pi-contact-file-{{ section.id }}"
+                  accept="image/jpeg,image/png"
+                  onchange="this.closest('.pi-contact-us__dropzone').querySelector('.pi-contact-us__dropzone-filename').textContent = this.files[0] ? this.files[0].name : '';"
+                >
+                <svg class="pi-contact-us__dropzone-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 18a4 4 0 0 1-1-7.874A5 5 0 0 1 15.5 7.5 4.5 4.5 0 0 1 17 16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <path d="M12 12v7m0-7l-2.5 2.5M12 12l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <p class="pi-contact-us__dropzone-title">Choose a file or drag &amp; drop it here</p>
+                <p class="pi-contact-us__dropzone-hint">JPEG, PNG, up to 50MB</p>
+                <span class="pi-contact-us__dropzone-btn">Browse File</span>
+                <p class="pi-contact-us__dropzone-filename"></p>
+              </label>
+
+              <textarea
+                class="pi-contact-us__textarea pi-contact-us__textarea--tall"
+                name="contact[body]"
+                placeholder="Tattoo Description*"
+                required
+              ></textarea>
+            </div>
+
+          {%- else -%}
+
+            <div class="pi-contact-us__row">
+              <input
+                class="pi-contact-us__field"
+                type="text"
+                name="contact[First Name]"
+                placeholder="First Name*"
+                required
+                autocomplete="given-name"
+              >
+              <input
+                class="pi-contact-us__field"
+                type="text"
+                name="contact[Last Name]"
+                placeholder="Last Name*"
+                required
+                autocomplete="family-name"
+              >
+            </div>
+
+            <div class="pi-contact-us__row">
+              <input
+                class="pi-contact-us__field"
+                type="tel"
+                name="contact[Phone]"
+                placeholder="Phone*"
+                required
+                autocomplete="tel"
+              >
+              <input
+                class="pi-contact-us__field"
+                type="email"
+                name="contact[email]"
+                placeholder="Email*"
+                required
+                autocomplete="email"
+              >
+            </div>
+
+            {%- if location_blocks.size > 0 -%}
+              <div class="pi-contact-us__select-wrap" style="width: 100%;">
+                <select class="pi-contact-us__select" name="contact[Studio Location]" required>
+                  <option value="" disabled selected>Select Our Studio Location*</option>
+                  {%- for block in location_blocks -%}
+                    <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
+                  {%- endfor -%}
+                </select>
+                <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            {%- endif -%}
+
+            <textarea
+              class="pi-contact-us__textarea"
+              name="contact[body]"
+              placeholder="Message"
+            ></textarea>
+
+          {%- endif -%}
 
           <div class="pi-contact-us__submit-row">
             <button type="submit" class="pi-contact-us__btn">
@@ -395,8 +628,8 @@
     </div>
   </div>
 
-  <div class="pi-contact-us__image-panel">
-    {%- if section.settings.background_image != blank -%}
+  {%- if section.settings.background_image != blank -%}
+    <div class="pi-contact-us__image-panel">
       {{
         section.settings.background_image
         | image_url: width: 1300
@@ -405,8 +638,8 @@
           alt: section.settings.background_image.alt
       }}
       <div class="pi-contact-us__overlay"></div>
-    {%- endif -%}
-  </div>
+    </div>
+  {%- endif -%}
 
 </div>
 
@@ -425,6 +658,13 @@
       "id": "subtitle",
       "label": "Subtext",
       "default": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email."
+    },
+    {
+      "type": "checkbox",
+      "id": "detailed_booking_form",
+      "label": "Show detailed tattoo booking fields",
+      "info": "Adds Phone, Tattoo Size, Placement On Body, Preferred Artist, and a reference photo upload alongside the standard fields.",
+      "default": false
     },
     {
       "type": "text",
@@ -683,6 +923,18 @@
           "id": "location_name",
           "label": "Location name",
           "default": "Studio Location"
+        }
+      ]
+    },
+    {
+      "type": "artist",
+      "name": "Tattoo Artist",
+      "settings": [
+        {
+          "type": "text",
+          "id": "artist_name",
+          "label": "Artist name",
+          "default": "Artist Name"
         }
       ]
     }

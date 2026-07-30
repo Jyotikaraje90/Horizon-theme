@@ -1,0 +1,460 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  #pi-tdc-{{ section.id }} {
+    --pi-tdc-bg: {{ section.settings.bg_color }};
+    --pi-tdc-heading-color: {{ section.settings.heading_color }};
+    --pi-tdc-text-color: {{ section.settings.text_color }};
+    --pi-tdc-image-radius: {{ section.settings.image_radius }}px;
+  }
+</style>
+
+<style>
+  .pi-tdc {
+    background: var(--pi-tdc-bg, #ffffff);
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .pi-tdc__inner {
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 40px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+  }
+
+  /* ─── Left column ──────────────────────────────── */
+  .pi-tdc__left {
+    flex: 0 0 34.67%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+  }
+
+  .pi-tdc__about {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pi-tdc__label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--pi-tdc-heading-color, #000000);
+    margin: 0;
+  }
+
+  .pi-tdc__label::before {
+    content: '';
+    width: 3px;
+    height: 20px;
+    background: var(--pi-tdc-heading-color, #000000);
+    flex-shrink: 0;
+  }
+
+  .pi-tdc__text {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: var(--pi-tdc-text-color, #121212);
+    margin: 0;
+    text-align: justify;
+  }
+
+  .pi-tdc__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    height: 50px;
+    padding: 14px 28px;
+    border-radius: {{ section.settings.btn_radius }}px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .pi-tdc__btn:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+
+  .pi-tdc__left-img {
+    width: 100%;
+    aspect-ratio: 520 / 601;
+    border-radius: var(--pi-tdc-image-radius, 10px);
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  /* ─── Right column ─────────────────────────────── */
+  .pi-tdc__right {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pi-tdc__right-img {
+    width: 100%;
+    aspect-ratio: 930 / 740;
+    border-radius: var(--pi-tdc-image-radius, 10px);
+    overflow: hidden;
+    background: #f3f3f3;
+  }
+
+  .pi-tdc__left-img img,
+  .pi-tdc__right-img img,
+  .pi-tdc__left-img .placeholder-svg,
+  .pi-tdc__right-img .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  /* ─── Feature list ─────────────────────────────── */
+  .pi-tdc__features {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pi-tdc__feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .pi-tdc__feature-icon {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .pi-tdc__feature-icon svg { width: 100%; height: 100%; display: block; }
+
+  .pi-tdc__feature-body {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .pi-tdc__feature-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--pi-tdc-heading-color, #000000);
+    margin: 0;
+  }
+
+  .pi-tdc__feature-desc {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--pi-tdc-text-color, #121212);
+    margin: 0;
+  }
+
+  /* ─── Responsive ───────────────────────────────── */
+  @media (max-width: 989px) {
+    .pi-tdc__inner { padding-inline: 24px; flex-direction: column; }
+    .pi-tdc__left { flex: none; width: 100%; }
+    .pi-tdc__right { width: 100%; }
+  }
+
+  @media (max-width: 600px) {
+    .pi-tdc__inner { padding-inline: 18px; gap: 32px; }
+    .pi-tdc__left { gap: 32px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<div class="pi-tdc" id="pi-tdc-{{ section.id }}">
+  <div class="pi-tdc__inner">
+
+    <div class="pi-tdc__left">
+      <div class="pi-tdc__about">
+        {%- if section.settings.about_heading != blank -%}
+          <h2 class="pi-tdc__label">{{ section.settings.about_heading }}</h2>
+        {%- endif -%}
+        {%- if section.settings.about_text != blank -%}
+          <p class="pi-tdc__text">{{ section.settings.about_text }}</p>
+        {%- endif -%}
+        {%- if section.settings.button_label != blank -%}
+          <a href="{{ section.settings.button_link }}" class="pi-tdc__btn">{{ section.settings.button_label }}</a>
+        {%- endif -%}
+      </div>
+
+      <div class="pi-tdc__left-img">
+        {%- if section.settings.left_image != blank -%}
+          <img
+            src="{{ section.settings.left_image | image_url: width: 1040 }}"
+            alt="{{ section.settings.left_image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="pi-tdc__right">
+      <div class="pi-tdc__right-img">
+        {%- if section.settings.right_image != blank -%}
+          <img
+            src="{{ section.settings.right_image | image_url: width: 1860 }}"
+            alt="{{ section.settings.right_image.alt | escape }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
+      {%- if feature_blocks.size > 0 -%}
+        <div class="pi-tdc__features">
+          {%- for block in feature_blocks -%}
+            <div class="pi-tdc__feature" {{ block.shopify_attributes }}>
+              <span class="pi-tdc__feature-icon">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="11" stroke="{{ section.settings.heading_color }}" stroke-width="1.5"/>
+                  <path d="M7 12.5L10.2 15.5L17 8.5" stroke="{{ section.settings.heading_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <div class="pi-tdc__feature-body">
+                {%- if block.settings.title != blank -%}
+                  <h4 class="pi-tdc__feature-title">{{ block.settings.title }}</h4>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="pi-tdc__feature-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PI Tattoo Detail Content",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "About Block"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "Heading",
+      "default": "About Realistic Tattoos"
+    },
+    {
+      "type": "textarea",
+      "id": "about_text",
+      "label": "Description",
+      "default": "Realistic tattoos bring lifelike detail and depth to the skin, capturing portraits, animals, and nature with striking precision. Using advanced shading and fine linework, our artists create pieces that look like photographs come to life."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Book Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image",
+      "label": "Left column image"
+    },
+    {
+      "type": "header",
+      "content": "Work Showcase"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image",
+      "label": "Right column large image"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Colors"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text color",
+      "default": "#121212"
+    },
+    {
+      "type": "range",
+      "id": "image_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Image border radius",
+      "default": 10
+    },
+    {
+      "type": "header",
+      "content": "Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Button border radius",
+      "default": 8
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button hover background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Short supporting description of this feature."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Tattoo Detail Content",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "Bold Outlines & Vibrant Colors", "description": "Crisp linework and rich color saturation that keeps the design sharp for years." } },
+        { "type": "feature", "settings": { "title": "Custom Design Options", "description": "Every piece is tailored to your vision, sized and styled to fit your body." } },
+        { "type": "feature", "settings": { "title": "Expert Artists & Premium Inks", "description": "Skilled artists using skin-safe, high-pigment inks for a lasting finish." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,7 +1,12 @@
 {
   "permissions": {
     "allow": [
-      "mcp__claude_ai_Shopify__get-shop-info"
+      "mcp__claude_ai_Shopify__get-shop-info",
+      "Read(//c/Users/alian/.claude/**)",
+      "PowerShell(shopify version)",
+      "PowerShell(shopify theme push --store artistic-look-store.myshopify.com --theme 170570547477 --only \"sections/pi-main-banner.liquid\" --only \"sections/pi-announcement-bar.liquid\" 2>&1)",
+      "PowerShell(shopify theme push --store artistic-look-store.myshopify.com --theme 170570547477 --only \"sections/pi-announcement-bar.liquid\" 2>&1)",
+      "PowerShell(shopify theme push --store artistic-look-store.myshopify.com --theme 170570547477 --only \"sections/pi-main-banner.liquid\" --force 2>&1)"
     ]
   }
 }

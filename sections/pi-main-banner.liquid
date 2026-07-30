@@ -178,7 +178,7 @@
       height: auto;
       max-height: none;
       min-height: unset;
-      margin: 0 var(--pi-hero-side-margin, 18px);
+      margin: 0 40px;
       border-radius: var(--pi-hero-border-radius, 20px);
       clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
     }
@@ -198,6 +198,10 @@
     .pi-hero__main-content h1 {
       font-size: clamp(28px, 5vw, 48px);
       line-height: 1.2;
+    }
+
+    .pi-hero__main-content p {
+      white-space: normal;
     }
 
     .pi-hero__side {
@@ -263,9 +267,34 @@
     }
   }
 
+  @media (max-width: 360px) {
+    .pi-hero__main-content {
+      top: 30px;
+      gap: 12px;
+    }
+    .pi-hero__main-content h1 {
+      font-size: 26px;
+      line-height: 34px;
+    }
+    .pi-hero__main-content p {
+      font-size: 14px;
+      line-height: 22px;
+    }
+    .pi-hero__btn {
+      padding: 12px 24px;
+    }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
+    padding: 0 !important;
+    font-size: 0;
+    line-height: 0;
+  }
+  #shopify-section-{{ section.id }} .pi-hero {
+    font-size: 14px;
+    line-height: normal;
   }
 </style>
 

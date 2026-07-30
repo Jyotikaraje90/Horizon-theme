@@ -1,0 +1,344 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  #pi-hiw-{{ section.id }} {
+    --pi-hiw-bg: {{ section.settings.bg_color }};
+    --pi-hiw-heading-color: {{ section.settings.heading_color }};
+    --pi-hiw-step-title-color: {{ section.settings.step_title_color }};
+    --pi-hiw-step-desc-color: {{ section.settings.step_desc_color }};
+    --pi-hiw-icon-bg: {{ section.settings.icon_bg }};
+    --pi-hiw-icon-color: {{ section.settings.icon_color }};
+  }
+</style>
+
+<style>
+  .pi-hiw {
+    background: var(--pi-hiw-bg, #ffffff);
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .pi-hiw__inner {
+    max-width: 1500px;
+    margin-inline: auto;
+    padding-inline: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 60px;
+  }
+
+  .pi-hiw__heading {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 3.75vw, 54px);
+    font-weight: 600;
+    line-height: 1.3;
+    text-transform: uppercase;
+    color: var(--pi-hiw-heading-color, #000000);
+    margin: 0;
+    text-align: center;
+  }
+
+  .pi-hiw__steps {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    gap: 24px;
+  }
+
+  @media (min-width: 1100px) {
+    .pi-hiw__steps { gap: 56px; }
+  }
+
+  .pi-hiw__step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 16px;
+    flex: 1 1 0;
+    max-width: 320px;
+  }
+
+  .pi-hiw__arrow {
+    display: none;
+    flex: 0 0 auto;
+    width: 166px;
+    height: 36px;
+    margin-top: 14px;
+    color: var(--pi-hiw-icon-color, #000000);
+  }
+
+  .pi-hiw__arrow svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .pi-hiw__arrow--flip {
+    margin-top: 188px;
+    transform: scaleY(-1);
+  }
+
+  .pi-hiw__icon {
+    width: 108px;
+    height: 108px;
+    border-radius: 50%;
+    background: var(--pi-hiw-icon-bg, #f0f0f0);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .pi-hiw__icon img {
+    width: 44px;
+    height: 44px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .pi-hiw__icon svg { width: 44px; height: 44px; }
+  .pi-hiw__icon svg * { stroke: var(--pi-hiw-icon-color, #000000); }
+
+  .pi-hiw__step-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--pi-hiw-step-title-color, #000000);
+    margin: 0;
+  }
+
+  .pi-hiw__step-desc {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 24px;
+    color: var(--pi-hiw-step-desc-color, #555555);
+    margin: 0;
+  }
+
+  /* ─── Responsive ───────────────────────────────── */
+  @media (max-width: 989px) {
+    .pi-hiw__inner { padding-inline: 24px; gap: 40px; }
+  }
+
+  @media (min-width: 1100px) {
+    .pi-hiw__arrow { display: block; }
+  }
+
+  @media (max-width: 749px) {
+    .pi-hiw__steps { flex-direction: column; align-items: center; gap: 40px; }
+    .pi-hiw__step { max-width: 400px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+{%- assign steps = section.blocks | where: 'type', 'step' -%}
+
+<div class="pi-hiw" id="pi-hiw-{{ section.id }}">
+  <div class="pi-hiw__inner">
+
+    {%- if section.settings.heading != blank -%}
+      <h2 class="pi-hiw__heading">{{ section.settings.heading }}</h2>
+    {%- endif -%}
+
+    {%- if steps.size > 0 -%}
+      <div class="pi-hiw__steps">
+        {%- for block in steps -%}
+          <div class="pi-hiw__step" {{ block.shopify_attributes }}>
+            <span class="pi-hiw__icon">
+              {%- if block.settings.icon != blank -%}
+                <img src="{{ block.settings.icon | image_url: width: 68 }}" alt="" loading="lazy">
+              {%- else -%}
+                {%- assign icon_slot = forloop.index0 | modulo: 3 -%}
+                {%- if icon_slot == 0 -%}
+                  {%- comment -%} Consultation / design: clipboard + pencil {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="5" y="3.5" width="14" height="18" rx="1.5" stroke-width="1.5"/>
+                    <rect x="9" y="2" width="6" height="3" rx="1" stroke-width="1.5"/>
+                    <path d="M8.5 12.5L14 7L16.5 9.5L11 15H8.5V12.5Z" stroke-width="1.5" stroke-linejoin="round"/>
+                  </svg>
+                {%- elsif icon_slot == 1 -%}
+                  {%- comment -%} Tattooing process: tattoo machine {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4 20L9 15" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="8" y="10" width="5" height="5" rx="1" transform="rotate(-45 8 10)" stroke-width="1.5"/>
+                    <path d="M12.5 9.5L16 6C17 5 18.5 5 19.5 6C20.5 7 20.5 8.5 19.5 9.5L16 13" stroke-width="1.5" stroke-linecap="round"/>
+                    <path d="M15 5L18.5 8.5" stroke-width="1.5" stroke-linecap="round"/>
+                  </svg>
+                {%- else -%}
+                  {%- comment -%} Aftercare & healing: heart with pulse {%- endcomment -%}
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 20C12 20 4 14.5 4 9.2C4 6.3 6.2 4.5 8.5 4.5C10 4.5 11.3 5.3 12 6.5C12.7 5.3 14 4.5 15.5 4.5C17.8 4.5 20 6.3 20 9.2C20 14.5 12 20 12 20Z" stroke-width="1.5" stroke-linejoin="round"/>
+                    <path d="M7 11H9.5L11 8.5L13 13.5L14.5 11H17" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                {%- endif -%}
+              {%- endif -%}
+            </span>
+            {%- if block.settings.title != blank -%}
+              <h4 class="pi-hiw__step-title">{{ block.settings.title }}</h4>
+            {%- endif -%}
+            {%- if block.settings.description != blank -%}
+              <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
+            {%- endif -%}
+          </div>
+          {%- unless forloop.last -%}
+            <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
+              <svg viewBox="0 0 166 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 8Q85 32 150 12" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>
+                <path d="M138 4L152 12L138 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </div>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PI How It Works",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "How It Works"
+    },
+    {
+      "type": "header",
+      "content": "Layout & Colors"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding bottom",
+      "default": 80
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Step Styles"
+    },
+    {
+      "type": "color",
+      "id": "icon_bg",
+      "label": "Icon background",
+      "default": "#f0f0f0"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icon stroke color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "step_title_color",
+      "label": "Step title color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "step_desc_color",
+      "label": "Step description color",
+      "default": "#555555"
+    },
+    {
+      "type": "header",
+      "content": "Section Margin"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Step Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Short description of this step."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI How It Works",
+      "blocks": [
+        { "type": "step", "settings": { "title": "Consultation & Design Preparation", "description": "Discuss your ideas, choose the design, and finalize the perfect placement." } },
+        { "type": "step", "settings": { "title": "Tattooing Process", "description": "Our artists bring your design to life with precision and high-quality ink." } },
+        { "type": "step", "settings": { "title": "Aftercare & Healing", "description": "Follow expert aftercare tips to ensure smooth healing and long-lasting vibrancy." } }
+      ]
+    }
+  ]
+}
+{% endschema %}
