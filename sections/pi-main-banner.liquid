@@ -271,7 +271,7 @@
   /* Shared mobile type scale — one set of sizes for the whole mobile range
      so 320, 360, 375, 390, 414 and everything up to 768 match. Kept last so
      it wins over the breakpoint blocks above. */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     /* h1 is intentionally larger than the h2 used by every other section */
     .pi-hero__main-content h1 {
       font-size: 32px;
@@ -292,7 +292,7 @@
      is only 244px wide, so 32px wraps the heading to 5 lines instead of 3 and
      the content no longer fits the 514px banner height from the design —
      which pushed the button out of view. 26/34 keeps it at 3 lines.
-     Must stay after the 768px block so it overrides it. */
+     Must stay after the 767px block so it overrides it. */
   @media (max-width: 360px) {
     .pi-hero__main-content {
       top: 30px;

@@ -126,7 +126,8 @@
 
   /* ─── Responsive ──────────────────────────────── */
   @media (max-width: 1199px) {
-    .pi-usp__label { font-size: 26px; line-height: 36px; }
+    .pi-usp__icon { width: 72px; height: 72px; }
+    .pi-usp__label { font-size: 22px; line-height: 30px; }
   }
 
   @media (max-width: 989px) {
@@ -137,7 +138,7 @@
     .pi-usp__divider { height: 130px; }
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     {%- if section.settings.mobile_background_image != blank -%}
     .pi-usp__bg img { content: url('{{ section.settings.mobile_background_image | image_url: width: 800 }}'); }
     {%- endif -%}

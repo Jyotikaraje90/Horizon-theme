@@ -380,7 +380,11 @@
     }
 
     .pi-contact-us__image-panel {
-      min-height: 320px;
+      /* Definite height so the img (height:100%) cover-crops to a banner instead
+         of rendering at its full natural portrait height (which read far too tall
+         at 768/820). */
+      height: 380px;
+      min-height: 0;
       border-radius: 0 0 15px 15px;
     }
 

@@ -231,6 +231,20 @@
     .pi-au__btn { width: 100%; font-size: 14px; padding: 16px 32px; height: 50px; }
   }
 
+  /* Tablet (768–989): keep the 1024-style two-column layout (overlapping images
+     left, content right) instead of the ≤989 stacked/scattered column. The image
+     composition is compacted so the content column still has room to breathe.
+     990px+ (1024/desktop) and ≤749 (mobile) are untouched. */
+  @media (min-width: 768px) and (max-width: 989px) {
+    .pi-au__body { flex-direction: row; align-items: flex-start; gap: 30px; }
+    /* Narrower image column → wider text column → fewer lines → shorter section.
+       Taller composition → fills down beside the text so there's no empty gap. */
+    .pi-au__images { flex: 0 0 300px; width: 300px; height: 470px; }
+    .pi-au__img-top { width: 240px; height: 290px; left: 60px; top: 0; }
+    .pi-au__img-bottom { width: 230px; height: 250px; left: 0; top: 220px; }
+    .pi-au__content { flex: 1; width: auto; padding-top: 0; }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
