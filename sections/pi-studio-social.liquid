@@ -582,6 +582,10 @@
     }
 
     /* ── Trusted by the best ── */
+    /* Sits on the section rather than the title cell, so the title block
+       keeps the 0 top padding its 159px height depends on. 24px comes from
+       the happy customers mobile_padding_bottom, + 26 here = 50px gap. */
+    .pi-tb { padding-top: 26px; }
     /* Hide the decorative illustration: it is sized in fixed pixels and
        rides up into the section above on narrow screens */
     .pi-tb__deco { display: none; }
