@@ -372,7 +372,7 @@
       padding: 32px 32px 40px 32px;
     }
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .pi-ps__inner { padding: 0 18px; gap: 30px; }
     .pi-ps__track { gap: 10px; }
     .pi-ps__card { flex: 0 0 calc((100% - 10px) / 2); width: auto; }
@@ -469,7 +469,7 @@
     background: {{ section.settings.btn_hover_bg }};
     color: {{ section.settings.btn_hover_text }};
   }
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     .pi-ps__heading {
       font-size: {{ section.settings.mobile_heading_size }}px;
     }
@@ -486,13 +486,13 @@
     }
   }
 
-  /* ─── Mobile (768px and below) ────────────────────
+  /* ─── Mobile (767px and below) ────────────────────
      One block for the whole mobile range so 320, 360, 375, 390, 414 and
      everything up to 768 render the same layout. Fixed type sizes come
      from the Figma mobile spec; insets scale with the viewport. Must stay
      last in this <style> block so it overrides the customizer-driven font
      sizes above. */
-  @media (max-width: 768px) {
+  @media (max-width: 767px) {
     /* 18px inset, same as tattoo services. The overlay arrows sit at
        -17px, so they need this much gutter or they run off-screen.
        Also matches the Banner spec: 354px wide in a 390px frame. */
@@ -630,7 +630,7 @@
   /* Tablet: the base name uses clamp(22px, 2.4vw, 40px), which scales up to
      ~25px at 1024 and ~31px near 1279 — too large over the photo. Hold it at
      22px across the tablet range (mobile 26px and desktop clamp untouched). */
-  @media (min-width: 769px) and (max-width: 1279px) {
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pi-tb__name { font-size: 22px; line-height: 30px; }
   }
 </style>
