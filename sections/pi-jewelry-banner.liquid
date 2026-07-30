@@ -319,7 +319,22 @@
   @media (max-width: 749px) {
     .pi-jb__center { padding: var(--pi-jb-pad-top, 40px) 18px var(--pi-jb-pad-bottom, 30px); }
     .pi-jb__mobile-imgs { padding: 0 18px; }
-    .pi-jb__heading { font-size: var(--pi-jb-heading-size, 30px); line-height: 1.3; }
+  }
+
+  /* Shared mobile type scale — matches every other homepage section across
+     the whole mobile range. Kept last so it wins over the blocks above. */
+  @media (max-width: 768px) {
+    .pi-jb__heading {
+      font-size: var(--pi-jb-heading-size, 30px);
+      /* 1.3 x 30px = the 39px in the Figma spec, and it still tracks the
+         mobile heading size setting if that changes */
+      line-height: 1.3;
+    }
+    /* Body copy, so it takes the shared para size */
+    .pi-jb__subheading {
+      font-size: 16px;
+      line-height: 26px;
+    }
   }
 
   #shopify-section-{{ section.id }} {
