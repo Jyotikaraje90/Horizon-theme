@@ -331,7 +331,13 @@
     margin-bottom: {{ section.settings.margin_bottom }}px;
   }
 
-  @media (max-width: 600px) {
+  @media (max-width: 768px) {
+    /* Card title pinned to the shared mobile scale (18/23) */
+    .pi-bs__card-title {
+      font-size: 18px;
+      line-height: 23px;
+    }
+
     .pi-bs__inner {
       padding-left: 18px;
       padding-right: 18px;

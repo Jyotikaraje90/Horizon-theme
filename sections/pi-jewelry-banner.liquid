@@ -271,7 +271,10 @@
 
     .pi-jb__mobile-img-wrap {
       flex: 1;
-      height: 202px;
+      /* Proportional instead of a fixed 202px height, which made the images
+         change shape at every viewport width (135x202 at 320, 359x202 at
+         768). 170/202 is the ratio from the design at 390px. */
+      aspect-ratio: 170 / 202;
       overflow: hidden;
       position: relative;
       isolation: isolate;
@@ -318,8 +321,33 @@
 
   @media (max-width: 749px) {
     .pi-jb__center { padding: var(--pi-jb-pad-top, 40px) 18px var(--pi-jb-pad-bottom, 30px); }
-    .pi-jb__mobile-imgs { padding: 0 18px; }
-    .pi-jb__heading { font-size: var(--pi-jb-heading-size, 30px); line-height: 1.3; }
+    /* Longhand bottom padding, so this shorthand does not wipe out the
+       40px padding-bottom set in the 989px block above */
+    .pi-jb__mobile-imgs { padding: 0 18px 40px; }
+  }
+
+  /* Shared mobile type scale — matches every other homepage section across
+     the whole mobile range. Kept last so it wins over the blocks above. */
+  @media (max-width: 768px) {
+    .pi-jb__heading {
+      font-size: var(--pi-jb-heading-size, 30px);
+      /* 1.3 x 30px = the 39px in the Figma spec, and it still tracks the
+         mobile heading size setting if that changes */
+      line-height: 1.3;
+    }
+    /* Body copy, so it takes the shared para size */
+    .pi-jb__subheading {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    /* Mobile Btn: hug width, 50px tall, 16/32 padding.
+       16 + 18 line-height + 16 = the 50px height from the spec. */
+    .pi-jb__btn {
+      height: 50px;
+      padding: 16px 32px;
+      font-size: 14px;
+      line-height: 18px;
+    }
   }
 
   #shopify-section-{{ section.id }} {
@@ -365,7 +393,7 @@
     {%- comment -%} Center content {%- endcomment -%}
     <div class="pi-jb__center">
       {%- if section.settings.heading != blank -%}
-        <h2 class="pi-jb__heading">{{ section.settings.heading }}</h2>
+        <h2 class="pi-jb__heading">{{ section.settings.heading | newline_to_br }}</h2>
       {%- endif -%}
       {%- if section.settings.subheading != blank -%}
         <p class="pi-jb__subheading">{{ section.settings.subheading }}</p>
@@ -423,9 +451,10 @@
     { "type": "image_picker", "id": "left_image", "label": "Left image" },
     { "type": "header", "content": "Center content" },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "heading",
       "label": "Heading",
+      "info": "Press Enter to control exactly where the heading breaks on mobile.",
       "default": "Luxury Piercing Jewelry For Every Look"
     },
     {
