@@ -637,10 +637,10 @@
   /* Tablet (768–989): the desktop 3-column grid is too tight here. Drop to a
      2-column grid so all 6 cards (title + 5 photos) sit as equal cells: the
      title stays card #1 (keeping its base 640/489 ratio), the 5 photos fill the
-     rest → [title][photo] / [photo][photo] / [photo][photo]. Hide the deco angel,
-     which rides up over the heading at this width. 990px+ and ≤767 untouched. */
+     rest → [title][photo] / [photo][photo] / [photo][photo]. 990px+ and ≤767
+     untouched. (The deco angel is sized as a small corner accent in the shared
+     768–1279 rule below.) */
   @media (min-width: 768px) and (max-width: 989px) {
-    .pi-tb__deco { display: none; }
     .pi-tb__grid { grid-template-columns: repeat(2, 1fr); }
   }
 
@@ -656,12 +656,11 @@
     }
   }
 
-  /* 1024 band (990–1279): the desktop 3-column grid makes the title cell
-     narrower than at ≥1280, so the fixed 198×326 angel was oversized and
-     overlapped the heading. Tie the deco to the cell height so it scales with
-     the cell — matches the base size at 1279 and shrinks toward 990. (≤989
-     hides it entirely; ≥1280 keeps the base 198×326.) */
-  @media (min-width: 990px) and (max-width: 1279px) {
+  /* Tablet (768–1279): the title cell is much shorter than desktop's tall cell,
+     so a full-size 198×326 angel overlaps the centered heading. Show it instead
+     as a small, fully-visible cherub in the top-left corner that clears the
+     heading. (≤767 hides it entirely; ≥1280 keeps the base 198×326.) */
+  @media (min-width: 768px) and (max-width: 1279px) {
     .pi-tb__deco {
       width: 72px;
       height: auto;
