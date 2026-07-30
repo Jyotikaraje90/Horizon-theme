@@ -321,7 +321,9 @@
 
   @media (max-width: 749px) {
     .pi-jb__center { padding: var(--pi-jb-pad-top, 40px) 18px var(--pi-jb-pad-bottom, 30px); }
-    .pi-jb__mobile-imgs { padding: 0 18px; }
+    /* Longhand bottom padding, so this shorthand does not wipe out the
+       40px padding-bottom set in the 989px block above */
+    .pi-jb__mobile-imgs { padding: 0 18px 40px; }
   }
 
   /* Shared mobile type scale — matches every other homepage section across
@@ -332,6 +334,9 @@
       /* 1.3 x 30px = the 39px in the Figma spec, and it still tracks the
          mobile heading size setting if that changes */
       line-height: 1.3;
+      /* Spread the words evenly across the lines instead of leaving a
+         single short word ("LOOK") stranded on the last line */
+      text-wrap: balance;
     }
     /* Body copy, so it takes the shared para size */
     .pi-jb__subheading {
