@@ -330,7 +330,7 @@
     .pi-nf__nl { height: auto; position: relative; z-index: 3; margin-bottom: -145px; }
     /* 18px inset, same as the other sections. At 390 that gives a 354px card,
        and the 20px inner padding leaves the 314px input width from the spec. */
-    .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 18px; min-height: 290px; background-size: cover; background-position: center; }
+    .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 18px; min-height: 290px; background-size: cover; background-position: center; background-color: #fff; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 30px 20px; gap: 20px; max-width: 100%; }
     .pi-nf__nl-heading { font-size: 30px; line-height: 39px; max-width: 100%; text-align: left; }
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
@@ -372,6 +372,25 @@
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
   }
+
+  /* Card background images, each scoped to its own breakpoint. Previously the
+     desktop image was written as an inline style on the card, so it applied at
+     every width and showed up on mobile too. Inline styles cannot be overridden
+     from here without !important, which would also block the mobile picker. */
+  {%- if section.settings.newsletter_bg_image != blank -%}
+    @media (min-width: 769px) {
+      .pi-nf__nl-card {
+        background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}');
+      }
+    }
+  {%- endif -%}
+  {%- if section.settings.newsletter_mobile_bg_image != blank -%}
+    @media (max-width: 768px) {
+      .pi-nf__nl-card {
+        background-image: url('{{ section.settings.newsletter_mobile_bg_image | image_url: width: 800 }}');
+      }
+    }
+  {%- endif -%}
 </style>
 
 {%- assign quick_link_blocks  = section.blocks | where: "type", "quick_link" -%}
@@ -381,14 +400,7 @@
 {%- comment -%}── NEWSLETTER (white bg from section wrapper) ──{%- endcomment -%}
 <div class="pi-nf__nl">
 
-  <div class="pi-nf__nl-card"
-    {% if section.settings.newsletter_bg_image != blank %}
-      style="background-image: url('{{ section.settings.newsletter_bg_image | image_url: width: 1920 }}')"
-    {% endif %}
-    {% if section.settings.newsletter_mobile_bg_image != blank %}
-      data-mobile-bg="{{ section.settings.newsletter_mobile_bg_image | image_url: width: 800 }}"
-    {% endif %}
-  >
+  <div class="pi-nf__nl-card">
     <div class="pi-nf__nl-inner">
 
       <h2 class="pi-nf__nl-heading">
@@ -567,11 +579,7 @@
 
 <script>
   (function(){
-    if(window.innerWidth > 749) return;
-    var card = document.querySelector('.pi-nf__nl-card');
-    if(card && card.dataset.mobileBg) {
-      card.style.backgroundImage = "url('" + card.dataset.mobileBg + "')";
-    }
+    if(window.innerWidth > 768) return;
     var cols = document.querySelectorAll('.pi-nf__col');
     if(cols.length > 0) cols[0].classList.add('is-open');
     document.querySelectorAll('.pi-nf__col-heading').forEach(function(h){
