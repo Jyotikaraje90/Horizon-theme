@@ -701,7 +701,7 @@
                   {%- endfor -%}
                 </div>
                 {%- if block.settings.review_text != blank -%}
-                  <p class="pi-hc__text">{{ block.settings.review_text }}</p>
+                  <p class="pi-hc__text">{{ block.settings.review_text | newline_to_br }}</p>
                 {%- endif -%}
                 {%- if block.settings.author_name != blank -%}
                   <p class="pi-hc__author">
