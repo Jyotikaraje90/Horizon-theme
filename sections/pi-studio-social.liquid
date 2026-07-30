@@ -503,14 +503,11 @@
       font-size: 18px;
       line-height: 23px;
     }
-    /* Show the full description instead of clamping to 2 lines */
+    /* Kept at the base 2-line clamp */
     .pi-ps__card-desc {
       font-size: 14px;
       line-height: 22px;
-      display: block;
-      -webkit-line-clamp: initial;
-      -webkit-box-orient: initial;
-      overflow: visible;
+      -webkit-line-clamp: 2;
     }
   }
 </style>
