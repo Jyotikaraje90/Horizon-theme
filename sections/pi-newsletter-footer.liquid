@@ -336,7 +336,10 @@
     .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 0; gap: 12px; background: transparent !important; border: none; }
-    .pi-nf__nl-input { height: 53px; padding: 10px 20px; background: #000 !important; color: #fff !important; border: none; border-radius: 8px; font-size: 12px; line-height: 19px; width: 100%; box-sizing: border-box; }
+    /* flex: 0 0 auto cancels the base rule's flex: 1. In this column layout
+       that flex-basis: 0% applies to the height and collapses the box to
+       ~39px, ignoring the 53px below. */
+    .pi-nf__nl-input { flex: 0 0 auto; height: 53px; padding: 10px 20px; background: #000 !important; color: #fff !important; border: none; border-radius: 8px; font-size: 12px; line-height: 19px; width: 100%; box-sizing: border-box; }
     .pi-nf__nl-input::placeholder { color: #fff; opacity: 0.7; }
     .pi-nf__nl-btn { min-width: 139px; height: 50px; padding: 16px 32px; align-self: flex-start; background: #000; color: #fff; font-size: 14px; line-height: 18px; font-weight: 600; border-radius: 8px; box-sizing: border-box; width: auto; }
 
