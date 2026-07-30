@@ -655,6 +655,19 @@
       line-height: 1.2;
     }
   }
+
+  /* 1024 band (990–1279): the desktop 3-column grid makes the title cell
+     narrower than at ≥1280, so the fixed 198×326 angel was oversized and
+     overlapped the heading. Tie the deco to the cell height so it scales with
+     the cell — matches the base size at 1279 and shrinks toward 990. (≤989
+     hides it entirely; ≥1280 keeps the base 198×326.) */
+  @media (min-width: 990px) and (max-width: 1279px) {
+    .pi-tb__deco {
+      height: 100%;
+      width: auto;
+      aspect-ratio: 198 / 326;
+    }
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
