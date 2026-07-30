@@ -237,9 +237,11 @@
      990px+ (1024/desktop) and ≤749 (mobile) are untouched. */
   @media (min-width: 768px) and (max-width: 989px) {
     .pi-au__body { flex-direction: row; align-items: flex-start; gap: 30px; }
-    .pi-au__images { flex: 0 0 330px; width: 330px; height: 340px; }
-    .pi-au__img-top { width: 250px; height: 250px; left: 80px; top: 0; }
-    .pi-au__img-bottom { width: 220px; height: 185px; left: 0; top: 140px; }
+    /* Narrower image column → wider text column → fewer lines → shorter section.
+       Taller composition → fills down beside the text so there's no empty gap. */
+    .pi-au__images { flex: 0 0 300px; width: 300px; height: 470px; }
+    .pi-au__img-top { width: 240px; height: 290px; left: 60px; top: 0; }
+    .pi-au__img-bottom { width: 230px; height: 250px; left: 0; top: 220px; }
     .pi-au__content { flex: 1; width: auto; padding-top: 0; }
   }
 
