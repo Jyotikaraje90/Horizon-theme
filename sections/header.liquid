@@ -1218,6 +1218,17 @@
     }
   }
 
+  /* PI: when the hamburger/drawer layout is active on wider (>=990px) touch
+     screens, align its edges to the page margins instead of hugging the
+     viewport edges (the theme's default touch-duplicate uses flush padding).
+     Scoped to data-menu-style='drawer' so the desktop nav-links layout is
+     untouched. */
+  @media screen and (min-width: 990px) {
+    #header-component[data-menu-style='drawer'] .header__columns {
+      padding-inline: var(--page-margin) !important;
+    }
+  }
+
   /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
   @media screen and (min-width: 750px) {
     .header__row--top .header__columns {
