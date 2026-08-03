@@ -228,12 +228,12 @@
   }
 
   /* ─── Responsive ─────────────────────────── */
-  /* Shared laptop heading step (same breakpoint in every homepage section) */
+  /* The desktop 3-column framed side images are positioned with fixed px offsets
+     sized for a wide (~1920px) canvas, so on narrower screens they overflow their
+     columns and cover the center heading/subheading. Below 1280px we therefore
+     hide them and use the centered layout plus the two-image row (the same
+     treatment that already runs at <=989px). */
   @media (max-width: 1279px) {
-    .pi-jb__heading { font-size: calc(var(--pi-jb-heading-base, 54px) * 0.82); line-height: 1.3; }
-  }
-
-  @media (max-width: 989px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
     .pi-jb__img-col--right { display: none; }
