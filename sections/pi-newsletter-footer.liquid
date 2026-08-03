@@ -306,22 +306,38 @@
   /* ── Responsive ── */
   @media (max-width: 1200px) {
     .pi-nf__nl-card { inset: 0 80px; }
+    /* At these widths the card is narrower than the inner row's 1310px max-width,
+       so the auto-margin breathing room disappears and the heading/form sit flush
+       to the card edges. Add internal padding so the content has room. */
+    .pi-nf__nl-inner { padding-inline: 40px; }
     .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
   @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} { padding-top: 0; }
-    .pi-nf { margin-top: 0; }
-    .pi-nf__nl { height: auto; z-index: auto; }
-    .pi-nf__nl-card { position: static; border-radius: 0; }
+    /* Keep the section's configured top padding so the newsletter card has a gap
+       above it (doesn't touch the section above), matching the desktop view. */
+    /* Overlap the rounded card into the black footer (straddling white/black),
+       matching the phone <=768 and desktop >=990 treatments. The card is pulled
+       up via the newsletter's negative margin-bottom while .pi-nf's padding-top
+       keeps the footer content clear of the overlap. */
+    .pi-nf { margin-top: 0; padding-top: 145px; }
+    .pi-nf__nl { height: auto; z-index: 3; position: relative; margin-bottom: -125px; }
+    .pi-nf__nl-card { position: static; border-radius: 20px; margin: 0 40px; min-height: 246px; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 40px; gap: 24px; max-width: 100%; }
     .pi-nf__nl-heading { color: #000; }
     .pi-nf__nl-form-wrap { max-width: 100%; }
     .pi-nf__footer-body { padding-top: 40px; padding-left: 40px; padding-right: 40px; }
     .pi-nf__footer-inner { flex-wrap: wrap; }
     .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
-    .pi-nf__col { border-bottom: 1px solid #808080; }
-    .pi-nf__vdivider { display: none; }
+    /* No per-column bottom lines in the 769-989 range — the columns sit in a row
+       here (not stacked), so those borders read as stray lines under each column.
+       The phone <=768 accordion sets its own borders and is unaffected. */
+    /* Show vertical dividers between the link columns (like desktop), but hide the
+       one right after the brand block — the brand wraps to its own row here, so
+       that divider would otherwise appear as a stray leading line before the
+       first column. */
+    .pi-nf__vdivider { display: block; }
+    .pi-nf__brand + .pi-nf__vdivider { display: none; }
     .pi-nf__copyright { padding-left: 40px; padding-right: 40px; height: auto; padding-top: 12px; padding-bottom: 12px; }
     .pi-nf__copyright-inner { flex-wrap: wrap; }
   }
@@ -333,7 +349,10 @@
     .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 18px; min-height: 290px; background-size: cover; background-position: center; background-color: #fff; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 30px 20px; gap: 20px; max-width: 100%; }
     .pi-nf__nl-heading { font-size: 30px; line-height: 39px; max-width: 100%; text-align: left; }
-    .pi-nf__nl-form-wrap { max-width: 100%; width: 100%; }
+    /* Cap the field so it doesn't stretch edge-to-edge on wide phones/small
+       tablets (e.g. 768px). On true phones the card content is already narrower
+       than this cap, so the 314px Figma spec at ~390px is unaffected. */
+    .pi-nf__nl-form-wrap { max-width: 440px; width: 100%; }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 0; gap: 12px; background: transparent !important; border: none; }
     /* flex: 0 0 auto cancels the base rule's flex: 1. In this column layout
