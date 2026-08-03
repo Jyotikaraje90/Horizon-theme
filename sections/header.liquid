@@ -1229,6 +1229,20 @@
     }
   }
 
+  /* PI: at laptop widths (1200–1440px) the full nav is tight beside the logo,
+     the action icons and the INQUIRE button, so tighten the item spacing and
+     padding to keep all five links inline (avoids the "More" overflow). Wide
+     desktop (>1440px) keeps the roomier default spacing from the reference. */
+  @media screen and (min-width: 1200px) and (max-width: 1440px) {
+    #header-component .header .menu-list {
+      --menu-horizontal-gap: 12px;
+    }
+
+    #header-component .menu-list__link-title {
+      padding-inline: 6px;
+    }
+  }
+
   /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
   @media screen and (min-width: 750px) {
     .header__row--top .header__columns {

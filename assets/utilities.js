@@ -708,7 +708,14 @@ export function setHeaderMenuStyle() {
     window.requestAnimationFrame(() => {
       const overflowList = headerComponent?.querySelector('overflow-list');
       const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-      headerComponent.dataset.menuStyle = isTouchDevice() || hasReachedMinimum ? 'drawer' : 'menu';
+      // PI: at >=1200px always use the inline desktop nav (menu mode) so laptops
+      // — including touch laptops and DevTools — get the full nav, not the mobile
+      // hamburger. Uses menu mode (not a CSS hack) so the desktop grid applies and
+      // nothing overlaps. Below 1200px keep the theme default (drawer on touch or
+      // genuine overflow).
+      const belowLaptop = window.innerWidth < 1200;
+      const forceDrawer = belowLaptop && (isTouchDevice() || hasReachedMinimum);
+      headerComponent.dataset.menuStyle = forceDrawer ? 'drawer' : 'menu';
     });
   }
 }
