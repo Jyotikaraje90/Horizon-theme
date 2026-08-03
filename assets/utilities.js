@@ -708,7 +708,12 @@ export function setHeaderMenuStyle() {
     window.requestAnimationFrame(() => {
       const overflowList = headerComponent?.querySelector('overflow-list');
       const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-      headerComponent.dataset.menuStyle = isTouchDevice() || hasReachedMinimum ? 'drawer' : 'menu';
+      // PI: only fall back to the hamburger drawer on touch devices below the
+      // laptop breakpoint (1200px). At >=1200px always use the inline desktop
+      // nav, so large/touch laptops get the menu instead of the mobile drawer.
+      // (hasReachedMinimum still forces the drawer if the nav genuinely overflows.)
+      const belowLaptop = window.innerWidth < 1200;
+      headerComponent.dataset.menuStyle = (isTouchDevice() && belowLaptop) || hasReachedMinimum ? 'drawer' : 'menu';
     });
   }
 }
