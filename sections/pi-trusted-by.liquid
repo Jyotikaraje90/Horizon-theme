@@ -203,6 +203,12 @@
     .pi-tb__photo { height: var(--pi-tb-mobile-photo-height, 200px); }
   }
 
+  /* Hide the decorative sketch beside the heading on tablet widths only.
+     Kept on desktop (>=1025px) and on mobile (<=749px). */
+  @media (min-width: 750px) and (max-width: 1024px) {
+    .pi-tb__deco { display: none; }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
