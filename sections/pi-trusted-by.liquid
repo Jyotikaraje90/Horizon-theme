@@ -209,6 +209,21 @@
     .pi-tb__deco { display: none !important; }
   }
 
+  /* Laptop range (1280–1775px): the text-panel column is far narrower than the
+     ~640px desktop column, so the full-size 197px sketch reached into the
+     centered heading. Scale it down and pin it to the panel's top-left corner
+     so it reads as a corner accent and clears the text — the same way it sits
+     clear of the heading on the wide desktop layout. */
+  @media (min-width: 1280px) and (max-width: 1775px) {
+    .pi-tb__deco {
+      width: min(6vw, 120px);
+      height: auto;
+      top: 0;
+      left: 0;
+    }
+    .pi-tb__deco img { height: auto; }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
