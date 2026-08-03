@@ -708,12 +708,14 @@ export function setHeaderMenuStyle() {
     window.requestAnimationFrame(() => {
       const overflowList = headerComponent?.querySelector('overflow-list');
       const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-      // PI: only fall back to the hamburger drawer on touch devices below the
-      // laptop breakpoint (1200px). At >=1200px always use the inline desktop
-      // nav, so large/touch laptops get the menu instead of the mobile drawer.
-      // (hasReachedMinimum still forces the drawer if the nav genuinely overflows.)
+      // PI: at >=1200px ALWAYS use the inline desktop nav — never the hamburger.
+      // The overflow "More" button absorbs any overflow, and a transient
+      // minimum-reached during initial layout must not collapse the whole nav to
+      // a drawer (that made the nav flicker to a hamburger on some loads).
+      // Below 1200px keep the original behaviour: drawer on touch or real overflow.
       const belowLaptop = window.innerWidth < 1200;
-      headerComponent.dataset.menuStyle = (isTouchDevice() && belowLaptop) || hasReachedMinimum ? 'drawer' : 'menu';
+      const forceDrawer = belowLaptop && (isTouchDevice() || hasReachedMinimum);
+      headerComponent.dataset.menuStyle = forceDrawer ? 'drawer' : 'menu';
     });
   }
 }
