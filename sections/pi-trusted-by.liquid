@@ -203,9 +203,9 @@
     .pi-tb__photo { height: var(--pi-tb-mobile-photo-height, 200px); }
   }
 
-  /* Hide the decorative sketch beside the heading on tablet widths only.
-     Kept on desktop (>=1025px) and on mobile (<=749px). */
-  @media (min-width: 750px) and (max-width: 1024px) {
+  /* Hide the decorative sketch beside the heading on all non-desktop widths
+     (tablet and mobile). Kept only on desktop (>=1025px). */
+  @media (max-width: 1024px) {
     .pi-tb__deco { display: none; }
   }
 
