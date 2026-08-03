@@ -319,6 +319,34 @@
     }
   }
 
+  /* ─── Laptop range (1280–1775px) ─────────────────────────
+     The desktop side frames use fixed px offsets (left:110px / left:40px +
+     387px wide) sized for a ~1920px canvas. Between 1280px and ~1775px the
+     side columns are too narrow to contain them, so the frames spill into the
+     center column and clip the heading/subheading. Here we anchor each frame
+     to its own column's outer edge and cap its width to a share of the column,
+     so it can never reach the center text. Above 1775px the columns are wide
+     enough and the original fixed-px layout (matching the desktop design)
+     takes over unchanged. */
+  @media (min-width: 1280px) and (max-width: 1775px) {
+    .pi-jb__img-col--left .pi-jb__frame {
+      left: 8%;
+      top: 50px;
+      width: min(387px, 84%);
+      height: auto;
+      aspect-ratio: 387 / 456;
+    }
+
+    .pi-jb__img-col--right .pi-jb__frame {
+      left: auto;
+      right: 8%;
+      top: 144px;
+      width: min(387px, 84%);
+      height: auto;
+      aspect-ratio: 387 / 456;
+    }
+  }
+
   @media (max-width: 749px) {
     .pi-jb__center { padding: var(--pi-jb-pad-top, 40px) 18px var(--pi-jb-pad-bottom, 30px); }
     /* Longhand bottom padding, so this shorthand does not wipe out the
