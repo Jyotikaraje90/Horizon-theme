@@ -675,8 +675,11 @@
      clears the text. ≤1279px hides it; ≥1776px keeps the base 198×326. */
   @media (min-width: 1280px) and (max-width: 1775px) {
     .pi-tb__deco {
-      width: min(7vw, 110px);
+      width: min(6vw, 90px);
       height: auto;
+      left: 0;            /* was -30px — kept it fully on-screen, not clipped */
+      top: 50%;           /* vertically centre it beside the heading */
+      transform: translateY(-50%);
     }
     .pi-tb__deco img { height: auto; }
   }
