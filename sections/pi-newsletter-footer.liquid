@@ -306,6 +306,10 @@
   /* ── Responsive ── */
   @media (max-width: 1200px) {
     .pi-nf__nl-card { inset: 0 80px; }
+    /* At these widths the card is narrower than the inner row's 1310px max-width,
+       so the auto-margin breathing room disappears and the heading/form sit flush
+       to the card edges. Add internal padding so the content has room. */
+    .pi-nf__nl-inner { padding-inline: 40px; }
     .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
