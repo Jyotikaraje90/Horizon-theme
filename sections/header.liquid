@@ -1229,6 +1229,21 @@
     }
   }
 
+  /* PI: at >=1200px show the inline nav and hide the hamburger on first paint,
+     so there's no hamburger flash before header.js runs. Safe against overlap
+     because the JS keeps data-menu-style out of 'drawer' at >=1200px, so the
+     mobile grid (centered logo, no nav column) never activates here. */
+  @media screen and (min-width: 1200px) {
+    #header-component .header-menu {
+      display: flex !important;
+    }
+
+    #header-component .header__drawer,
+    #header-component .header__navigation-bar-row {
+      display: none !important;
+    }
+  }
+
   /* PI: at laptop widths (1200–1440px) the full nav is tight beside the logo,
      the action icons and the INQUIRE button, so tighten the item spacing and
      padding to keep all five links inline (avoids the "More" overflow). Wide
