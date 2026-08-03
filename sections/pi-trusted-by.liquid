@@ -203,10 +203,10 @@
     .pi-tb__photo { height: var(--pi-tb-mobile-photo-height, 200px); }
   }
 
-  /* Hide the decorative sketch beside the heading on all non-desktop widths
-     (tablet and mobile). Kept only on desktop (>=1025px). */
-  @media (max-width: 1024px) {
-    .pi-tb__deco { display: none; }
+  /* Hide the decorative sketch beside the heading on all tablet/laptop and
+     mobile widths. Kept only on true desktop (>=1280px). */
+  @media (max-width: 1279px) {
+    .pi-tb__deco { display: none !important; }
   }
 
   #shopify-section-{{ section.id }} {
