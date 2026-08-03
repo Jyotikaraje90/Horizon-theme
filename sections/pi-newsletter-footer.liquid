@@ -314,7 +314,8 @@
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
   @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} { padding-top: 0; }
+    /* Keep the section's configured top padding so the newsletter card has a gap
+       above it (doesn't touch the section above), matching the desktop view. */
     /* Overlap the rounded card into the black footer (straddling white/black),
        matching the phone <=768 and desktop >=990 treatments. The card is pulled
        up via the newsletter's negative margin-bottom while .pi-nf's padding-top
@@ -328,7 +329,9 @@
     .pi-nf__footer-body { padding-top: 40px; padding-left: 40px; padding-right: 40px; }
     .pi-nf__footer-inner { flex-wrap: wrap; }
     .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
-    .pi-nf__col { border-bottom: 1px solid #808080; }
+    /* No per-column bottom lines in the 769-989 range — the columns sit in a row
+       here (not stacked), so those borders read as stray lines under each column.
+       The phone <=768 accordion sets its own borders and is unaffected. */
     .pi-nf__vdivider { display: none; }
     .pi-nf__copyright { padding-left: 40px; padding-right: 40px; height: auto; padding-top: 12px; padding-bottom: 12px; }
     .pi-nf__copyright-inner { flex-wrap: wrap; }
