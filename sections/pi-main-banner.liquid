@@ -43,6 +43,10 @@
     overflow: hidden;
     border-radius: var(--pi-hero-border-radius, 20px);
     clip-path: inset(0 round var(--pi-hero-border-radius, 20px));
+    /* Dark backdrop so sub-pixel seams between the grid/flex image cells show
+       near-black (invisible against the images) instead of the white page
+       background bleeding through as hairline lines. */
+    background-color: #000;
   }
 
   .pi-hero__main {
@@ -107,7 +111,10 @@
     letter-spacing: 0;
     margin: 0;
     max-width: 100%;
-    white-space: nowrap;
+    /* Allow wrapping so the subheading never gets clipped when the main column
+       is too narrow for one line (e.g. at 1024px). It still renders on a single
+       line on wide screens where it fits. */
+    white-space: normal;
   }
 
   .pi-hero__btn {
