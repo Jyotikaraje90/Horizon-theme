@@ -1163,6 +1163,24 @@
 
   /* PI: tablet header — match mobile layout with proper spacing */
   @media screen and (min-width: 750px) and (max-width: 989px) {
+    /* Force the hamburger drawer and hide the inline nav links in the tablet
+       range, regardless of the JS-decided data-menu-style (which is 'menu' in
+       non-touch responsive previews because the links technically fit). */
+    #header-component .header-menu,
+    #header-component[data-menu-style='menu'] .header-menu,
+    #header-component .dropdown-localization,
+    #header-component[data-menu-style='menu'] .dropdown-localization {
+      display: none !important;
+    }
+
+    #header-component .header__drawer,
+    #header-component[data-menu-style='menu'] .header__drawer {
+      display: flex !important;
+      min-height: 44px;
+      grid-area: leftA;
+      align-items: center;
+    }
+
     .header__columns,
     #header-component[data-menu-style='drawer'] .header__columns {
       --header-template-columns: 44px auto 1fr auto !important;
