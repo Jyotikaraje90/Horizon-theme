@@ -332,7 +332,12 @@
     /* No per-column bottom lines in the 769-989 range — the columns sit in a row
        here (not stacked), so those borders read as stray lines under each column.
        The phone <=768 accordion sets its own borders and is unaffected. */
-    .pi-nf__vdivider { display: none; }
+    /* Show vertical dividers between the link columns (like desktop), but hide the
+       one right after the brand block — the brand wraps to its own row here, so
+       that divider would otherwise appear as a stray leading line before the
+       first column. */
+    .pi-nf__vdivider { display: block; }
+    .pi-nf__brand + .pi-nf__vdivider { display: none; }
     .pi-nf__copyright { padding-left: 40px; padding-right: 40px; height: auto; padding-top: 12px; padding-bottom: 12px; }
     .pi-nf__copyright-inner { flex-wrap: wrap; }
   }
