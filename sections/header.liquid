@@ -1229,23 +1229,6 @@
     }
   }
 
-  /* PI: at laptop/desktop widths (>=1200px) render the inline nav and hide the
-     hamburger via CSS immediately — do NOT wait for header.js to set
-     data-menu-style, otherwise the hamburger flashes for one frame on every
-     load (the visible "flicker"). Pairs with the JS rule that keeps
-     data-menu-style = 'menu' at >=1200px. */
-  @media screen and (min-width: 1200px) {
-    #header-component .header-menu,
-    #header-component .dropdown-localization {
-      display: flex !important;
-    }
-
-    #header-component .header__drawer,
-    #header-component .header__navigation-bar-row {
-      display: none !important;
-    }
-  }
-
   /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
   @media screen and (min-width: 750px) {
     .header__row--top .header__columns {
