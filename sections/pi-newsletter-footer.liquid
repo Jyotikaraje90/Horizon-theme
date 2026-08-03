@@ -315,12 +315,13 @@
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} { padding-top: 0; }
-    .pi-nf { margin-top: 0; }
-    .pi-nf__nl { height: auto; z-index: auto; }
-    /* Keep the newsletter as a rounded, inset card on tablet too (matches the
-       phone <=768 and desktop >=990 treatments). Static positioning avoids the
-       desktop overlap trick, and the side margin insets it from the edges. */
-    .pi-nf__nl-card { position: static; border-radius: 20px; margin: 0 40px; }
+    /* Overlap the rounded card into the black footer (straddling white/black),
+       matching the phone <=768 and desktop >=990 treatments. The card is pulled
+       up via the newsletter's negative margin-bottom while .pi-nf's padding-top
+       keeps the footer content clear of the overlap. */
+    .pi-nf { margin-top: 0; padding-top: 145px; }
+    .pi-nf__nl { height: auto; z-index: 3; position: relative; margin-bottom: -125px; }
+    .pi-nf__nl-card { position: static; border-radius: 20px; margin: 0 40px; min-height: 246px; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 40px 40px; gap: 24px; max-width: 100%; }
     .pi-nf__nl-heading { color: #000; }
     .pi-nf__nl-form-wrap { max-width: 100%; }
