@@ -1410,4 +1410,39 @@
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
   }
+
+  /* PI: mobile + tablet menu drawer — slide in from the right (matching the
+     hamburger, which sits in the right-most header column) and cover half the
+     screen instead of 95vw / 25rem. Bounded at 1199px, which is every width
+     where the hamburger is reachable at all: from 1200px up the header shows
+     the inline nav and hides .header__drawer entirely.
+     width/max-width are set directly rather than through --drawer-width so the
+     base `@media (min-width: 750px) { width: 25rem }` is also overridden, and
+     the global --drawer-* vars are left alone because the collection filters
+     drawer reads the same two. */
+  @media screen and (max-width: 1199px) {
+    .menu-drawer {
+      width: 50vw;
+      max-width: 50vw;
+      left: auto;
+      right: 0;
+      transform: translateX(100%);
+      border-right: none;
+      border-left: var(--style-border-drawer);
+    }
+
+    /* Submenu panels slide in from the right edge to match the parent drawer */
+    .menu-drawer__submenu {
+      transform: translateX(5%);
+    }
+
+    /* The summary's default `padding: var(--padding-lg)` puts 16px between the
+       icon and the box edge, which stops the negative margin in header.liquid
+       from getting the lines close to the corner. Trim the end padding only —
+       the start padding keeps the gap from the INQUIRE NOW button, and the
+       block padding keeps the tap target full-height. */
+    .menu-drawer-container .header__icon--summary {
+      padding-inline-end: 8px;
+    }
+  }
 {% endstylesheet %}
