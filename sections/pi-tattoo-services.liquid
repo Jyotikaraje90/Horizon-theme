@@ -300,8 +300,14 @@
       position: absolute;
       top: 0;
       transform: translateY(-50%);
-      left: -17px;
-      right: -17px;
+
+      /* Flush with the carousel edges, not -17px outside them. The arrows are
+         35px wide, so -17px centred each on the container edge and left the next
+         arrow ~1px from the viewport edge wherever the section gutter is 18px —
+         looking cut off, and sitting under the scrollbar in a real browser.
+         Matches pi-best-sellers and pi-studio-social. */
+      left: 0;
+      right: 0;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;

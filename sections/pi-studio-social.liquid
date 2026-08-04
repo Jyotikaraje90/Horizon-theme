@@ -386,8 +386,13 @@
       position: absolute;
       top: 0;
       transform: translateY(-50%);
-      left: -17px;
-      right: -17px;
+
+      /* Flush with the carousel edges, not -17px outside them — see the same
+         change in pi-best-sellers and pi-tattoo-services. The 35px arrows were
+         centred on the container edge, which put the next arrow ~1px from the
+         viewport edge wherever the gutter is 18px. */
+      left: 0;
+      right: 0;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
