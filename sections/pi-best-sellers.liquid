@@ -435,8 +435,15 @@
       position: absolute;
       top: 0;
       transform: translateY(-50%);
-      left: -17px;
-      right: -17px;
+
+      /* Flush with the carousel edges, not -17px outside them. The arrows are
+         35px wide, so a -17px offset centred each one on the container edge —
+         and since the section gutter here is only 18px, that left the next arrow
+         1px from the viewport edge at every width, looking cut off (and sitting
+         under the scrollbar in a real browser). At 0 they sit just inside the
+         card edges and inherit the section's gutter as clearance. */
+      left: 0;
+      right: 0;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
