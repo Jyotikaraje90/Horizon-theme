@@ -1354,6 +1354,37 @@
     }
   }
 
+  /* PI: stop the "More" chip reserving width during overflow-list's fit test, so
+     all five top-level links stay inline instead of the last one (RESOURCES)
+     being pushed into a More dropdown.
+
+     overflow-list measures by un-hiding the More chip, switching the row to
+     flex-wrap and seeing which items land on a second row. Measured at 1440: the
+     chip is 83px wide but only 54px of clearance remains, so RESOURCES wrapped
+     and was moved into the overflow slot. Because the reflow only re-runs on
+     resize/mutation, a fresh load could look fine and then break on the next
+     reflow — which is why it appeared intermittently.
+
+     Zeroing the chip's reserved width means nothing overflows, and the component
+     then hides More on its own (`moreSlot.hidden = !hasOverflow`) — no JS and no
+     fighting the component. It also lets 1440 and 1920 stay at scale 1.0, i.e.
+     pixel-identical to the desktop design.
+
+     Width is driven by --overflow-count (which overflow-list sets on its host
+     after every pass) rather than hard-coded to 0, so if the menu ever genuinely
+     outgrows the row the chip regains width and those links stay reachable
+     instead of silently vanishing.
+
+     Scoped to >=1200px: below that the inline nav is hidden in favour of the
+     hamburger drawer, so normal overflow behaviour is left untouched. */
+  @media screen and (min-width: 1200px) {
+    #header-component .overflow-menu::part(more) {
+      width: calc(var(--overflow-count, 0) * 90px);
+      min-width: 0;
+      overflow: hidden;
+    }
+  }
+
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
     .header__row--top {
       --pi-header-scale: 0.84;
