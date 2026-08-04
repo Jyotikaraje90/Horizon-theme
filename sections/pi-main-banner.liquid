@@ -192,7 +192,17 @@
 
     .pi-hero__main {
       height: 65vw;
-      min-height: 320px;
+
+      /* 380px, not 320px. .pi-hero__main-content is absolutely positioned, so it
+         cannot push this box taller; at 481-508px the content needed 331px against
+         a 320px box and BOOK AN APPOINTMENT hung 11px past the bottom, on top of
+         the side tiles (which start exactly at this box's bottom edge).
+         380px = 40 top + h1 3x42 + 20 gap + p 3x26 + 20 gap + 50 button + 40
+         bottom, i.e. the mobile type scale's worst-case wrap with the same 40px
+         breathing room at the bottom as the top. Only binds below ~585px, where
+         65vw is smaller than this; wider viewports are unchanged, and <=480px is
+         overridden by its own fixed-height block further down. */
+      min-height: 380px;
       max-height: 520px;
     }
 
