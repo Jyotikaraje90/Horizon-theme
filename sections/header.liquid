@@ -1246,6 +1246,48 @@
     }
   }
 
+  /* PI: small-laptop / landscape-tablet band (990–1199px). Same arrangement as
+     the 750–989px block: logo left, then search + action icons + INQUIRE NOW,
+     with the hamburger last. Replaces the theme's default drawer grid, which
+     centers the logo and puts the hamburger and search on the far left.
+     Scoped to data-menu-style='drawer' so that when the JS decides the inline
+     nav links fit, that layout is left completely alone. */
+  @media screen and (min-width: 990px) and (max-width: 1199px) {
+    #header-component[data-menu-style='drawer'] .header__columns {
+      --header-template-columns: auto 1fr 44px auto 44px !important;
+
+      grid-template-areas: 'leftB center rightA rightB leftA' !important;
+    }
+
+    /* Logo: centre → first (left-most) track */
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      grid-area: leftB !important;
+      justify-self: start;
+    }
+
+    /* Search: far left → immediately before the wishlist icon. No display
+       override here: the header renders two .search-action copies (one tagged
+       --hidden-on-drawer, one --hidden-on-menu) and forcing display would show
+       both. Placing them in the same area is fine — the other stays hidden. */
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      grid-area: rightA !important;
+      justify-self: end;
+    }
+
+    /* Wishlist / account / cart / INQUIRE NOW */
+    #header-component[data-menu-style='drawer'] .header__columns header-actions {
+      grid-area: rightB !important;
+      justify-self: end;
+    }
+
+    /* Hamburger: last track, after INQUIRE NOW */
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      grid-area: leftA !important;
+      justify-self: end;
+      align-items: center;
+    }
+  }
+
   /* PI: at >=1200px show the inline nav and hide the hamburger on first paint,
      so there's no hamburger flash before header.js runs. Safe against overlap
      because the JS keeps data-menu-style out of 'drawer' at >=1200px, so the
