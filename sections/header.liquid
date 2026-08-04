@@ -1517,6 +1517,15 @@
     gap: 10px;
   }
 
+  /* The label carries `padding-inline: 20px !important` from base.css, and on a
+     caret link that 20px lands between the text and the chevron — so the gap read
+     as 29px instead of the 10px above. Drop the end padding on caret links only.
+     Spacing to the next nav item is unaffected: that comes from the next item's
+     own 20px start padding, which sits after the caret. */
+  #header-component .pi-menu-link-with-caret .menu-list__link-title {
+    padding-inline-end: 0 !important;
+  }
+
   .pi-menu-caret {
     display: inline-flex;
     align-items: center;
