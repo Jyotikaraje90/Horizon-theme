@@ -109,7 +109,16 @@
           const isTouchDevice = 'ontouchstart' in window && navigator.maxTouchPoints > 0;
           const overflowList = headerComponent?.querySelector('overflow-list');
           const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-          headerComponent.dataset.menuStyle = isTouchDevice || hasReachedMinimum ? 'drawer' : 'menu';
+          // PI: keep in sync with setHeaderMenuStyle() in utilities.js — at >=1200px
+          // always use the inline desktop nav. Without this guard, first paint set
+          // 'drawer' on touch laptops (and whenever minimum-reached was latched),
+          // which applied the drawer's mobile grid (logo -> center, search -> leftB,
+          // .header__column -> display: contents) while the >=1200px CSS force-shows
+          // the inline nav. The nav then had almost no width, so overflow-list
+          // collapsed it to "HOME + More" and everything overlapped on refresh.
+          const belowLaptop = window.innerWidth < 1200;
+          const forceDrawer = belowLaptop && (isTouchDevice || hasReachedMinimum);
+          headerComponent.dataset.menuStyle = forceDrawer ? 'drawer' : 'menu';
         }
       })();
     </script>
