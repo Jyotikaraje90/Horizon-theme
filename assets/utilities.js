@@ -706,15 +706,21 @@ export function setHeaderMenuStyle() {
   const headerComponent = /** @type {HTMLElement} | null */ (document.querySelector('#header-component'));
   if (headerComponent) {
     window.requestAnimationFrame(() => {
-      const overflowList = headerComponent?.querySelector('overflow-list');
-      const hasReachedMinimum = overflowList && overflowList.hasAttribute('minimum-reached');
-      // PI: at >=1200px always use the inline desktop nav (menu mode) so laptops
-      // — including touch laptops and DevTools — get the full nav, not the mobile
-      // hamburger. Uses menu mode (not a CSS hack) so the desktop grid applies and
-      // nothing overlaps. Below 1200px keep the theme default (drawer on touch or
-      // genuine overflow).
-      const belowLaptop = window.innerWidth < 1200;
-      const forceDrawer = belowLaptop && (isTouchDevice() || hasReachedMinimum);
+      // PI: decide purely on width — >=1200px the inline desktop nav, below that
+      // the hamburger drawer. Keep in sync with the inline copy in theme.liquid.
+      //
+      // This used to also require `isTouchDevice() || hasReachedMinimum` below
+      // 1200px, which left 750-989px broken on any non-touch browser: the tablet
+      // CSS hides .header-menu, so overflow-list can never report minimum-reached,
+      // so neither condition was ever true and the style stayed 'menu'. With
+      // 'menu', .header__column keeps `display: flex` instead of `contents`, so
+      // the columns themselves become the grid items carrying `grid-area: left` /
+      // `right` — names absent from the tablet template
+      // ('leftB center rightB leftA'). The browser then invented implicit tracks
+      // (measured: 6 columns, 3 rows) and stacked the left and right columns on
+      // top of each other, so the logo and hamburger vanished behind the action
+      // icons. It only looked correct in DevTools device mode, which reports touch.
+      const forceDrawer = window.innerWidth < 1200;
       headerComponent.dataset.menuStyle = forceDrawer ? 'drawer' : 'menu';
     });
   }
