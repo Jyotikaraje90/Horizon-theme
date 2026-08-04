@@ -1515,13 +1515,19 @@
     display: flex;
     align-items: center;
     gap: 10px;
+
+    /* Re-adds, after the chevron, the 20px removed from the label below. Without
+       it the caret sat only 20px from the next link (that link's own start
+       padding) while plain links are 40px apart — 20 + 20 — so SERVICES and
+       RESOURCES read as crowding their neighbours. The 20px is moved rather than
+       deleted, so item widths are unchanged overall. */
+    padding-inline-end: 20px;
   }
 
   /* The label carries `padding-inline: 20px !important` from base.css, and on a
      caret link that 20px lands between the text and the chevron — so the gap read
-     as 29px instead of the 10px above. Drop the end padding on caret links only.
-     Spacing to the next nav item is unaffected: that comes from the next item's
-     own 20px start padding, which sits after the caret. */
+     as 29px instead of the 10px above. Drop the end padding on caret links only;
+     the wrapper above puts the same 20px back on the far side of the caret. */
   #header-component .pi-menu-link-with-caret .menu-list__link-title {
     padding-inline-end: 0 !important;
   }
