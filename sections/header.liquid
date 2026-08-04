@@ -1383,6 +1383,28 @@
       min-width: 0;
       overflow: hidden;
     }
+
+    /* Belt and braces on the same problem. overflow-list decides what fits by
+       setting `flex-wrap: wrap` on the row and seeing which items land on a
+       second line. That measurement is not reliable here: on a resize it can run
+       before the zoom above has been applied, compare the old item sizes against
+       the new container, and conclude that everything overflows — collapsing the
+       entire nav to just "More" and latching there until the next reload, which
+       is why a refresh restored the full nav.
+
+       Forcing nowrap means nothing can wrap, so every item reports the same
+       offsetTop, `hasOverflow` stays false, and the component keeps all five
+       links inline and hides More on its own. Immune to when the measurement
+       runs. !important is needed to beat the inline style the component sets.
+
+       Safe because the zoom bands guarantee the links fit at every width >=1200px
+       (verified 1200-1920), and below 1200px the inline nav is hidden in favour
+       of the drawer. The trade-off: this also removes the --overflow-count escape
+       hatch above, so if menu items are ever added the links would crowd rather
+       than fold into More — re-tune the bands if the menu changes. */
+    #header-component .overflow-menu::part(list) {
+      flex-wrap: nowrap !important;
+    }
   }
 
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
