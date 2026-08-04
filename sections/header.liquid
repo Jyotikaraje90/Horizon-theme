@@ -1316,17 +1316,73 @@
     }
   }
 
-  /* PI: at laptop widths (1200–1440px) the full nav is tight beside the logo,
-     the action icons and the INQUIRE button, so tighten the item spacing and
-     padding to keep all five links inline (avoids the "More" overflow). Wide
-     desktop (>1440px) keeps the roomier default spacing from the reference. */
-  @media screen and (min-width: 1200px) and (max-width: 1440px) {
-    #header-component .header .menu-list {
-      --menu-horizontal-gap: 12px;
-    }
+  /* PI: laptop widths — scale the whole navbar down proportionally so it reads
+     as the same design as desktop, just slightly smaller.
 
-    #header-component .menu-list__link-title {
-      padding-inline: 6px;
+     Replaces an earlier attempt that tightened --menu-horizontal-gap to 12px
+     and link padding to 6px. That block was dead CSS on both counts, measured
+     in a browser:
+       1. `#header-component .header .menu-list` never matched — #header-component
+          IS the .header element (<header-component class="header">), so there is
+          no .header descendant.
+       2. `#header-component .menu-list__link-title { padding-inline: 6px }` lost
+          to `.menu-list__link-title { padding-inline: 20px !important }` in
+          base.css.
+     Note --menu-horizontal-gap is inert for the top-level row anyway:
+     `.overflow-menu::part(list) { gap: 0 }` zeroes it, so all link spacing comes
+     from that base.css padding.
+
+     Consequence: full desktop metrics applied at every width >=1200px, and the
+     nav ran into the search icon — measured overlap of 106px at 1280 and 20px
+     at 1366. 1440 and 1920 were always fine (+54px and +144px of clearance), so
+     they get no scaling at all and stay pixel-identical to the desktop design.
+
+     Scaling with `zoom` (not transform: scale) because zoom participates in
+     layout, so the grid still tracks the shrunken content and the row keeps its
+     95px height. Applied to the two .header__column children rather than
+     .header__columns so the grid itself still spans the full page width.
+
+     Factors come from a model fitted to browser measurements —
+     gap = contentW - 1280*f - 16, where contentW = min(1440, viewport - 80) —
+     which reproduced every sample within 2px. Each band's factor is the one that
+     is safe at that band's LOWER bound, so there is no width inside a band where
+     the nav collides. Bands are >=40px wide so a target resolves to the same
+     band whether or not the platform reserves scrollbar width (0-17px). */
+  @media screen and (min-width: 1200px) {
+    .header__row--top .header__columns > .header__column {
+      zoom: var(--pi-header-scale, 1);
+    }
+  }
+
+  @media screen and (min-width: 1200px) and (max-width: 1259px) {
+    .header__row--top {
+      --pi-header-scale: 0.84;
+    }
+  }
+
+  /* covers 1280-wide viewports on any platform */
+  @media screen and (min-width: 1260px) and (max-width: 1299px) {
+    .header__row--top {
+      --pi-header-scale: 0.88;
+    }
+  }
+
+  @media screen and (min-width: 1300px) and (max-width: 1339px) {
+    .header__row--top {
+      --pi-header-scale: 0.9;
+    }
+  }
+
+  /* covers 1366-wide viewports on any platform */
+  @media screen and (min-width: 1340px) and (max-width: 1379px) {
+    .header__row--top {
+      --pi-header-scale: 0.94;
+    }
+  }
+
+  @media screen and (min-width: 1380px) and (max-width: 1419px) {
+    .header__row--top {
+      --pi-header-scale: 0.97;
     }
   }
 
