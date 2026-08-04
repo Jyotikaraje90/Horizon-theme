@@ -1184,7 +1184,9 @@
       display: none !important;
     }
 
-    /* Hamburger sits in the last track, after the INQUIRE NOW button */
+    /* Hamburger sits in the last track, after the INQUIRE NOW button, pulled
+       out past the 40px page margin so it sits closer to the viewport edge.
+       Only the hamburger shifts — the icons and INQUIRE NOW keep their margin. */
     #header-component .header__drawer,
     #header-component[data-menu-style='menu'] .header__drawer {
       display: flex !important;
@@ -1192,6 +1194,7 @@
       grid-area: leftA;
       align-items: center;
       justify-self: end;
+      margin-inline-end: -20px;
     }
 
     /* Track order flipped so leftA (the hamburger) is the right-most column */
