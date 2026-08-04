@@ -1187,34 +1187,35 @@
     }
 
     /* Hamburger sits in the last track, after the INQUIRE NOW button, pulled
-       out past the 40px page margin so the icon sits ~14px from the viewport
+       out past the 20px page padding so the icon sits ~14px from the viewport
        edge. Only the hamburger shifts — the icons and INQUIRE NOW keep their
-       margin. -34px stays inside the 40px padding, so nothing overflows. */
+       inset. -14px stays inside the 20px padding, so nothing overflows. */
     #header-component .header__drawer,
     #header-component[data-menu-style='menu'] .header__drawer {
       display: flex !important;
-      min-height: 44px;
       grid-area: leftA;
       align-items: center;
       justify-self: end;
-      margin-inline-end: -34px;
+      margin-inline-end: -14px;
     }
 
-    /* Track order flipped so leftA (the hamburger) is the right-most column */
+    /* Track order flipped so leftA (the hamburger) is the right-most column.
+       Padding matches the Figma frame: 10px block, 20px inline. */
     .header__columns,
     #header-component[data-menu-style='drawer'] .header__columns {
       --header-template-columns: auto 1fr auto 44px !important;
       grid-template-areas: 'leftB center rightB leftA' !important;
-      padding-inline: var(--page-margin) !important;
-      padding-block: 12px !important;
+      padding-inline: 20px !important;
+      padding-block: 10px !important;
     }
 
+    /* 40px tall to fit the 60px frame's 40px content box (60 - 2*10px padding) */
     .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
       grid-area: leftB !important;
       justify-self: start;
       max-width: 160px;
-      height: 44px;
+      height: 40px;
     }
 
     .header__columns .header-logo img,
@@ -1222,7 +1223,7 @@
     #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
       max-width: 160px;
-      height: 44px;
+      height: 40px;
       width: auto;
       object-fit: contain;
     }
@@ -1329,6 +1330,35 @@
     }
   }
 
+  /* PI: keep the announcement bar stuck to the top together with the navbar.
+     The theme sticks .header-section on its own and sets #header-group to
+     `display: contents`, so the announcement bar — a sibling section inside the
+     same group — scrolls away underneath it. Making the group itself the sticky
+     element pins both as one block, with no need to measure the announcement
+     bar's height.
+
+     z-index is --layer-menu-drawer (18) rather than --layer-sticky (8):
+     `position: sticky` always creates a stacking context, so everything inside
+     the header (menu drawer 18, underlay 16, submenus 12) is now confined to
+     it, while page content reaches z-index 10 (pi-trusted-by). At 18 the group
+     and its overlays stay above all page content and keep their relative order.
+     Dialogs/popovers are unaffected — they render in the top layer. */
+  #header-group:has(#header-component[sticky]) {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: var(--layer-menu-drawer);
+  }
+
+  /* The group now owns the stickiness, so the inner section doesn't need the
+     top: -1px offset. Side effect: the intersection observer in header.js keeps
+     data-sticky-state at 'inactive', which only feeds transparent-header colour
+     inheritance (disabled on this store) and a view-transition name.
+     Only the 'always' mode is overridden — 'scroll-up' keeps theme behaviour. */
+  .header-section:has(> #header-component[sticky='always']) {
+    position: static;
+  }
+
   /* PI: pin desktop navbar to Figma height (95px) with vertically centered content */
   @media screen and (min-width: 750px) {
     .header__row--top .header__columns {
@@ -1337,6 +1367,37 @@
       --padding-block-start: 0px;
       --padding-block-end: 0px;
       align-items: center;
+    }
+  }
+
+  /* PI: mobile + tablet navbar pinned to the Figma frame — 60px tall (Hug),
+     full width, 10px block / 20px inline padding. Declared after the 95px rule
+     above so it wins for 750-989px; 990px and up keeps the 95px desktop height.
+     Without the explicit height the row rendered ~80px, because .header__drawer
+     carries min-height: 60px (--header-drawer-min-height) which outgrew the
+     40px content box. */
+  @media screen and (max-width: 989px) {
+    body {
+      --header-height: 60px;
+    }
+
+    .header__row--top .header__columns {
+      height: 60px;
+      box-sizing: border-box;
+      padding-block: 10px;
+      padding-inline: 20px;
+      --padding-block-start: 0px;
+      --padding-block-end: 0px;
+      align-items: center;
+    }
+
+    /* Let the hamburger fill the 40px content box instead of forcing 60px.
+       !important because the theme's own rule is
+       #header-component[data-menu-style='drawer'] .header__drawer (1,2,0),
+       which outranks any sane selector here. */
+    #header-component .header__drawer {
+      min-height: 0 !important;
+      align-self: stretch;
     }
   }
 

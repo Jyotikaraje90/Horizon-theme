@@ -1445,4 +1445,15 @@
       padding-inline-end: 8px;
     }
   }
+
+  /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,
+     the summary's 16px block padding would push it past the 40px content box.
+     Drop it and stretch to the row height instead, so the tap target stays a
+     full-height 40px band rather than shrinking to the icon. */
+  @media screen and (max-width: 989px) {
+    .menu-drawer-container .header__icon--summary {
+      padding-block: 0;
+      height: 100%;
+    }
+  }
 {% endstylesheet %}
