@@ -10,7 +10,16 @@ body {
   margin: 0;
   min-height: 100svh;
   font-variation-settings: 'slnt' 0;
-  overflow-x: hidden;
+
+  /* PI: `clip`, not `hidden`. `overflow-x: hidden` makes body a scroll
+     container (overflow-y computes to auto), so `position: sticky` children —
+     #header-group and the header section inside it — resolve against body's own
+     scrollport, which is exactly as tall as its content, and never stick.
+     `clip` does the same visual clipping without creating a scroll container,
+     so sticky resolves against the viewport. Horizontal scrolling is still
+     prevented by `overflow-x: hidden` on html below, which propagates to the
+     viewport, so this keeps the original intent. */
+  overflow-x: clip;
 }
 
 :root {
@@ -4616,9 +4625,5 @@ product-recommendations:has([data-has-recommendations='false']) {
   .pi-announcement-mobile {
     display: flex;
   }
-}
-/* Hide Judge.me reviews in cart drawer */
-cart-items-component [class*="jm-"] {
-  display: none !important;
 }
 
