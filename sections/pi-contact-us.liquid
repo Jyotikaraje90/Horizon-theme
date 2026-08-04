@@ -380,9 +380,11 @@
     }
 
     .pi-contact-us__image-panel {
-      /* Definite height so the img (height:100%) cover-crops to a banner instead
-         of rendering at its full natural portrait height (which read far too tall
-         at 768/820). */
+      /* flex:none cancels the base `flex:1` (flex-basis:0%), which otherwise
+         overrides height and lets the panel grow to the image's full natural
+         height. With flex:none the explicit height wins, so the img (height:100%)
+         cover-crops to a banner instead of rendering far too tall at 768/820. */
+      flex: none;
       height: 380px;
       min-height: 0;
       border-radius: 0 0 15px 15px;

@@ -28,6 +28,7 @@ class HeaderMenu extends Component {
     onDocumentLoaded(this.#preloadImages);
     window.addEventListener('resize', this.#resizeListener);
     this.overflowMenu?.addEventListener('pointerleave', this.#overflowSubmenuListener);
+    this.addEventListener('click', this.#preventParentNavigation);
   }
 
   disconnectedCallback() {
@@ -38,8 +39,26 @@ class HeaderMenu extends Component {
       this.#stopPointerTracking(this.#state.activeItem);
     }
     this.overflowMenu?.removeEventListener('pointerleave', this.#overflowSubmenuListener);
+    this.removeEventListener('click', this.#preventParentNavigation);
     this.#cleanupMutationObserver();
   }
+
+  /**
+   * On click/tap, prevent a top-level menu item that HAS a submenu from
+   * navigating to its own page — the tap should reveal its child links (the
+   * submenu opens via the hover/pointer system) instead of leaving the page.
+   * Leaf links (no submenu) and the child links inside the dropdown navigate
+   * normally. This makes the dropdowns usable on touch/click where there is no
+   * hover.
+   * @param {MouseEvent} event
+   */
+  #preventParentNavigation = (event) => {
+    if (!(event.target instanceof Element)) return;
+    const link = event.target.closest('[ref="menuitem"]');
+    if (link && link.getAttribute('aria-haspopup') === 'true') {
+      event.preventDefault();
+    }
+  };
 
   /**
    * Debounced resize event listener to recalculate menu style

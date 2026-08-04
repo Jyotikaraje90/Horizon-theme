@@ -668,6 +668,29 @@
       display: none;
     }
   }
+
+  /* Laptop (1280–1775px): the title cell is far narrower than the 640px desktop
+     cell, so the full-size 198×326 cherub reaches into the centered heading.
+     Scale it down (keeping its aspect ratio) so it stays a corner accent that
+     clears the text. ≤1279px hides it; ≥1776px keeps the base 198×326. */
+  @media (min-width: 1280px) and (max-width: 1775px) {
+    /* Scale the heading proportionally to the narrower title cell. The base
+       clamp tops out at 54px, which is too wide for this cell and left no room
+       for the cherub — 2.8vw tracks the cell so the layout matches desktop. */
+    .pi-tb__heading { font-size: clamp(30px, 2.8vw, 54px); }
+    /* Cherub scaled + offset proportionally to the cell, so it keeps the same
+       top-left "peeking up" placement as the desktop 198×326 illustration,
+       just smaller. left uses vw (not the base -30px) so the clip stays
+       proportional instead of eating a third of a shrunken image. */
+    .pi-tb__deco {
+      width: min(10vw, 150px);
+      height: auto;
+      left: -1.5vw;
+      top: -20%;
+      transform: none;
+    }
+    .pi-tb__deco img { height: auto; }
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
