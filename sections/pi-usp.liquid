@@ -166,6 +166,39 @@
     .pi-usp__label { font-size: var(--pi-usp-label-size, 22px); line-height: 29px; }
   }
 
+  /* PI: 600-767px — fit all four USPs across instead of scrolling.
+     The <=767px block above turns this into a horizontal scroller with fixed
+     200px items, which is the right call on a phone (you swipe). But 4 x 200px
+     plus dividers needs ~800px, so from ~600px up you saw three and a bit items
+     with the fourth sliced off and a scrollbar — reading as broken rather than
+     swipeable. Here the items flex to share the row again, as they already do at
+     >=768px. Bounded at 680px, fixed by measurement rather than arithmetic —
+     the paddings here are not what a naive sum suggests, so both earlier
+     estimates were wrong. Measured: the widest label ("AUTHENTIC" at 22px) is
+     125px, and the per-item share is 0.25 * vw - 51 with the stock 20px gap
+     (119px at 680px — the label spilled its cell) and 0.25 * vw - 36 with the
+     10px gap used here (134px at 680px, 9px of slack). The 1px dividers already
+     separate the items, so the tighter gap costs nothing visually. Below 680px
+     the share drops under the label width again and the scroller is the better
+     pattern. */
+  @media (min-width: 680px) and (max-width: 767px) {
+    .pi-usp__inner {
+      overflow-x: visible;
+      padding-inline: 40px;
+    }
+
+    .pi-usp__grid {
+      width: 100%;
+      gap: 10px;
+    }
+
+    .pi-usp__item {
+      flex: 1 1 0;
+      width: auto;
+      min-width: 0;
+    }
+  }
+
   /* ─── Icon placeholder (no image uploaded) ───── */
   .pi-usp__icon-placeholder {
     width: 100%;
