@@ -1410,4 +1410,26 @@
   .drawer-localization .language-selector .svg-wrapper.icon-caret svg {
     transform: none;
   }
+
+  /* PI: mobile menu drawer — slide in from the right (matching the hamburger,
+     which sits in the right-most header column on mobile) and cover half the
+     screen instead of 95vw. The --drawer-* vars are overridden locally rather
+     than globally because the filters drawer shares them. */
+  @media screen and (max-width: 749px) {
+    .menu-drawer {
+      --drawer-width: 50vw;
+      --drawer-max-width: 50vw;
+
+      left: auto;
+      right: 0;
+      transform: translateX(100%);
+      border-right: none;
+      border-left: var(--style-border-drawer);
+    }
+
+    /* Submenu panels slide in from the right edge to match the parent drawer */
+    .menu-drawer__submenu {
+      transform: translateX(5%);
+    }
+  }
 {% endstylesheet %}
