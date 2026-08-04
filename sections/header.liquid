@@ -1127,12 +1127,23 @@
       --header-height: 60px;
     }
 
-    /* Shift logo to left column beside hamburger, widen leftB to 140px */
+    /* Logo first, then search + cart + hamburger on the right.
+       The track order is flipped via grid-template-areas so the hamburger
+       (leftA) lands in the last column, after the cart icon. */
     .header__columns,
     #header-component[data-menu-style='drawer'] .header__columns {
-      --header-template-columns: 44px 140px 1fr 44px 44px;
+      --header-template-columns: 140px 1fr 44px 44px 44px;
+
+      grid-template-areas: 'leftB center rightA rightB leftA';
       padding-block: 10px;
       padding-inline: 20px;
+    }
+
+    /* Hamburger: pin to the last (right-most) track */
+    .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      grid-area: leftA;
+      justify-self: end;
     }
 
     /* Logo: move from center → leftB, left-aligned */
