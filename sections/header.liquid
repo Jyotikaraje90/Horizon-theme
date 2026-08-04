@@ -1515,15 +1515,14 @@
   }
 
   /* This wrapper is a zero-size anchor: height 0 and, because width is auto with
-     only `left` set, it collapses to width 0 too (measured: 0px). So `left: 50%`
-     places it exactly on the menu item's horizontal midpoint. Centring is done on
-     the inner panel instead — a translateX(-50%) here would be a percentage of
-     this element's own 0 width and resolve to nothing, which is why the dropdown
-     used to hang 100px (half its width) to the right of the link. */
+     only `left` set, it collapses to width 0 too (measured: 0px). `left: 0` puts
+     it on the list item's left edge. Note a translateX(%) here would be a
+     percentage of this element's own 0 width and resolve to nothing — any
+     horizontal offset has to go on the inner panel, which has a real width. */
   .menu-list__list-item:where(:not([slot='overflow'])) > .pi-simple-dropdown {
     position: absolute !important;
     width: auto !important;
-    left: 50% !important;
+    left: 0 !important;
     top: 100% !important;
     clip-path: none !important;
     padding-inline: 0 !important;
@@ -1536,17 +1535,28 @@
     background: #ffffff;
     border-radius: 8px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    padding: 20px 40px;
 
-    /* Centres the panel on the anchor above. -50% resolves against this element's
-       own width, which is a real 200px, so it actually applies. !important also
+    /* 20px inline padding, matching the parent link's own padding-inline, so the
+       child links start at exactly the same x as the label text: the anchor above
+       sits on the list item's left edge (which is also the label's border-box
+       left), the label text begins 20px in, and so do these.
+       !important is required — base.css sets
+       `.menu-list__submenu-inner { padding-inline: var(--section-padding-inline) }`
+       at the same specificity but later in the bundle, which was flattening this
+       to 0px and pinning the links flush to the panel edge. */
+    padding: 20px !important;
+
+    /* No horizontal offset: the anchor is already on the right edge. !important
        cancels the base mega-menu's translateY animation on
-       .menu-list__submenu-inner, which is what the previous `none` was for. */
-    transform: translateX(-50%) !important;
+       .menu-list__submenu-inner. */
+    transform: none !important;
     opacity: 1 !important;
     position: relative;
     z-index: var(--layer-header-menu, 100);
-    min-width: 200px;
+
+    /* Hugs its content like the Figma panel (~138px) instead of the previous
+       200px, which left a wide empty gutter once the links were left-aligned. */
+    min-width: 140px;
   }
 
   .pi-simple-dropdown__list {
@@ -1558,8 +1568,12 @@
     gap: 18px;
   }
 
+  /* Left-aligned, per the Figma: the child links form a single column whose left
+     edge lines up with the parent link's label (see the translateX on
+     .pi-simple-dropdown__inner). Centring them made each row start at a different
+     x depending on its text length, which is what read as misaligned. */
   .pi-simple-dropdown__item {
-    text-align: center !important;
+    text-align: left !important;
   }
 
   .pi-simple-dropdown__link {
@@ -1570,7 +1584,7 @@
     letter-spacing: 0.3px;
     white-space: nowrap;
     transition: color 0.2s ease;
-    text-align: center !important;
+    text-align: left !important;
   }
 
   .pi-simple-dropdown__link:hover {
