@@ -1139,11 +1139,13 @@
       padding-inline: 20px;
     }
 
-    /* Hamburger: pin to the last (right-most) track */
+    /* Hamburger: pin to the last (right-most) track, pulled out past the 20px
+       page padding so the icon sits ~14px from the viewport edge. */
     .header__columns .header__drawer,
     #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
       grid-area: leftA;
       justify-self: end;
+      margin-inline-end: -14px;
     }
 
     /* Logo: move from center → leftB, left-aligned */
@@ -1185,8 +1187,9 @@
     }
 
     /* Hamburger sits in the last track, after the INQUIRE NOW button, pulled
-       out past the 40px page margin so it sits closer to the viewport edge.
-       Only the hamburger shifts — the icons and INQUIRE NOW keep their margin. */
+       out past the 40px page margin so the icon sits ~14px from the viewport
+       edge. Only the hamburger shifts — the icons and INQUIRE NOW keep their
+       margin. -34px stays inside the 40px padding, so nothing overflows. */
     #header-component .header__drawer,
     #header-component[data-menu-style='menu'] .header__drawer {
       display: flex !important;
@@ -1194,7 +1197,7 @@
       grid-area: leftA;
       align-items: center;
       justify-self: end;
-      margin-inline-end: -20px;
+      margin-inline-end: -34px;
     }
 
     /* Track order flipped so leftA (the hamburger) is the right-most column */
@@ -1254,7 +1257,7 @@
      nav links fit, that layout is left completely alone. */
   @media screen and (min-width: 990px) and (max-width: 1199px) {
     #header-component[data-menu-style='drawer'] .header__columns {
-      --header-template-columns: auto 1fr 44px auto 44px !important;
+      --header-template-columns: auto 1fr auto auto auto !important;
 
       grid-template-areas: 'leftB center rightA rightB leftA' !important;
     }
@@ -1268,23 +1271,32 @@
     /* Search: far left → immediately before the wishlist icon. No display
        override here: the header renders two .search-action copies (one tagged
        --hidden-on-drawer, one --hidden-on-menu) and forcing display would show
-       both. Placing them in the same area is fine — the other stays hidden. */
+       both. Placing them in the same area is fine — the other stays hidden.
+       The negative margins from search.liquid are zeroed so the search icon's
+       --button-size box butts directly against the wishlist's, giving the same
+       icon-to-icon spacing as the rest of the row. */
     #header-component[data-menu-style='drawer'] .header__columns .search-action {
       grid-area: rightA !important;
       justify-self: end;
+      margin-inline: 0 !important;
     }
 
-    /* Wishlist / account / cart / INQUIRE NOW */
+    /* Wishlist / account / cart / INQUIRE NOW. header-actions carries
+       margin-inline: -8px at >=750px, which would pull the wishlist 8px closer
+       to search than the icons are to each other — zeroed for even spacing. */
     #header-component[data-menu-style='drawer'] .header__columns header-actions {
       grid-area: rightB !important;
       justify-self: end;
+      margin-inline: 0 !important;
     }
 
-    /* Hamburger: last track, after INQUIRE NOW */
+    /* Hamburger: last track, after INQUIRE NOW, pulled out past the 40px page
+       margin so the icon sits ~14px from the viewport edge. */
     #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
       grid-area: leftA !important;
       justify-self: end;
       align-items: center;
+      margin-inline-end: -34px;
     }
   }
 

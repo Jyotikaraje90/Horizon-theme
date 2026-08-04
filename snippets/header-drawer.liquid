@@ -1435,5 +1435,14 @@
     .menu-drawer__submenu {
       transform: translateX(5%);
     }
+
+    /* The summary's default `padding: var(--padding-lg)` puts 16px between the
+       icon and the box edge, which stops the negative margin in header.liquid
+       from getting the lines close to the corner. Trim the end padding only —
+       the start padding keeps the gap from the INQUIRE NOW button, and the
+       block padding keeps the tap target full-height. */
+    .menu-drawer-container .header__icon--summary {
+      padding-inline-end: 8px;
+    }
   }
 {% endstylesheet %}
