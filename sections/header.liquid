@@ -1184,18 +1184,21 @@
       display: none !important;
     }
 
+    /* Hamburger sits in the last track, after the INQUIRE NOW button */
     #header-component .header__drawer,
     #header-component[data-menu-style='menu'] .header__drawer {
       display: flex !important;
       min-height: 44px;
       grid-area: leftA;
       align-items: center;
+      justify-self: end;
     }
 
+    /* Track order flipped so leftA (the hamburger) is the right-most column */
     .header__columns,
     #header-component[data-menu-style='drawer'] .header__columns {
-      --header-template-columns: 44px auto 1fr auto !important;
-      grid-template-areas: 'leftA leftB center rightB' !important;
+      --header-template-columns: auto 1fr auto 44px !important;
+      grid-template-areas: 'leftB center rightB leftA' !important;
       padding-inline: var(--page-margin) !important;
       padding-block: 12px !important;
     }

@@ -1411,15 +1411,19 @@
     transform: none;
   }
 
-  /* PI: mobile menu drawer — slide in from the right (matching the hamburger,
-     which sits in the right-most header column on mobile) and cover half the
-     screen instead of 95vw. The --drawer-* vars are overridden locally rather
-     than globally because the filters drawer shares them. */
-  @media screen and (max-width: 749px) {
+  /* PI: mobile + tablet menu drawer — slide in from the right (matching the
+     hamburger, which sits in the right-most header column) and cover half the
+     screen instead of 95vw / 25rem. Bounded at 1199px, which is every width
+     where the hamburger is reachable at all: from 1200px up the header shows
+     the inline nav and hides .header__drawer entirely.
+     width/max-width are set directly rather than through --drawer-width so the
+     base `@media (min-width: 750px) { width: 25rem }` is also overridden, and
+     the global --drawer-* vars are left alone because the collection filters
+     drawer reads the same two. */
+  @media screen and (max-width: 1199px) {
     .menu-drawer {
-      --drawer-width: 50vw;
-      --drawer-max-width: 50vw;
-
+      width: 50vw;
+      max-width: 50vw;
       left: auto;
       right: 0;
       transform: translateX(100%);
