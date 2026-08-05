@@ -310,20 +310,8 @@
        so the auto-margin breathing room disappears and the heading/form sit flush
        to the card edges. Add internal padding so the content has room. */
     .pi-nf__nl-inner { padding-inline: 40px; }
-    /* Force "JOIN OUR NEWSLETTER" onto two lines in this range — at these widths
-       the responsive font shrinks enough to otherwise fit on one line. (Applies
-       990-1200; the 750-989 inline and <=749 mobile blocks override this later.) */
-    .pi-nf__nl-heading { max-width: 220px; }
     .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
-  }
-  /* 1201-1730: the base card inset (210px) leaves the card narrower than the
-     inner row's 1310px max-width, so the form bar reaches the card edge and gets
-     clipped by the rounded corner. Add inner padding (border-box so it can't
-     overflow) to keep the content clear of the edges. Above ~1730 the 1310px inner
-     centres with auto-margins and needs no padding. */
-  @media (min-width: 1201px) and (max-width: 1730px) {
-    .pi-nf__nl-inner { padding-inline: 40px; box-sizing: border-box; }
   }
   @media (max-width: 989px) {
     /* Keep the section's configured top padding so the newsletter card has a gap
@@ -397,42 +385,6 @@
     .pi-nf__copyright-sep::after { content: '|'; color: #fff; font-size: 12px; }
     .pi-nf__copyright-text { font-size: 12px; line-height: 18px; text-align: center; white-space: normal; }
     .pi-nf__social { gap: 20px; }
-  }
-
-  /* Tablet/in-between (750-989): use the desktop Figma inline layout (heading on
-     the left, email field + Subscribe in a row on the right) so the wider card is
-     filled instead of leaving empty space at the sides. Below 750 stays stacked.
-     Placed after the <=768 block so it overrides its stacked rules for 750-768. */
-  @media (min-width: 750px) and (max-width: 989px) {
-    /* Mirror the desktop layout: heading on the left, email bar + Subscribe
-       filling the width on the right (space-between). The form-wrap flexes to
-       fill, so there's no big empty gap between heading and form. */
-    .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 30px; max-width: 100%; margin: 0 auto; padding-top: 30px; padding-bottom: 30px; }
-    /* Compact single-row card like the Figma desktop — shorter than the tall
-       mobile min-height, but still tall enough to clear the negative-margin
-       overlap into the black footer below. */
-    .pi-nf__nl-card { min-height: 200px; }
-    .pi-nf__nl-heading { flex: 0 0 auto; max-width: 362px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.3; }
-    .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: 740px; min-width: 0; width: auto; }
-    .pi-nf__nl-form-wrap form,
-    .pi-nf__nl-form {
-      flex-direction: row; align-items: center; justify-content: space-between;
-      height: 75px; padding: 10px 10px 10px 20px; gap: 10px;
-      background: #000 !important; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px;
-    }
-    .pi-nf__nl-input { flex: 1; width: auto; height: auto; padding: 0; background: #000 !important; border: none; border-radius: 0; }
-    .pi-nf__nl-btn { align-self: auto; width: 150px; min-width: 150px; height: 55px; background: #fff; color: #000; }
-  }
-
-  /* Phone (<=749): stacked mobile layout. Give the email field a sensible max
-     width and centre the block so the field never looks oversized on a wide
-     phone (~749) yet any spare card width becomes even side margins instead of a
-     lopsided gap. On a narrow phone (<=~440) the field just fills the card. */
-  @media (max-width: 749px) {
-    .pi-nf__nl-inner { align-items: center; }
-    .pi-nf__nl-heading { text-align: center; max-width: 100%; }
-    .pi-nf__nl-form-wrap { max-width: 400px; width: 100%; }
-    .pi-nf__nl-btn { align-self: center; }
   }
 
   #shopify-section-{{ section.id }} {
