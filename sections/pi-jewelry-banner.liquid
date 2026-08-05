@@ -228,12 +228,12 @@
   }
 
   /* ─── Responsive ─────────────────────────── */
-  /* The desktop 3-column framed side images are positioned with fixed px offsets
-     sized for a wide (~1920px) canvas, so on narrower screens they overflow their
-     columns and cover the center heading/subheading. Below 1280px we therefore
-     hide them and use the centered layout plus the two-image row (the same
-     treatment that already runs at <=989px). */
-  @media (max-width: 1279px) {
+  /* Below 1024px we hide the framed side images and use the centered layout plus
+     the two-image row. From 1024px up the framed 3-column layout is kept and
+     scaled proportionally to the viewport (see the 1024–1775px block below), so
+     the frames — whose fixed px offsets were sized for a ~1920px canvas — never
+     overflow into the center heading/subheading. */
+  @media (max-width: 1023px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
     .pi-jb__img-col--right { display: none; }
@@ -319,16 +319,16 @@
     }
   }
 
-  /* ─── Laptop range (1280–1775px) ─────────────────────────
+  /* ─── Laptop / small-desktop range (1024–1775px) ─────────────────────────
      The desktop side frames use fixed px offsets (left:110px / left:40px +
-     387px wide) sized for a ~1920px canvas. Between 1280px and ~1775px the
+     387px wide) sized for a ~1920px canvas. Between 1024px and ~1775px the
      side columns are too narrow to contain them, so the frames spill into the
      center column and clip the heading/subheading. Here we anchor each frame
      to its own column's outer edge and cap its width to a share of the column,
      so it can never reach the center text. Above 1775px the columns are wide
      enough and the original fixed-px layout (matching the desktop design)
      takes over unchanged. */
-  @media (min-width: 1280px) and (max-width: 1775px) {
+  @media (min-width: 1024px) and (max-width: 1775px) {
     .pi-jb__img-col--left .pi-jb__frame {
       left: 8%;
       top: 50px;
@@ -344,6 +344,17 @@
       width: min(387px, 84%);
       height: auto;
       aspect-ratio: 387 / 456;
+    }
+  }
+
+  /* 1024–1279px — the framed layout now runs here too, but the center column is
+     narrower than on wide desktop, so scale the heading down. The clamp reaches
+     the base 54px again by ~1279px, so the hand-off to the unchanged 1280px+
+     size is seamless. */
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    .pi-jb__heading {
+      font-size: clamp(30px, 4.2vw, 54px);
+      line-height: 1.2;
     }
   }
 
