@@ -305,12 +305,17 @@
     }
   }
 
-  /* Narrow phones (360 and below) step the type down. At 320 the h1 text box
+  /* Narrow phones (374 and below) step the type down. At 320 the h1 text box
      is only 244px wide, so 32px wraps the heading to 5 lines instead of 3 and
      the content no longer fits the 514px banner height from the design —
      which pushed the button out of view. 26/34 keeps it at 3 lines.
+     Boundary is 374px (not 360): the 364px main box needs the heading at
+     3 lines, and 32px only breaks to 3 lines once the content box is ~288px
+     wide (~≥364px viewport). Between 361–374px the 32px heading still wrapped
+     to 4 lines, so BOOK AN APPOINTMENT overflowed the box onto the side tiles.
+     375px+ keeps 32px (it fits 3 lines there).
      Must stay after the 767px block so it overrides it. */
-  @media (max-width: 360px) {
+  @media (max-width: 374px) {
     .pi-hero__main-content {
       top: 30px;
       gap: 12px;
