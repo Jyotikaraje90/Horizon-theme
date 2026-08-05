@@ -226,10 +226,12 @@
     .pi-lb__content { gap: 20px; }
   }
 
-  /* Tablet (768–989): show the three blog cards in a single swipeable row
-     (like mobile) instead of the 2-up wrap. Cards keep the ≤989 height (380px);
-     they're just fixed-width and the row scrolls horizontally. */
-  @media (min-width: 768px) and (max-width: 989px) {
+  /* Tablet (750–989): show the three blog cards in a single swipeable row
+     (like mobile) instead of the 2-up wrap. Starts at 750 (just above the mobile
+     ≤749 swipe) so there's no gap where the cards fall back to the 2-up grid.
+     Cards keep the ≤989 height (380px); they're just fixed-width and the row
+     scrolls horizontally. */
+  @media (min-width: 750px) and (max-width: 989px) {
     .pi-lb__grid { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
     .pi-lb__grid::-webkit-scrollbar { display: none; }
     .pi-lb__card { flex: 0 0 300px; }
