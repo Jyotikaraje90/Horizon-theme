@@ -396,9 +396,10 @@
        of space-between, so the heading isn't shoved to the far-left edge with a
        big empty gap before the form. */
     .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: center; gap: 40px; max-width: 720px; margin: 0 auto; padding-top: 30px; padding-bottom: 30px; }
-    /* Compact single-row card like the Figma desktop — let the content set the
-       height instead of the tall mobile min-height. */
-    .pi-nf__nl-card { min-height: 0; }
+    /* Compact single-row card like the Figma desktop — shorter than the tall
+       mobile min-height, but still tall enough to clear the negative-margin
+       overlap into the black footer below. */
+    .pi-nf__nl-card { min-height: 200px; }
     .pi-nf__nl-heading { flex: 0 0 auto; max-width: 280px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.3; }
     .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: 420px; min-width: 0; width: auto; }
     .pi-nf__nl-form-wrap form,
