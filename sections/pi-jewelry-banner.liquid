@@ -96,6 +96,10 @@
   .pi-jb__frame {
     position: absolute;
     overflow: hidden;
+    /* Double-frame gap: the offset between the white outline and the image.
+       Single knob used by the clip-path + ::before rules below; the scaled
+       band (820–1775px) overrides it proportionally. */
+    --pi-jb-frame-gap: 14px;
   }
 
   /* LEFT container: starts at Figma frame position (top:50px left:110px) */
@@ -129,7 +133,7 @@
   /* LEFT — image pushed 22px right+down; frame sits at container top-left (= Figma position) */
   .pi-jb__img-col--left .pi-jb__frame img,
   .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
-    clip-path: inset(22px 0 0 22px);
+    clip-path: inset(var(--pi-jb-frame-gap) 0 0 var(--pi-jb-frame-gap));
   }
 
   /* LEFT — frame border exactly 365×434 at top-left of container = Figma: top:50 left:110 */
@@ -138,8 +142,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 22px;
-    bottom: 22px;
+    right: var(--pi-jb-frame-gap);
+    bottom: var(--pi-jb-frame-gap);
     border: 3px solid var(--pi-jb-frame-border-color, #FFFFFF);
     z-index: 1;
     pointer-events: none;
@@ -150,15 +154,15 @@
   /* RIGHT — image at container top-left; frame sits 22px right+down (= Figma: top:166 left:62) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(0 22px 22px 0);
+    clip-path: inset(0 var(--pi-jb-frame-gap) var(--pi-jb-frame-gap) 0);
   }
 
   /* RIGHT — frame border exactly 365×434 offset 22px from top-left = Figma: top:166 left:62 */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 22px;
-    left: 22px;
+    top: var(--pi-jb-frame-gap);
+    left: var(--pi-jb-frame-gap);
     right: 0;
     bottom: 0;
     border: 3px solid var(--pi-jb-frame-border-color, #FFFFFF);
@@ -361,29 +365,13 @@
       min-height: calc(194px + min(456px, 28vw));
     }
 
-    /* Scale the double-frame gap (the offset between the white outline and the
-       image) with the shrunken frame, so it stays ~5.7% of the frame — matching
-       Figma — instead of the fixed 22px that looks oversized once the frame is
-       scaled down. 1.34vw ≈ 22px × (frame ÷ 387); caps at 22px by ~1642px where
-       the frame reaches full size and hands off to the desktop 22px. */
-    .pi-jb__img-col--left .pi-jb__frame img,
-    .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
-      clip-path: inset(min(22px, 1.34vw) 0 0 min(22px, 1.34vw));
-    }
-
-    .pi-jb__img-col--left .pi-jb__frame::before {
-      right: min(22px, 1.34vw);
-      bottom: min(22px, 1.34vw);
-    }
-
-    .pi-jb__img-col--right .pi-jb__frame img,
-    .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-      clip-path: inset(0 min(22px, 1.34vw) min(22px, 1.34vw) 0);
-    }
-
-    .pi-jb__img-col--right .pi-jb__frame::before {
-      top: min(22px, 1.34vw);
-      left: min(22px, 1.34vw);
+    /* Scale the double-frame gap with the shrunken frame so it stays the same
+       proportion at every width (~3.6% of the frame, matching Figma) instead of
+       a fixed px value that looks oversized once the frame shrinks. 0.85vw ≈
+       14px × (frame ÷ 387); caps at the base 14px by ~1642px where the frame
+       reaches full size. One knob — the base value above and this coefficient. */
+    .pi-jb__frame {
+      --pi-jb-frame-gap: min(14px, 0.85vw);
     }
   }
 
