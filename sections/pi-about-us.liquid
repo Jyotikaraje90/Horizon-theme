@@ -205,6 +205,13 @@
     .pi-au__images { flex: 0 0 480px; }
     .pi-au__content { flex: 1; }
     .pi-au__subheading { font-size: 28px; line-height: 38px; }
+    /* Slightly smaller body text so the content column doesn't tower over the
+       image column and leave the section looking too tall at this width. */
+    .pi-au__text { font-size: 16px; line-height: 26px; }
+    /* Keep both CTAs on one line (each sized to its own text) instead of the
+       narrow column wrapping them onto two rows. */
+    .pi-au__buttons { flex-wrap: nowrap; gap: 12px; }
+    .pi-au__btn { padding: 16px 20px; }
   }
 
   @media (max-width: 989px) {
