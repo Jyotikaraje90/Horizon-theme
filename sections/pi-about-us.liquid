@@ -218,7 +218,9 @@
   }
 
   @media (max-width: 989px) {
-    #shopify-section-{{ section.id }} { padding: 70px 0; }
+    /* Trim the bottom padding so the gap before the next section (Latest Blogs)
+       isn't excessive — its top padding already provides spacing. */
+    #shopify-section-{{ section.id }} { padding: 70px 0 30px; }
     .pi-au { padding: 0 40px; }
     .pi-au__heading { font-size: clamp(28px, 5vw, calc(var(--pi-au-heading-base, 54px) * 0.89)); line-height: 1.2; margin-bottom: 40px; }
     .pi-au__body { flex-direction: column; gap: 40px; }
