@@ -348,6 +348,18 @@
       height: auto;
       aspect-ratio: 387 / 456;
     }
+
+    /* Height tracks the scaled frames instead of the fixed 650px, so the empty
+       space below the (lower) right image stays ~50px like the desktop
+       reference, rather than leaving a large gap once the frames shrink.
+       = right-frame top (144px) + scaled frame height + a 50px bottom gap that
+       matches the 50px top gap. The frame is 84% of its ~28vw-wide column, i.e.
+       ~23.5vw, so its height (×456/387) is ~28vw — capped at 456px once the
+       frame reaches its 387px max around 1642px, where this meets the 650px
+       desktop height. */
+    .pi-jb__inner {
+      min-height: calc(194px + min(456px, 28vw));
+    }
   }
 
   /* 1024–1775px — the framed layout runs across this whole range, but the centre
