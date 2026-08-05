@@ -22,12 +22,15 @@
     --pi-jb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
     --pi-jb-btn-hover-text: {{ section.settings.btn_hover_text }};
   }
-  @media (max-width: 749px) {
+  /* 767px (not 749px) so --pi-jb-heading-size becomes the mobile value across
+     the SAME range as the "shared mobile type scale" block below, which reads
+     `var(--pi-jb-heading-size, 30px)`. Previously this stopped at 749px while
+     that block runs to 767px, so 750–767px kept the desktop 54px variable and
+     the heading rendered at full desktop size. */
+  @media (max-width: 767px) {
     #shopify-section-{{ section.id }} {
       --pi-jb-pad-top: {{ section.settings.mobile_padding_top }}px;
       --pi-jb-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      /* Moved from 989px to 749px so this section switches to its mobile
-         heading size at the same breakpoint as every other homepage section. */
       --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
     }
   }
