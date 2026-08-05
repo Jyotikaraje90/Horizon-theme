@@ -387,10 +387,28 @@
     .pi-nf__social { gap: 20px; }
   }
 
-  /* Phone (<=749): keep the email input bar from looking oversized across the
-     card. Scoped below 749 only so the 750-768 range is untouched. */
+  /* Tablet/in-between (750-989): use the desktop Figma inline layout (heading on
+     the left, email field + Subscribe in a row on the right) so the wider card is
+     filled instead of leaving empty space at the sides. Below 750 stays stacked.
+     Placed after the <=768 block so it overrides its stacked rules for 750-768. */
+  @media (min-width: 750px) and (max-width: 989px) {
+    .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+    .pi-nf__nl-heading { flex: 0 0 auto; max-width: 300px; font-size: clamp(28px, 3.4vw, 40px); line-height: 1.3; }
+    .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: 520px; min-width: 0; width: auto; }
+    .pi-nf__nl-form-wrap form,
+    .pi-nf__nl-form {
+      flex-direction: row; align-items: center; justify-content: space-between;
+      height: 75px; padding: 10px 10px 10px 20px; gap: 10px;
+      background: #000 !important; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px;
+    }
+    .pi-nf__nl-input { flex: 1; width: auto; height: auto; padding: 0; background: #000 !important; border: none; border-radius: 0; }
+    .pi-nf__nl-btn { align-self: auto; width: 150px; min-width: 150px; height: 55px; background: #fff; color: #000; }
+  }
+
+  /* Phone (<=749): stacked mobile layout (Figma mobile) — the email field fills
+     the full card width so there's no empty gap beside it. */
   @media (max-width: 749px) {
-    .pi-nf__nl-form-wrap { max-width: 320px; }
+    .pi-nf__nl-form-wrap { max-width: 100%; }
   }
 
   #shopify-section-{{ section.id }} {
