@@ -200,6 +200,9 @@
   }
 
   @media (max-width: 1279px) {
+    /* Trim the bottom padding so the gap before the next section isn't excessive
+       at this width (top-only, so the section-above spacing is untouched). */
+    #shopify-section-{{ section.id }} { padding-bottom: 60px; }
     .pi-au__heading { font-size: calc(var(--pi-au-heading-base, 54px) * 0.82); line-height: 1.3; }
     .pi-au__body { gap: 40px; }
     .pi-au__images { flex: 0 0 480px; }
