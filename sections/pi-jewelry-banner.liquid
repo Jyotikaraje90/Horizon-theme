@@ -350,13 +350,16 @@
     }
   }
 
-  /* 1024–1279px — the framed layout now runs here too, but the center column is
-     narrower than on wide desktop, so scale the heading down. The clamp reaches
-     the base 54px again by ~1279px, so the hand-off to the unchanged 1280px+
-     size is seamless. */
-  @media (min-width: 1024px) and (max-width: 1279px) {
+  /* 1024–1775px — the framed layout runs across this whole range, but the centre
+     column is narrower than on wide desktop, so scale the heading with the
+     viewport. 3.4vw keeps "LUXURY PIERCING" on its own first line (instead of
+     breaking mid-phrase into "LUXURY" / "PIERCING"), so the heading stays a tidy
+     3 lines — LUXURY PIERCING / JEWELRY FOR EVERY / LOOK — rather than 4. It
+     caps at the base 54px by ~1588px, handing off seamlessly to the >=1776px
+     desktop size. */
+  @media (min-width: 1024px) and (max-width: 1775px) {
     .pi-jb__heading {
-      font-size: clamp(30px, 4.2vw, 54px);
+      font-size: clamp(30px, 3.4vw, 54px);
       line-height: 1.2;
     }
   }
