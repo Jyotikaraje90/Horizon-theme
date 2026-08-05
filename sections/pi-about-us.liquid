@@ -240,17 +240,11 @@
     .pi-au__subheading-wrap { padding-left: 10px; }
     .pi-au__subheading { font-size: 22px; line-height: 30px; text-align: left; }
     .pi-au__text { font-size: 16px; line-height: 26px; }
-    /* Both CTAs on a single row (each sized to its own text, like desktop) —
-       not stacked into two rows. Left-aligned. */
-    .pi-au__buttons { flex-direction: row; flex-wrap: nowrap; gap: 10px; justify-content: flex-start; }
+    /* CTAs on one row, each sized to its own text (left-aligned). flex-wrap lets
+       them drop the second button to a new line ONLY when both can't fit on one
+       line — not forced onto two lines at every narrow width. */
+    .pi-au__buttons { flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: flex-start; }
     .pi-au__btn { font-size: 14px; padding: 16px 16px; height: 50px; }
-  }
-
-  /* Very narrow (<=479): the two CTAs can't fit on one line (the second overflows
-     the edge), so stack them into two rows instead. */
-  @media (max-width: 479px) {
-    .pi-au__buttons { flex-direction: column; flex-wrap: wrap; align-items: flex-start; }
-    .pi-au__btn { width: auto; }
   }
 
   /* Tablet (768–989): use the stacked "top image → content below" format (same
