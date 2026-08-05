@@ -616,6 +616,10 @@
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 0;
+      /* Full-width at mobile to match the .pi-ps__btn treatment (that's where its
+         generous space beside the text comes from — not padding). */
+      width: 100%;
+      box-sizing: border-box;
     }
     /* Names must stay visible — there is no hover on touch devices. A
        bottom-up gradient keeps them legible without darkening the photo. */
