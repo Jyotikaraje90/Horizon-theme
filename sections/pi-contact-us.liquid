@@ -400,6 +400,13 @@
     }
   }
 
+  /* Above 749: give the card a side gutter so it doesn't sit flush against the
+     viewport edges. Padding on the section keeps the 1500px max-width centering
+     intact on very wide screens (card just centers inside the padded area). */
+  @media (min-width: 750px) {
+    #shopify-section-{{ section.id }} { padding-left: 40px; padding-right: 40px; }
+  }
+
   @media (max-width: 749px) {
     .pi-contact-us { margin: 0 10px; }
     .pi-contact-us__form-panel { padding-left: 20px; padding-right: 20px; }
