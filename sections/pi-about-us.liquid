@@ -244,6 +244,13 @@
     .pi-au__btn { font-size: 14px; padding: 16px 16px; height: 50px; }
   }
 
+  /* Very narrow (<=479): the two CTAs can't fit on one line (the second overflows
+     the edge), so stack them into two rows instead. */
+  @media (max-width: 479px) {
+    .pi-au__buttons { flex-direction: column; flex-wrap: wrap; align-items: flex-start; }
+    .pi-au__btn { width: auto; }
+  }
+
   /* Tablet (768–989): use the stacked "top image → content below" format (same
      as the ≤989 base rule) rather than a two-column row. A two-column row here
      forces a small image column beside a tall text column, making the section
