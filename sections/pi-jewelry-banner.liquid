@@ -231,12 +231,12 @@
   }
 
   /* ─── Responsive ─────────────────────────── */
-  /* Below 1024px we hide the framed side images and use the centered layout plus
-     the two-image row. From 1024px up the framed 3-column layout is kept and
-     scaled proportionally to the viewport (see the 1024–1775px block below), so
+  /* Below 820px we hide the framed side images and use the centered layout plus
+     the two-image row. From 820px up the framed 3-column layout is kept and
+     scaled proportionally to the viewport (see the 820–1775px block below), so
      the frames — whose fixed px offsets were sized for a ~1920px canvas — never
      overflow into the center heading/subheading. */
-  @media (max-width: 1023px) {
+  @media (max-width: 819px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
     .pi-jb__img-col--right { display: none; }
@@ -322,16 +322,16 @@
     }
   }
 
-  /* ─── Laptop / small-desktop range (1024–1775px) ─────────────────────────
+  /* ─── Tablet / laptop / small-desktop range (820–1775px) ─────────────────
      The desktop side frames use fixed px offsets (left:110px / left:40px +
-     387px wide) sized for a ~1920px canvas. Between 1024px and ~1775px the
+     387px wide) sized for a ~1920px canvas. Between 820px and ~1775px the
      side columns are too narrow to contain them, so the frames spill into the
      center column and clip the heading/subheading. Here we anchor each frame
      to its own column's outer edge and cap its width to a share of the column,
      so it can never reach the center text. Above 1775px the columns are wide
      enough and the original fixed-px layout (matching the desktop design)
      takes over unchanged. */
-  @media (min-width: 1024px) and (max-width: 1775px) {
+  @media (min-width: 820px) and (max-width: 1775px) {
     .pi-jb__img-col--left .pi-jb__frame {
       left: 8%;
       top: 50px;
@@ -362,16 +362,17 @@
     }
   }
 
-  /* 1024–1775px — the framed layout runs across this whole range, but the centre
+  /* 820–1775px — the framed layout runs across this whole range, but the centre
      column is narrower than on wide desktop, so scale the heading with the
      viewport. 3.4vw keeps "LUXURY PIERCING" on its own first line (instead of
      breaking mid-phrase into "LUXURY" / "PIERCING"), so the heading stays a tidy
-     3 lines — LUXURY PIERCING / JEWELRY FOR EVERY / LOOK — rather than 4. It
-     caps at the base 54px by ~1588px, handing off seamlessly to the >=1776px
-     desktop size. */
-  @media (min-width: 1024px) and (max-width: 1775px) {
+     3 lines — LUXURY PIERCING / JEWELRY FOR EVERY / LOOK — rather than 4. The
+     28px floor is what keeps that first line intact at the 820px end; it caps at
+     the base 54px by ~1588px, handing off seamlessly to the >=1776px desktop
+     size. */
+  @media (min-width: 820px) and (max-width: 1775px) {
     .pi-jb__heading {
-      font-size: clamp(30px, 3.4vw, 54px);
+      font-size: clamp(28px, 3.4vw, 54px);
       line-height: 1.2;
     }
   }
