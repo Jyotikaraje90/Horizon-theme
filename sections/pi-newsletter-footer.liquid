@@ -310,6 +310,10 @@
        so the auto-margin breathing room disappears and the heading/form sit flush
        to the card edges. Add internal padding so the content has room. */
     .pi-nf__nl-inner { padding-inline: 40px; }
+    /* Force "JOIN OUR NEWSLETTER" onto two lines in this range — at these widths
+       the responsive font shrinks enough to otherwise fit on one line. (Applies
+       990-1200; the 750-989 inline and <=749 mobile blocks override this later.) */
+    .pi-nf__nl-heading { max-width: 220px; }
     .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
