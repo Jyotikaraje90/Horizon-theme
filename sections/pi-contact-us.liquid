@@ -424,6 +424,13 @@
     .pi-contact-us__submit-row { align-items: flex-end; }
     .pi-contact-us__image-panel { display: none; }
   }
+
+  /* Below 414: revert to the full-width button (as it was before). At 414 and up
+     it stays auto-sized/right-aligned per the rule above. */
+  @media (max-width: 413px) {
+    .pi-contact-us__btn { width: 100%; padding: 16px 32px; }
+    .pi-contact-us__submit-row { align-items: stretch; }
+  }
 </style>
 
 <div class="pi-contact-us{% if section.settings.background_image == blank %} pi-contact-us--no-image{% endif %}{% if section.settings.detailed_booking_form %} pi-contact-us--wide{% endif %}">
