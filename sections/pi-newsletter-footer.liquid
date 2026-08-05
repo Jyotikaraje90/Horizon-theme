@@ -405,10 +405,15 @@
     .pi-nf__nl-btn { align-self: auto; width: 150px; min-width: 150px; height: 55px; background: #fff; color: #000; }
   }
 
-  /* Phone (<=749): stacked mobile layout (Figma mobile) — the email field fills
-     the full card width so there's no empty gap beside it. */
+  /* Phone (<=749): stacked mobile layout. Give the email field a sensible max
+     width and centre the block so the field never looks oversized on a wide
+     phone (~749) yet any spare card width becomes even side margins instead of a
+     lopsided gap. On a narrow phone (<=~440) the field just fills the card. */
   @media (max-width: 749px) {
-    .pi-nf__nl-form-wrap { max-width: 100%; }
+    .pi-nf__nl-inner { align-items: center; }
+    .pi-nf__nl-heading { text-align: center; max-width: 100%; }
+    .pi-nf__nl-form-wrap { max-width: 400px; width: 100%; }
+    .pi-nf__nl-btn { align-self: center; }
   }
 
   #shopify-section-{{ section.id }} {
