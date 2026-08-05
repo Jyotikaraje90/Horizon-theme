@@ -72,27 +72,33 @@
   .pi-au__images {
     position: relative;
     flex: 0 0 740px;
-    height: 608px;
+    /* Aspect instead of a fixed height so the whole two-image composition scales
+       as ONE unit — the man image keeps overlapping the woman image at every
+       width (matching the reference) instead of the two drifting apart. Each
+       breakpoint below only changes the container width; the % images follow. */
+    aspect-ratio: 740 / 608;
   }
 
-  /* Image 1 — woman (top): Figma 550×550, left:190px, top:0 */
+  /* Image 1 — woman (top): Figma 550×550 at left:190,top:0 in the 740×608 box,
+     as % so it scales with the container. */
   .pi-au__img-top {
     position: absolute;
-    width: 550px;
-    height: 550px;
-    left: 190px;
+    width: 74.32%;   /* 550 / 740 */
+    height: 90.46%;  /* 550 / 608 */
+    left: 25.68%;    /* 190 / 740 */
     top: 0;
     z-index: 1;
     overflow: hidden;
   }
 
-  /* Image 2 — man (bottom): Figma 455×370, left:0, top:233px */
+  /* Image 2 — man (bottom): Figma 455×370 at left:0,top:233 in the 740×608 box,
+     as % so it keeps overlapping the woman image at every width. */
   .pi-au__img-bottom {
     position: absolute;
-    width: 455px;
-    height: 370px;
+    width: 61.49%;   /* 455 / 740 */
+    height: 60.86%;  /* 370 / 608 */
     left: 0;
-    top: 233px;
+    top: 38.32%;     /* 233 / 608 */
     z-index: 2;
     overflow: hidden;
   }
@@ -188,18 +194,15 @@
   /* ─── Responsive ─────────────────────────────────────── */
   @media (max-width: 1599px) {
     .pi-au { padding: 0 40px; }
-    .pi-au__images { flex: 0 0 600px; height: 500px; }
-    .pi-au__img-top { width: 440px; height: 440px; left: 160px; }
-    .pi-au__img-bottom { width: 370px; height: 300px; top: 190px; }
+    /* Only the container width changes per breakpoint now; the % images scale. */
+    .pi-au__images { flex: 0 0 600px; }
     .pi-au__content { flex: 0 0 560px; }
   }
 
   @media (max-width: 1279px) {
     .pi-au__heading { font-size: calc(var(--pi-au-heading-base, 54px) * 0.82); line-height: 1.3; }
     .pi-au__body { gap: 40px; }
-    .pi-au__images { flex: 0 0 480px; height: 420px; }
-    .pi-au__img-top { width: 350px; height: 350px; left: 130px; }
-    .pi-au__img-bottom { width: 300px; height: 250px; top: 160px; }
+    .pi-au__images { flex: 0 0 480px; }
     .pi-au__content { flex: 1; }
     .pi-au__subheading { font-size: 28px; line-height: 38px; }
   }
@@ -209,9 +212,9 @@
     .pi-au { padding: 0 40px; }
     .pi-au__heading { font-size: clamp(28px, 5vw, calc(var(--pi-au-heading-base, 54px) * 0.89)); line-height: 1.2; margin-bottom: 40px; }
     .pi-au__body { flex-direction: column; gap: 40px; }
-    .pi-au__images { flex: none; width: 100%; height: 380px; }
-    .pi-au__img-top { width: 280px; height: 280px; left: calc(100% - 280px); }
-    .pi-au__img-bottom { width: 260px; height: 220px; top: 150px; left: 0; }
+    /* Stacked: composition spans the column but capped so it doesn't get huge;
+       % images + aspect keep the overlap intact. */
+    .pi-au__images { flex: none; width: 100%; max-width: 500px; margin-inline: auto; }
     .pi-au__content { flex: none; width: 100%; padding-top: 0; }
     .pi-au__subheading { font-size: 26px; line-height: 34px; }
   }
@@ -220,9 +223,6 @@
     #shopify-section-{{ section.id }} { padding: 50px 0 30px; }
     .pi-au { padding: 0 10px; }
     .pi-au__heading { font-size: calc(var(--pi-au-heading-base, 54px) * 0.56); line-height: 1.3; margin-bottom: 28px; }
-    .pi-au__images { height: 291px; }
-    .pi-au__img-top { width: 263px; height: 263px; left: calc(100% - 263px); }
-    .pi-au__img-bottom { width: 218px; height: 177px; top: 111px; }
     .pi-au__content { gap: 10px; }
     .pi-au__subheading-wrap { padding-left: 10px; }
     .pi-au__subheading { font-size: 22px; line-height: 30px; }
@@ -237,11 +237,9 @@
      990px+ (1024/desktop) and ≤749 (mobile) are untouched. */
   @media (min-width: 768px) and (max-width: 989px) {
     .pi-au__body { flex-direction: row; align-items: flex-start; gap: 30px; }
-    /* Narrower image column → wider text column → fewer lines → shorter section.
-       Taller composition → fills down beside the text so there's no empty gap. */
-    .pi-au__images { flex: 0 0 300px; width: 300px; height: 470px; }
-    .pi-au__img-top { width: 240px; height: 290px; left: 60px; top: 0; }
-    .pi-au__img-bottom { width: 230px; height: 250px; left: 0; top: 220px; }
+    /* Two-column at tablet: composition sits in a fixed 300px column (overriding
+       the stacked full-width above); % images + aspect keep the same overlap. */
+    .pi-au__images { flex: 0 0 300px; width: 300px; max-width: none; margin-inline: 0; }
     .pi-au__content { flex: 1; width: auto; padding-top: 0; }
   }
 
