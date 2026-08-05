@@ -313,6 +313,14 @@
     .pi-nf__footer-body { padding-left: 80px; padding-right: 80px; }
     .pi-nf__copyright { padding-left: 80px; padding-right: 80px; }
   }
+  /* 1201-1730: the base card inset (210px) leaves the card narrower than the
+     inner row's 1310px max-width, so the form bar reaches the card edge and gets
+     clipped by the rounded corner. Add inner padding (border-box so it can't
+     overflow) to keep the content clear of the edges. Above ~1730 the 1310px inner
+     centres with auto-margins and needs no padding. */
+  @media (min-width: 1201px) and (max-width: 1730px) {
+    .pi-nf__nl-inner { padding-inline: 40px; box-sizing: border-box; }
+  }
   @media (max-width: 989px) {
     /* Keep the section's configured top padding so the newsletter card has a gap
        above it (doesn't touch the section above), matching the desktop view. */
