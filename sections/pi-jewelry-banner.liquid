@@ -360,6 +360,31 @@
     .pi-jb__inner {
       min-height: calc(194px + min(456px, 28vw));
     }
+
+    /* Scale the double-frame gap (the offset between the white outline and the
+       image) with the shrunken frame, so it stays ~5.7% of the frame — matching
+       Figma — instead of the fixed 22px that looks oversized once the frame is
+       scaled down. 1.34vw ≈ 22px × (frame ÷ 387); caps at 22px by ~1642px where
+       the frame reaches full size and hands off to the desktop 22px. */
+    .pi-jb__img-col--left .pi-jb__frame img,
+    .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
+      clip-path: inset(min(22px, 1.34vw) 0 0 min(22px, 1.34vw));
+    }
+
+    .pi-jb__img-col--left .pi-jb__frame::before {
+      right: min(22px, 1.34vw);
+      bottom: min(22px, 1.34vw);
+    }
+
+    .pi-jb__img-col--right .pi-jb__frame img,
+    .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
+      clip-path: inset(0 min(22px, 1.34vw) min(22px, 1.34vw) 0);
+    }
+
+    .pi-jb__img-col--right .pi-jb__frame::before {
+      top: min(22px, 1.34vw);
+      left: min(22px, 1.34vw);
+    }
   }
 
   /* 820–1775px — the framed layout runs across this whole range, but the centre
