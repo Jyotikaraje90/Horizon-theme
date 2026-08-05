@@ -391,6 +391,17 @@
     .pi-nf__social { gap: 20px; }
   }
 
+  /* 769-989: keep the desktop inline newsletter layout (heading on the left,
+     email field + Subscribe filling the width on the right) instead of the
+     stacked column, so it matches the >=990 desktop look down to ~768. Placed
+     after the <=989 block so it overrides that block's column layout. Below 769
+     the mobile stacked layout applies unchanged. */
+  @media (min-width: 769px) and (max-width: 989px) {
+    .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 30px; }
+    .pi-nf__nl-heading { flex: 0 0 auto; max-width: 362px; }
+    .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: 740px; min-width: 0; width: auto; }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
