@@ -304,7 +304,11 @@
   }
 
   /* ── Responsive ── */
-  @media (max-width: 1200px) {
+  /* Extended past 1200 (up to 2560) so the "perfect" layout continues instead of
+     jumping to the Figma inset:210 spec at 1201 (which pulls the card narrow, drops
+     the inner padding, and lets the form clip at the rounded edge). Card inset 80,
+     inner padding, and matching footer padding stay consistent across desktop. */
+  @media (max-width: 2560px) {
     .pi-nf__nl-card { inset: 0 80px; }
     /* At these widths the card is narrower than the inner row's 1310px max-width,
        so the auto-margin breathing room disappears and the heading/form sit flush
