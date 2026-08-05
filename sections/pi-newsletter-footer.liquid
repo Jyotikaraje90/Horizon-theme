@@ -402,6 +402,24 @@
     .pi-nf__nl-form-wrap { flex: 0 0 auto; max-width: 520px; width: 100%; min-width: 0; margin: 0 auto; }
   }
 
+  /* 600-768: single row — heading wraps to two lines on the left, with the email
+     field + Subscribe together in one inline bar on the right (all on the same
+     row). Placed after the <=768 block so it overrides its stacked column form.
+     Below 600 the stacked mobile layout applies (a single row can't fit). */
+  @media (min-width: 600px) and (max-width: 768px) {
+    .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; text-align: left; }
+    .pi-nf__nl-heading { flex: 0 0 auto; max-width: 200px; text-align: left; font-size: 28px; line-height: 1.2; }
+    .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: none; width: auto; min-width: 0; margin: 0; }
+    .pi-nf__nl-form-wrap form,
+    .pi-nf__nl-form {
+      flex-direction: row; align-items: center; justify-content: space-between;
+      height: auto; padding: 8px 8px 8px 16px; gap: 8px;
+      background: #000 !important; border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 8px;
+    }
+    .pi-nf__nl-input { flex: 1; min-width: 0; width: auto; height: auto; padding: 0; background: #000 !important; color: #fff !important; border: none; border-radius: 0; font-size: 12px; line-height: 19px; }
+    .pi-nf__nl-btn { flex-shrink: 0; align-self: auto; width: auto; min-width: auto; height: 44px; padding: 12px 18px; background: #fff; color: #000; font-size: 13px; line-height: 18px; font-weight: 600; border-radius: 8px; }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
