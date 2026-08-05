@@ -374,20 +374,17 @@
     .pi-contact-us__form-panel {
       flex: none;
       width: 100%;
-      border-radius: 15px 15px 0 0;
+      /* Image is hidden below 990, so the form panel is the whole card — round all
+         four corners (was top-only when the image sat stacked underneath). */
+      border-radius: 15px;
       padding-top: {{ section.settings.mobile_padding_top }}px;
       padding-bottom: {{ section.settings.mobile_padding_bottom }}px;
     }
 
+    /* Remove the stacked image wherever it would sit below the form (all widths
+       under 990). Desktop (>=990) keeps the side-by-side image panel. */
     .pi-contact-us__image-panel {
-      /* flex:none cancels the base `flex:1` (flex-basis:0%), which otherwise
-         overrides height and lets the panel grow to the image's full natural
-         height. With flex:none the explicit height wins, so the img (height:100%)
-         cover-crops to a banner instead of rendering far too tall at 768/820. */
-      flex: none;
-      height: 380px;
-      min-height: 0;
-      border-radius: 0 0 15px 15px;
+      display: none;
     }
 
     .pi-contact-us__title {
