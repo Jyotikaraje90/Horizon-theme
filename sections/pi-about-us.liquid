@@ -227,11 +227,8 @@
     .pi-au__subheading-wrap { padding-left: 10px; }
     .pi-au__subheading { font-size: 22px; line-height: 30px; }
     .pi-au__text { font-size: 16px; line-height: 26px; }
-    /* Both CTAs on one line at mobile, each sized to its own text (different
-       widths, like desktop) — not stacked and not forced equal-width. Base
-       already sets flex row + wrap, so very narrow phones still wrap gracefully. */
-    .pi-au__buttons { gap: 12px; }
-    .pi-au__btn { font-size: 14px; padding: 16px 22px; height: 50px; }
+    .pi-au__buttons { flex-direction: column; gap: 10px; }
+    .pi-au__btn { width: 100%; font-size: 14px; padding: 16px 32px; height: 50px; }
   }
 
   /* Tablet (768–989): keep the 1024-style two-column layout (overlapping images
@@ -244,6 +241,11 @@
        the stacked full-width above); % images + aspect keep the same overlap. */
     .pi-au__images { flex: 0 0 300px; width: 300px; max-width: none; margin-inline: 0; }
     .pi-au__content { flex: 1; width: auto; padding-top: 0; }
+    /* Content column is narrow here, so shrink the CTAs just enough to keep them
+       on one line — each sized to its own text (different widths, like desktop)
+       — instead of wrapping to two rows. */
+    .pi-au__buttons { gap: 10px; }
+    .pi-au__btn { font-size: 14px; padding: 16px 14px; height: 50px; }
   }
 
   #shopify-section-{{ section.id }} {
