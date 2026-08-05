@@ -166,57 +166,23 @@
     .pi-usp__label { font-size: var(--pi-usp-label-size, 22px); line-height: 29px; }
   }
 
-  /* PI: 481-767px — 2 x 2 grid.
-     The <=767px block above makes this a horizontal scroller with fixed 200px
-     items. Four of those need ~800px, so on a large phone or small tablet you saw
-     three and a bit with the fourth sliced off and a scrollbar — broken-looking
-     rather than swipeable.
-
-     Squeezing all four into one row instead does not work here: the widest label
-     ("AUTHENTIC" at 22px) is 125px, and one row leaves only ~137px per cell at
-     690px, putting the labels 16px from the dividers. That passes a "does it fit"
-     check but reads as crowded, which is what it looked like.
-
-     Two per row is the shape that actually fits: each cell is ~195px at 481px and
-     ~338px at 767px, so the label always has 70px+ of slack and cannot crowd. The
-     dividers are hidden because they exist to separate columns in a single row and
-     land arbitrarily once the items wrap. <=480px keeps the scroller, where two
-     22px labels side by side would start to get tight again. */
-  @media (min-width: 481px) and (max-width: 767px) {
+  /* PI: 750-767px — render the swipe scroller at the mobile sizes.
+     The <=767px block above keeps its horizontal scroller (four fixed 200px items
+     you swipe) at every width up to 767px, which is the intended mobile form.
+     But it sizes the label, icon and block padding from
+     `var(--pi-usp-label-size, 22px)`, `var(--pi-usp-icon-size, 50px)` and
+     `var(--pi-usp-pad-*, 50px)`, and those custom properties are set from the
+     section's DESKTOP settings at the root — only <=749px overrides them with the
+     mobile settings. So 750-767px rendered 34px labels, 100px icons and 100px
+     padding: desktop sizes inside the mobile scroller, which swung the section
+     height from 334px to 538px across a single pixel of viewport.
+     These are the same values <=749px already uses, so only that 18px window
+     changes and the scroller itself is untouched. */
+  @media (min-width: 750px) and (max-width: 767px) {
     .pi-usp__inner {
-      overflow-x: visible;
-      padding-inline: 40px;
-
-      /* Same root-vs-mobile fallback problem as the label and icon below:
-         --pi-usp-pad-* is only set for <=749px, so 750-767px picked up the
-         desktop 100px padding instead of the mobile 48px. */
       padding-block: 48px;
     }
 
-    .pi-usp__grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 40px 20px;
-      width: 100%;
-    }
-
-    .pi-usp__item {
-      flex: initial;
-      width: auto;
-      min-width: 0;
-    }
-
-    .pi-usp__divider {
-      display: none;
-    }
-
-    /* Pins the label and icon across the whole band. The <=767px rules resolve
-       `var(--pi-usp-label-size, 22px)` and `var(--pi-usp-icon-size, 50px)`
-       against the section's ROOT settings (34px and 100px), and only <=749px
-       overrides them with the mobile settings (22px and 50px) — so 750-767px was
-       rendering desktop-sized labels and icons, larger than either neighbouring
-       range, which swung the section height from 334px to 538px. These values
-       match what <=749px already uses, so only that 18px window changes. */
     .pi-usp__label {
       font-size: 22px;
       line-height: 29px;
