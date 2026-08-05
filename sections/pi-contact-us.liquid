@@ -414,8 +414,10 @@
     .pi-contact-us__subtitle { font-size: 16px; line-height: 26px; color: #000000; }
     .pi-contact-us__heading { gap: 5px; }
     .pi-contact-us__textarea { height: 150px; border-radius: 8px; }
-    .pi-contact-us__btn { width: 100%; height: 50px; padding: 16px 32px; }
-    .pi-contact-us__submit-row { align-items: stretch; }
+    /* Size the button to its own text (left-aligned) rather than stretching it
+       full-width across the form. */
+    .pi-contact-us__btn { width: auto; height: 50px; padding: 16px 40px; }
+    .pi-contact-us__submit-row { align-items: flex-start; }
     .pi-contact-us__image-panel { display: none; }
   }
 </style>
