@@ -235,22 +235,11 @@
     .pi-au__btn { font-size: 14px; padding: 16px 16px; height: 50px; }
   }
 
-  /* Tablet (768–989): keep the 1024-style two-column layout (overlapping images
-     left, content right) instead of the ≤989 stacked/scattered column. The image
-     composition is compacted so the content column still has room to breathe.
-     990px+ (1024/desktop) and ≤749 (mobile) are untouched. */
-  @media (min-width: 768px) and (max-width: 989px) {
-    .pi-au__body { flex-direction: row; align-items: flex-start; gap: 30px; }
-    /* Two-column at tablet: composition sits in a fixed 300px column (overriding
-       the stacked full-width above); % images + aspect keep the same overlap. */
-    .pi-au__images { flex: 0 0 300px; width: 300px; max-width: none; margin-inline: 0; }
-    .pi-au__content { flex: 1; width: auto; padding-top: 0; }
-    /* Content column is narrow here, so shrink the CTAs just enough to keep them
-       on one line — each sized to its own text (different widths, like desktop)
-       — instead of wrapping to two rows. */
-    .pi-au__buttons { gap: 10px; }
-    .pi-au__btn { font-size: 14px; padding: 16px 14px; height: 50px; }
-  }
+  /* Tablet (768–989): use the stacked "top image → content below" format (same
+     as the ≤989 base rule) rather than a two-column row. A two-column row here
+     forces a small image column beside a tall text column, making the section
+     unnecessarily tall with empty space under the images. Stacking keeps it
+     balanced. 990px+ (1024/desktop) and ≤749 (mobile) are untouched. */
 
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
