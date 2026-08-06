@@ -1292,14 +1292,26 @@
       object-fit: contain;
     }
 
-    /* 600-1199: logo stays LEFT (desktop-style); margin-inline-end:auto eats the
-       free space so search + actions + hamburger pack to the right. */
+    /* Hamburger always at the far LEFT (holds whatever overflowed). -6px start
+       sits it ~14px from the 20px edge. */
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      display: flex !important;
+      order: -1 !important;
+      align-self: center;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin: 0 0 0 -6px !important;
+    }
+
+    /* 600-1199: logo sits LEFT, right after the hamburger (not centred yet).
+       margin-inline-end:auto eats the free space so search + actions pack right. */
     #header-component .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
       order: 0 !important;
       position: static !important;
       transform: none !important;
-      margin: 0 auto 0 0 !important;
+      margin: 0 auto 0 10px !important;
       max-width: none !important;
       height: auto !important;
       justify-self: auto !important;
@@ -1319,17 +1331,6 @@
       justify-self: auto !important;
       grid-area: auto !important;
       margin-inline: 0 !important;
-    }
-    /* Hamburger at the far right — holds whatever overflowed (nav links, then
-       INQUIRE at <=989). */
-    #header-component .header__columns .header__drawer,
-    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
-      display: flex !important;
-      order: 3 !important;
-      align-self: center;
-      justify-self: auto !important;
-      grid-area: auto !important;
-      margin: 0 -6px 0 0 !important;
     }
   }
 
