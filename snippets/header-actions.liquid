@@ -621,32 +621,40 @@
     color: #ffffff;
   }
 
-  /* Hidden from the bar wherever the hamburger shows (<=1199) — INQUIRE moves
-     into the drawer (see header-drawer.liquid). */
-  @media screen and (max-width: 1199px) {
+  /* Progressive collapse into the drawer (cart always stays; nav links collapse
+     first at <=1199). Drop order: account -> wishlist -> INQUIRE -> search. */
+  @media screen and (max-width: 989px) {
+    .account-button {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 849px) {
+    .pi-wishlist-action {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 749px) {
     .pi-inquire-btn {
       display: none;
     }
   }
 
-  @media screen and (min-width: 750px) and (max-width: 989px) {
+  /* Wherever the hamburger shows (<=1199), the logo is centred, so keep INQUIRE
+     compact so the right-side group clears the centred logo instead of
+     overlapping it (rather than dropping icons early). */
+  @media screen and (min-width: 750px) and (max-width: 1199px) {
     .pi-inquire-btn {
       font-size: 13px;
-      padding: 10px 18px;
-      margin-left: 16px;
+      padding: 9px 16px;
+      margin-left: 12px;
     }
     header-actions {
       gap: 4px;
     }
   }
 
-  /* Wishlist + account move into the drawer wherever the hamburger shows. */
-  @media screen and (max-width: 1199px) {
-    .pi-wishlist-action,
-    .account-button {
-      display: none;
-    }
-  }
 
   @media screen and (min-width: 750px) {
     .header-actions--text {

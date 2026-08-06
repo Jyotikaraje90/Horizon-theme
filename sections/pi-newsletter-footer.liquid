@@ -380,10 +380,12 @@
     .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 18px; min-height: 290px; background-size: cover; background-position: center; background-color: #fff; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 30px 20px; gap: 20px; max-width: 100%; }
     .pi-nf__nl-heading { font-size: 30px; line-height: 39px; max-width: 100%; text-align: left; }
-    /* Cap the field so it doesn't stretch edge-to-edge on wide phones/small
-       tablets (e.g. 768px). On true phones the card content is already narrower
-       than this cap, so the 314px Figma spec at ~390px is unaffected. */
-    .pi-nf__nl-form-wrap { max-width: 440px; width: 100%; }
+    /* Cap the field to the 314px Figma spec so it holds an appropriate size on
+       wider phones (~500-599px) instead of ballooning; on narrower phones the
+       card content is already below 314px, so it just tracks the card width.
+       Only affects the stacked layout — the 600px+ inline design sets its own
+       width. */
+    .pi-nf__nl-form-wrap { max-width: 314px; width: 100%; }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 0; gap: 12px; background: transparent !important; border: none; }
     /* flex: 0 0 auto cancels the base rule's flex: 1. In this column layout
@@ -437,6 +439,12 @@
      row). Placed after the <=768 block so it overrides its stacked column form.
      Below 600 the stacked mobile layout applies (a single row can't fit). */
   @media (min-width: 600px) and (max-width: 768px) {
+    /* The 290px card min-height is sized for the taller stacked (<=599) layout;
+       here the content is a single inline row, so that height leaves too much
+       space around the heading. Trim it and add gap above the card so the
+       proportions read like desktop. */
+    #shopify-section-{{ section.id }} { padding-top: 56px; }
+    .pi-nf__nl-card { min-height: 200px; }
     .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; text-align: left; }
     .pi-nf__nl-heading { flex: 0 0 auto; max-width: 200px; text-align: left; font-size: 28px; line-height: 1.2; }
     .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: none; width: auto; min-width: 0; margin: 0; }
@@ -448,6 +456,19 @@
     }
     .pi-nf__nl-input { flex: 1; min-width: 0; width: auto; height: auto; padding: 0; background: #000 !important; color: #fff !important; border: none; border-radius: 0; font-size: 12px; line-height: 19px; }
     .pi-nf__nl-btn { flex-shrink: 0; align-self: auto; width: auto; min-width: auto; height: 44px; padding: 12px 18px; background: #fff; color: #000; font-size: 13px; line-height: 18px; font-weight: 600; border-radius: 8px; }
+  }
+
+  /* <=599 stacked layout: once the card is wider than the content, the leftover
+     space was all on the right (content pinned left). Shrink the inner to its
+     content and centre it, so the heading + field + Subscribe stay left-aligned
+     as a group but the whole group sits centred in the card. */
+  @media (max-width: 599px) {
+    .pi-nf__nl-inner {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      align-items: flex-start;
+    }
   }
 
   #shopify-section-{{ section.id }} {
