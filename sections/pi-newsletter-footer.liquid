@@ -44,7 +44,14 @@
   }
   .pi-nf__nl-card {
     position: absolute;
-    inset: 0 210px;
+    inset: 0 80px;
+    /* Figma: 1920 frame, 210px side inset = a 1500px card. Cap + centre so the
+       card holds the Figma width on wide screens instead of spreading to the
+       80px inset. margin-inline:auto centres an absolutely-positioned box when
+       both left/right (the 80px inset) are set. Below ~1660px the cap is inert
+       and the 80px inset takes over, so ~1200px laptops keep their tuned width. */
+    max-width: 1500px;
+    margin-inline: auto;
     background-color: var(--pi-nf-card-bg, #f5f0ea);
     background-size: cover;
     background-position: center;
