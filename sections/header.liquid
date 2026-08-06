@@ -1148,30 +1148,7 @@
       margin-inline-end: -14px;
     }
 
-    /* Logo: move from center → leftB, left-aligned */
-    .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      grid-area: leftB;
-      justify-self: start;
-      max-width: 140px;
-      height: 40px;
-    }
-
-    .header__columns .header-logo img,
-    .header__columns .header-logo svg,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
-      max-width: 140px;
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* Move search to rightA instead of leftB */
-    .header__columns .search-action,
-    #header-component[data-menu-style='drawer'] .header__columns .search-action {
-      grid-area: rightA;
-    }
+    /* Logo positioning + size handled by the unified <=1199 rule below. */
   }
 
   /* PI: tablet header — match mobile layout with proper spacing */
@@ -1209,25 +1186,7 @@
       padding-block: 10px !important;
     }
 
-    /* 40px tall to fit the 60px frame's 40px content box (60 - 2*10px padding).
-       Width 140px to match the mobile + desktop logo (constant size everywhere). */
-    .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      grid-area: leftB !important;
-      justify-self: start;
-      max-width: 140px;
-      height: 40px;
-    }
-
-    .header__columns .header-logo img,
-    .header__columns .header-logo svg,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
-      max-width: 140px;
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
+    /* Logo positioning + size handled by the unified <=1199 rule below. */
 
     #header-component[data-menu-style='drawer'] .header__columns header-actions {
       grid-area: rightB !important;
@@ -1334,7 +1293,9 @@
       margin: 0 auto 0 -6px !important;
     }
 
-    /* Logo: absolutely centred in the bar. */
+    /* Logo: absolutely centred in the bar, at the SAME size as desktop (driven by
+       the shared --header-logo-image-* vars, ~55px tall) so it never changes
+       across widths. */
     #header-component .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
       position: absolute !important;
@@ -1342,8 +1303,19 @@
       top: 50% !important;
       transform: translate(-50%, -50%) !important;
       margin: 0 !important;
+      max-width: none !important;
+      height: auto !important;
       justify-self: auto !important;
       grid-area: auto !important;
+    }
+
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: var(--header-logo-image-height) !important;
+      width: var(--header-logo-image-width) !important;
+      max-width: none !important;
+      object-fit: contain;
     }
 
     /* Search then cart, right-aligned (search visibility follows search.liquid —
