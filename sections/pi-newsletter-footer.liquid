@@ -157,11 +157,16 @@
     box-sizing: border-box;
   }
   /* Figma Group 36264: 1px border all sides #808080, columns inside */
+  /* Capped + centred to the same 1310px as the newsletter card's inner row
+     above, so on wide screens the columns stay grouped/aligned with it instead
+     of stretching edge-to-edge across the full-width footer. */
   .pi-nf__footer-inner {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    max-width: 1310px;
+    margin: 0 auto;
   }
 
   /* Figma Frame 1171275773: 265px × 162px hug, gap 20px vertical */
@@ -257,6 +262,8 @@
   }
   .pi-nf__copyright-inner {
     width: 100%;
+    max-width: 1310px;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
