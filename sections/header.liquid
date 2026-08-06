@@ -1124,7 +1124,7 @@
 
   @media screen and (max-width: 749px) {
     body {
-      --header-height: 60px;
+      --header-height: 95px;
     }
 
     /* Logo first, then search + cart + hamburger on the right.
@@ -1148,29 +1148,13 @@
       margin-inline-end: -14px;
     }
 
-    /* Logo: move from center → leftB, left-aligned */
-    .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      grid-area: leftB;
-      justify-self: start;
-      max-width: 140px;
-      height: 40px;
-    }
+    /* Logo positioning + size handled by the unified <=1199 rule below. */
 
-    .header__columns .header-logo img,
-    .header__columns .header-logo svg,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
-      max-width: 140px;
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    /* Move search to rightA instead of leftB */
-    .header__columns .search-action,
-    #header-component[data-menu-style='drawer'] .header__columns .search-action {
-      grid-area: rightA;
+    /* The centered logo is wide; on phones it would overlap the search icon.
+       Drop search here so only the cart stays on the right. Search returns at
+       750px+, where the bar is wide enough for both. */
+    #header-component .header__columns .search-action {
+      display: none !important;
     }
   }
 
@@ -1209,34 +1193,14 @@
       padding-block: 10px !important;
     }
 
-    /* 40px tall to fit the 60px frame's 40px content box (60 - 2*10px padding) */
-    .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      grid-area: leftB !important;
-      justify-self: start;
-      max-width: 160px;
-      height: 40px;
-    }
-
-    .header__columns .header-logo img,
-    .header__columns .header-logo svg,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
-      max-width: 160px;
-      height: 40px;
-      width: auto;
-      object-fit: contain;
-    }
+    /* Logo positioning + size handled by the unified <=1199 rule below. */
 
     #header-component[data-menu-style='drawer'] .header__columns header-actions {
       grid-area: rightB !important;
       justify-self: end;
     }
-
-    .header__columns .search-action,
-    #header-component[data-menu-style='drawer'] .header__columns .search-action {
-      display: none !important;
-    }
+    /* Search is no longer hidden in the tablet range — the unified <=1199 layout
+       shows it on the right (visibility handled by search.liquid). */
   }
 
   /* PI: when the hamburger/drawer layout is active on wider (>=990px) touch
@@ -1301,6 +1265,84 @@
     }
   }
 
+  /* PI: unified drawer-navbar layout for every width the hamburger shows (<=1199).
+     Hamburger far-left, logo dead-centre, search + cart on the right; nav links,
+     wishlist, account and INQUIRE live in the drawer (hidden here / see
+     header-actions.liquid). Uses flex + an absolutely-centred logo so the logo
+     stays centred regardless of the right-side icon count. Overrides the grid
+     positioning in the <=749 / 750-989 / 990-1199 blocks above (declared after
+     them; !important beats their un-!important margins). */
+  @media screen and (max-width: 1199px) {
+    #header-component .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      display: flex !important;
+      align-items: center;
+      position: relative;
+      gap: 8px;
+    }
+
+    /* Nav links + the inline localization dropdown never show in the bar here —
+       they're in the drawer. Force-hidden regardless of the JS menu-style. */
+    #header-component .header__columns .header-menu,
+    #header-component .header__columns .dropdown-localization {
+      display: none !important;
+    }
+
+    /* Hamburger: far left. margin-inline-end:auto eats the free space so the
+       icons pack to the right; -6px start sits it ~14px from the 20px edge. */
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      display: flex !important;
+      order: -1 !important;
+      justify-self: auto !important;
+      align-self: center;
+      grid-area: auto !important;
+      margin: 0 auto 0 -6px !important;
+    }
+
+    /* Logo: absolutely centred in the bar, at the SAME size as desktop (driven by
+       the shared --header-logo-image-* vars, ~55px tall) so it never changes
+       across widths. */
+    #header-component .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+      max-width: none !important;
+      height: auto !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+    }
+
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: var(--header-logo-image-height) !important;
+      width: var(--header-logo-image-width) !important;
+      max-width: none !important;
+      object-fit: contain;
+    }
+
+    /* Search then cart, right-aligned (search visibility follows search.liquid —
+       the correct single copy shows in drawer mode). */
+    #header-component .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      order: 2 !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin-inline: 0 !important;
+    }
+    #header-component .header__columns header-actions,
+    #header-component[data-menu-style='drawer'] .header__columns header-actions {
+      order: 3 !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin-inline: 0 !important;
+    }
+  }
+
   /* PI: at >=1200px show the inline nav and hide the hamburger on first paint,
      so there's no hamburger flash before header.js runs. Safe against overlap
      because the JS keeps data-menu-style out of 'drawer' at >=1200px, so the
@@ -1351,6 +1393,14 @@
   @media screen and (min-width: 1200px) {
     .header__row--top .header__columns > .header__column {
       zoom: var(--pi-header-scale, 1);
+    }
+
+    /* Counter the proportional zoom on the logo ONLY, so it renders at the same
+       pixel size as at <=1199px (and >=1420px) — the logo must stay constant
+       across every width even though the links/icons scale to fit. Each band's
+       --pi-logo-unzoom is 1 / --pi-header-scale. */
+    #header-component .header-logo {
+      zoom: var(--pi-logo-unzoom, 1);
     }
   }
 
@@ -1410,6 +1460,7 @@
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
     .header__row--top {
       --pi-header-scale: 0.84;
+      --pi-logo-unzoom: 1.1905;
     }
   }
 
@@ -1417,12 +1468,14 @@
   @media screen and (min-width: 1260px) and (max-width: 1299px) {
     .header__row--top {
       --pi-header-scale: 0.88;
+      --pi-logo-unzoom: 1.1364;
     }
   }
 
   @media screen and (min-width: 1300px) and (max-width: 1339px) {
     .header__row--top {
       --pi-header-scale: 0.9;
+      --pi-logo-unzoom: 1.1111;
     }
   }
 
@@ -1430,12 +1483,14 @@
   @media screen and (min-width: 1340px) and (max-width: 1379px) {
     .header__row--top {
       --pi-header-scale: 0.94;
+      --pi-logo-unzoom: 1.0638;
     }
   }
 
   @media screen and (min-width: 1380px) and (max-width: 1419px) {
     .header__row--top {
       --pi-header-scale: 0.97;
+      --pi-logo-unzoom: 1.0309;
     }
   }
 
@@ -1479,19 +1534,16 @@
     }
   }
 
-  /* PI: mobile + tablet navbar pinned to the Figma frame — 60px tall (Hug),
-     full width, 10px block / 20px inline padding. Declared after the 95px rule
-     above so it wins for 750-989px; 990px and up keeps the 95px desktop height.
-     Without the explicit height the row rendered ~80px, because .header__drawer
-     carries min-height: 60px (--header-drawer-min-height) which outgrew the
-     40px content box. */
+  /* PI: uniform 95px navbar height at all widths (matches desktop). Explicit
+     height keeps the row deterministic; 20px inline / 10px block padding hold
+     the content off the edges. */
   @media screen and (max-width: 989px) {
     body {
-      --header-height: 60px;
+      --header-height: 95px;
     }
 
     .header__row--top .header__columns {
-      height: 60px;
+      height: 95px;
       box-sizing: border-box;
       padding-block: 10px;
       padding-inline: 20px;
@@ -1500,12 +1552,7 @@
       align-items: center;
     }
 
-    /* Let the hamburger fill the 40px content box instead of forcing 60px.
-       !important because the theme's own rule is
-       #header-component[data-menu-style='drawer'] .header__drawer (1,2,0),
-       which outranks any sane selector here. */
     #header-component .header__drawer {
-      min-height: 0 !important;
       align-self: stretch;
     }
   }

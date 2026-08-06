@@ -44,7 +44,14 @@
   }
   .pi-nf__nl-card {
     position: absolute;
-    inset: 0 210px;
+    inset: 0 80px;
+    /* Figma: 1920 frame, 210px side inset = a 1500px card. Cap + centre so the
+       card holds the Figma width on wide screens instead of spreading to the
+       80px inset. margin-inline:auto centres an absolutely-positioned box when
+       both left/right (the 80px inset) are set. Below ~1660px the cap is inert
+       and the 80px inset takes over, so ~1200px laptops keep their tuned width. */
+    max-width: 1500px;
+    margin-inline: auto;
     background-color: var(--pi-nf-card-bg, #f5f0ea);
     background-size: cover;
     background-position: center;
@@ -157,11 +164,18 @@
     box-sizing: border-box;
   }
   /* Figma Group 36264: 1px border all sides #808080, columns inside */
+  /* Figma: 1920 frame with 210px side padding = a 1500px content container.
+     Capped + centred to 1500px so on wide screens the columns hold the Figma
+     210px inset instead of stretching edge-to-edge (the <=2560 rule drops the
+     body padding to 80px). Below ~1660px the cap is inert and the 80px padding
+     takes over, so laptops/tablets are unaffected. */
   .pi-nf__footer-inner {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
+    max-width: 1500px;
+    margin: 0 auto;
   }
 
   /* Figma Frame 1171275773: 265px × 162px hug, gap 20px vertical */
@@ -257,6 +271,8 @@
   }
   .pi-nf__copyright-inner {
     width: 100%;
+    max-width: 1500px;
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -344,6 +360,17 @@
     .pi-nf__brand + .pi-nf__vdivider { display: none; }
     .pi-nf__copyright { padding-left: 40px; padding-right: 40px; height: auto; padding-top: 12px; padding-bottom: 12px; }
     .pi-nf__copyright-inner { flex-wrap: wrap; }
+  }
+  /* 990-1199: the fixed 340px brand + three no-wrap link columns are wider than
+     the row here, so the columns shove right and the last one (Our Studios)
+     clips off the edge. Wrap the brand onto its own row and let the columns sit
+     in a space-between row below — the same treatment as <=989, but scoped to
+     the footer so the newsletter card keeps its desktop layout up to 2560. */
+  @media (min-width: 990px) and (max-width: 1199px) {
+    .pi-nf__footer-inner { flex-wrap: wrap; }
+    .pi-nf__brand { width: 100%; border-bottom: 1px solid #808080; }
+    .pi-nf__vdivider { display: block; }
+    .pi-nf__brand + .pi-nf__vdivider { display: none; }
   }
   @media (max-width: 768px) {
     #shopify-section-{{ section.id }} { padding-top: 30px; }

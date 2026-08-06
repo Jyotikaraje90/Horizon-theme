@@ -621,7 +621,9 @@
     color: #ffffff;
   }
 
-  @media screen and (max-width: 749px) {
+  /* Hidden from the bar wherever the hamburger shows (<=1199) — INQUIRE moves
+     into the drawer (see header-drawer.liquid). */
+  @media screen and (max-width: 1199px) {
     .pi-inquire-btn {
       display: none;
     }
@@ -638,7 +640,8 @@
     }
   }
 
-  @media screen and (max-width: 749px) {
+  /* Wishlist + account move into the drawer wherever the hamburger shows. */
+  @media screen and (max-width: 1199px) {
     .pi-wishlist-action,
     .account-button {
       display: none;

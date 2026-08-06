@@ -83,6 +83,26 @@
           {{- 'icon-close.svg' | inline_asset_content -}}
         </span>
       </button>
+      {%- comment -%}
+        PI: search bar pinned to the top of the drawer. Tapping it opens the
+        theme's search modal — the same overlay the header search icon opens,
+        with recently-viewed + product suggestions — instead of a plain results
+        page.
+      {%- endcomment -%}
+      <search-button class="pi-drawer-search">
+        <button
+          type="button"
+          class="pi-drawer-search__trigger"
+          on:click="#search-modal/showDialog"
+          aria-haspopup="dialog"
+          aria-label="Search"
+        >
+          <span class="svg-wrapper pi-drawer-search__icon">
+            {{ 'icon-search.svg' | inline_asset_content }}
+          </span>
+          <span class="pi-drawer-search__label">Search</span>
+        </button>
+      </search-button>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -572,6 +592,32 @@
           {% endif %}
         </ul>
       </nav>
+      {%- comment -%}
+        PI: actions that are hidden from the top bar at <=1199px (INQUIRE button,
+        account, wishlist) live here in the drawer so they stay reachable.
+      {%- endcomment -%}
+      <div class="pi-drawer-actions">
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="pi-drawer-actions__link pi-drawer-actions__link--icon">
+            <svg width="18" height="20" viewBox="0 0 15 17" fill="none" aria-hidden="true">
+              <path stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" d="M10.375 3.813a3.063 3.063 0 1 1-6.125 0 3.063 3.063 0 0 1 6.125 0ZM7.313 9.5c-3.667 0-6.24 2.691-6.563 6.125h13.125C13.552 12.191 10.979 9.5 7.312 9.5Z"/>
+            </svg>
+            <span>{{ 'content.account_title' | t }}</span>
+          </a>
+        {%- endif -%}
+        <a href="/pages/wishlist" class="pi-drawer-actions__link pi-drawer-actions__link--icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span>Wishlist</span>
+        </a>
+        <a
+          href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
+          class="pi-drawer-actions__inquire"
+        >
+          {{- section.settings.inquire_label | default: 'Inquire Now' -}}
+        </a>
+      </div>
       <div
         class="menu-drawer__utility-links menu-drawer__animated-element"
         style="--menu-drawer-animation-index: {{ linklist.links.size }};"
@@ -1430,26 +1476,111 @@
     .menu-drawer {
       width: min(50vw, 400px);
       max-width: min(50vw, 400px);
-      left: auto;
-      right: 0;
-      transform: translateX(100%);
-      border-right: none;
-      border-left: var(--style-border-drawer);
+      left: 0;
+      right: auto;
+      transform: translateX(-100%);
+      border-left: none;
+      border-right: var(--style-border-drawer);
     }
 
-    /* Submenu panels slide in from the right edge to match the parent drawer */
+    /* Submenu panels slide in from the left edge to match the parent drawer */
     .menu-drawer__submenu {
-      transform: translateX(5%);
+      transform: translateX(-5%);
     }
 
-    /* The summary's default `padding: var(--padding-lg)` puts 16px between the
-       icon and the box edge, which stops the negative margin in header.liquid
-       from getting the lines close to the corner. Trim the end padding only —
-       the start padding keeps the gap from the INQUIRE NOW button, and the
-       block padding keeps the tap target full-height. */
+    /* Hamburger now sits at the left edge, so trim the summary's start padding
+       (not the end) to bring the icon close to the corner; block padding stays
+       so the tap target keeps its full height. */
     .menu-drawer-container .header__icon--summary {
-      padding-inline-end: 8px;
+      padding-inline-start: 8px;
     }
+  }
+
+  /* PI: actions relocated into the drawer (INQUIRE / account / wishlist). */
+  .pi-drawer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px var(--drawer-padding, 20px) 8px;
+  }
+
+  .pi-drawer-actions__inquire {
+    display: flex;
+    width: 100%;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    padding: 12px 16px;
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .pi-drawer-actions__inquire:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .pi-drawer-actions__link {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-foreground);
+  }
+
+  .pi-drawer-actions__link--icon {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pi-drawer-actions__link--icon svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  /* PI: search bar at the top of the drawer — a trigger that opens the search
+     modal (with suggestions / recently viewed). */
+  .pi-drawer-search {
+    display: block;
+    margin: 8px var(--drawer-padding, 20px) 12px;
+  }
+
+  .pi-drawer-search__trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    background: transparent;
+    border: 1px solid rgb(var(--color-foreground-rgb, 18 18 18) / 0.25);
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgb(var(--color-foreground-rgb, 18 18 18) / 0.7);
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .pi-drawer-search__icon,
+  .pi-drawer-search__icon svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .pi-drawer-search__label {
+    flex: 1;
   }
 
   /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,
