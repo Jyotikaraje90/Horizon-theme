@@ -1149,6 +1149,13 @@
     }
 
     /* Logo positioning + size handled by the unified <=1199 rule below. */
+
+    /* The centered logo is wide; on phones it would overlap the search icon.
+       Drop search here so only the cart stays on the right. Search returns at
+       750px+, where the bar is wide enough for both. */
+    #header-component .header__columns .search-action {
+      display: none !important;
+    }
   }
 
   /* PI: tablet header — match mobile layout with proper spacing */
