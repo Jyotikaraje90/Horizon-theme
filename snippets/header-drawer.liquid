@@ -83,23 +83,75 @@
           {{- 'icon-close.svg' | inline_asset_content -}}
         </span>
       </button>
-      {%- comment -%} PI: search field pinned to the top of the drawer {%- endcomment -%}
-      <form action="{{ routes.search_url }}" method="get" role="search" class="pi-drawer-search">
-        <input
-          type="search"
-          name="q"
-          value="{{ search.terms | escape }}"
-          placeholder="Search"
-          aria-label="Search"
-          class="pi-drawer-search__input"
+      {%- comment -%}
+        PI: predictive search pinned to the top of the drawer. Reuses the theme's
+        <predictive-search-component> so results render inline as you type,
+        instead of navigating to the /search results page.
+      {%- endcomment -%}
+      <script src="{{ 'predictive-search.js' | asset_url }}" type="module" fetchpriority="low"></script>
+      <predictive-search-component
+        class="predictive-search pi-drawer-search color-{{ settings.popover_color_scheme }}"
+        data-section-id="predictive-search"
+        role="search"
+        aria-label="Search"
+      >
+        <form
+          action="{{ routes.search_url }}"
+          method="get"
+          role="search"
+          class="predictive-search-form"
+          ref="form"
+          on:keydown="/onSearchKeyDown"
         >
-        <button type="submit" class="pi-drawer-search__btn" aria-label="Search">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-        </button>
-      </form>
+          <div class="predictive-search-form__header">
+            <div class="predictive-search-form__header-inner">
+              <input
+                class="search-input"
+                type="search"
+                name="q"
+                role="combobox"
+                aria-expanded="false"
+                aria-owns="predictive-search-results-drawer"
+                aria-controls="predictive-search-results-drawer"
+                aria-haspopup="listbox"
+                aria-autocomplete="list"
+                autocomplete="off"
+                placeholder="Search"
+                aria-label="Search"
+                ref="searchInput"
+                on:input="/search"
+                on:keydown="/onSearchKeyDown"
+              >
+              <input name="options[prefix]" type="hidden" value="last">
+              <span class="svg-wrapper predictive-search__icon">
+                {{ 'icon-search.svg' | inline_asset_content }}
+              </span>
+              <button
+                type="button"
+                class="button-unstyled predictive-search__reset-button"
+                ref="resetButton"
+                hidden
+                on:click="/resetSearch"
+              >
+                {{ 'actions.clear' | t }}
+              </button>
+            </div>
+          </div>
+          <div class="predictive-search-form__content-wrapper">
+            <div
+              class="predictive-search-form__content"
+              ref="predictiveSearchResults"
+              on:click="/handleModalClick"
+            >
+              {% render 'predictive-search-empty-state',
+                load_empty_state: true,
+                shadow_opacity: 0.1,
+                products_test_id: 'products-list-default--drawer'
+              %}
+            </div>
+          </div>
+        </form>
+      </predictive-search-component>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -594,12 +646,6 @@
         account, wishlist) live here in the drawer so they stay reachable.
       {%- endcomment -%}
       <div class="pi-drawer-actions">
-        <a
-          href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
-          class="pi-drawer-actions__inquire"
-        >
-          {{- section.settings.inquire_label | default: 'Inquire Now' -}}
-        </a>
         {%- if shop.customer_accounts_enabled -%}
           <a href="{{ routes.account_url }}" class="pi-drawer-actions__link pi-drawer-actions__link--icon">
             <svg width="18" height="20" viewBox="0 0 15 17" fill="none" aria-hidden="true">
@@ -613,6 +659,12 @@
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
           <span>Wishlist</span>
+        </a>
+        <a
+          href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
+          class="pi-drawer-actions__inquire"
+        >
+          {{- section.settings.inquire_label | default: 'Inquire Now' -}}
         </a>
       </div>
       <div
@@ -1545,38 +1597,15 @@
     flex-shrink: 0;
   }
 
-  /* PI: search field at the top of the drawer */
-  .pi-drawer-search {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin: 8px var(--drawer-padding, 20px) 4px;
-    padding: 10px 14px;
-    border: 1px solid rgb(var(--color-foreground-rgb, 18 18 18) / 0.2);
-    border-radius: 8px;
-  }
-
-  .pi-drawer-search__input {
-    flex: 1;
-    min-width: 0;
-    border: none;
-    outline: none;
-    background: transparent;
-    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 14px;
-    color: var(--color-foreground);
-  }
-
-  .pi-drawer-search__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    padding: 0;
-    background: none;
-    border: none;
-    cursor: pointer;
-    color: var(--color-foreground);
+  /* PI: predictive search pinned to the top of the drawer. The component ships
+     its own input + results styling (from search-modal); here we just place it
+     full-width with drawer padding. */
+  .pi-drawer-search.predictive-search {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 8px 0 12px;
+    padding-inline: var(--drawer-padding, 20px);
   }
 
   /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,
