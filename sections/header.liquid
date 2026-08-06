@@ -1209,12 +1209,13 @@
       padding-block: 10px !important;
     }
 
-    /* 40px tall to fit the 60px frame's 40px content box (60 - 2*10px padding) */
+    /* 40px tall to fit the 60px frame's 40px content box (60 - 2*10px padding).
+       Width 140px to match the mobile + desktop logo (constant size everywhere). */
     .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
       grid-area: leftB !important;
       justify-self: start;
-      max-width: 160px;
+      max-width: 140px;
       height: 40px;
     }
 
@@ -1222,7 +1223,7 @@
     .header__columns .header-logo svg,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo img,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo svg {
-      max-width: 160px;
+      max-width: 140px;
       height: 40px;
       width: auto;
       object-fit: contain;
@@ -1247,6 +1248,17 @@
   @media screen and (min-width: 990px) {
     #header-component[data-menu-style='drawer'] .header__columns {
       padding-inline: var(--page-margin) !important;
+    }
+
+    /* PI: keep the header logo a constant 140x40 on desktop too, matching the
+       mobile/tablet size, instead of the theme's 55px (logo_height) desktop logo.
+       Applies to both menu (inline nav) and drawer styles. */
+    #header-component .header-logo img,
+    #header-component .header-logo svg {
+      max-width: 140px;
+      height: 40px;
+      width: auto;
+      object-fit: contain;
     }
   }
 
