@@ -215,7 +215,7 @@
     #shopify-section-{{ section.id }} { padding: 0 0 30px; }
     .pi-lb { padding: 0 10px; gap: 20px; }
     .pi-lb__heading { font-size: var(--pi-lb-heading-size, 30px); line-height: 1.3; }
-    .pi-lb__grid { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .pi-lb__grid { flex-direction: row; flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab; }
     .pi-lb__grid::-webkit-scrollbar { display: none; }
     .pi-lb__card { flex: 0 0 250px; height: 287px; }
     .pi-lb__card-img { height: 185px; border-radius: 8px; }
@@ -232,10 +232,15 @@
      Cards keep the ≤989 height (380px); they're just fixed-width and the row
      scrolls horizontally. */
   @media (min-width: 750px) and (max-width: 989px) {
-    .pi-lb__grid { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .pi-lb__grid { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; cursor: grab; }
     .pi-lb__grid::-webkit-scrollbar { display: none; }
     .pi-lb__card { flex: 0 0 300px; }
   }
+
+  /* Mouse drag-to-scroll feedback. Native touch scrolling is untouched — the
+     script below only drives the mouse case. */
+  .pi-lb__grid.is-dragging { cursor: grabbing; user-select: none; }
+  .pi-lb__card-img img { -webkit-user-drag: none; user-drag: none; }
 </style>
 
 <div class="pi-lb">
@@ -297,6 +302,49 @@
   </div>
 
 </div>
+
+<script>
+  (function () {
+    var grid = document.querySelector('#shopify-section-{{ section.id }} .pi-lb__grid');
+    if (!grid) return;
+
+    var isDown = false, startX = 0, startScroll = 0, moved = false;
+
+    grid.addEventListener('pointerdown', function (e) {
+      // Mouse only — touch devices keep native momentum scrolling.
+      if (e.pointerType !== 'mouse' || e.button !== 0) return;
+      // Nothing to scroll (e.g. desktop where all cards fit) — leave clicks alone.
+      if (grid.scrollWidth <= grid.clientWidth) return;
+      isDown = true;
+      moved = false;
+      startX = e.clientX;
+      startScroll = grid.scrollLeft;
+      grid.setPointerCapture(e.pointerId);
+      grid.classList.add('is-dragging');
+    });
+
+    grid.addEventListener('pointermove', function (e) {
+      if (!isDown) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 5) moved = true;
+      grid.scrollLeft = startScroll - dx;
+    });
+
+    function endDrag(e) {
+      if (!isDown) return;
+      isDown = false;
+      try { grid.releasePointerCapture(e.pointerId); } catch (err) {}
+      grid.classList.remove('is-dragging');
+    }
+    grid.addEventListener('pointerup', endDrag);
+    grid.addEventListener('pointercancel', endDrag);
+
+    // Swallow the click that follows a drag so a card link doesn't fire.
+    grid.addEventListener('click', function (e) {
+      if (moved) { e.preventDefault(); e.stopPropagation(); }
+    }, true);
+  })();
+</script>
 
 {% schema %}
 {
