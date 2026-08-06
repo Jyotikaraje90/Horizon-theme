@@ -380,10 +380,12 @@
     .pi-nf__nl-card { position: static; inset: auto; border-radius: 20px; margin: 0 18px; min-height: 290px; background-size: cover; background-position: center; background-color: #fff; }
     .pi-nf__nl-inner { flex-direction: column; align-items: flex-start; padding: 30px 20px; gap: 20px; max-width: 100%; }
     .pi-nf__nl-heading { font-size: 30px; line-height: 39px; max-width: 100%; text-align: left; }
-    /* Cap the field so it doesn't stretch edge-to-edge on wide phones/small
-       tablets (e.g. 768px). On true phones the card content is already narrower
-       than this cap, so the 314px Figma spec at ~390px is unaffected. */
-    .pi-nf__nl-form-wrap { max-width: 440px; width: 100%; }
+    /* Cap the field to the 314px Figma spec so it holds an appropriate size on
+       wider phones (~500-599px) instead of ballooning; on narrower phones the
+       card content is already below 314px, so it just tracks the card width.
+       Only affects the stacked layout — the 600px+ inline design sets its own
+       width. */
+    .pi-nf__nl-form-wrap { max-width: 314px; width: 100%; }
     .pi-nf__nl-form-wrap form,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 0; gap: 12px; background: transparent !important; border: none; }
     /* flex: 0 0 auto cancels the base rule's flex: 1. In this column layout
