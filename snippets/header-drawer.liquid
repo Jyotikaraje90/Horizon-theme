@@ -84,74 +84,25 @@
         </span>
       </button>
       {%- comment -%}
-        PI: predictive search pinned to the top of the drawer. Reuses the theme's
-        <predictive-search-component> so results render inline as you type,
-        instead of navigating to the /search results page.
+        PI: search bar pinned to the top of the drawer. Tapping it opens the
+        theme's search modal — the same overlay the header search icon opens,
+        with recently-viewed + product suggestions — instead of a plain results
+        page.
       {%- endcomment -%}
-      <script src="{{ 'predictive-search.js' | asset_url }}" type="module" fetchpriority="low"></script>
-      <predictive-search-component
-        class="predictive-search pi-drawer-search color-{{ settings.popover_color_scheme }}"
-        data-section-id="predictive-search"
-        role="search"
-        aria-label="Search"
-      >
-        <form
-          action="{{ routes.search_url }}"
-          method="get"
-          role="search"
-          class="predictive-search-form"
-          ref="form"
-          on:keydown="/onSearchKeyDown"
+      <search-button class="pi-drawer-search">
+        <button
+          type="button"
+          class="pi-drawer-search__trigger"
+          on:click="#search-modal/showDialog"
+          aria-haspopup="dialog"
+          aria-label="Search"
         >
-          <div class="predictive-search-form__header">
-            <div class="predictive-search-form__header-inner">
-              <input
-                class="search-input"
-                type="search"
-                name="q"
-                role="combobox"
-                aria-expanded="false"
-                aria-owns="predictive-search-results-drawer"
-                aria-controls="predictive-search-results-drawer"
-                aria-haspopup="listbox"
-                aria-autocomplete="list"
-                autocomplete="off"
-                placeholder="Search"
-                aria-label="Search"
-                ref="searchInput"
-                on:input="/search"
-                on:keydown="/onSearchKeyDown"
-              >
-              <input name="options[prefix]" type="hidden" value="last">
-              <span class="svg-wrapper predictive-search__icon">
-                {{ 'icon-search.svg' | inline_asset_content }}
-              </span>
-              <button
-                type="button"
-                class="button-unstyled predictive-search__reset-button"
-                ref="resetButton"
-                hidden
-                on:click="/resetSearch"
-              >
-                {{ 'actions.clear' | t }}
-              </button>
-            </div>
-          </div>
-          <div class="predictive-search-form__content-wrapper">
-            <div
-              class="predictive-search-form__content"
-              ref="predictiveSearchResults"
-              on:click="/handleModalClick"
-            >
-              {% render 'predictive-search-empty-state',
-                load_empty_state: true,
-                shadow_opacity: 0.1,
-                products_test_id: 'products-list-default--drawer'
-              %}
-            </div>
-          </div>
-        </form>
-      </predictive-search-component>
+          <span class="svg-wrapper pi-drawer-search__icon">
+            {{ 'icon-search.svg' | inline_asset_content }}
+          </span>
+          <span class="pi-drawer-search__label">Search</span>
+        </button>
+      </search-button>
       <nav
         class="menu-drawer__navigation"
         style="
@@ -1597,15 +1548,39 @@
     flex-shrink: 0;
   }
 
-  /* PI: predictive search pinned to the top of the drawer. The component ships
-     its own input + results styling (from search-modal); here we just place it
-     full-width with drawer padding. */
-  .pi-drawer-search.predictive-search {
+  /* PI: search bar at the top of the drawer — a trigger that opens the search
+     modal (with suggestions / recently viewed). */
+  .pi-drawer-search {
     display: block;
+    margin: 8px var(--drawer-padding, 20px) 12px;
+  }
+
+  .pi-drawer-search__trigger {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     width: 100%;
     box-sizing: border-box;
-    margin: 8px 0 12px;
-    padding-inline: var(--drawer-padding, 20px);
+    padding: 12px 14px;
+    background: transparent;
+    border: 1px solid rgb(var(--color-foreground-rgb, 18 18 18) / 0.25);
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgb(var(--color-foreground-rgb, 18 18 18) / 0.7);
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    text-align: left;
+  }
+
+  .pi-drawer-search__icon,
+  .pi-drawer-search__icon svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+  }
+
+  .pi-drawer-search__label {
+    flex: 1;
   }
 
   /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,
