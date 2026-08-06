@@ -621,8 +621,21 @@
     color: #ffffff;
   }
 
-  /* INQUIRE drops into the drawer at <=989 (nav links go first, at 990-1199). */
+  /* Progressive collapse into the drawer (cart always stays; nav links collapse
+     first at <=1199). Drop order: account -> wishlist -> INQUIRE -> search. */
   @media screen and (max-width: 989px) {
+    .account-button {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 849px) {
+    .pi-wishlist-action {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 699px) {
     .pi-inquire-btn {
       display: none;
     }
@@ -639,14 +652,6 @@
     }
   }
 
-  /* Wishlist + account stay in the bar until phones; they drop into the drawer
-     at <=599 (fully collapsed). */
-  @media screen and (max-width: 599px) {
-    .pi-wishlist-action,
-    .account-button {
-      display: none;
-    }
-  }
 
   @media screen and (min-width: 750px) {
     .header-actions--text {
