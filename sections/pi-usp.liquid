@@ -166,6 +166,34 @@
     .pi-usp__label { font-size: var(--pi-usp-label-size, 22px); line-height: 29px; }
   }
 
+  /* PI: 750-767px — render the swipe scroller at the mobile sizes.
+     The <=767px block above keeps its horizontal scroller (four fixed 200px items
+     you swipe) at every width up to 767px, which is the intended mobile form.
+     But it sizes the label, icon and block padding from
+     `var(--pi-usp-label-size, 22px)`, `var(--pi-usp-icon-size, 50px)` and
+     `var(--pi-usp-pad-*, 50px)`, and those custom properties are set from the
+     section's DESKTOP settings at the root — only <=749px overrides them with the
+     mobile settings. So 750-767px rendered 34px labels, 100px icons and 100px
+     padding: desktop sizes inside the mobile scroller, which swung the section
+     height from 334px to 538px across a single pixel of viewport.
+     These are the same values <=749px already uses, so only that 18px window
+     changes and the scroller itself is untouched. */
+  @media (min-width: 750px) and (max-width: 767px) {
+    .pi-usp__inner {
+      padding-block: 48px;
+    }
+
+    .pi-usp__label {
+      font-size: 22px;
+      line-height: 29px;
+    }
+
+    .pi-usp__icon {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
   /* ─── Icon placeholder (no image uploaded) ───── */
   .pi-usp__icon-placeholder {
     width: 100%;

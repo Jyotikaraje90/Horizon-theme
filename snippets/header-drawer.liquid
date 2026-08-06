@@ -1416,14 +1416,20 @@
      screen instead of 95vw / 25rem. Bounded at 1199px, which is every width
      where the hamburger is reachable at all: from 1200px up the header shows
      the inline nav and hides .header__drawer entirely.
+
+     Half the screen is the spec on a phone, but it does not scale: at 1199px a
+     plain 50vw drawer is ~600px, which reads as a huge panel rather than a menu.
+     Capped at 400px — the theme's own wider-screen drawer width (25rem) — so it
+     stays half the screen up to ~800px and holds at 400px above that.
+
      width/max-width are set directly rather than through --drawer-width so the
      base `@media (min-width: 750px) { width: 25rem }` is also overridden, and
      the global --drawer-* vars are left alone because the collection filters
      drawer reads the same two. */
   @media screen and (max-width: 1199px) {
     .menu-drawer {
-      width: 50vw;
-      max-width: 50vw;
+      width: min(50vw, 400px);
+      max-width: min(50vw, 400px);
       left: auto;
       right: 0;
       transform: translateX(100%);

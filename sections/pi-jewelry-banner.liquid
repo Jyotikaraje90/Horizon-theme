@@ -22,12 +22,15 @@
     --pi-jb-btn-hover-bg: {{ section.settings.btn_hover_bg }};
     --pi-jb-btn-hover-text: {{ section.settings.btn_hover_text }};
   }
-  @media (max-width: 749px) {
+  /* 767px (not 749px) so --pi-jb-heading-size becomes the mobile value across
+     the SAME range as the "shared mobile type scale" block below, which reads
+     `var(--pi-jb-heading-size, 30px)`. Previously this stopped at 749px while
+     that block runs to 767px, so 750–767px kept the desktop 54px variable and
+     the heading rendered at full desktop size. */
+  @media (max-width: 767px) {
     #shopify-section-{{ section.id }} {
       --pi-jb-pad-top: {{ section.settings.mobile_padding_top }}px;
       --pi-jb-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      /* Moved from 989px to 749px so this section switches to its mobile
-         heading size at the same breakpoint as every other homepage section. */
       --pi-jb-heading-size: {{ section.settings.mobile_heading_size }}px;
     }
   }
@@ -93,6 +96,10 @@
   .pi-jb__frame {
     position: absolute;
     overflow: hidden;
+    /* Double-frame gap: the offset between the white outline and the image.
+       Single knob used by the clip-path + ::before rules below; the scaled
+       band (820–1775px) overrides it proportionally. */
+    --pi-jb-frame-gap: 14px;
   }
 
   /* LEFT container: starts at Figma frame position (top:50px left:110px) */
@@ -126,7 +133,7 @@
   /* LEFT — image pushed 22px right+down; frame sits at container top-left (= Figma position) */
   .pi-jb__img-col--left .pi-jb__frame img,
   .pi-jb__img-col--left .pi-jb__frame .placeholder-svg {
-    clip-path: inset(22px 0 0 22px);
+    clip-path: inset(var(--pi-jb-frame-gap) 0 0 var(--pi-jb-frame-gap));
   }
 
   /* LEFT — frame border exactly 365×434 at top-left of container = Figma: top:50 left:110 */
@@ -135,8 +142,8 @@
     position: absolute;
     top: 0;
     left: 0;
-    right: 22px;
-    bottom: 22px;
+    right: var(--pi-jb-frame-gap);
+    bottom: var(--pi-jb-frame-gap);
     border: 3px solid var(--pi-jb-frame-border-color, #FFFFFF);
     z-index: 1;
     pointer-events: none;
@@ -147,15 +154,15 @@
   /* RIGHT — image at container top-left; frame sits 22px right+down (= Figma: top:166 left:62) */
   .pi-jb__img-col--right .pi-jb__frame img,
   .pi-jb__img-col--right .pi-jb__frame .placeholder-svg {
-    clip-path: inset(0 22px 22px 0);
+    clip-path: inset(0 var(--pi-jb-frame-gap) var(--pi-jb-frame-gap) 0);
   }
 
   /* RIGHT — frame border exactly 365×434 offset 22px from top-left = Figma: top:166 left:62 */
   .pi-jb__img-col--right .pi-jb__frame::before {
     content: '';
     position: absolute;
-    top: 22px;
-    left: 22px;
+    top: var(--pi-jb-frame-gap);
+    left: var(--pi-jb-frame-gap);
     right: 0;
     bottom: 0;
     border: 3px solid var(--pi-jb-frame-border-color, #FFFFFF);
@@ -228,12 +235,12 @@
   }
 
   /* ─── Responsive ─────────────────────────── */
-  /* The desktop 3-column framed side images are positioned with fixed px offsets
-     sized for a wide (~1920px) canvas, so on narrower screens they overflow their
-     columns and cover the center heading/subheading. Below 1280px we therefore
-     hide them and use the centered layout plus the two-image row (the same
-     treatment that already runs at <=989px). */
-  @media (max-width: 1279px) {
+  /* Below 768px we hide the framed side images and use the centered layout plus
+     the two-image row. From 768px up the framed 3-column layout is kept and
+     scaled proportionally to the viewport (see the 768–1775px block below), so
+     the frames — whose fixed px offsets were sized for a ~1920px canvas — never
+     overflow into the center heading/subheading. */
+  @media (max-width: 767px) {
     .pi-jb__inner { grid-template-columns: 1fr; min-height: unset; }
     .pi-jb__img-col--left,
     .pi-jb__img-col--right { display: none; }
@@ -319,16 +326,16 @@
     }
   }
 
-  /* ─── Laptop range (1280–1775px) ─────────────────────────
+  /* ─── Tablet / laptop / small-desktop range (768–1775px) ─────────────────
      The desktop side frames use fixed px offsets (left:110px / left:40px +
-     387px wide) sized for a ~1920px canvas. Between 1280px and ~1775px the
+     387px wide) sized for a ~1920px canvas. Between 768px and ~1775px the
      side columns are too narrow to contain them, so the frames spill into the
      center column and clip the heading/subheading. Here we anchor each frame
      to its own column's outer edge and cap its width to a share of the column,
      so it can never reach the center text. Above 1775px the columns are wide
      enough and the original fixed-px layout (matching the desktop design)
      takes over unchanged. */
-  @media (min-width: 1280px) and (max-width: 1775px) {
+  @media (min-width: 768px) and (max-width: 1775px) {
     .pi-jb__img-col--left .pi-jb__frame {
       left: 8%;
       top: 50px;
@@ -344,6 +351,51 @@
       width: min(387px, 84%);
       height: auto;
       aspect-ratio: 387 / 456;
+    }
+
+    /* Height tracks the scaled frames instead of the fixed 650px, so the empty
+       space below the (lower) right image stays ~50px like the desktop
+       reference, rather than leaving a large gap once the frames shrink.
+       = right-frame top (144px) + scaled frame height + a 50px bottom gap that
+       matches the 50px top gap. The frame is 84% of its ~28vw-wide column, i.e.
+       ~23.5vw, so its height (×456/387) is ~28vw — capped at 456px once the
+       frame reaches its 387px max around 1642px, where this meets the 650px
+       desktop height. */
+    .pi-jb__inner {
+      min-height: calc(194px + min(456px, 28vw));
+    }
+
+    /* Scale the double-frame gap with the shrunken frame so it stays the same
+       proportion at every width (~3.6% of the frame, matching Figma) instead of
+       a fixed px value that looks oversized once the frame shrinks. 0.85vw ≈
+       14px × (frame ÷ 387); caps at the base 14px by ~1642px where the frame
+       reaches full size. One knob — the base value above and this coefficient. */
+    .pi-jb__frame {
+      --pi-jb-frame-gap: min(14px, 0.85vw);
+    }
+  }
+
+  /* 768–1775px — the framed layout runs across this whole range, but the centre
+     column is narrower than on wide desktop, so scale the heading with the
+     viewport. 3.4vw keeps "LUXURY PIERCING" on its own first line (instead of
+     breaking mid-phrase into "LUXURY" / "PIERCING"), so the heading stays a tidy
+     3 lines — LUXURY PIERCING / JEWELRY FOR EVERY / LOOK — rather than 4. The
+     26px floor (plus the trimmed centre padding at 768–899px below) is what
+     keeps that first line intact at the 768px end; it caps at the base 54px by
+     ~1588px, handing off seamlessly to the >=1776px desktop size. */
+  @media (min-width: 768px) and (max-width: 1775px) {
+    .pi-jb__heading {
+      font-size: clamp(26px, 3.4vw, 54px);
+      line-height: 1.2;
+    }
+  }
+
+  /* 768–899px — narrowest end of the framed range: trim the centre column's
+     side padding (40px → 24px) so the wider "LUXURY PIERCING" line still fits
+     on one line and the heading stays 3 lines. Doesn't affect >=900px. */
+  @media (min-width: 768px) and (max-width: 899px) {
+    .pi-jb__center {
+      padding-inline: 24px;
     }
   }
 

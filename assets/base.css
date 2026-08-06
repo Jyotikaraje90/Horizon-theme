@@ -35,6 +35,34 @@ body {
   --submenu-animation-easing: cubic-bezier(0.25, 0.1, 0.25, 1);
 }
 
+/* PI: 481-767px — size the homepage section CTAs to their content.
+   Each of these sections sets its button to `width: 100%` in its own <=767px
+   block, which is the right call on a 375px phone but stretches them to
+   684-700px on large phones and small tablets. The hero, jewelry-banner and
+   trusted-by buttons are already content-sized, so these were the outliers.
+   <=480px is deliberately excluded so the approved full-width mobile treatment
+   is untouched. Collected here rather than edited into six section files so the
+   whole change is reviewable and revertible in one place; !important is needed
+   because the section styles are inline <style> blocks that come later in the
+   document than this stylesheet. */
+@media screen and (min-width: 481px) and (max-width: 767px) {
+  .pi-bs__explore-btn,
+  .pi-ts__btn,
+  .pi-ps__btn,
+  .pi-au__btn,
+  .pi-lb__btn,
+  .pi-faqs__btn {
+    width: auto !important;
+  }
+
+  /* .pi-au__buttons is a column flex container in this range, and a column
+     container stretches its children on the cross axis — so `width: auto` alone
+     left these two at the full 700px. Centre them instead. */
+  .pi-au__buttons {
+    align-items: center !important;
+  }
+}
+
 html {
   /* Firefox */
   scrollbar-width: thin;
