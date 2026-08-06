@@ -206,14 +206,17 @@
     .pi-au__heading { font-size: calc(var(--pi-au-heading-base, 54px) * 0.82); line-height: 1.3; }
     .pi-au__body { gap: 40px; }
     .pi-au__images { flex: 0 0 480px; }
-    .pi-au__content { flex: 1; }
+    /* min-width: 0 lets the column shrink below the buttons' min-content width;
+       without it the no-wrap CTA row forced the column wider than the available
+       space, overflowing the section and clipping the body text + 2nd button. */
+    .pi-au__content { flex: 1; min-width: 0; }
     .pi-au__subheading { font-size: 28px; line-height: 38px; }
     /* Slightly smaller body text so the content column doesn't tower over the
        image column and leave the section looking too tall at this width. */
     .pi-au__text { font-size: 16px; line-height: 26px; }
-    /* Keep both CTAs on one line (each sized to its own text) instead of the
-       narrow column wrapping them onto two rows. */
-    .pi-au__buttons { flex-wrap: nowrap; gap: 12px; }
+    /* Keep both CTAs side by side while they fit; let the 2nd wrap to a new line
+       when the column is too narrow, instead of clipping off the right edge. */
+    .pi-au__buttons { flex-wrap: wrap; gap: 12px; }
     .pi-au__btn { padding: 16px 20px; }
   }
 
