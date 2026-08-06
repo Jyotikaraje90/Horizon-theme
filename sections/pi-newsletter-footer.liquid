@@ -157,15 +157,17 @@
     box-sizing: border-box;
   }
   /* Figma Group 36264: 1px border all sides #808080, columns inside */
-  /* Capped + centred to the same 1310px as the newsletter card's inner row
-     above, so on wide screens the columns stay grouped/aligned with it instead
-     of stretching edge-to-edge across the full-width footer. */
+  /* Figma: 1920 frame with 210px side padding = a 1500px content container.
+     Capped + centred to 1500px so on wide screens the columns hold the Figma
+     210px inset instead of stretching edge-to-edge (the <=2560 rule drops the
+     body padding to 80px). Below ~1660px the cap is inert and the 80px padding
+     takes over, so laptops/tablets are unaffected. */
   .pi-nf__footer-inner {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     justify-content: space-between;
-    max-width: 1310px;
+    max-width: 1500px;
     margin: 0 auto;
   }
 
@@ -262,7 +264,7 @@
   }
   .pi-nf__copyright-inner {
     width: 100%;
-    max-width: 1310px;
+    max-width: 1500px;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
