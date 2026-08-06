@@ -452,6 +452,19 @@
     .pi-nf__nl-btn { flex-shrink: 0; align-self: auto; width: auto; min-width: auto; height: 44px; padding: 12px 18px; background: #fff; color: #000; font-size: 13px; line-height: 18px; font-weight: 600; border-radius: 8px; }
   }
 
+  /* <=599 stacked layout: once the card is wider than the content, the leftover
+     space was all on the right (content pinned left). Shrink the inner to its
+     content and centre it, so the heading + field + Subscribe stay left-aligned
+     as a group but the whole group sits centred in the card. */
+  @media (max-width: 599px) {
+    .pi-nf__nl-inner {
+      width: fit-content;
+      max-width: 100%;
+      margin-inline: auto;
+      align-items: flex-start;
+    }
+  }
+
   #shopify-section-{{ section.id }} {
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
