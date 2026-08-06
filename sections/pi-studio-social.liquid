@@ -616,9 +616,12 @@
       font-size: 14px;
       line-height: 18px;
       letter-spacing: 0;
-      /* Full-width at mobile to match the .pi-ps__btn treatment (that's where its
-         generous space beside the text comes from — not padding). */
-      width: 100%;
+      /* Size to the label so it never stretches edge-to-edge; the centered
+         title-content keeps it centred. Generous side padding gives it a
+         proper button shape at every width. */
+      width: auto;
+      max-width: 100%;
+      padding: 14px 40px;
       box-sizing: border-box;
     }
     /* Names must stay visible — there is no hover on touch devices. A
