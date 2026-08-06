@@ -114,8 +114,13 @@
   }
 
   /* ─── Right: content column ─────────────────────────── */
+  /* flex:1 1 auto + min-width:0 so the column fills the space left beside the
+     740px image and shrinks instead of overflowing. With the fixed 740 image +
+     50 gap inside the 1500px (minus 120px padding) container, a rigid 710px
+     column overflowed and clipped the body text at >1599px. */
   .pi-au__content {
-    flex: 0 0 710px;
+    flex: 1 1 auto;
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 30px;
