@@ -621,9 +621,8 @@
     color: #ffffff;
   }
 
-  /* Hidden from the bar wherever the hamburger shows (<=1199) — INQUIRE moves
-     into the drawer (see header-drawer.liquid). */
-  @media screen and (max-width: 1199px) {
+  /* INQUIRE drops into the drawer at <=989 (nav links go first, at 990-1199). */
+  @media screen and (max-width: 989px) {
     .pi-inquire-btn {
       display: none;
     }
@@ -640,8 +639,9 @@
     }
   }
 
-  /* Wishlist + account move into the drawer wherever the hamburger shows. */
-  @media screen and (max-width: 1199px) {
+  /* Wishlist + account stay in the bar until phones; they drop into the drawer
+     at <=599 (fully collapsed). */
+  @media screen and (max-width: 599px) {
     .pi-wishlist-action,
     .account-button {
       display: none;

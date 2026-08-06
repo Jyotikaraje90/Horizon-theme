@@ -1583,6 +1583,24 @@
     flex: 1;
   }
 
+  /* Drawer items show only once they've dropped out of the bar, mirroring the
+     header breakpoints:
+       - nav links: always (collapse first, <=1199)
+       - INQUIRE: <=989   (pi-drawer-actions container)
+       - account + wishlist + search bar: <=599 (fully collapsed) */
+  @media screen and (min-width: 990px) {
+    .pi-drawer-actions {
+      display: none;
+    }
+  }
+
+  @media screen and (min-width: 600px) {
+    .pi-drawer-search,
+    .pi-drawer-actions__link {
+      display: none;
+    }
+  }
+
   /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,
      the summary's 16px block padding would push it past the 40px content box.
      Drop it and stretch to the row height instead, so the tap target stays a

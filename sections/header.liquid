@@ -1148,14 +1148,8 @@
       margin-inline-end: -14px;
     }
 
-    /* Logo positioning + size handled by the unified <=1199 rule below. */
-
-    /* The centered logo is wide; on phones it would overlap the search icon.
-       Drop search here so only the cart stays on the right. Search returns at
-       750px+, where the bar is wide enough for both. */
-    #header-component .header__columns .search-action {
-      display: none !important;
-    }
+    /* Logo positioning + size handled by the unified <=1199 rule below; search
+       visibility is handled there too (hidden only at <=599). */
   }
 
   /* PI: tablet header — match mobile layout with proper spacing */
@@ -1288,34 +1282,7 @@
       display: none !important;
     }
 
-    /* Hamburger: far left. margin-inline-end:auto eats the free space so the
-       icons pack to the right; -6px start sits it ~14px from the 20px edge. */
-    #header-component .header__columns .header__drawer,
-    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
-      display: flex !important;
-      order: -1 !important;
-      justify-self: auto !important;
-      align-self: center;
-      grid-area: auto !important;
-      margin: 0 auto 0 -6px !important;
-    }
-
-    /* Logo: absolutely centred in the bar, at the SAME size as desktop (driven by
-       the shared --header-logo-image-* vars, ~55px tall) so it never changes
-       across widths. */
-    #header-component .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      position: absolute !important;
-      left: 50% !important;
-      top: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      margin: 0 !important;
-      max-width: none !important;
-      height: auto !important;
-      justify-self: auto !important;
-      grid-area: auto !important;
-    }
-
+    /* Logo constant size across all widths (shared --header-logo-image-* vars). */
     #header-component .header__columns .header-logo img,
     #header-component .header__columns .header-logo svg,
     #header-component .header__columns .header-logo__image {
@@ -1325,21 +1292,66 @@
       object-fit: contain;
     }
 
-    /* Search then cart, right-aligned (search visibility follows search.liquid —
-       the correct single copy shows in drawer mode). */
+    /* 600-1199: logo stays LEFT (desktop-style); margin-inline-end:auto eats the
+       free space so search + actions + hamburger pack to the right. */
+    #header-component .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      order: 0 !important;
+      position: static !important;
+      transform: none !important;
+      margin: 0 auto 0 0 !important;
+      max-width: none !important;
+      height: auto !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+    }
+
     #header-component .header__columns .search-action,
     #header-component[data-menu-style='drawer'] .header__columns .search-action {
-      order: 2 !important;
+      order: 1 !important;
       justify-self: auto !important;
       grid-area: auto !important;
       margin-inline: 0 !important;
     }
     #header-component .header__columns header-actions,
     #header-component[data-menu-style='drawer'] .header__columns header-actions {
-      order: 3 !important;
+      order: 2 !important;
       justify-self: auto !important;
       grid-area: auto !important;
       margin-inline: 0 !important;
+    }
+    /* Hamburger at the far right — holds whatever overflowed (nav links, then
+       INQUIRE at <=989). */
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      display: flex !important;
+      order: 3 !important;
+      align-self: center;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin: 0 -6px 0 0 !important;
+    }
+  }
+
+  /* Fully collapsed (<=599, phones): everything but the cart is in the hamburger.
+     Hamburger moves to the LEFT, the logo centres, only the cart stays on the
+     right (search drops into the drawer so the centred logo has room). */
+  @media screen and (max-width: 599px) {
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      order: -1 !important;
+      margin: 0 auto 0 -6px !important;
+    }
+    #header-component .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+    }
+    #header-component .header__columns .search-action {
+      display: none !important;
     }
   }
 
