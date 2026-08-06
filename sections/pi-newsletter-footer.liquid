@@ -364,7 +364,10 @@
        ~39px, ignoring the 53px below. */
     .pi-nf__nl-input { flex: 0 0 auto; height: 53px; padding: 10px 20px; background: #000 !important; color: #fff !important; border: none; border-radius: 8px; font-size: 12px; line-height: 19px; width: 100%; box-sizing: border-box; }
     .pi-nf__nl-input::placeholder { color: #fff; opacity: 0.7; }
-    .pi-nf__nl-btn { min-width: 139px; height: 50px; padding: 16px 32px; align-self: flex-start; background: #000; color: #fff; font-size: 14px; line-height: 18px; font-weight: 600; border-radius: 8px; box-sizing: border-box; width: auto; }
+    /* Size to the "Subscribe" label so it doesn't bloat wider than the inline
+       layout's pill just below 600px. Compact horizontal padding, no forced
+       min-width; height stays a comfortable tap target. */
+    .pi-nf__nl-btn { min-width: 0; height: 48px; padding: 12px 24px; align-self: flex-start; background: #000; color: #fff; font-size: 14px; line-height: 18px; font-weight: 600; border-radius: 8px; box-sizing: border-box; width: auto; }
 
     .pi-nf { margin-top: 0; padding-top: 165px; }
     .pi-nf__footer-body { padding: 30px 20px; }
