@@ -1387,6 +1387,14 @@
     .header__row--top .header__columns > .header__column {
       zoom: var(--pi-header-scale, 1);
     }
+
+    /* Counter the proportional zoom on the logo ONLY, so it renders at the same
+       pixel size as at <=1199px (and >=1420px) — the logo must stay constant
+       across every width even though the links/icons scale to fit. Each band's
+       --pi-logo-unzoom is 1 / --pi-header-scale. */
+    #header-component .header-logo {
+      zoom: var(--pi-logo-unzoom, 1);
+    }
   }
 
   /* PI: stop the "More" chip reserving width during overflow-list's fit test, so
@@ -1445,6 +1453,7 @@
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
     .header__row--top {
       --pi-header-scale: 0.84;
+      --pi-logo-unzoom: 1.1905;
     }
   }
 
@@ -1452,12 +1461,14 @@
   @media screen and (min-width: 1260px) and (max-width: 1299px) {
     .header__row--top {
       --pi-header-scale: 0.88;
+      --pi-logo-unzoom: 1.1364;
     }
   }
 
   @media screen and (min-width: 1300px) and (max-width: 1339px) {
     .header__row--top {
       --pi-header-scale: 0.9;
+      --pi-logo-unzoom: 1.1111;
     }
   }
 
@@ -1465,12 +1476,14 @@
   @media screen and (min-width: 1340px) and (max-width: 1379px) {
     .header__row--top {
       --pi-header-scale: 0.94;
+      --pi-logo-unzoom: 1.0638;
     }
   }
 
   @media screen and (min-width: 1380px) and (max-width: 1419px) {
     .header__row--top {
       --pi-header-scale: 0.97;
+      --pi-logo-unzoom: 1.0309;
     }
   }
 
