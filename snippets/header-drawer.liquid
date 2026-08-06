@@ -572,6 +572,24 @@
           {% endif %}
         </ul>
       </nav>
+      {%- comment -%}
+        PI: actions that are hidden from the top bar at <=1199px (INQUIRE button,
+        account, wishlist) live here in the drawer so they stay reachable.
+      {%- endcomment -%}
+      <div class="pi-drawer-actions">
+        <a
+          href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
+          class="pi-drawer-actions__inquire"
+        >
+          {{- section.settings.inquire_label | default: 'Inquire Now' -}}
+        </a>
+        {%- if shop.customer_accounts_enabled -%}
+          <a href="{{ routes.account_url }}" class="pi-drawer-actions__link">
+            {{- 'content.account_title' | t -}}
+          </a>
+        {%- endif -%}
+        <a href="/pages/wishlist" class="pi-drawer-actions__link">Wishlist</a>
+      </div>
       <div
         class="menu-drawer__utility-links menu-drawer__animated-element"
         style="--menu-drawer-animation-index: {{ linklist.links.size }};"
@@ -1430,26 +1448,61 @@
     .menu-drawer {
       width: min(50vw, 400px);
       max-width: min(50vw, 400px);
-      left: auto;
-      right: 0;
-      transform: translateX(100%);
-      border-right: none;
-      border-left: var(--style-border-drawer);
+      left: 0;
+      right: auto;
+      transform: translateX(-100%);
+      border-left: none;
+      border-right: var(--style-border-drawer);
     }
 
-    /* Submenu panels slide in from the right edge to match the parent drawer */
+    /* Submenu panels slide in from the left edge to match the parent drawer */
     .menu-drawer__submenu {
-      transform: translateX(5%);
+      transform: translateX(-5%);
     }
 
-    /* The summary's default `padding: var(--padding-lg)` puts 16px between the
-       icon and the box edge, which stops the negative margin in header.liquid
-       from getting the lines close to the corner. Trim the end padding only —
-       the start padding keeps the gap from the INQUIRE NOW button, and the
-       block padding keeps the tap target full-height. */
+    /* Hamburger now sits at the left edge, so trim the summary's start padding
+       (not the end) to bring the icon close to the corner; block padding stays
+       so the tap target keeps its full height. */
     .menu-drawer-container .header__icon--summary {
-      padding-inline-end: 8px;
+      padding-inline-start: 8px;
     }
+  }
+
+  /* PI: actions relocated into the drawer (INQUIRE / account / wishlist). */
+  .pi-drawer-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 20px var(--drawer-padding, 20px) 8px;
+  }
+
+  .pi-drawer-actions__inquire {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    padding: 12px 24px;
+    background: #000;
+    color: #fff;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .pi-drawer-actions__inquire:hover {
+    background: #333;
+    color: #fff;
+  }
+
+  .pi-drawer-actions__link {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: var(--color-foreground);
   }
 
   /* PI: mobile + tablet, where the navbar is pinned to the Figma 60px height,

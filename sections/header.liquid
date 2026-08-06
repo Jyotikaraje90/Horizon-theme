@@ -1233,11 +1233,8 @@
       grid-area: rightB !important;
       justify-self: end;
     }
-
-    .header__columns .search-action,
-    #header-component[data-menu-style='drawer'] .header__columns .search-action {
-      display: none !important;
-    }
+    /* Search is no longer hidden in the tablet range — the unified <=1199 layout
+       shows it on the right (visibility handled by search.liquid). */
   }
 
   /* PI: when the hamburger/drawer layout is active on wider (>=990px) touch
@@ -1299,6 +1296,71 @@
       justify-self: end;
       align-items: center;
       margin-inline-end: -34px;
+    }
+  }
+
+  /* PI: unified drawer-navbar layout for every width the hamburger shows (<=1199).
+     Hamburger far-left, logo dead-centre, search + cart on the right; nav links,
+     wishlist, account and INQUIRE live in the drawer (hidden here / see
+     header-actions.liquid). Uses flex + an absolutely-centred logo so the logo
+     stays centred regardless of the right-side icon count. Overrides the grid
+     positioning in the <=749 / 750-989 / 990-1199 blocks above (declared after
+     them; !important beats their un-!important margins). */
+  @media screen and (max-width: 1199px) {
+    #header-component .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      display: flex !important;
+      align-items: center;
+      position: relative;
+      gap: 8px;
+    }
+
+    /* Nav links + the inline localization dropdown never show in the bar here —
+       they're in the drawer. Force-hidden regardless of the JS menu-style. */
+    #header-component .header__columns .header-menu,
+    #header-component .header__columns .dropdown-localization {
+      display: none !important;
+    }
+
+    /* Hamburger: far left. margin-inline-end:auto eats the free space so the
+       icons pack to the right; -6px start sits it ~14px from the 20px edge. */
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      display: flex !important;
+      order: -1 !important;
+      justify-self: auto !important;
+      align-self: center;
+      grid-area: auto !important;
+      margin: 0 auto 0 -6px !important;
+    }
+
+    /* Logo: absolutely centred in the bar. */
+    #header-component .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+    }
+
+    /* Search then cart, right-aligned (search visibility follows search.liquid —
+       the correct single copy shows in drawer mode). */
+    #header-component .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      order: 2 !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin-inline: 0 !important;
+    }
+    #header-component .header__columns header-actions,
+    #header-component[data-menu-style='drawer'] .header__columns header-actions {
+      order: 3 !important;
+      justify-self: auto !important;
+      grid-area: auto !important;
+      margin-inline: 0 !important;
     }
   }
 
