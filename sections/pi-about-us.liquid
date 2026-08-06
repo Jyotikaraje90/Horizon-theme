@@ -199,9 +199,11 @@
   /* ─── Responsive ─────────────────────────────────────── */
   @media (max-width: 1599px) {
     .pi-au { padding: 0 40px; }
-    /* Only the container width changes per breakpoint now; the % images scale. */
+    /* Image keeps a fixed width; the content column fills the rest so the row
+       spans the full 1500px container instead of leaving blank space on the
+       right (and the section drifting left) at ~1400-1599px. */
     .pi-au__images { flex: 0 0 600px; }
-    .pi-au__content { flex: 0 0 560px; }
+    .pi-au__content { flex: 1 1 auto; min-width: 0; }
   }
 
   @media (max-width: 1279px) {
