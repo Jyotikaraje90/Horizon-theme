@@ -1292,8 +1292,9 @@
       object-fit: contain;
     }
 
-    /* Hamburger always at the far LEFT (holds whatever overflowed). -6px start
-       sits it ~14px from the 20px edge. */
+    /* Hamburger always at the far LEFT (holds whatever overflowed). auto end
+       margin pushes the icons to the right; -6px start sits it ~14px from the
+       20px edge. */
     #header-component .header__columns .header__drawer,
     #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
       display: flex !important;
@@ -1301,17 +1302,17 @@
       align-self: center;
       justify-self: auto !important;
       grid-area: auto !important;
-      margin: 0 0 0 -6px !important;
+      margin: 0 auto 0 -6px !important;
     }
 
-    /* 600-1199: logo sits LEFT, right after the hamburger (not centred yet).
-       margin-inline-end:auto eats the free space so search + actions pack right. */
+    /* Logo centred in the bar at every hamburger width (up to 1199). */
     #header-component .header__columns .header-logo,
     #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      order: 0 !important;
-      position: static !important;
-      transform: none !important;
-      margin: 0 auto 0 10px !important;
+      position: absolute !important;
+      left: 50% !important;
+      top: 50% !important;
+      transform: translate(-50%, -50%) !important;
+      margin: 0 !important;
       max-width: none !important;
       height: auto !important;
       justify-self: auto !important;
@@ -1334,23 +1335,9 @@
     }
   }
 
-  /* Fully collapsed (<=599, phones): everything but the cart is in the hamburger.
-     Hamburger moves to the LEFT, the logo centres, only the cart stays on the
-     right (search drops into the drawer so the centred logo has room). */
+  /* Phones (<=599): search also drops into the drawer, leaving just the cart on
+     the right (hamburger left + centred logo come from the <=1199 rule above). */
   @media screen and (max-width: 599px) {
-    #header-component .header__columns .header__drawer,
-    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
-      order: -1 !important;
-      margin: 0 auto 0 -6px !important;
-    }
-    #header-component .header__columns .header-logo,
-    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
-      position: absolute !important;
-      left: 50% !important;
-      top: 50% !important;
-      transform: translate(-50%, -50%) !important;
-      margin: 0 !important;
-    }
     #header-component .header__columns .search-action {
       display: none !important;
     }
