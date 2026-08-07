@@ -103,8 +103,13 @@
   }
 
   @media (max-width: 749px) {
-    .pi-ph          { height: 160px; }
-    .pi-ph__heading { font-size: 28px; line-height: 38px; }
+    /* Show the full banner (incl. both decorative swirls) instead of a
+       zoomed/cropped center. The 160px cover-crop cut the swirls off; using
+       the image's native 1920×270 ratio makes mobile an exact scaled copy
+       of the desktop banner. */
+    .pi-ph          { height: auto; aspect-ratio: 1920 / 270; }
+    .pi-ph__bg img  { object-fit: cover; }
+    .pi-ph__heading { font-size: clamp(13px, 5.4vw, 28px); line-height: 1.15; }
   }
 
   #shopify-section-{{ section.id }} {
