@@ -100,6 +100,28 @@
   @media (max-width: 989px) {
     .pi-ph          { height: 200px; }
     .pi-ph__heading { font-size: 40px; line-height: 52px; }
+
+    /* Edge-anchor the swirls (right → top-right, left → bottom-left) so they
+       stay in view at every width ≤989px instead of clipping off-screen with
+       the desktop percentage coords. Desktop (≥990px) keeps its originals. */
+    .pi-ph__deco {
+      width: clamp(60px, 9vw, 96px);
+      height: auto;
+    }
+    .pi-ph__deco--l {
+      left: clamp(6px, 2vw, 28px);
+      right: auto;
+      top: auto;
+      bottom: clamp(6px, 8%, 24px);
+      transform: none;
+    }
+    .pi-ph__deco--r {
+      left: auto;
+      right: clamp(6px, 2vw, 28px);
+      top: clamp(6px, 8%, 24px);
+      bottom: auto;
+      transform: none;
+    }
   }
 
   @media (max-width: 749px) {
