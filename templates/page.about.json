@@ -34,10 +34,8 @@
         "bg_fallback_color": "#000000",
         "heading": "About Us",
         "background_image": "shopify://shop_images/About_Us.png",
-        "mobile_background_image": "shopify://shop_images/About_Us_2.png",
+        "mobile_background_image": "shopify://shop_images/About_Us_69601c19-7e81-4c3a-b381-f1db1e73f3c7.png",
         "overlay_opacity": 40,
-        "deco_left": "shopify://shop_images/Group_4.png",
-        "deco_right": "shopify://shop_images/Group_3.png",
         "margin_top": 0,
         "margin_bottom": 0
       }
