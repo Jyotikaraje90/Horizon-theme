@@ -116,8 +116,10 @@
     .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
 
     /* Swirl decorations: the desktop coords (99×211 at those percentages)
-       don't fit the short 139px mobile box. Re-anchor the pair to the
-       top-left / top-right corners at natural orientation, per Figma. */
+       are % of viewport width, so on mobile they only line up near ~390px
+       and drift off-screen (clipped) at other widths. Re-anchor the pair
+       with FIXED px offsets — width-independent — in a diagonal layout:
+       right swirl top-right, left swirl bottom-left. */
     .pi-ph__deco {
       width: 64px;
       height: auto;
@@ -125,13 +127,15 @@
     .pi-ph__deco--l {
       left: 6px;
       right: auto;
-      top: 6px;
+      top: auto;
+      bottom: 6px;
       transform: none;
     }
     .pi-ph__deco--r {
       left: auto;
       right: 6px;
       top: 6px;
+      bottom: auto;
       transform: none;
     }
   }
