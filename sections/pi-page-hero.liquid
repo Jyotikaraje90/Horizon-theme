@@ -56,28 +56,32 @@
     z-index: 1;
   }
 
-  /* Decorative swirl images */
+  /* Decorative swirl images — edge-anchored at EVERY width.
+     Percentage-of-width coords made the swirls clip off-screen at various
+     sizes; anchoring to the actual edges with clamp() keeps both visible at
+     all widths — diagonal: right swirl top-right, left swirl bottom-left. */
   .pi-ph__deco {
     position: absolute;
     z-index: 2;
     pointer-events: none;
     opacity: 0.30;
     display: block;
-    object-fit: contain;
-    width: 99px;
-    height: 211px;
+    width: clamp(64px, 7vw, 110px);
+    height: auto;
   }
-  /* Left — Figma: left -1.73%, top 40.89%, matrix(-0.59,-0.81,-0.81,0.58,0,0) */
-  .pi-ph__deco--l {
-    left: -1.73%;
-    top: 40.89%;
-    transform: matrix(-0.59, -0.81, -0.81, 0.58, 0, 0);
+  .pi-ph__deco--l {   /* bottom-left */
+    left: clamp(8px, 2.5vw, 60px);
+    right: auto;
+    top: auto;
+    bottom: clamp(8px, 10%, 40px);
+    transform: none;
   }
-  /* Right — Figma: left 89.76%, top -16.12%, matrix(0.59,0.81,0.81,-0.58,0,0) */
-  .pi-ph__deco--r {
-    left: 89.76%;
-    top: -16.12%;
-    transform: matrix(0.59, 0.81, 0.81, -0.58, 0, 0);
+  .pi-ph__deco--r {   /* top-right */
+    left: auto;
+    right: clamp(8px, 2.5vw, 60px);
+    top: clamp(8px, 10%, 40px);
+    bottom: auto;
+    transform: none;
   }
 
   .pi-ph__content {
@@ -100,28 +104,6 @@
   @media (max-width: 989px) {
     .pi-ph          { height: 200px; }
     .pi-ph__heading { font-size: 40px; line-height: 52px; }
-
-    /* Edge-anchor the swirls (right → top-right, left → bottom-left) so they
-       stay in view at every width ≤989px instead of clipping off-screen with
-       the desktop percentage coords. Desktop (≥990px) keeps its originals. */
-    .pi-ph__deco {
-      width: clamp(60px, 9vw, 96px);
-      height: auto;
-    }
-    .pi-ph__deco--l {
-      left: clamp(6px, 2vw, 28px);
-      right: auto;
-      top: auto;
-      bottom: clamp(6px, 8%, 24px);
-      transform: none;
-    }
-    .pi-ph__deco--r {
-      left: auto;
-      right: clamp(6px, 2vw, 28px);
-      top: clamp(6px, 8%, 24px);
-      bottom: auto;
-      transform: none;
-    }
   }
 
   @media (max-width: 749px) {
