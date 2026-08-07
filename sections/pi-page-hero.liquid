@@ -113,12 +113,17 @@
   /* The section height (desktop / tablet / mobile) is driven entirely by the
      --pi-ph-height var set from the customizer at each breakpoint. */
 
-  @media (max-width: 749px) {
-    /* Fallback only: when NO dedicated mobile image is uploaded we still show
-       the wide 1920×270 desktop banner; contain keeps its edge swirls visible,
-       letterboxed invisibly on the black background. With a mobile image
-       (.pi-ph--mob) cover fills the box edge to edge. */
-    .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
+  /* Below desktop (≤989px): use a single baked-in background image that
+     already contains the two swirls (top-right + bottom-left) instead of the
+     customizer image + CSS overlay swirls. It fills the box (100% 100%), so
+     the swirls stay in view at EVERY width with no clipping. The picker image
+     and the overlay swirls are hidden here; desktop (≥990px) is untouched. */
+  @media (max-width: 989px) {
+    .pi-ph__bg {
+      background: #000 url({{ 'pi-about-swirl-bg.png' | asset_url }}) center / 100% 100% no-repeat;
+    }
+    .pi-ph__bg img { display: none; }
+    .pi-ph__deco   { display: none; }
   }
 
   #shopify-section-{{ section.id }} {
