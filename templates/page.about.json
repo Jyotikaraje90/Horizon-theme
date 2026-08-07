@@ -22,19 +22,14 @@
     "pi_ph_about": {
       "type": "pi-page-hero",
       "settings": {
-        "desktop_height": 270,
-        "tablet_height": 200,
-        "mobile_height": 139,
+        "heading": "About Us",
         "heading_size": 54,
         "tablet_heading_size": 40,
         "mobile_heading_size": 28,
         "heading_color": "#ffffff",
         "text_alignment": "center",
-        "deco_opacity": 30,
-        "bg_fallback_color": "#000000",
-        "heading": "About Us",
         "background_image": "shopify://shop_images/About_Us.png",
-        "mobile_background_image": "shopify://shop_images/About_Us_69601c19-7e81-4c3a-b381-f1db1e73f3c7.png",
+        "bg_fallback_color": "#000000",
         "overlay_opacity": 40,
         "margin_top": 0,
         "margin_bottom": 0

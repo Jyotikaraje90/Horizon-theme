@@ -4,6 +4,8 @@
     --pi-ph-heading-size:  {{ section.settings.heading_size }}px;
     --pi-ph-heading-color: {{ section.settings.heading_color }};
     --pi-ph-bg:            {{ section.settings.bg_fallback_color }};
+    --pi-ph-deco-opacity:  {{ section.settings.deco_opacity | times: 0.01 }};
+    --pi-ph-deco-scale:    {{ section.settings.deco_scale }};
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} {
@@ -22,46 +24,55 @@
     padding: 0;
     margin: {{ section.settings.margin_top }}px 0 {{ section.settings.margin_bottom }}px;
     background: var(--pi-ph-bg, #000000);
-    overflow: hidden;
   }
 
-  /* Image-driven banner: the background image sets the height, so the FULL
-     artwork (both edge swirls) is always visible at every width — no cropping.
-     The black image background blends into the black section background, so
-     there is nothing to crop and nothing to letterbox. */
+  /* Solid black banner. The two swirls are placed by CSS — left swirl in the
+     bottom-left corner, right swirl in the top-right corner — so they stay in
+     the corners at EVERY width. Their size tracks the banner height (%), so the
+     proportions look identical from mobile to desktop. */
   .pi-ph {
     position: relative;
     width: 100%;
+    /* Desktop / tablet: thin banner matching the 1920×270 proportion, capped. */
+    height: min(14.06vw, 270px);
+    min-height: 96px;
     background: var(--pi-ph-bg, #000000);
     overflow: hidden;
-  }
-
-  .pi-ph__bg {
-    display: block;
-    width: 100%;
-    line-height: 0;
-  }
-  .pi-ph__bg img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-
-  .pi-ph__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  .pi-ph__content {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  @media (max-width: 749px) {
+    /* Phones: taller, compact proportion so the banner isn't a thin sliver. */
+    .pi-ph {
+      height: 35.6vw;
+      min-height: 120px;
+    }
+  }
+
+  .pi-ph__deco {
+    position: absolute;
+    z-index: 1;
+    height: calc(40% * var(--pi-ph-deco-scale, 1));
+    width: auto;
+    opacity: var(--pi-ph-deco-opacity, 0.9);
+    pointer-events: none;
+    user-select: none;
+  }
+  .pi-ph__deco--l {   /* bottom-left corner */
+    left: 2.5%;
+    bottom: 10%;
+  }
+  .pi-ph__deco--r {   /* top-right corner */
+    right: 2.5%;
+    top: 10%;
+  }
+
+  .pi-ph__content {
+    position: relative;
+    z-index: 3;
     text-align: {{ section.settings.text_alignment }};
-    padding: 0 clamp(64px, 12vw, 220px);
+    padding: 0 clamp(90px, 20vw, 260px);
     box-sizing: border-box;
   }
 
@@ -69,7 +80,7 @@
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     font-size: var(--pi-ph-heading-size, 54px);
-    line-height: 1.25;
+    line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--pi-ph-heading-color, #ffffff);
@@ -78,30 +89,22 @@
 </style>
 
 {%- liquid
-  assign compact_bg = 'pi-about-swirl-bg.png' | asset_url
-  assign desktop_bg = ''
-  if section.settings.background_image != blank
-    assign desktop_bg = section.settings.background_image | image_url: width: 1920
-  else
-    assign desktop_bg = compact_bg
-  endif
+  assign swirl_l = section.settings.deco_left
+  assign swirl_r = section.settings.deco_right
 -%}
 
 <div class="pi-ph">
 
-  <picture class="pi-ph__bg">
-    <source media="(max-width: 749px)" srcset="{{ compact_bg }}" width="780" height="278">
-    <img
-      src="{{ desktop_bg }}"
-      alt=""
-      loading="eager"
-      width="1920"
-      height="270"
-    >
-  </picture>
+  {%- if swirl_l != blank -%}
+    <img class="pi-ph__deco pi-ph__deco--l" src="{{ swirl_l | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+  {%- else -%}
+    <img class="pi-ph__deco pi-ph__deco--l" src="{{ 'pi-swirl-left.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
+  {%- endif -%}
 
-  {%- if section.settings.overlay_opacity > 0 -%}
-    <div class="pi-ph__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
+  {%- if swirl_r != blank -%}
+    <img class="pi-ph__deco pi-ph__deco--r" src="{{ swirl_r | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+  {%- else -%}
+    <img class="pi-ph__deco pi-ph__deco--r" src="{{ 'pi-swirl-right.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
   {%- endif -%}
 
   <div class="pi-ph__content">
@@ -136,23 +139,23 @@
     },
 
     { "type": "header", "content": "Background" },
+    { "type": "color", "id": "bg_fallback_color",    "label": "Background color",  "default": "#000000" },
+
+    { "type": "header", "content": "Corner Swirls" },
     {
       "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image — Desktop & tablet",
-      "info": "Wide banner artwork (e.g. 1920×270). Shown full-width with no cropping, so both corner swirls always stay visible. Phones (≤749px) automatically use the built-in compact swirl banner (pi-about-swirl-bg.png)."
+      "id": "deco_left",
+      "label": "Left swirl (bottom-left corner)",
+      "info": "Transparent PNG. If empty, the built-in swirl is used."
     },
-    { "type": "color", "id": "bg_fallback_color",    "label": "Background fallback",  "default": "#000000" },
     {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "%",
-      "label": "Overlay opacity",
-      "default": 40
+      "type": "image_picker",
+      "id": "deco_right",
+      "label": "Right swirl (top-right corner)",
+      "info": "Transparent PNG. If empty, the built-in swirl is used."
     },
+    { "type": "range", "id": "deco_scale",   "label": "Swirl size",    "min": 0.5, "max": 1.6, "step": 0.1, "default": 1.0 },
+    { "type": "range", "id": "deco_opacity", "label": "Swirl opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 90 },
 
     { "type": "header", "content": "Section Margin" },
     { "type": "range", "id": "margin_top",    "label": "Margin Top",    "min": 0, "max": 100, "step": 4, "default": 0, "unit": "px" },
