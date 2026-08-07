@@ -43,6 +43,11 @@
     inset: 0;
     z-index: 0;
   }
+  .pi-ph__bg picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .pi-ph__bg img {
     width: 100%;
     height: 100%;
@@ -89,28 +94,26 @@
   .pi-ph__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    font-size: 54px;
-    line-height: 70px;
+    /* Driven by the customizer: desktop / tablet / mobile font-size vars. */
+    font-size: var(--pi-ph-heading-size, 54px);
+    line-height: 1.3;
     text-transform: uppercase;
     letter-spacing: 0.02em;
-    color: #ffffff;
+    color: var(--pi-ph-heading-color, #ffffff);
     margin: 0;
   }
 
-  @media (max-width: 989px) {
-    .pi-ph          { height: 200px; }
-    .pi-ph__heading { font-size: 40px; line-height: 52px; }
-  }
+  /* The section height (desktop / tablet / mobile) is driven entirely by the
+     --pi-ph-height var set from the customizer at each breakpoint. */
 
   @media (max-width: 749px) {
-    /* Figma mobile spec: 390×139 black box. The swirls live in the outer ~9%
-       of the 1920×270 banner, so a cover-crop into this box would show only
-       the black center and cut both swirls off. Match the Figma ratio and use
-       contain so the full-width banner (both swirls) sits centered on the
-       black background — the letterbox is invisible against the black bg. */
-    .pi-ph          { height: auto; aspect-ratio: 390 / 139; }
-    .pi-ph__bg img  { object-fit: contain; }
-    .pi-ph__heading { font-size: clamp(15px, 7.2vw, 44px); line-height: 1.15; }
+    /* Fallback only: when NO dedicated mobile image is uploaded we still show
+       the wide 1920×270 desktop banner. Its swirls sit in the outer ~9% of the
+       image, so a cover-crop would hide them — use contain so the full banner
+       (both swirls) shows, letterboxed invisibly on the black background.
+       When a mobile image IS uploaded (.pi-ph--mob) we use cover so the
+       purpose-made mobile banner fills the box edge to edge. */
+    .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
   }
 
   #shopify-section-{{ section.id }} {
@@ -119,17 +122,29 @@
   }
 </style>
 
-<div class="pi-ph">
+{%- assign pi_ph_desktop_img = section.settings.background_image -%}
+{%- assign pi_ph_mobile_img  = section.settings.mobile_background_image -%}
+{%- assign pi_ph_main_img    = pi_ph_desktop_img | default: pi_ph_mobile_img -%}
 
-  {%- if section.settings.background_image != blank -%}
+<div class="pi-ph{% if pi_ph_mobile_img != blank %} pi-ph--mob{% endif %}">
+
+  {%- if pi_ph_main_img != blank -%}
     <div class="pi-ph__bg">
-      <img
-        src="{{ section.settings.background_image | image_url: width: 1920 }}"
-        alt=""
-        loading="eager"
-        width="1920"
-        height="270"
-      >
+      <picture>
+        {%- if pi_ph_mobile_img != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ pi_ph_mobile_img | image_url: width: 780 }}"
+          >
+        {%- endif -%}
+        <img
+          src="{{ pi_ph_main_img | image_url: width: 1920 }}"
+          alt=""
+          loading="eager"
+          width="1920"
+          height="270"
+        >
+      </picture>
     </div>
   {%- endif -%}
 
@@ -169,7 +184,7 @@
     { "type": "header", "content": "Hero Height" },
     { "type": "range", "id": "desktop_height",       "label": "Desktop height",       "min": 150, "max": 500, "step": 10, "unit": "px", "default": 270 },
     { "type": "range", "id": "tablet_height",        "label": "Tablet height",        "min": 120, "max": 400, "step": 10, "unit": "px", "default": 200 },
-    { "type": "range", "id": "mobile_height",        "label": "Mobile height",        "min": 100, "max": 300, "step": 10, "unit": "px", "default": 160 },
+    { "type": "range", "id": "mobile_height",        "label": "Mobile height",        "min": 100, "max": 300, "step": 1, "unit": "px", "default": 139 },
 
     { "type": "header", "content": "Heading" },
     { "type": "range", "id": "heading_size",         "label": "Desktop font size",    "min": 24, "max": 72, "step": 2, "unit": "px", "default": 54 },
@@ -201,7 +216,13 @@
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image (optional)"
+      "label": "Background image — Desktop (1920×270)"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_image",
+      "label": "Background image — Mobile (e.g. 780×278)",
+      "info": "Optional. Shown at ≤749px. Upload a mobile-cropped banner so the swirls sit correctly. If empty, the desktop banner is shown full-width instead."
     },
     {
       "type": "range",
