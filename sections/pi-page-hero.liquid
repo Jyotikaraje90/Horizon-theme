@@ -106,38 +106,42 @@
   /* The section height (desktop / tablet / mobile) is driven entirely by the
      --pi-ph-height var set from the customizer at each breakpoint. */
 
-  @media (max-width: 749px) {
-    /* Fallback only: when NO dedicated mobile image is uploaded we still show
-       the wide 1920×270 desktop banner. Its swirls sit in the outer ~9% of the
-       image, so a cover-crop would hide them — use contain so the full banner
-       (both swirls) shows, letterboxed invisibly on the black background.
-       When a mobile image IS uploaded (.pi-ph--mob) we use cover so the
-       purpose-made mobile banner fills the box edge to edge. */
-    .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
-
-    /* Swirl decorations: the desktop coords (99×211 at those percentages)
-       are % of viewport width, so on mobile they only line up near ~390px
-       and drift off-screen (clipped) at other widths. Re-anchor the pair
-       with FIXED px offsets — width-independent — in a diagonal layout:
-       right swirl top-right, left swirl bottom-left. */
+  /* Swirl decorations below the desktop breakpoint.
+     The original desktop coords position the RIGHT swirl at `left: 89.76%`
+     — a percentage of viewport width — so its right edge lands at
+     0.8976·W + 99px. On tablet/narrow widths that exceeds W and the swirl is
+     clipped by overflow:hidden (appears missing, e.g. at 832px). The LEFT
+     swirl's % also drifts. Anchoring both to the actual edges with clamp()
+     offsets makes them render the SAME at every width from 320px → 989px:
+     diagonal — right swirl top-right, left swirl bottom-left, size scaling
+     gently with the viewport. */
+  @media (max-width: 989px) {
     .pi-ph__deco {
-      width: 64px;
+      width: clamp(60px, 9vw, 96px);
       height: auto;
     }
     .pi-ph__deco--l {
-      left: 6px;
+      left: clamp(6px, 2vw, 28px);
       right: auto;
       top: auto;
-      bottom: 6px;
+      bottom: clamp(6px, 8%, 24px);
       transform: none;
     }
     .pi-ph__deco--r {
       left: auto;
-      right: 6px;
-      top: 6px;
+      right: clamp(6px, 2vw, 28px);
+      top: clamp(6px, 8%, 24px);
       bottom: auto;
       transform: none;
     }
+  }
+
+  @media (max-width: 749px) {
+    /* Fallback only: when NO dedicated mobile image is uploaded we still show
+       the wide 1920×270 desktop banner; contain keeps its edge swirls visible,
+       letterboxed invisibly on the black background. With a mobile image
+       (.pi-ph--mob) cover fills the box edge to edge. */
+    .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
   }
 
   #shopify-section-{{ section.id }} {
