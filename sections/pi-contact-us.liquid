@@ -340,6 +340,11 @@
     min-height: 683px;
   }
 
+  .pi-contact-us__image-panel picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .pi-contact-us__image-panel img {
     width: 100%;
     height: 100%;
@@ -649,13 +654,19 @@
 
   {%- if section.settings.background_image != blank -%}
     <div class="pi-contact-us__image-panel">
-      {{
-        section.settings.background_image
-        | image_url: width: 1300
-        | image_tag:
-          loading: 'lazy',
-          alt: section.settings.background_image.alt
-      }}
+      <picture>
+        {%- if section.settings.mobile_background_image != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.mobile_background_image | image_url: width: 900 }}"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.background_image | image_url: width: 1300 }}"
+          alt="{{ section.settings.background_image.alt | escape }}"
+          loading="lazy"
+        >
+      </picture>
       <div class="pi-contact-us__overlay"></div>
     </div>
   {%- endif -%}
@@ -700,7 +711,13 @@
     {
       "type": "image_picker",
       "id": "background_image",
-      "label": "Background image"
+      "label": "Background image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_background_image",
+      "label": "Background image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
     },
     {
       "type": "header",

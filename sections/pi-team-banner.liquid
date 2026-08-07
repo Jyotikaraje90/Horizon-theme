@@ -57,6 +57,10 @@
     width: 100%;
     overflow: hidden;
   }
+  .pi-team__image picture {
+    display: block;
+    width: 100%;
+  }
 
   .pi-team__image img,
   .pi-team__image .placeholder-svg {
@@ -89,13 +93,21 @@
 
 {%- if section.settings.team_image != blank -%}
   <div class="pi-team__image">
-    <img
-      src="{{ section.settings.team_image | image_url: width: 1920 }}"
-      alt="{{ section.settings.team_image.alt | default: 'The Puerto Ink Team' | escape }}"
-      loading="lazy"
-      width="1920"
-      height="708"
-    >
+    <picture>
+      {%- if section.settings.mobile_team_image != blank -%}
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ section.settings.mobile_team_image | image_url: width: 900 }}"
+        >
+      {%- endif -%}
+      <img
+        src="{{ section.settings.team_image | image_url: width: 1920 }}"
+        alt="{{ section.settings.team_image.alt | default: 'The Puerto Ink Team' | escape }}"
+        loading="lazy"
+        width="1920"
+        height="708"
+      >
+    </picture>
   </div>
 {%- else -%}
   <div class="pi-team__image">
@@ -257,7 +269,13 @@
     {
       "type": "image_picker",
       "id": "team_image",
-      "label": "Team photo (wide group shot)"
+      "label": "Team photo (wide group shot) — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_team_image",
+      "label": "Team photo — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop photo is used."
     },
     {
       "type": "select",

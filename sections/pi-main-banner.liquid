@@ -64,6 +64,11 @@
     z-index: 1;
   }
 
+  .pi-hero__main picture {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
   .pi-hero__main img,
   .pi-hero__main .placeholder-svg {
     width: 100%;
@@ -350,13 +355,21 @@
   {%- comment -%} Main Banner {%- endcomment -%}
   <div class="pi-hero__main">
     {%- if section.settings.main_image != blank -%}
-      <img
-        src="{{ section.settings.main_image | image_url: width: 1800 }}"
-        alt="{{ section.settings.main_image.alt | escape }}"
-        loading="eager"
-        width="{{ section.settings.main_image.width }}"
-        height="{{ section.settings.main_image.height }}"
-      >
+      <picture>
+        {%- if section.settings.mobile_main_image != blank -%}
+          <source
+            media="(max-width: 749px)"
+            srcset="{{ section.settings.mobile_main_image | image_url: width: 900 }}"
+          >
+        {%- endif -%}
+        <img
+          src="{{ section.settings.main_image | image_url: width: 1800 }}"
+          alt="{{ section.settings.main_image.alt | escape }}"
+          loading="eager"
+          width="{{ section.settings.main_image.width }}"
+          height="{{ section.settings.main_image.height }}"
+        >
+      </picture>
     {%- else -%}
       {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {%- endif -%}
@@ -431,7 +444,13 @@
     {
       "type": "image_picker",
       "id": "main_image",
-      "label": "Background image"
+      "label": "Background image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_main_image",
+      "label": "Background image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
     },
     {
       "type": "text",
