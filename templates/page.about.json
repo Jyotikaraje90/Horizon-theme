@@ -36,8 +36,8 @@
         "background_image": "shopify://shop_images/About_Us.png",
         "mobile_background_image": "shopify://shop_images/About_Us_2.png",
         "overlay_opacity": 40,
-        "deco_left": "shopify://shop_images/Group_3.png",
-        "deco_right": "shopify://shop_images/Group_4.png",
+        "deco_left": "shopify://shop_images/Group_4.png",
+        "deco_right": "shopify://shop_images/Group_3.png",
         "margin_top": 0,
         "margin_bottom": 0
       }
