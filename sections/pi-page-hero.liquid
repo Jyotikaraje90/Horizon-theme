@@ -103,13 +103,14 @@
   }
 
   @media (max-width: 749px) {
-    /* Show the full banner (incl. both decorative swirls) instead of a
-       zoomed/cropped center. The 160px cover-crop cut the swirls off; using
-       the image's native 1920×270 ratio makes mobile an exact scaled copy
-       of the desktop banner. */
-    .pi-ph          { height: auto; aspect-ratio: 1920 / 270; }
-    .pi-ph__bg img  { object-fit: cover; }
-    .pi-ph__heading { font-size: clamp(13px, 5.4vw, 28px); line-height: 1.15; }
+    /* Figma mobile spec: 390×139 black box. The swirls live in the outer ~9%
+       of the 1920×270 banner, so a cover-crop into this box would show only
+       the black center and cut both swirls off. Match the Figma ratio and use
+       contain so the full-width banner (both swirls) sits centered on the
+       black background — the letterbox is invisible against the black bg. */
+    .pi-ph          { height: auto; aspect-ratio: 390 / 139; }
+    .pi-ph__bg img  { object-fit: contain; }
+    .pi-ph__heading { font-size: clamp(15px, 7.2vw, 44px); line-height: 1.15; }
   }
 
   #shopify-section-{{ section.id }} {
