@@ -129,22 +129,32 @@
 
   <div class="pi-ph__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
 
-  {%- if section.settings.deco_left != blank -%}
-    <img
-      class="pi-ph__deco pi-ph__deco--l"
-      src="{{ section.settings.deco_left | image_url: width: 200 }}"
-      alt="" aria-hidden="true"
-      width="99" height="211"
-    >
+  {%- if section.settings.deco_left != blank or section.settings.deco_left_mobile != blank -%}
+    <picture style="display: contents;">
+      {%- if section.settings.deco_left_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.deco_left_mobile | image_url: width: 200 }}">
+      {%- endif -%}
+      <img
+        class="pi-ph__deco pi-ph__deco--l"
+        src="{{ section.settings.deco_left | default: section.settings.deco_left_mobile | image_url: width: 200 }}"
+        alt="" aria-hidden="true"
+        width="99" height="211"
+      >
+    </picture>
   {%- endif -%}
 
-  {%- if section.settings.deco_right != blank -%}
-    <img
-      class="pi-ph__deco pi-ph__deco--r"
-      src="{{ section.settings.deco_right | image_url: width: 200 }}"
-      alt="" aria-hidden="true"
-      width="99" height="211"
-    >
+  {%- if section.settings.deco_right != blank or section.settings.deco_right_mobile != blank -%}
+    <picture style="display: contents;">
+      {%- if section.settings.deco_right_mobile != blank -%}
+        <source media="(max-width: 749px)" srcset="{{ section.settings.deco_right_mobile | image_url: width: 200 }}">
+      {%- endif -%}
+      <img
+        class="pi-ph__deco pi-ph__deco--r"
+        src="{{ section.settings.deco_right | default: section.settings.deco_right_mobile | image_url: width: 200 }}"
+        alt="" aria-hidden="true"
+        width="99" height="211"
+      >
+    </picture>
   {%- endif -%}
 
   <div class="pi-ph__content">
@@ -214,12 +224,24 @@
     {
       "type": "image_picker",
       "id": "deco_left",
-      "label": "Left swirl image"
+      "label": "Left swirl image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "deco_left_mobile",
+      "label": "Left swirl image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop swirl is used."
     },
     {
       "type": "image_picker",
       "id": "deco_right",
-      "label": "Right swirl image"
+      "label": "Right swirl image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "deco_right_mobile",
+      "label": "Right swirl image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop swirl is used."
     },
 
     { "type": "header", "content": "Section Margin" },
