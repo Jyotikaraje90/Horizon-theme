@@ -829,6 +829,15 @@
     height: var(--icon-size-xs);
   }
 
+  /* PI: hamburger (menu) icon at Figma 27×20 so the three lines have clear
+     spacing (the default --icon-size-xs 13.6px cramped them together). Only the
+     open/menu icon is resized; the close (X) stays square. */
+  .header__icon--menu .header-drawer-icon--open,
+  .header__icon--menu .header-drawer-icon--open svg {
+    width: 27px;
+    height: 20px;
+  }
+
   .menu-drawer__featured-content {
     z-index: var(--layer-base);
     container-type: inline-size;

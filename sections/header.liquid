@@ -1340,11 +1340,11 @@
     }
   }
 
-  /* Phones (<=599): search also drops into the drawer, leaving just the cart on
-     the right (hamburger left + centred logo come from the <=1199 rule above). */
+  /* PI: keep the search icon visible at every mobile width (Figma mobile navbar
+     shows hamburger + logo + search + cart). */
   @media screen and (max-width: 599px) {
     #header-component .header__columns .search-action {
-      display: none !important;
+      display: flex !important;
     }
   }
 
@@ -1715,6 +1715,26 @@
     .header__row--top .header__columns {
       height: 60px;
       padding-block: 8px;
+    }
+
+    /* Logo left-aligned right after the hamburger (per the Figma mobile navbar),
+       not absolutely centred. margin-right:auto pushes search + cart to the far
+       right → [hamburger][logo]……[search][cart]. */
+    #header-component .header__columns .header-logo,
+    #header-component[data-menu-style='drawer'] .header__columns .header-logo {
+      position: static !important;
+      left: auto !important;
+      top: auto !important;
+      transform: none !important;
+      margin: 0 auto 0 0 !important;
+    }
+
+    /* Hamburger keeps a small gap before the logo instead of margin-right:auto
+       (which had pushed all the other items to the far right when the logo was
+       absolutely positioned). */
+    #header-component .header__columns .header__drawer,
+    #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
+      margin: 0 10px 0 -6px !important;
     }
 
     #header-component .header__columns .header-logo img,
