@@ -20,6 +20,7 @@
       --pi-team-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
       --pi-team-heading-size: {{ section.settings.mobile_heading_size }}px;
       --pi-team-text-size: {{ section.settings.mobile_text_size }}px;
+      --pi-team-aspect: {{ section.settings.mobile_image_aspect_ratio | default: '390 / 250' }};
     }
   }
 </style>
@@ -280,7 +281,7 @@
     {
       "type": "select",
       "id": "image_aspect_ratio",
-      "label": "Image aspect ratio",
+      "label": "Image aspect ratio (desktop)",
       "options": [
         { "value": "1920 / 708", "label": "1920:708 (default wide)" },
         { "value": "16 / 9", "label": "16:9" },
@@ -288,6 +289,19 @@
         { "value": "3 / 1", "label": "3:1" }
       ],
       "default": "1920 / 708"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_aspect_ratio",
+      "label": "Image aspect ratio (mobile)",
+      "options": [
+        { "value": "390 / 250", "label": "390:250 (Figma mobile)" },
+        { "value": "1 / 1", "label": "1:1 (square)" },
+        { "value": "4 / 3", "label": "4:3" },
+        { "value": "16 / 9", "label": "16:9" },
+        { "value": "1920 / 708", "label": "Same as desktop (wide)" }
+      ],
+      "default": "390 / 250"
     }
   ],
   "presets": [

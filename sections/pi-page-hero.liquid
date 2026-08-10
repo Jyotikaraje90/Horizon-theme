@@ -1,21 +1,19 @@
 <style>
   /* ═══ PI PAGE HERO — CUSTOMIZER VARIABLES ═══════════ */
   #shopify-section-{{ section.id }} {
-    --pi-ph-height:          {{ section.settings.desktop_height }}px;
-    --pi-ph-heading-size:    {{ section.settings.heading_size }}px;
-    --pi-ph-heading-color:   {{ section.settings.heading_color }};
-    --pi-ph-deco-opacity:    {{ section.settings.deco_opacity | times: 0.01 }};
-    --pi-ph-bg:              {{ section.settings.bg_fallback_color }};
+    --pi-ph-heading-size:  {{ section.settings.heading_size }}px;
+    --pi-ph-heading-color: {{ section.settings.heading_color }};
+    --pi-ph-bg:            {{ section.settings.bg_fallback_color }};
+    --pi-ph-deco-opacity:  {{ section.settings.deco_opacity | times: 0.01 }};
+    --pi-ph-deco-scale:    {{ section.settings.deco_scale }};
   }
   @media (max-width: 989px) {
     #shopify-section-{{ section.id }} {
-      --pi-ph-height:       {{ section.settings.tablet_height }}px;
       --pi-ph-heading-size: {{ section.settings.tablet_heading_size }}px;
     }
   }
   @media (max-width: 749px) {
     #shopify-section-{{ section.id }} {
-      --pi-ph-height:       {{ section.settings.mobile_height }}px;
       --pi-ph-heading-size: {{ section.settings.mobile_heading_size }}px;
     }
   }
@@ -24,148 +22,99 @@
 <style>
   #shopify-section-{{ section.id }} {
     padding: 0;
-    margin: 0;
+    margin: {{ section.settings.margin_top }}px 0 {{ section.settings.margin_bottom }}px;
     background: var(--pi-ph-bg, #000000);
-    overflow: hidden;
   }
 
+  /* Solid black banner. The two swirls are placed by CSS — left swirl in the
+     bottom-left corner, right swirl in the top-right corner — so they stay in
+     the corners at EVERY width. Their size tracks the banner height (%), so the
+     proportions look identical from mobile to desktop. */
   .pi-ph {
     position: relative;
-    height: var(--pi-ph-height, 270px);
+    width: 100%;
+    /* Height linearly interpolates between the two Figma frames so it stays
+       smooth at EVERY width (no breakpoint jump):
+         390px → 139px (mobile)   1920px → 270px (desktop)
+       slope = (270-139)/(1920-390) = 8.56vw; intercept = 105.6px.
+       Clamped: floor 120px on tiny screens, cap 270px at ≥1920px. */
+    height: clamp(120px, calc(8.56vw + 105.6px), 270px);
+    background: var(--pi-ph-bg, #000000);
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
   }
 
-  .pi-ph__bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-  .pi-ph__bg picture {
-    display: block;
-    width: 100%;
-    height: 100%;
-  }
-  .pi-ph__bg img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-
-  .pi-ph__overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-  }
-
-  /* Decorative swirl images */
+  /* Size to match the Figma swirl footprint (~76% of banner height on desktop,
+     ~63% on mobile ≈ the asset's native size). The PNGs are already drawn
+     horizontally with the flourishes pointing toward each corner, so they need
+     NO rotation (the Figma "−53.5°" is relative to Figma's own tall source
+     element and doesn't transfer here). */
   .pi-ph__deco {
     position: absolute;
-    z-index: 2;
+    z-index: 1;
+    height: calc(76% * var(--pi-ph-deco-scale, 1));
+    width: auto;
+    /* The swirl PNG is already white and baked at ~30% alpha, so the swirl
+       opacity setting should stay at 100% — otherwise it compounds with the
+       asset's alpha (30% × 30% ≈ 9%) and reads far too faint. */
+    opacity: var(--pi-ph-deco-opacity, 1);
     pointer-events: none;
-    opacity: 0.30;
-    display: block;
-    object-fit: contain;
-    width: 99px;
-    height: 211px;
+    user-select: none;
   }
-  /* Left — Figma: left -1.73%, top 40.89%, matrix(-0.59,-0.81,-0.81,0.58,0,0) */
-  .pi-ph__deco--l {
-    left: -1.73%;
-    top: 40.89%;
-    transform: matrix(-0.59, -0.81, -0.81, 0.58, 0, 0);
+  /* Tucked into the corners, peeking off the edge like Figma (negative insets
+     let the corner of the swirl clip past the banner edge). */
+  .pi-ph__deco--l {   /* bottom-left corner */
+    left: -1.5%;
+    bottom: -12%;
   }
-  /* Right — Figma: left 89.76%, top -16.12%, matrix(0.59,0.81,0.81,-0.58,0,0) */
-  .pi-ph__deco--r {
-    left: 89.76%;
-    top: -16.12%;
-    transform: matrix(0.59, 0.81, 0.81, -0.58, 0, 0);
+  .pi-ph__deco--r {   /* top-right corner */
+    right: -1.5%;
+    top: -12%;
+  }
+
+  @media (max-width: 749px) {
+    .pi-ph__deco { height: calc(63% * var(--pi-ph-deco-scale, 1)); }
   }
 
   .pi-ph__content {
     position: relative;
     z-index: 3;
     text-align: {{ section.settings.text_alignment }};
+    padding: 0 clamp(90px, 20vw, 260px);
+    box-sizing: border-box;
   }
 
   .pi-ph__heading {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
-    /* Driven by the customizer: desktop / tablet / mobile font-size vars. */
     font-size: var(--pi-ph-heading-size, 54px);
-    line-height: 1.3;
+    line-height: 1.2;
     text-transform: uppercase;
     letter-spacing: 0.02em;
     color: var(--pi-ph-heading-color, #ffffff);
     margin: 0;
   }
-
-  /* The section height (desktop / tablet / mobile) is driven entirely by the
-     --pi-ph-height var set from the customizer at each breakpoint. */
-
-  @media (max-width: 749px) {
-    /* Fallback only: when NO dedicated mobile image is uploaded we still show
-       the wide 1920×270 desktop banner. Its swirls sit in the outer ~9% of the
-       image, so a cover-crop would hide them — use contain so the full banner
-       (both swirls) shows, letterboxed invisibly on the black background.
-       When a mobile image IS uploaded (.pi-ph--mob) we use cover so the
-       purpose-made mobile banner fills the box edge to edge. */
-    .pi-ph:not(.pi-ph--mob) .pi-ph__bg img { object-fit: contain; }
-  }
-
-  #shopify-section-{{ section.id }} {
-    margin-top: {{ section.settings.margin_top }}px;
-    margin-bottom: {{ section.settings.margin_bottom }}px;
-  }
 </style>
 
-{%- assign pi_ph_desktop_img = section.settings.background_image -%}
-{%- assign pi_ph_mobile_img  = section.settings.mobile_background_image -%}
-{%- assign pi_ph_main_img    = pi_ph_desktop_img | default: pi_ph_mobile_img -%}
+{%- liquid
+  assign swirl_l = section.settings.deco_left
+  assign swirl_r = section.settings.deco_right
+-%}
 
-<div class="pi-ph{% if pi_ph_mobile_img != blank %} pi-ph--mob{% endif %}">
+<div class="pi-ph">
 
-  {%- if pi_ph_main_img != blank -%}
-    <div class="pi-ph__bg">
-      <picture>
-        {%- if pi_ph_mobile_img != blank -%}
-          <source
-            media="(max-width: 749px)"
-            srcset="{{ pi_ph_mobile_img | image_url: width: 780 }}"
-          >
-        {%- endif -%}
-        <img
-          src="{{ pi_ph_main_img | image_url: width: 1920 }}"
-          alt=""
-          loading="eager"
-          width="1920"
-          height="270"
-        >
-      </picture>
-    </div>
+  {%- if swirl_l != blank -%}
+    <img class="pi-ph__deco pi-ph__deco--l" src="{{ swirl_l | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+  {%- else -%}
+    <img class="pi-ph__deco pi-ph__deco--l" src="{{ 'pi-swirl-left.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
   {%- endif -%}
 
-  <div class="pi-ph__overlay" style="background: rgba(0,0,0,{{ section.settings.overlay_opacity | times: 1.0 | divided_by: 100 }});"></div>
-
-  {%- if section.settings.deco_left != blank -%}
-    <img
-      class="pi-ph__deco pi-ph__deco--l"
-      src="{{ section.settings.deco_left | image_url: width: 200 }}"
-      alt="" aria-hidden="true"
-      width="99" height="211"
-    >
-  {%- endif -%}
-
-  {%- if section.settings.deco_right != blank -%}
-    <img
-      class="pi-ph__deco pi-ph__deco--r"
-      src="{{ section.settings.deco_right | image_url: width: 200 }}"
-      alt="" aria-hidden="true"
-      width="99" height="211"
-    >
+  {%- if swirl_r != blank -%}
+    <img class="pi-ph__deco pi-ph__deco--r" src="{{ swirl_r | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+  {%- else -%}
+    <img class="pi-ph__deco pi-ph__deco--r" src="{{ 'pi-swirl-right.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
   {%- endif -%}
 
   <div class="pi-ph__content">
@@ -181,12 +130,8 @@
   "name": "PI Page Hero",
   "tag": "section",
   "settings": [
-    { "type": "header", "content": "Hero Height" },
-    { "type": "range", "id": "desktop_height",       "label": "Desktop height",       "min": 150, "max": 500, "step": 10, "unit": "px", "default": 270 },
-    { "type": "range", "id": "tablet_height",        "label": "Tablet height",        "min": 120, "max": 400, "step": 10, "unit": "px", "default": 200 },
-    { "type": "range", "id": "mobile_height",        "label": "Mobile height",        "min": 100, "max": 300, "step": 1, "unit": "px", "default": 139 },
-
     { "type": "header", "content": "Heading" },
+    { "type": "text",  "id": "heading",              "label": "Page title",           "default": "About Us" },
     { "type": "range", "id": "heading_size",         "label": "Desktop font size",    "min": 24, "max": 72, "step": 2, "unit": "px", "default": 54 },
     { "type": "range", "id": "tablet_heading_size",  "label": "Tablet font size",     "min": 20, "max": 56, "step": 2, "unit": "px", "default": 40 },
     { "type": "range", "id": "mobile_heading_size",  "label": "Mobile font size",     "min": 16, "max": 44, "step": 2, "unit": "px", "default": 28 },
@@ -203,73 +148,28 @@
       "default": "center"
     },
 
-    { "type": "header", "content": "Decorative Elements" },
-    { "type": "range", "id": "deco_opacity",         "label": "Swirl opacity",        "min": 0, "max": 100, "step": 5, "unit": "%", "default": 30 },
-    { "type": "color", "id": "bg_fallback_color",    "label": "Background fallback",  "default": "#000000" },
+    { "type": "header", "content": "Background" },
+    { "type": "color", "id": "bg_fallback_color",    "label": "Background color",  "default": "#000000" },
 
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Page title",
-      "default": "About Us"
-    },
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background image — Desktop (1920×270)"
-    },
-    {
-      "type": "image_picker",
-      "id": "mobile_background_image",
-      "label": "Background image — Mobile (e.g. 780×278)",
-      "info": "Optional. Shown at ≤749px. Upload a mobile-cropped banner so the swirls sit correctly. If empty, the desktop banner is shown full-width instead."
-    },
-    {
-      "type": "range",
-      "id": "overlay_opacity",
-      "min": 0,
-      "max": 80,
-      "step": 5,
-      "unit": "%",
-      "label": "Overlay opacity",
-      "default": 40
-    },
-    {
-      "type": "header",
-      "content": "Decorative Swirls"
-    },
+    { "type": "header", "content": "Corner Swirls" },
     {
       "type": "image_picker",
       "id": "deco_left",
-      "label": "Left swirl image"
+      "label": "Left swirl (bottom-left corner)",
+      "info": "Transparent PNG. If empty, the built-in swirl is used."
     },
     {
       "type": "image_picker",
       "id": "deco_right",
-      "label": "Right swirl image"
+      "label": "Right swirl (top-right corner)",
+      "info": "Transparent PNG. If empty, the built-in swirl is used."
     },
+    { "type": "range", "id": "deco_scale",   "label": "Swirl size",    "min": 0.5, "max": 1.6, "step": 0.1, "default": 1.0 },
+    { "type": "range", "id": "deco_opacity", "label": "Swirl opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 90 },
 
     { "type": "header", "content": "Section Margin" },
-    {
-      "type": "range",
-      "id": "margin_top",
-      "label": "Margin Top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 0,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "margin_bottom",
-      "label": "Margin Bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "default": 0,
-      "unit": "px"
-    }
+    { "type": "range", "id": "margin_top",    "label": "Margin Top",    "min": 0, "max": 100, "step": 4, "default": 0, "unit": "px" },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom", "min": 0, "max": 100, "step": 4, "default": 0, "unit": "px" }
   ],
   "presets": [
     {
