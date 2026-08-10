@@ -50,25 +50,33 @@
     }
   }
 
+  /* Size to match the Figma swirl footprint (~76% of banner height on desktop,
+     ~63% on mobile ≈ the asset's native size). The PNGs are already drawn
+     horizontally with the flourishes pointing toward each corner, so they need
+     NO rotation (the Figma "−53.5°" is relative to Figma's own tall source
+     element and doesn't transfer here). */
   .pi-ph__deco {
     position: absolute;
     z-index: 1;
-    height: calc(40% * var(--pi-ph-deco-scale, 1));
+    height: calc(76% * var(--pi-ph-deco-scale, 1));
     width: auto;
     opacity: var(--pi-ph-deco-opacity, 0.9);
     pointer-events: none;
     user-select: none;
   }
-  /* The swirl PNGs are already drawn horizontally with the flourishes pointing
-     toward each corner, so they need NO rotation. (The Figma "−53.5°" is
-     relative to Figma's own tall source element and doesn't transfer here.) */
+  /* Tucked into the corners, peeking off the edge like Figma (negative insets
+     let the corner of the swirl clip past the banner edge). */
   .pi-ph__deco--l {   /* bottom-left corner */
-    left: 2.5%;
-    bottom: 10%;
+    left: -1.5%;
+    bottom: -12%;
   }
   .pi-ph__deco--r {   /* top-right corner */
-    right: 2.5%;
-    top: 10%;
+    right: -1.5%;
+    top: -12%;
+  }
+
+  @media (max-width: 749px) {
+    .pi-ph__deco { height: calc(63% * var(--pi-ph-deco-scale, 1)); }
   }
 
   .pi-ph__content {
