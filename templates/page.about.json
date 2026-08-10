@@ -29,6 +29,9 @@
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_left": "shopify://shop_images/Group_5.png",
+        "deco_right": "shopify://shop_images/Group_6.png",
+        "deco_scale": 1,
         "deco_opacity": 30,
         "margin_top": 0,
         "margin_bottom": 0
