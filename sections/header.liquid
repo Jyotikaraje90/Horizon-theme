@@ -1691,6 +1691,40 @@
     text-decoration: underline;
     text-underline-offset: 4px;
   }
+
+  /* ============================================================
+     PI: Figma header size matches (links / icons / height)
+     ============================================================ */
+
+  /* Desktop nav links → Figma 18px. Scoped to the header (below 1200px the
+     inline nav is hidden in favour of the hamburger, so this only affects the
+     desktop nav). The >=1200px zoom bands still scale it down to fit narrower
+     laptops; at full desktop (>=1420px, zoom 1) it renders at exactly 18px. */
+  #header-component {
+    --menu-top-level-font-size-desktop: 18px;
+  }
+
+  /* Mobile header bar → Figma frame 390 × 60. The theme forced 95px at every
+     width; drop it to 60px at <=749 only (desktop/tablet stay 95px) and cap the
+     logo so it fits the shorter bar. */
+  @media screen and (max-width: 749px) {
+    body {
+      --header-height: 60px;
+    }
+
+    .header__row--top .header__columns {
+      height: 60px;
+      padding-block: 8px;
+    }
+
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: auto !important;
+      max-height: 40px !important;
+      width: auto !important;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
