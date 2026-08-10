@@ -229,9 +229,10 @@
        stretched and cropped the image differently). */
     .pi-os__card { flex: 0 0 calc(50% - 6px); min-width: 0; height: auto; aspect-ratio: 360 / 250; gap: 10px; box-shadow: 1.79px 1.79px 5.96px rgba(0, 0, 0, 0.2); }
     /* Touch devices have no hover, so reveal the studio photo permanently and
-       hide the pin + city label. contain = the WHOLE image fits (no cropping) at
-       any card size. */
-    .pi-os__card-img { opacity: 1; background-size: contain; }
+       hide the pin + city label. The card aspect (360:250 ≈ 1.44) matches the
+       photos (~1.44–1.49), so `cover` fills the card edge-to-edge with no white
+       bands and only a negligible crop — effectively the whole photo. */
+    .pi-os__card-img { opacity: 1; background-size: cover; }
     .pi-os__pin,
     .pi-os__city { opacity: 0; }
     .pi-os__city { font-size: 22px; font-weight: 700; line-height: 29px; }
