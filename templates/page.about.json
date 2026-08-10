@@ -25,10 +25,11 @@
         "heading": "About Us",
         "heading_size": 54,
         "tablet_heading_size": 40,
-        "mobile_heading_size": 28,
+        "mobile_heading_size": 30,
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_opacity": 30,
         "margin_top": 0,
         "margin_bottom": 0
       }
