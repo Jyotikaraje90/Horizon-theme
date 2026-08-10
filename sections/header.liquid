@@ -892,6 +892,11 @@
     width: var(--button-size);
   }
 
+  /* PI: Figma header action icons (search / cart / wishlist) are 20px. The theme
+     default --icon-size-md is 1.375rem (22px); override it scoped to the header
+     only so the rest of the site's icons are unaffected. */
+  #header-component { --icon-size-md: 1.25rem; }
+
   .header-actions__action:not(.account-button) svg {
     width: var(--icon-size-md);
     height: var(--icon-size-md);
