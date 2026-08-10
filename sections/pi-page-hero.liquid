@@ -59,15 +59,16 @@
     pointer-events: none;
     user-select: none;
   }
+  /* The swirl PNGs are already drawn horizontally with the flourishes pointing
+     toward each corner, so they need NO rotation. (The Figma "−53.5°" is
+     relative to Figma's own tall source element and doesn't transfer here.) */
   .pi-ph__deco--l {   /* bottom-left corner */
     left: 2.5%;
     bottom: 10%;
-    transform: rotate(126.5deg);  /* Figma rotation (bottom-left swirl) */
   }
   .pi-ph__deco--r {   /* top-right corner */
     right: 2.5%;
     top: 10%;
-    transform: rotate(-53.5deg);  /* Figma rotation (top-right swirl) */
   }
 
   .pi-ph__content {
