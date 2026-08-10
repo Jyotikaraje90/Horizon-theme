@@ -178,23 +178,26 @@
     .pi-tb__text-panel { padding: 48px 40px; }
   }
 
-  /* Tablet (768–989): 2-column grid with aspect-ratio photo cells, matching
-     the homepage (pi-studio-social) Trusted By tablet layout. */
+  /* Tablet (768–989): 2-column grid matching the homepage. The text panel
+     stays a SINGLE grid cell (col 1 / row 1) — not a full-width banner — so the
+     text + 5 photos fill six cells evenly:
+       [text][photo] / [photo][photo] / [photo][photo]  → 2, 2, 2
+     Photo cells use the 640/489 aspect ratio and the text cell stretches to
+     match the row height. */
   @media (max-width: 989px) {
     .pi-tb {
       grid-template-columns: 1fr 1fr;
       grid-template-rows: auto;
     }
     .pi-tb__text-panel {
-      grid-column: 1 / -1;
-      grid-row: auto;
+      grid-column: 1;
+      grid-row: 1;
       height: auto;
-      min-height: 260px;
-      padding: 50px 32px;
+      padding: 40px 32px;
       justify-content: center;
     }
     .pi-tb__photo { height: auto; aspect-ratio: 640 / 489; }
-    .pi-tb__heading { font-size: 34px; line-height: 44px; }
+    .pi-tb__heading { font-size: 30px; line-height: 40px; }
   }
 
   /* Mobile (≤749): mirror the homepage Trusted By mobile — a single-column
