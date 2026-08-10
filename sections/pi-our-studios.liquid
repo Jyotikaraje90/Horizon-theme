@@ -224,11 +224,14 @@
     {%- if section.settings.mobile_background_image != blank -%}
     .pi-os { background-image: url('{{ section.settings.mobile_background_image | image_url: width: 800 }}') !important; }
     {%- endif -%}
-    /* Taller card so the studio photo shows at a proper height (was 116px). */
-    .pi-os__card { flex: 0 0 calc(50% - 6px); min-width: 0; height: 180px; gap: 10px; box-shadow: 1.79px 1.79px 5.96px rgba(0, 0, 0, 0.2); }
+    /* Keep the desktop photo proportion (360:250) at every width via aspect-ratio
+       (instead of a fixed height that changed the card shape as the viewport
+       stretched and cropped the image differently). */
+    .pi-os__card { flex: 0 0 calc(50% - 6px); min-width: 0; height: auto; aspect-ratio: 360 / 250; gap: 10px; box-shadow: 1.79px 1.79px 5.96px rgba(0, 0, 0, 0.2); }
     /* Touch devices have no hover, so reveal the studio photo permanently and
-       hide the pin + city label — matching the desktop hover state. */
-    .pi-os__card-img { opacity: 1; }
+       hide the pin + city label. contain = the WHOLE image fits (no cropping) at
+       any card size. */
+    .pi-os__card-img { opacity: 1; background-size: contain; }
     .pi-os__pin,
     .pi-os__city { opacity: 0; }
     .pi-os__city { font-size: 22px; font-weight: 700; line-height: 29px; }
