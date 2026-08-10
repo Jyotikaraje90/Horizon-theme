@@ -61,6 +61,11 @@
     height: calc(76% * var(--pi-ph-deco-scale, 1));
     width: auto;
     opacity: var(--pi-ph-deco-opacity, 0.9);
+    /* Figma swirls are WHITE (#FFFFFF) at 30%. The PNG artwork is dark grey, so
+       on the black banner it read as nearly invisible. brightness(0) invert(1)
+       recolors the artwork to solid white (alpha preserved) so the 30% opacity
+       shows as a subtle white swirl, matching the design. */
+    filter: brightness(0) invert(1);
     pointer-events: none;
     user-select: none;
   }
