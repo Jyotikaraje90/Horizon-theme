@@ -1709,6 +1709,19 @@
       margin: 0 10px 0 -6px !important;
     }
   }
+
+  /* PI: on phones use the theme's intended MOBILE logo size (logo_height_mobile,
+     36px) instead of the forced desktop size (55px). The oversized desktop logo,
+     once left-aligned, pushed the cart off the right edge on narrow screens. */
+  @media screen and (max-width: 749px) {
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: var(--header-logo-image-height-mobile) !important;
+      width: var(--header-logo-image-width-mobile) !important;
+      max-width: none !important;
+    }
+  }
 {% endstylesheet %}
 
 {% unless request.design_mode %}
