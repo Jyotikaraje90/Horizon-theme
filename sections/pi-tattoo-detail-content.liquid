@@ -44,30 +44,31 @@
   .pi-tdc__label {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 14px;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 20px;
-    font-weight: 600;
+    font-size: 34px;
+    font-weight: 500;
+    line-height: 44px;
     color: var(--pi-tdc-heading-color, #000000);
     margin: 0;
   }
 
   .pi-tdc__label::before {
     content: '';
-    width: 3px;
-    height: 20px;
+    width: 4px;
+    height: 40px;
     background: var(--pi-tdc-heading-color, #000000);
     flex-shrink: 0;
   }
 
   .pi-tdc__text {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: 18px;
     font-weight: 400;
-    line-height: 26px;
+    line-height: 29px;
     color: var(--pi-tdc-text-color, #121212);
     margin: 0;
-    text-align: justify;
+    text-align: left;
   }
 
   .pi-tdc__btn {
@@ -138,43 +139,51 @@
     gap: 20px;
   }
 
-  .pi-tdc__feature {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .pi-tdc__feature-icon {
-    flex-shrink: 0;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .pi-tdc__feature-icon svg { width: 100%; height: 100%; display: block; }
-
-  .pi-tdc__feature-body {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-
-  .pi-tdc__feature-title {
+  .pi-tdc__features-heading {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: 600;
+    line-height: 26px;
     color: var(--pi-tdc-heading-color, #000000);
     margin: 0;
   }
 
-  .pi-tdc__feature-desc {
-    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 24px;
-    color: var(--pi-tdc-text-color, #121212);
+  .pi-tdc__feature-list {
+    list-style: none;
     margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pi-tdc__feature {
+    position: relative;
+    padding-left: 22px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    line-height: 29px;
+    color: var(--pi-tdc-text-color, #121212);
+  }
+
+  .pi-tdc__feature::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 11px;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--pi-tdc-text-color, #121212);
+  }
+
+  .pi-tdc__feature-title {
+    font-weight: 700;
+    color: var(--pi-tdc-text-color, #121212);
+  }
+
+  .pi-tdc__feature-desc {
+    font-weight: 400;
   }
 
   /* ─── Responsive ───────────────────────────────── */
@@ -238,26 +247,21 @@
       </div>
 
       {%- assign feature_blocks = section.blocks | where: 'type', 'feature' -%}
-      {%- if feature_blocks.size > 0 -%}
+      {%- if section.settings.features_heading != blank or feature_blocks.size > 0 -%}
         <div class="pi-tdc__features">
-          {%- for block in feature_blocks -%}
-            <div class="pi-tdc__feature" {{ block.shopify_attributes }}>
-              <span class="pi-tdc__feature-icon">
-                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <circle cx="12" cy="12" r="11" stroke="{{ section.settings.heading_color }}" stroke-width="1.5"/>
-                  <path d="M7 12.5L10.2 15.5L17 8.5" stroke="{{ section.settings.heading_color }}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </span>
-              <div class="pi-tdc__feature-body">
-                {%- if block.settings.title != blank -%}
-                  <h4 class="pi-tdc__feature-title">{{ block.settings.title }}</h4>
-                {%- endif -%}
-                {%- if block.settings.description != blank -%}
-                  <p class="pi-tdc__feature-desc">{{ block.settings.description }}</p>
-                {%- endif -%}
-              </div>
-            </div>
-          {%- endfor -%}
+          {%- if section.settings.features_heading != blank -%}
+            <h3 class="pi-tdc__features-heading">{{ section.settings.features_heading }}</h3>
+          {%- endif -%}
+          {%- if feature_blocks.size > 0 -%}
+            <ul class="pi-tdc__feature-list">
+              {%- for block in feature_blocks -%}
+                <li class="pi-tdc__feature" {{ block.shopify_attributes }}>
+                  {%- if block.settings.title != blank -%}<strong class="pi-tdc__feature-title">{{ block.settings.title }}:</strong> {% endif -%}
+                  {%- if block.settings.description != blank -%}<span class="pi-tdc__feature-desc">{{ block.settings.description }}</span>{% endif -%}
+                </li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
         </div>
       {%- endif -%}
     </div>
@@ -310,6 +314,16 @@
       "type": "image_picker",
       "id": "right_image",
       "label": "Right column large image"
+    },
+    {
+      "type": "header",
+      "content": "Features"
+    },
+    {
+      "type": "text",
+      "id": "features_heading",
+      "label": "Features heading",
+      "default": "Realistic Tattoo Features"
     },
     {
       "type": "header",

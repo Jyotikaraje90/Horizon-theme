@@ -22,19 +22,14 @@
     "pi_ph_detail": {
       "type": "pi-page-hero",
       "settings": {
-        "desktop_height": 270,
-        "tablet_height": 200,
-        "mobile_height": 160,
+        "heading": "Realistic Tattoos",
         "heading_size": 54,
         "tablet_heading_size": 40,
         "mobile_heading_size": 28,
         "heading_color": "#ffffff",
         "text_alignment": "center",
-        "deco_opacity": 30,
         "bg_fallback_color": "#000000",
-        "heading": "Realistic Tattoos",
-        "background_image": "shopify://shop_images/About_Us.png",
-        "overlay_opacity": 0,
+        "deco_opacity": 30,
         "margin_top": 0,
         "margin_bottom": 0
       }
@@ -45,37 +40,46 @@
         "feature_1": {
           "type": "feature",
           "settings": {
-            "title": "Bold Outlines & Vibrant Colors",
-            "description": "Crisp linework and rich color saturation that keeps the design sharp for years."
+            "title": "High-Detail Shading",
+            "description": "Advanced shading and gradient techniques for a seamless, photo-realistic look."
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "title": "Custom Design Options",
-            "description": "Every piece is tailored to your vision, sized and styled to fit your body."
+            "title": "Custom & Personalized Designs",
+            "description": "Every tattoo is tailored to match your vision with unmatched precision."
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
-            "title": "Expert Artists & Premium Inks",
-            "description": "Skilled artists using skin-safe, high-pigment inks for a lasting finish."
+            "title": "Expert Artists",
+            "description": "Our team specializes in hyper-realism, ensuring lifelike textures and depth in every piece."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "title": "Long-Lasting & Fade-Resistant",
+            "description": "We use high-quality ink and meticulous craftsmanship to create tattoos that stand the test of time."
           }
         }
       },
       "block_order": [
         "feature_1",
         "feature_2",
-        "feature_3"
+        "feature_3",
+        "feature_4"
       ],
       "settings": {
         "about_heading": "About Realistic Tattoos",
-        "about_text": "Realistic tattoos bring lifelike detail and depth to the skin, capturing portraits, animals, and nature with striking precision. Using advanced shading and fine linework, our artists create pieces that look like photographs come to life.",
+        "about_text": "Realistic tattoos are a true form of artistic mastery, bringing depth, contrast, and intricate details to life on the skin. Whether it's a portrait, nature-inspired piece, or hyper-detailed design, our skilled artists use advanced shading techniques to create a stunningly lifelike effect. Every tattoo is crafted with precision and passion, ensuring a flawless, long-lasting masterpiece that tells your unique story.",
         "button_label": "Book Now",
         "button_link": "#shopify-section-pi_book_detail",
         "left_image": "shopify://shop_images/Frame_1618872911.png",
         "right_image": "shopify://shop_images/Frame_1618872905_3.png",
+        "features_heading": "Realistic Tattoo Features",
         "padding_top": 80,
         "padding_bottom": 80,
         "bg_color": "#ffffff",
