@@ -33,21 +33,17 @@
   .pi-ph {
     position: relative;
     width: 100%;
-    /* Desktop / tablet: thin banner matching the 1920×270 proportion, capped. */
-    height: min(14.06vw, 270px);
-    min-height: 96px;
+    /* Height linearly interpolates between the two Figma frames so it stays
+       smooth at EVERY width (no breakpoint jump):
+         390px → 139px (mobile)   1920px → 270px (desktop)
+       slope = (270-139)/(1920-390) = 8.56vw; intercept = 105.6px.
+       Clamped: floor 120px on tiny screens, cap 270px at ≥1920px. */
+    height: clamp(120px, calc(8.56vw + 105.6px), 270px);
     background: var(--pi-ph-bg, #000000);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  @media (max-width: 749px) {
-    /* Phones: taller, compact proportion so the banner isn't a thin sliver. */
-    .pi-ph {
-      height: 35.6vw;
-      min-height: 120px;
-    }
   }
 
   /* Size to match the Figma swirl footprint (~76% of banner height on desktop,
