@@ -218,6 +218,9 @@
   }
 
   @media (max-width: 749px) {
+    /* Hug the content — the 480px min-height (set at ≤1199) left a tall empty
+       band of background below the cards on small phones. */
+    .pi-os { min-height: 0; }
     .pi-os__inner { padding: 50px 18px; gap: 30px; }
     .pi-os__heading { font-size: var(--pi-os-heading-size, 28px); line-height: 1.3; height: auto; }
     .pi-os__grid { flex-wrap: wrap; height: auto; gap: 12px; }
