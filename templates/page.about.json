@@ -44,9 +44,9 @@
         "text_4": "<p>Today, with a team of <strong>35+ skilled professionals</strong>, Puerto Ink continues to grow, offering <strong>world-class tattoos, piercings, and premium jewelry</strong> while staying true to its artistic roots.</p>",
         "text": "Puerto Ink was founded in 2016 by two brothers, Vangelis and Michalis, from Heraklion, Crete. With a deep passion for art and craftsmanship, they started their journey with a vision to create a tattoo and piercing studio that blended creativity, precision, and professionalism.\n\nWhat began as a small local studio quickly gained recognition for its high-quality artistry and customer experience. Driven by innovation and dedication, they opened their first studio in Heraklion, setting the foundation for what would become a renowned name in the industry.\n\nIn six years, they expanded internationally, opening a studio in Antwerp, Belgium, followed by Amsterdam and Athens, establishing Puerto Ink as a global brand.\n\nToday, with a team of 35+ skilled professionals, Puerto Ink continues to grow, offering world-class tattoos, piercings, and premium jewelry while staying true to its artistic roots.",
         "padding_top": 100,
-        "padding_bottom": 100,
+        "padding_bottom": 52,
         "mobile_padding_top": 48,
-        "mobile_padding_bottom": 12,
+        "mobile_padding_bottom": 26,
         "margin_top": 0,
         "margin_bottom": 0,
         "bg_color": "#ffffff",
@@ -64,9 +64,9 @@
     "pi_team_about": {
       "type": "pi-team-banner",
       "settings": {
-        "padding_top": 100,
+        "padding_top": 48,
         "padding_bottom": 48,
-        "mobile_padding_top": 12,
+        "mobile_padding_top": 24,
         "mobile_padding_bottom": 28,
         "margin_top": 0,
         "margin_bottom": 0,
