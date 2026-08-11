@@ -194,8 +194,8 @@
         "heading_color": "#000000",
         "icon_bg": "#f0f0f0",
         "icon_color": "#000000",
-        "step_title_color": "#000000",
-        "step_desc_color": "#555555",
+        "step_title_color": "#121212",
+        "step_desc_color": "#121212",
         "margin_top": 0,
         "margin_bottom": 0
       }
