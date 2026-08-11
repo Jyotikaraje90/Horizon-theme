@@ -279,15 +279,12 @@
                   {%- endif -%}
                 </p>
                 <div class="pi-jg__card-atc">
-                  {%- if product.available -%}
-                    <form action="/cart/add" method="post" enctype="multipart/form-data">
-                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-                      <input type="hidden" name="quantity" value="1">
-                      <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
-                    </form>
-                  {%- else -%}
-                    <a href="{{ product.url }}" class="pi-jg__card-atc-btn">View Product</a>
-                  {%- endif -%}
+                  {%- assign atc_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+                  <form action="/cart/add" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ atc_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
+                  </form>
                 </div>
               </div>
 
