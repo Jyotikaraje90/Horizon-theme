@@ -76,7 +76,7 @@
     width: 166px;
     height: 32px;
     left: calc(33.333% - 83px);
-    top: 14px;
+    top: 30px;
     color: var(--pi-hiw-icon-color, #000000);
   }
 
@@ -88,7 +88,7 @@
 
   .pi-hiw__arrow--flip {
     left: calc(66.666% - 83px);
-    top: 188px;
+    top: 150px;
     transform: scaleY(-1);
   }
 
@@ -205,9 +205,9 @@
           </div>
           {%- unless forloop.last -%}
             <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
-              <svg viewBox="0 0 166 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 8Q85 32 150 12" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>
-                <path d="M138 4L152 12L138 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg viewBox="0 0 166 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 24 Q78 3 148 14" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+                <path d="M140 8 L151 15 L141 22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
           {%- endunless -%}
