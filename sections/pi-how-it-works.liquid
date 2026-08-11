@@ -20,7 +20,7 @@
   }
 
   .pi-hiw__inner {
-    max-width: 1500px;
+    max-width: 1580px;
     margin-inline: auto;
     padding-inline: 40px;
     box-sizing: border-box;
@@ -42,15 +42,12 @@
   }
 
   .pi-hiw__steps {
+    position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    gap: 24px;
-  }
-
-  @media (min-width: 1100px) {
-    .pi-hiw__steps { gap: 56px; }
+    gap: 20px;
   }
 
   .pi-hiw__step {
@@ -60,7 +57,7 @@
     text-align: center;
     gap: 16px;
     flex: 1 1 0;
-    max-width: 320px;
+    max-width: 487px;
   }
 
   /* Figma "Frame 18": title + description group, 10px gap */
@@ -74,10 +71,12 @@
 
   .pi-hiw__arrow {
     display: none;
-    flex: 0 0 auto;
+    position: absolute;
+    z-index: 1;
     width: 166px;
-    height: 36px;
-    margin-top: 14px;
+    height: 32px;
+    left: calc(33.333% - 83px);
+    top: 14px;
     color: var(--pi-hiw-icon-color, #000000);
   }
 
@@ -88,7 +87,8 @@
   }
 
   .pi-hiw__arrow--flip {
-    margin-top: 188px;
+    left: calc(66.666% - 83px);
+    top: 188px;
     transform: scaleY(-1);
   }
 
