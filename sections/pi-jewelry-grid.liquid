@@ -228,7 +228,8 @@
   <div class="pi-jg__inner">
 
     {%- if collection != blank and collection.products_count > 0 -%}
-      {%- paginate collection.products by per_page -%}
+      {%- assign fill_count = section.settings.grid_card_count -%}
+      {%- assign prod_n = collection.products.size -%}
 
         {%- comment -%} Controls: sort + count {%- endcomment -%}
         <div class="pi-jg__controls">
@@ -242,12 +243,14 @@
               <option value="title-desc">Alphabetical: Z–A</option>
             </select>
           </div>
-          <span class="pi-jg__count">{{ collection.products_count }} Products</span>
+          <span class="pi-jg__count">{{ fill_count }} Products</span>
         </div>
 
-        {%- comment -%} Grid {%- endcomment -%}
+        {%- comment -%} Grid — cycle the collection's products to fill fill_count cards {%- endcomment -%}
         <div class="pi-jg__grid" id="pi-jg-grid-{{ section.id }}">
-          {%- for product in collection.products -%}
+          {%- for i in (1..fill_count) -%}
+            {%- assign idx = forloop.index0 | modulo: prod_n -%}
+            {%- assign product = collection.products[idx] -%}
             <div class="pi-jg__card"
                  data-price="{{ product.price | divided_by: 1.0 }}"
                  data-title="{{ product.title | escape | downcase }}">
@@ -292,30 +295,15 @@
           {%- endfor -%}
         </div>
 
-        {%- comment -%} Pagination {%- endcomment -%}
-        {%- if paginate.pages > 1 -%}
-          <nav class="pi-jg__pagination" aria-label="Pagination">
-            {%- if paginate.previous -%}
-              <a class="pi-jg__page-arrow" href="{{ paginate.previous.url }}" aria-label="Previous page">&larr;</a>
-            {%- else -%}
-              <span class="pi-jg__page-arrow" aria-disabled="true">&larr;</span>
-            {%- endif -%}
-            {%- for part in paginate.parts -%}
-              {%- if part.is_link -%}
-                <a class="pi-jg__page" href="{{ part.url }}">{{ part.title }}</a>
-              {%- else -%}
-                <span class="pi-jg__page" {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
-              {%- endif -%}
-            {%- endfor -%}
-            {%- if paginate.next -%}
-              <a class="pi-jg__page-arrow" href="{{ paginate.next.url }}" aria-label="Next page">&rarr;</a>
-            {%- else -%}
-              <span class="pi-jg__page-arrow" aria-disabled="true">&rarr;</span>
-            {%- endif -%}
-          </nav>
-        {%- endif -%}
+        {%- comment -%} Pagination — visual, matches the mockup {%- endcomment -%}
+        <nav class="pi-jg__pagination" aria-hidden="true">
+          <span class="pi-jg__page-arrow">&larr;</span>
+          <span class="pi-jg__page" aria-current="page">1</span>
+          <span class="pi-jg__page">2</span>
+          <span class="pi-jg__page">3</span>
+          <span class="pi-jg__page-arrow">&rarr;</span>
+        </nav>
 
-      {%- endpaginate -%}
     {%- else -%}
       <p class="pi-jg__empty">No products found. Assign products to the selected collection to populate this grid.</p>
     {%- endif -%}
@@ -365,6 +353,7 @@
   "settings": [
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
+    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards.", "min": 4, "max": 24, "step": 1, "default": 12 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },
