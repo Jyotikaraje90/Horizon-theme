@@ -1,0 +1,247 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_piercing": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Piercing Services",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_psg_piercing": {
+      "type": "pi-tattoo-services-grid",
+      "blocks": {
+        "sc_1": {
+          "type": "service_card",
+          "settings": {
+            "title": "Ear Lobe Piercing",
+            "title_link": "",
+            "description": "The classic starting point — a clean, versatile piercing perfect for studs, hoops, and stacked looks."
+          }
+        },
+        "sc_2": {
+          "type": "service_card",
+          "settings": {
+            "title": "Helix Piercing",
+            "title_link": "",
+            "description": "Placed along the upper ear cartilage for a bold, stylish accent that pairs beautifully with lobe piercings."
+          }
+        },
+        "sc_3": {
+          "type": "service_card",
+          "settings": {
+            "title": "Tragus Piercing",
+            "title_link": "",
+            "description": "A subtle, eye-catching piercing on the small cartilage flap in front of the ear canal."
+          }
+        },
+        "sc_4": {
+          "type": "service_card",
+          "settings": {
+            "title": "Daith Piercing",
+            "title_link": "",
+            "description": "An inner-ear cartilage piercing known for its distinctive curved placement and elegant hoops."
+          }
+        },
+        "sc_5": {
+          "type": "service_card",
+          "settings": {
+            "title": "Conch Piercing",
+            "title_link": "",
+            "description": "Set through the shell of the ear, offering a striking canvas for studs or statement rings."
+          }
+        },
+        "sc_6": {
+          "type": "service_card",
+          "settings": {
+            "title": "Industrial Piercing",
+            "title_link": "",
+            "description": "Two cartilage piercings joined by a single barbell for a bold, edgy signature look."
+          }
+        },
+        "sc_7": {
+          "type": "service_card",
+          "settings": {
+            "title": "Nostril Piercing",
+            "title_link": "",
+            "description": "A timeless facial piercing that adds character, from delicate studs to fine hoops."
+          }
+        },
+        "sc_8": {
+          "type": "service_card",
+          "settings": {
+            "title": "Septum Piercing",
+            "title_link": "",
+            "description": "Placed through the central nasal septum — versatile, discreet, or bold depending on the jewelry."
+          }
+        },
+        "sc_9": {
+          "type": "service_card",
+          "settings": {
+            "title": "Eyebrow Piercing",
+            "title_link": "",
+            "description": "A confident surface piercing above the eye that frames the face with attitude."
+          }
+        },
+        "sc_10": {
+          "type": "service_card",
+          "settings": {
+            "title": "Navel Piercing",
+            "title_link": "",
+            "description": "The ever-popular belly-button piercing, ideal for dangles, gems, and seasonal styling."
+          }
+        },
+        "sc_11": {
+          "type": "service_card",
+          "settings": {
+            "title": "Lip & Labret Piercing",
+            "title_link": "",
+            "description": "Precisely placed around the lip for a modern, expressive edge with countless jewelry options."
+          }
+        },
+        "sc_12": {
+          "type": "service_card",
+          "settings": {
+            "title": "Tongue Piercing",
+            "title_link": "",
+            "description": "A centered oral piercing performed with care for comfort, safety, and clean healing."
+          }
+        }
+      },
+      "block_order": [
+        "sc_1",
+        "sc_2",
+        "sc_3",
+        "sc_4",
+        "sc_5",
+        "sc_6",
+        "sc_7",
+        "sc_8",
+        "sc_9",
+        "sc_10",
+        "sc_11",
+        "sc_12"
+      ],
+      "settings": {
+        "heading": "",
+        "text_alignment": "center",
+        "heading_color": "#000000",
+        "cards_per_page": 12,
+        "page_number_active_color": "#000000",
+        "page_number_inactive_color": "#b3b3b3",
+        "padding_top": 60,
+        "padding_bottom": 60,
+        "mobile_padding_top": 32,
+        "mobile_padding_bottom": 32,
+        "bg_color": "#ffffff",
+        "card_radius": 10,
+        "card_title_size": 20,
+        "card_title_color": "#000000",
+        "card_desc_size": 16,
+        "card_desc_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_contact_piercing": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background_813c9047-2b21-4e7f-b1b4-492d0e4a8499.png",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_piercing",
+    "pi_psg_piercing",
+    "pi_contact_piercing"
+  ]
+}
