@@ -166,34 +166,58 @@
   }
   .pi-jg__card-atc-btn:hover { border-bottom-color: #b49146; color: #b49146; }
 
-  /* ── Pagination ── */
+  /* ── Pagination (matches pi-tattoo-services-grid) ── */
+  .pi-jg__card.is-hidden { display: none; }
+
   .pi-jg__pagination {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 14px;
+    justify-content: center;
+    gap: 30px;
     margin-top: 20px;
   }
-  .pi-jg__page,
   .pi-jg__page-arrow {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    border: 1.5px solid #000000;
+    background: #ffffff;
     display: flex;
     align-items: center;
     justify-content: center;
-    min-width: 34px;
-    height: 34px;
-    border-radius: 50%;
+    cursor: pointer;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .pi-jg__page-arrow svg path { fill: #000000; }
+  .pi-jg__page-arrow:hover:not([disabled]) { background: #000000; }
+  .pi-jg__page-arrow:hover:not([disabled]) svg path { fill: #ffffff; }
+  .pi-jg__page-arrow[disabled] { opacity: 0.3; cursor: default; }
+
+  .pi-jg__page-numbers {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .pi-jg__page-number {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 15px;
-    color: #000000;
-    text-decoration: none;
-    border: 1px solid transparent;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 23px;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    color: #B3B3B3;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
   }
-  .pi-jg__page[aria-current="page"] {
-    background: #000000;
-    color: #ffffff;
-  }
-  .pi-jg__page-arrow { border-color: #000000; }
-  .pi-jg__page-arrow[aria-disabled="true"] { opacity: 0.35; pointer-events: none; }
+  .pi-jg__page-number.is-active { color: #000000; cursor: default; }
 
   /* ── Empty state ── */
   .pi-jg__empty {
@@ -224,12 +248,14 @@
   }
 </style>
 
-<div class="pi-jg" id="pi-jg-{{ section.id }}" style="--pi-jg-bg: {{ section.settings.bg_color }}; --pi-jg-card-bg: {{ section.settings.card_bg }}; --pi-jg-card-radius: {{ section.settings.card_radius }}px;">
+<div class="pi-jg" id="pi-jg-{{ section.id }}" data-per-page="{{ section.settings.products_per_page }}" style="--pi-jg-bg: {{ section.settings.bg_color }}; --pi-jg-card-bg: {{ section.settings.card_bg }}; --pi-jg-card-radius: {{ section.settings.card_radius }}px;">
   <div class="pi-jg__inner">
 
     {%- if collection != blank and collection.products_count > 0 -%}
       {%- assign fill_count = section.settings.grid_card_count -%}
       {%- assign prod_n = collection.products.size -%}
+      {%- assign per_page = section.settings.products_per_page -%}
+      {%- assign total_pages = fill_count | plus: per_page | minus: 1 | divided_by: per_page -%}
 
         {%- comment -%} Controls: sort + count {%- endcomment -%}
         <div class="pi-jg__controls">
@@ -295,14 +321,26 @@
           {%- endfor -%}
         </div>
 
-        {%- comment -%} Pagination — visual, matches the mockup {%- endcomment -%}
-        <nav class="pi-jg__pagination" aria-hidden="true">
-          <span class="pi-jg__page-arrow">&larr;</span>
-          <span class="pi-jg__page" aria-current="page">1</span>
-          <span class="pi-jg__page">2</span>
-          <span class="pi-jg__page">3</span>
-          <span class="pi-jg__page-arrow">&rarr;</span>
-        </nav>
+        {%- comment -%} Pagination — same pattern as pi-tattoo-services-grid {%- endcomment -%}
+        {%- if total_pages > 1 -%}
+          <div class="pi-jg__pagination">
+            <button type="button" class="pi-jg__page-arrow pi-jg__page-prev" aria-label="Previous page">
+              <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
+                <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+            <div class="pi-jg__page-numbers">
+              {%- for i in (1..total_pages) -%}
+                <button type="button" class="pi-jg__page-number{% if forloop.first %} is-active{% endif %}" data-page="{{ i }}">{{ i }}</button>
+              {%- endfor -%}
+            </div>
+            <button type="button" class="pi-jg__page-arrow pi-jg__page-next" aria-label="Next page">
+              <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;transform:rotate(180deg);">
+                <path fill="#000000" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+              </svg>
+            </button>
+          </div>
+        {%- endif -%}
 
     {%- else -%}
       <p class="pi-jg__empty">No products found. Assign products to the selected collection to populate this grid.</p>
@@ -313,29 +351,54 @@
 
 <script>
 (function () {
-  var id = {{ section.id | json }};
-  var sel = document.getElementById('pi-jg-sort-' + id);
+  var id   = {{ section.id | json }};
+  var root = document.getElementById('pi-jg-' + id);
   var grid = document.getElementById('pi-jg-grid-' + id);
-  if (!sel || !grid) return;
+  if (!root || !grid) return;
 
-  var original = Array.prototype.slice.call(grid.children);
+  var sel        = document.getElementById('pi-jg-sort-' + id);
+  var perPage    = parseInt(root.dataset.perPage, 10) || 12;
+  var pageBtns   = Array.prototype.slice.call(root.querySelectorAll('.pi-jg__page-number'));
+  var prevBtn    = root.querySelector('.pi-jg__page-prev');
+  var nextBtn    = root.querySelector('.pi-jg__page-next');
+  var original   = Array.prototype.slice.call(grid.children);
+  var currentPage = 1;
 
-  function sortCards(mode) {
-    var cards = Array.prototype.slice.call(grid.children);
-    if (mode === 'best') { cards = original.slice(); }
-    else {
-      cards.sort(function (a, b) {
-        if (mode === 'price-asc')  return (+a.dataset.price) - (+b.dataset.price);
-        if (mode === 'price-desc') return (+b.dataset.price) - (+a.dataset.price);
-        if (mode === 'title-asc')  return a.dataset.title.localeCompare(b.dataset.title);
-        if (mode === 'title-desc') return b.dataset.title.localeCompare(a.dataset.title);
-        return 0;
-      });
-    }
-    cards.forEach(function (c) { grid.appendChild(c); });
+  function cards()      { return Array.prototype.slice.call(grid.children); }
+  function totalPages() { return Math.max(1, Math.ceil(cards().length / perPage)); }
+
+  function showPage(page) {
+    var tp = totalPages();
+    currentPage = Math.max(1, Math.min(page, tp));
+    var start = (currentPage - 1) * perPage;
+    var end   = start + perPage;
+    cards().forEach(function (c, i) { c.classList.toggle('is-hidden', i < start || i >= end); });
+    pageBtns.forEach(function (b) { b.classList.toggle('is-active', parseInt(b.dataset.page, 10) === currentPage); });
+    if (prevBtn) prevBtn.disabled = currentPage === 1;
+    if (nextBtn) nextBtn.disabled = currentPage === tp;
   }
 
-  sel.addEventListener('change', function () { sortCards(sel.value); });
+  pageBtns.forEach(function (b) { b.addEventListener('click', function () { showPage(parseInt(b.dataset.page, 10)); }); });
+  if (prevBtn) prevBtn.addEventListener('click', function () { showPage(currentPage - 1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { showPage(currentPage + 1); });
+
+  if (sel) {
+    sel.addEventListener('change', function () {
+      var list = cards();
+      if (sel.value === 'best') { list = original.slice(); }
+      else {
+        list.sort(function (a, b) {
+          if (sel.value === 'price-asc')  return (+a.dataset.price) - (+b.dataset.price);
+          if (sel.value === 'price-desc') return (+b.dataset.price) - (+a.dataset.price);
+          if (sel.value === 'title-asc')  return a.dataset.title.localeCompare(b.dataset.title);
+          if (sel.value === 'title-desc') return b.dataset.title.localeCompare(a.dataset.title);
+          return 0;
+        });
+      }
+      list.forEach(function (c) { grid.appendChild(c); });
+      showPage(1);
+    });
+  }
 
   grid.querySelectorAll('.pi-jg__wishlist').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
@@ -343,6 +406,8 @@
       btn.classList.toggle('pi-jg__wishlist--active');
     });
   });
+
+  showPage(1);
 })();
 </script>
 
@@ -353,7 +418,7 @@
   "settings": [
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
-    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards.", "min": 4, "max": 24, "step": 1, "default": 12 },
+    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards (paginated by 'Products per page').", "min": 4, "max": 48, "step": 4, "default": 36 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },
