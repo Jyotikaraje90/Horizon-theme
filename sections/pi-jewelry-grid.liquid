@@ -1,0 +1,386 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign per_page   = section.settings.products_per_page
+-%}
+
+<style>
+  .pi-jg {
+    background: var(--pi-jg-bg, #ffffff);
+  }
+  .pi-jg__inner {
+    max-width: 1580px;              /* content = 1500px like the other PI sections */
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* ── Controls row: Sort by (left of count) + product count, right-aligned ── */
+  .pi-jg__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 30px;
+    width: 100%;
+    min-height: 26px;
+  }
+  .pi-jg__sort {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pi-jg__sort-label {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    color: #000000;
+    white-space: nowrap;
+  }
+  .pi-jg__sort-select {
+    -webkit-appearance: none;
+    appearance: none;
+    border: none;
+    background: transparent;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: #121212;
+    cursor: pointer;
+    padding-right: 18px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23000000'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+  }
+  .pi-jg__count {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: #121212;
+    white-space: nowrap;
+  }
+
+  /* ── Grid: 4 columns, 30px column gap, 50px row gap ── */
+  .pi-jg__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 30px;
+    row-gap: 50px;
+    width: 100%;
+  }
+
+  /* ── Card ── */
+  .pi-jg__card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pi-jg__card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: var(--pi-jg-card-bg, #E6E6E6);
+    border-radius: var(--pi-jg-card-radius, 20px);
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .pi-jg__card-img-wrap img,
+  .pi-jg__card-img-wrap .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    display: block;
+  }
+
+  /* Wishlist: 33×30, top 20, right 20 */
+  .pi-jg__wishlist {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 33px;
+    height: 30px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.15s ease;
+  }
+  .pi-jg__wishlist:hover { transform: scale(1.15); }
+  .pi-jg__wishlist svg { width: 100%; height: 100%; display: block; }
+  .pi-jg__wishlist--active .pi-jg__wishlist-path { fill: #000000; }
+
+  .pi-jg__card-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .pi-jg__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    color: #000000;
+    margin: 0;
+    text-decoration: none;
+  }
+  .pi-jg__card-title:hover { text-decoration: underline; }
+  .pi-jg__card-price {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 26px;
+    color: #121212;
+    margin: 0;
+  }
+  .pi-jg__card-atc form { margin: 0; }
+  .pi-jg__card-atc-btn {
+    display: inline-block;
+    background: none;
+    border: none;
+    border-bottom: 1px solid #000000;
+    padding: 0 0 2px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: #000000;
+    cursor: pointer;
+    text-decoration: none;
+    line-height: 1.4;
+  }
+  .pi-jg__card-atc-btn:hover { border-bottom-color: #b49146; color: #b49146; }
+
+  /* ── Pagination ── */
+  .pi-jg__pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 14px;
+    margin-top: 20px;
+  }
+  .pi-jg__page,
+  .pi-jg__page-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 15px;
+    color: #000000;
+    text-decoration: none;
+    border: 1px solid transparent;
+  }
+  .pi-jg__page[aria-current="page"] {
+    background: #000000;
+    color: #ffffff;
+  }
+  .pi-jg__page-arrow { border-color: #000000; }
+  .pi-jg__page-arrow[aria-disabled="true"] { opacity: 0.35; pointer-events: none; }
+
+  /* ── Empty state ── */
+  .pi-jg__empty {
+    text-align: center;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    color: #555555;
+    padding: 40px 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1100px) {
+    .pi-jg__grid { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 900px) {
+    .pi-jg__grid { grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 32px; }
+  }
+  @media (max-width: 600px) {
+    .pi-jg__inner { padding-left: 18px; padding-right: 18px; }
+    .pi-jg__card-img-wrap { border-radius: 15px; }
+    .pi-jg__card-title { font-size: 16px; line-height: 22px; }
+    .pi-jg__sort-label { font-size: 16px; }
+  }
+
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+</style>
+
+<div class="pi-jg" id="pi-jg-{{ section.id }}" style="--pi-jg-bg: {{ section.settings.bg_color }}; --pi-jg-card-bg: {{ section.settings.card_bg }}; --pi-jg-card-radius: {{ section.settings.card_radius }}px;">
+  <div class="pi-jg__inner">
+
+    {%- if collection != blank and collection.products_count > 0 -%}
+      {%- paginate collection.products by per_page -%}
+
+        {%- comment -%} Controls: sort + count {%- endcomment -%}
+        <div class="pi-jg__controls">
+          <div class="pi-jg__sort">
+            <span class="pi-jg__sort-label">Sort by:</span>
+            <select class="pi-jg__sort-select" id="pi-jg-sort-{{ section.id }}" aria-label="Sort products">
+              <option value="best">Best Selling</option>
+              <option value="price-asc">Price: Low to High</option>
+              <option value="price-desc">Price: High to Low</option>
+              <option value="title-asc">Alphabetical: A–Z</option>
+              <option value="title-desc">Alphabetical: Z–A</option>
+            </select>
+          </div>
+          <span class="pi-jg__count">{{ collection.products_count }} Products</span>
+        </div>
+
+        {%- comment -%} Grid {%- endcomment -%}
+        <div class="pi-jg__grid" id="pi-jg-grid-{{ section.id }}">
+          {%- for product in collection.products -%}
+            <div class="pi-jg__card"
+                 data-price="{{ product.price | divided_by: 1.0 }}"
+                 data-title="{{ product.title | escape | downcase }}">
+
+              <a href="{{ product.url }}" class="pi-jg__card-img-wrap" tabindex="-1" aria-hidden="true">
+                {%- if product.featured_image -%}
+                  <img src="{{ product.featured_image | image_url: width: 720 }}"
+                       alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                       loading="lazy" width="360" height="360">
+                {%- else -%}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+                <button class="pi-jg__wishlist" aria-label="Add {{ product.title | escape }} to wishlist" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+                          stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                          fill="transparent" class="pi-jg__wishlist-path"/>
+                  </svg>
+                </button>
+              </a>
+
+              <div class="pi-jg__card-info">
+                <a href="{{ product.url }}" class="pi-jg__card-title">{{ product.title }}</a>
+                <p class="pi-jg__card-price">
+                  {%- if product.price_min < product.price_max -%}
+                    {{ product.price_min | money }}&ndash;{{ product.price_max | money }}
+                  {%- else -%}
+                    {{ product.price | money }}
+                  {%- endif -%}
+                </p>
+                <div class="pi-jg__card-atc">
+                  {%- if product.available -%}
+                    <form action="/cart/add" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
+                    </form>
+                  {%- else -%}
+                    <a href="{{ product.url }}" class="pi-jg__card-atc-btn">View Product</a>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            </div>
+          {%- endfor -%}
+        </div>
+
+        {%- comment -%} Pagination {%- endcomment -%}
+        {%- if paginate.pages > 1 -%}
+          <nav class="pi-jg__pagination" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a class="pi-jg__page-arrow" href="{{ paginate.previous.url }}" aria-label="Previous page">&larr;</a>
+            {%- else -%}
+              <span class="pi-jg__page-arrow" aria-disabled="true">&larr;</span>
+            {%- endif -%}
+            {%- for part in paginate.parts -%}
+              {%- if part.is_link -%}
+                <a class="pi-jg__page" href="{{ part.url }}">{{ part.title }}</a>
+              {%- else -%}
+                <span class="pi-jg__page" {% if part.title == paginate.current_page %}aria-current="page"{% endif %}>{{ part.title }}</span>
+              {%- endif -%}
+            {%- endfor -%}
+            {%- if paginate.next -%}
+              <a class="pi-jg__page-arrow" href="{{ paginate.next.url }}" aria-label="Next page">&rarr;</a>
+            {%- else -%}
+              <span class="pi-jg__page-arrow" aria-disabled="true">&rarr;</span>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+
+      {%- endpaginate -%}
+    {%- else -%}
+      <p class="pi-jg__empty">No products found. Assign products to the selected collection to populate this grid.</p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var id = {{ section.id | json }};
+  var sel = document.getElementById('pi-jg-sort-' + id);
+  var grid = document.getElementById('pi-jg-grid-' + id);
+  if (!sel || !grid) return;
+
+  var original = Array.prototype.slice.call(grid.children);
+
+  function sortCards(mode) {
+    var cards = Array.prototype.slice.call(grid.children);
+    if (mode === 'best') { cards = original.slice(); }
+    else {
+      cards.sort(function (a, b) {
+        if (mode === 'price-asc')  return (+a.dataset.price) - (+b.dataset.price);
+        if (mode === 'price-desc') return (+b.dataset.price) - (+a.dataset.price);
+        if (mode === 'title-asc')  return a.dataset.title.localeCompare(b.dataset.title);
+        if (mode === 'title-desc') return b.dataset.title.localeCompare(a.dataset.title);
+        return 0;
+      });
+    }
+    cards.forEach(function (c) { grid.appendChild(c); });
+  }
+
+  sel.addEventListener('change', function () { sortCards(sel.value); });
+
+  grid.querySelectorAll('.pi-jg__wishlist').forEach(function (btn) {
+    btn.addEventListener('click', function (e) {
+      e.preventDefault(); e.stopPropagation();
+      btn.classList.toggle('pi-jg__wishlist--active');
+    });
+  });
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PI Jewelry Grid",
+  "tag": "section",
+  "settings": [
+    { "type": "collection", "id": "collection", "label": "Collection" },
+    { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },
+    { "type": "range", "id": "card_radius", "label": "Card image radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 20 },
+    { "type": "header", "content": "Padding" },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 148, "step": 4, "unit": "px", "default": 60 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 148, "step": 4, "unit": "px", "default": 60 },
+    { "type": "header", "content": "Section Margin" },
+    { "type": "range", "id": "margin_top", "label": "Margin Top", "min": 0, "max": 100, "step": 4, "default": 0, "unit": "px" },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom", "min": 0, "max": 100, "step": 4, "default": 0, "unit": "px" }
+  ],
+  "presets": [
+    { "name": "PI Jewelry Grid" }
+  ]
+}
+{% endschema %}
