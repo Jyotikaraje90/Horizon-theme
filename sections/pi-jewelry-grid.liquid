@@ -253,7 +253,8 @@
 
     {%- if collection != blank and collection.products_count > 0 -%}
       {%- assign fill_count = section.settings.grid_card_count -%}
-      {%- assign prod_n = collection.products.size -%}
+      {%- assign jewelry_products = collection.products | reverse -%}
+      {%- assign prod_n = jewelry_products.size -%}
       {%- assign per_page = section.settings.products_per_page -%}
       {%- assign total_pages = fill_count | plus: per_page | minus: 1 | divided_by: per_page -%}
 
@@ -275,8 +276,10 @@
         {%- comment -%} Grid — cycle the collection's products to fill fill_count cards {%- endcomment -%}
         <div class="pi-jg__grid" id="pi-jg-grid-{{ section.id }}">
           {%- for i in (1..fill_count) -%}
-            {%- assign idx = forloop.index0 | modulo: prod_n -%}
-            {%- assign product = collection.products[idx] -%}
+            {%- comment -%} Cascade: shift each 4-col row by one so the same product never stacks in a column (matches Figma) {%- endcomment -%}
+            {%- assign row = forloop.index0 | divided_by: 4 -%}
+            {%- assign idx = forloop.index0 | plus: row | modulo: prod_n -%}
+            {%- assign product = jewelry_products[idx] -%}
             <div class="pi-jg__card"
                  data-price="{{ product.price | divided_by: 1.0 }}"
                  data-title="{{ product.title | escape | downcase }}">
