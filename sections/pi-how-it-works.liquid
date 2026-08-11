@@ -27,7 +27,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 50px;
   }
 
   .pi-hiw__heading {
@@ -63,6 +63,15 @@
     max-width: 320px;
   }
 
+  /* Figma "Frame 18": title + description group, 10px gap */
+  .pi-hiw__step-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
   .pi-hiw__arrow {
     display: none;
     flex: 0 0 auto;
@@ -84,8 +93,8 @@
   }
 
   .pi-hiw__icon {
-    width: 108px;
-    height: 108px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: var(--pi-hiw-icon-bg, #f0f0f0);
     display: flex;
@@ -183,11 +192,15 @@
                 {%- endif -%}
               {%- endif -%}
             </span>
-            {%- if block.settings.title != blank -%}
-              <h4 class="pi-hiw__step-title">{{ block.settings.title }}</h4>
-            {%- endif -%}
-            {%- if block.settings.description != blank -%}
-              <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
+            {%- if block.settings.title != blank or block.settings.description != blank -%}
+              <div class="pi-hiw__step-text">
+                {%- if block.settings.title != blank -%}
+                  <h4 class="pi-hiw__step-title">{{ block.settings.title }}</h4>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
             {%- endif -%}
           </div>
           {%- unless forloop.last -%}
