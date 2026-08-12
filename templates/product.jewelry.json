@@ -51,7 +51,6 @@
         "sold_out_text": "Sold Out",
         "bg_color": "#ffffff",
         "tile_bg": "#e6e6e6",
-        "accent_color": "#b49146",
         "divider_color": "#d9d9d9",
         "padding_top": 60,
         "padding_bottom": 60,
@@ -61,7 +60,6 @@
     },
     "pi_pdp_recommendations": {
       "type": "product-recommendations",
-      "name": "You May Also Like",
       "blocks": {
         "text_heading": {
           "type": "text",
@@ -178,6 +176,7 @@
       "block_order": [
         "text_heading"
       ],
+      "name": "You May Also Like",
       "settings": {
         "product": "{{ closest.product }}",
         "recommendation_type": "related",
@@ -202,19 +201,27 @@
       "blocks": {
         "loc_1": {
           "type": "location",
-          "settings": { "location_name": "Crete" }
+          "settings": {
+            "location_name": "Crete"
+          }
         },
         "loc_2": {
           "type": "location",
-          "settings": { "location_name": "Athens" }
+          "settings": {
+            "location_name": "Athens"
+          }
         },
         "loc_3": {
           "type": "location",
-          "settings": { "location_name": "Antwerp" }
+          "settings": {
+            "location_name": "Antwerp"
+          }
         },
         "loc_4": {
           "type": "location",
-          "settings": { "location_name": "Amsterdam" }
+          "settings": {
+            "location_name": "Amsterdam"
+          }
         }
       },
       "block_order": [
