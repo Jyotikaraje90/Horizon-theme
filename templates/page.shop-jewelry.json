@@ -29,6 +29,7 @@
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_scale": 1,
         "deco_opacity": 100,
         "margin_top": 0,
         "margin_bottom": 0
@@ -37,10 +38,11 @@
     "pi_jewelry_grid": {
       "type": "pi-jewelry-grid",
       "settings": {
-        "collection": "body-jewelry",
+        "collection": "shop-jwelery",
         "products_per_page": 12,
+        "grid_card_count": 36,
         "bg_color": "#ffffff",
-        "card_bg": "#E6E6E6",
+        "card_bg": "#e6e6e6",
         "card_radius": 20,
         "padding_top": 60,
         "padding_bottom": 60,
@@ -51,15 +53,41 @@
     "pi_contact_jewelry": {
       "type": "pi-contact-us",
       "blocks": {
-        "loc_1": { "type": "location", "settings": { "location_name": "Crete" } },
-        "loc_2": { "type": "location", "settings": { "location_name": "Athens" } },
-        "loc_3": { "type": "location", "settings": { "location_name": "Antwerp" } },
-        "loc_4": { "type": "location", "settings": { "location_name": "Amsterdam" } }
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
       },
-      "block_order": ["loc_1", "loc_2", "loc_3", "loc_4"],
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
       "settings": {
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "detailed_booking_form": false,
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
         "background_image": "shopify://shop_images/Background_813c9047-2b21-4e7f-b1b4-492d0e4a8499.png",
