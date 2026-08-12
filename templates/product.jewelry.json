@@ -51,6 +51,8 @@
         "sold_out_text": "Sold Out",
         "bg_color": "#ffffff",
         "tile_bg": "#e6e6e6",
+        "acc_text_size": 18,
+        "acc_text_color": "#121212",
         "divider_color": "#d9d9d9",
         "padding_top": 60,
         "padding_bottom": 60,
