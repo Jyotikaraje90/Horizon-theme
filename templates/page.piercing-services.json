@@ -50,7 +50,7 @@
         "sc_11": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_23.png", "title": "Monroe Piercing", "title_link": "", "description": "A single upper-lip piercing that mimics a beauty mark for a chic, subtle accent." } },
         "sc_12": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_25.png", "title": "Tongue Piercing", "title_link": "", "description": "A centered oral piercing performed with care for comfort, safety, and clean healing." } }
       },
-      "block_order": ["sc_1","sc_2","sc_3","sc_4","sc_5","sc_6","sc_7","sc_8","sc_9","sc_10","sc_11","sc_12"],
+      "block_order": ["sc_1","sc_10","sc_8","sc_2","sc_7","sc_3","sc_4","sc_5","sc_11","sc_9","sc_12","sc_6"],
       "settings": {
         "heading": "",
         "text_alignment": "center",
