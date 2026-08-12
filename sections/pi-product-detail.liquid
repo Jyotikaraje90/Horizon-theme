@@ -46,6 +46,7 @@
     --pi-pdp-thumb-radius: {{ section.settings.thumb_radius }}px;
     --pi-pdp-thumb-border: {{ section.settings.thumb_border_color }};
     --pi-pdp-media-radius: {{ section.settings.media_radius }}px;
+    --pi-pdp-stage-height: {{ section.settings.stage_height }}px;
     --pi-pdp-tile-bg: {{ section.settings.tile_bg }};
 
     /* Badge */
@@ -177,7 +178,7 @@
   .pi-pdp__stage {
     flex: 1 1 auto;
     min-width: 0;
-    aspect-ratio: 1 / 1;
+    height: var(--pi-pdp-stage-height);
     background: var(--pi-pdp-tile-bg);
     border-radius: var(--pi-pdp-media-radius);
     overflow: hidden;
@@ -347,6 +348,7 @@
     display: block;
   }
   .pi-pdp__swatch-fill { position: absolute; inset: 0; }
+  a.pi-pdp__sibling { display: block; text-decoration: none; }
   .pi-pdp__swatch.is-selected {
     border-color: var(--pi-pdp-swatch-active);
     box-shadow: 0 0 0 {{ section.settings.swatch_border_width }}px var(--pi-pdp-swatch-active) inset;
@@ -567,6 +569,7 @@
       height: {{ section.settings.mobile_thumb_size }}px;
       flex: 0 0 {{ section.settings.mobile_thumb_size }}px;
     }
+    .pi-pdp__stage { height: auto; aspect-ratio: 1 / 1; }
     .pi-pdp__info { width: 100%; flex: 1 1 auto; max-width: none; }
   }
   @media (max-width: 749px) {
@@ -705,8 +708,127 @@
           </div>
 
           {%- comment -%} ── Options ── {%- endcomment -%}
-          {%- if section.settings.show_options and p.has_only_default_variant == false -%}
+          {%- liquid
+            comment
+              Linked colour products: this catalogue keeps each metal finish as its own
+              product rather than as a Color variant, so there is no option to render.
+              When enabled, find the sibling products and show them as a linked swatch row.
+            endcomment
+            assign has_color_option = false
+            for option in p.options_with_values
+              assign opt_handle = option.name | downcase
+              for name in color_names
+                assign trimmed = name | strip
+                if trimmed != blank and opt_handle contains trimmed
+                  assign has_color_option = true
+                endif
+              endfor
+            endfor
+
+            assign sib_source = section.settings.sibling_source
+            assign sib_list = blank
+            assign sib_count = 0
+            assign sib_base = ''
+            assign sib_tag = ''
+
+            if sib_source != 'none' and has_color_option == false
+              if sib_source == 'metafield'
+                assign sib_ns = section.settings.sibling_metafield_namespace
+                assign sib_key = section.settings.sibling_metafield_key
+                if sib_ns != blank and sib_key != blank
+                  assign sib_list = p.metafields[sib_ns][sib_key].value
+                  assign sib_count = sib_list.size
+                endif
+              else
+                assign sib_collection = section.settings.sibling_collection
+                if sib_collection == blank
+                  assign sib_collection = p.collections.first
+                endif
+
+                # Title mode: drop the leading colour word, match on what remains
+                assign title_words = p.title | split: ' '
+                for w in title_words offset: 1
+                  assign sib_base = sib_base | append: w | append: ' '
+                endfor
+                assign sib_base = sib_base | strip | downcase
+
+                # Tag mode: find the grouping tag this product carries
+                for t in p.tags
+                  if t contains section.settings.sibling_tag_prefix
+                    assign sib_tag = t
+                  endif
+                endfor
+
+                assign sib_list = sib_collection.products
+                for op in sib_list
+                  assign op_title = op.title | downcase
+                  if sib_source == 'title' and sib_base != blank and op_title contains sib_base
+                    assign sib_count = sib_count | plus: 1
+                  endif
+                  if sib_source == 'tag' and sib_tag != blank and op.tags contains sib_tag
+                    assign sib_count = sib_count | plus: 1
+                  endif
+                endfor
+              endif
+            endif
+
+            assign render_options = false
+            if section.settings.show_options
+              if p.has_only_default_variant == false
+                assign render_options = true
+              endif
+              if sib_count > 1
+                assign render_options = true
+              endif
+            endif
+          -%}
+
+          {%- if render_options -%}
             <div class="pi-pdp__options" data-pi-pdp-options>
+
+              {%- if sib_count > 1 -%}
+                <div class="pi-pdp__option">
+                  <p class="pi-pdp__option-label">
+                    {{ section.settings.sibling_label }}{{ section.settings.option_label_suffix }}
+                    {%- if section.settings.show_selected_value -%}
+                      <span class="pi-pdp__option-selected">{{ p.title | split: ' ' | first }}</span>
+                    {%- endif -%}
+                  </p>
+                  <div class="pi-pdp__swatches">
+                    {%- for op in sib_list -%}
+                      {%- liquid
+                        assign show_sib = false
+                        if sib_source == 'metafield'
+                          assign show_sib = true
+                        else
+                          assign op_title = op.title | downcase
+                          if sib_source == 'title' and sib_base != blank and op_title contains sib_base
+                            assign show_sib = true
+                          endif
+                          if sib_source == 'tag' and sib_tag != blank and op.tags contains sib_tag
+                            assign show_sib = true
+                          endif
+                        endif
+                      -%}
+                      {%- if show_sib -%}
+                        <a href="{{ op.url }}"
+                           class="pi-pdp__swatch pi-pdp__sibling{% if op.id == p.id %} is-selected{% endif %}"
+                           title="{{ op.title | escape }}"
+                           aria-label="{{ op.title | escape }}"
+                           {% if op.id == p.id %}aria-current="true"{% endif %}>
+                          {%- if op.featured_media -%}
+                            <img src="{{ op.featured_media.preview_image | image_url: width: 300 }}"
+                                 alt="{{ op.title | escape }}"
+                                 width="{{ section.settings.swatch_size }}" height="{{ section.settings.swatch_size }}" loading="lazy">
+                          {%- endif -%}
+                        </a>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {%- endif -%}
+
+              {%- if p.has_only_default_variant == false -%}
               {%- for option in p.options_with_values -%}
                 {%- liquid
                   assign opt_handle = option.name | downcase
@@ -777,6 +899,7 @@
                   {%- endif -%}
                 </div>
               {%- endfor -%}
+              {%- endif -%}
             </div>
           {%- endif -%}
 
@@ -1100,6 +1223,7 @@
     { "type": "range", "id": "thumb_border_width", "label": "Thumbnail border width", "min": 0, "max": 4, "step": 1, "unit": "px", "default": 1 },
     { "type": "color", "id": "thumb_border_color", "label": "Thumbnail border color", "default": "#000000" },
     { "type": "range", "id": "media_radius", "label": "Main image radius", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 20 },
+    { "type": "range", "id": "stage_height", "label": "Main image height", "info": "Fixed height of the main image tile on desktop, matching the design. On stacked mobile it becomes a full-width square.", "min": 450, "max": 850, "step": 4, "unit": "px", "default": 654 },
     { "type": "color", "id": "tile_bg", "label": "Image tile background", "default": "#E6E6E6" },
     {
       "type": "select", "id": "image_fit", "label": "Image fit", "default": "contain",
@@ -1174,6 +1298,23 @@
     { "type": "color", "id": "swatch_bg", "label": "Swatch background", "default": "#E6E6E6" },
     { "type": "color", "id": "swatch_border_color", "label": "Swatch border color", "default": "#000000" },
     { "type": "color", "id": "swatch_selected_border_color", "label": "Selected swatch border color", "default": "#000000" },
+
+    { "type": "header", "content": "Linked color products" },
+    { "type": "paragraph", "content": "Use this when each color / finish is a separate product instead of a variant. The swatches link to each sibling product's own page." },
+    {
+      "type": "select", "id": "sibling_source", "label": "Build color swatches from", "default": "title",
+      "options": [
+        { "value": "none", "label": "Off" },
+        { "value": "title", "label": "Products whose title matches" },
+        { "value": "tag", "label": "Products sharing a tag" },
+        { "value": "metafield", "label": "Product list metafield" }
+      ]
+    },
+    { "type": "text", "id": "sibling_label", "label": "Swatch row label", "default": "Color" },
+    { "type": "collection", "id": "sibling_collection", "label": "Collection to search", "info": "Leave empty to use the product's first collection. Applies to the title and tag options." },
+    { "type": "text", "id": "sibling_tag_prefix", "label": "Grouping tag prefix", "info": "Tag option only. Products carrying the same tag starting with this prefix are grouped, e.g. group:opal-crescent-cuff", "default": "group:" },
+    { "type": "text", "id": "sibling_metafield_namespace", "label": "Metafield namespace", "info": "Metafield option only, e.g. custom" },
+    { "type": "text", "id": "sibling_metafield_key", "label": "Metafield key", "info": "Metafield option only, e.g. color_siblings" },
 
     { "type": "header", "content": "Size / text pills" },
     { "type": "range", "id": "pill_size", "label": "Pill font size", "min": 10, "max": 26, "step": 1, "unit": "px", "default": 16 },
