@@ -238,6 +238,7 @@
         "detailed_booking_form": false,
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background.png",
         "padding_top": 32,
         "padding_bottom": 32,
         "mobile_padding_top": 40,
