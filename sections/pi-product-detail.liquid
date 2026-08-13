@@ -731,7 +731,14 @@
             assign sib_base = ''
             assign sib_tag = ''
 
+            assign do_siblings = false
             if sib_source != 'none' and has_color_option == false
+              assign do_siblings = true
+            endif
+            if sib_source == 'metafield' and section.settings.color_links_to_siblings
+              assign do_siblings = true
+            endif
+            if do_siblings
               if sib_source == 'metafield'
                 assign sib_ns = section.settings.sibling_metafield_namespace
                 assign sib_key = section.settings.sibling_metafield_key
@@ -839,6 +846,9 @@
                       assign is_color = true
                     endif
                   endfor
+                  if is_color and section.settings.color_links_to_siblings and sib_count > 1
+                    continue
+                  endif
                 -%}
                 <div class="pi-pdp__option" data-option-position="{{ option.position }}">
                   <p class="pi-pdp__option-label">
@@ -1315,6 +1325,7 @@
     { "type": "text", "id": "sibling_tag_prefix", "label": "Grouping tag prefix", "info": "Tag option only. Products carrying the same tag starting with this prefix are grouped, e.g. group:opal-crescent-cuff", "default": "group:" },
     { "type": "text", "id": "sibling_metafield_namespace", "label": "Metafield namespace", "info": "Metafield option only, e.g. custom" },
     { "type": "text", "id": "sibling_metafield_key", "label": "Metafield key", "info": "Metafield option only, e.g. color_siblings" },
+    { "type": "checkbox", "id": "color_links_to_siblings", "label": "Color row links to sibling pages", "info": "When on, the Color row shows the linked sibling products (from the source above) as clickable swatches that open each color's own page, and the Color variant swatches are hidden. Use when each color is its own product.", "default": false },
 
     { "type": "header", "content": "Size / text pills" },
     { "type": "range", "id": "pill_size", "label": "Pill font size", "min": 10, "max": 26, "step": 1, "unit": "px", "default": 16 },
