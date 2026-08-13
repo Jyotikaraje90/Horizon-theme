@@ -236,10 +236,21 @@
     .pi-jg__grid { grid-template-columns: repeat(2, 1fr); column-gap: 20px; row-gap: 32px; }
   }
   @media (max-width: 600px) {
-    .pi-jg__inner { padding-left: 18px; padding-right: 18px; }
+    .pi-jg { overflow-x: hidden; }
+    .pi-jg__inner { padding-left: 18px; padding-right: 18px; gap: 24px; }
+    .pi-jg__controls { justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .pi-jg__sort { gap: 6px; min-width: 0; }
+    .pi-jg__sort-label { font-size: 14px; }
+    .pi-jg__sort-select { font-size: 14px; padding-right: 16px; }
+    .pi-jg__count { font-size: 14px; }
+    .pi-jg__card { gap: 12px; }
     .pi-jg__card-img-wrap { border-radius: 15px; }
     .pi-jg__card-title { font-size: 16px; line-height: 22px; }
-    .pi-jg__sort-label { font-size: 16px; }
+  }
+  @media (max-width: 400px) {
+    .pi-jg__inner { padding-left: 14px; padding-right: 14px; }
+    .pi-jg__grid { column-gap: 14px; row-gap: 24px; }
+    .pi-jg__pagination { gap: 20px; }
   }
 
   #shopify-section-{{ section.id }} {
