@@ -603,7 +603,8 @@
             "price": {{ v.price | money | json }},
             "compare_at": {{ v.compare_at_price | money | json }},
             "has_compare": {% if v.compare_at_price > v.price %}true{% else %}false{% endif %},
-            "media_id": {{ v.featured_media.id | default: 0 }}
+            "media_id": {{ v.featured_media.id | default: 0 }},
+            "image": {{ v.featured_media.preview_image | image_url: width: 1400 | json }}
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
         ]
@@ -1133,6 +1134,7 @@
       atcBtn.textContent = variant.available ? texts.atc : texts.soldOut;
     }
     if (variant.media_id) showMedia(variant.media_id);
+    if (stage && variant.image) stage.src = variant.image;
 
     if (window.history && history.replaceState) {
       var url = new URL(window.location.href);
