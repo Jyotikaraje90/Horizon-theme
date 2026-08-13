@@ -79,6 +79,7 @@
         "thumb_border_width": 1,
         "thumb_border_color": "#000000",
         "media_radius": 20,
+        "stage_height": 654,
         "tile_bg": "#e6e6e6",
         "image_fit": "contain",
         "multiply_blend": true,
@@ -123,6 +124,12 @@
         "swatch_bg": "#e6e6e6",
         "swatch_border_color": "#000000",
         "swatch_selected_border_color": "#000000",
+        "sibling_source": "title",
+        "sibling_label": "Color",
+        "sibling_collection": "",
+        "sibling_tag_prefix": "group:",
+        "sibling_metafield_namespace": "",
+        "sibling_metafield_key": "",
         "pill_size": 16,
         "pill_radius": 5,
         "pill_padding_x": 10,
@@ -333,6 +340,7 @@
       "blocks": {
         "judge_me_reviews_review_widget_MzWkmK": {
           "type": "shopify://apps/judge-me-reviews/blocks/review_widget/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {
             "review_data": "sample_data",
             "max_width": 1200,
@@ -342,6 +350,7 @@
         },
         "judge_me_reviews_all_reviews_text_6GFbUF": {
           "type": "shopify://apps/judge-me-reviews/blocks/all_reviews_text/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "disabled": true,
           "settings": {}
         }
       },
