@@ -139,7 +139,7 @@
     flex-direction: {% if section.settings.thumb_position == 'right' %}row-reverse{% else %}row{% endif %};
     align-items: flex-start;
     gap: var(--pi-pdp-thumb-gap);
-    flex: 1 1 auto;
+    flex: 1.22 1 0;
     min-width: 0;
     {% if section.settings.sticky_media %}position: sticky; top: {{ section.settings.sticky_offset }}px;{% endif %}
   }
@@ -196,7 +196,8 @@
 
   /* ── Info column ── */
   .pi-pdp__info {
-    flex: 0 0 var(--pi-pdp-info-width);
+    flex: 1 1 0;
+    min-width: 0;
     max-width: var(--pi-pdp-info-width);
     display: flex;
     flex-direction: column;
