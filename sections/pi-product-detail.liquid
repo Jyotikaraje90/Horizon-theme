@@ -550,16 +550,30 @@
   }
 
   /* ── Responsive ── */
+  /* Tablet: stack info below, but keep thumbnails beside the image so the media fills the width. */
   @media (max-width: {{ section.settings.stack_breakpoint }}px) {
-    .pi-pdp__row { flex-direction: column; gap: {{ section.settings.mobile_row_gap }}px; }
+    .pi-pdp__row { flex-direction: column; align-items: center; gap: {{ section.settings.mobile_row_gap }}px; }
     .pi-pdp__media {
       position: static;
-      flex-direction: column-reverse;
-      align-items: stretch;
       width: 100%;
-      max-width: 460px;
+      max-width: 680px;
       margin-left: auto;
       margin-right: auto;
+    }
+    .pi-pdp__info {
+      width: 100%;
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+      flex: 1 1 auto;
+    }
+  }
+  /* Phone: image on top, thumbnails in a centered row below. */
+  @media (max-width: 749px) {
+    .pi-pdp__media {
+      flex-direction: column-reverse;
+      align-items: stretch;
+      max-width: 460px;
       gap: {{ section.settings.mobile_thumb_gap }}px;
     }
     .pi-pdp__thumbs {
@@ -576,10 +590,6 @@
       height: {{ section.settings.mobile_thumb_size }}px;
       flex: 0 0 {{ section.settings.mobile_thumb_size }}px;
     }
-    .pi-pdp__stage { height: auto; aspect-ratio: 1 / 1; }
-    .pi-pdp__info { width: 100%; flex: 1 1 auto; max-width: none; }
-  }
-  @media (max-width: 749px) {
     #shopify-section-{{ section.id }} {
       --pi-pdp-pad-top: {{ section.settings.mobile_padding_top }}px;
       --pi-pdp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
