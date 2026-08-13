@@ -603,8 +603,7 @@
             "price": {{ v.price | money | json }},
             "compare_at": {{ v.compare_at_price | money | json }},
             "has_compare": {% if v.compare_at_price > v.price %}true{% else %}false{% endif %},
-            "media_id": {{ v.featured_media.id | default: 0 }},
-            "image": {{ v.featured_media.preview_image | image_url: width: 1400 | json }}
+            "media_id": {{ v.featured_media.id | default: 0 }}
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
         ]
@@ -732,14 +731,7 @@
             assign sib_base = ''
             assign sib_tag = ''
 
-            assign do_siblings = false
             if sib_source != 'none' and has_color_option == false
-              assign do_siblings = true
-            endif
-            if sib_source == 'metafield' and section.settings.color_links_to_siblings
-              assign do_siblings = true
-            endif
-            if do_siblings
               if sib_source == 'metafield'
                 assign sib_ns = section.settings.sibling_metafield_namespace
                 assign sib_key = section.settings.sibling_metafield_key
@@ -847,9 +839,6 @@
                       assign is_color = true
                     endif
                   endfor
-                  if is_color and section.settings.color_links_to_siblings and sib_count > 1
-                    continue
-                  endif
                 -%}
                 <div class="pi-pdp__option" data-option-position="{{ option.position }}">
                   <p class="pi-pdp__option-label">
@@ -1041,16 +1030,6 @@
     if (match) activateThumb(match);
   }
 
-  /* Update every thumbnail image to a colour's photo. */
-  function paintThumbs(url) {
-    if (!url) return;
-    thumbs.forEach(function (t) {
-      var im = t.querySelector('img');
-      if (im) im.src = url;
-      t.setAttribute('data-full', url);
-    });
-  }
-
   /* ── Quantity ── */
   var qtyInput = root.querySelector('.pi-pdp__qty-input');
   var minus    = root.querySelector('[data-qty-minus]');
@@ -1143,8 +1122,7 @@
       atcBtn.disabled = !variant.available;
       atcBtn.textContent = variant.available ? texts.atc : texts.soldOut;
     }
-    if (stage && variant.image) stage.src = variant.image;
-    if (variant.image) paintThumbs(variant.image);
+    if (variant.media_id) showMedia(variant.media_id);
 
     if (window.history && history.replaceState) {
       var url = new URL(window.location.href);
@@ -1337,7 +1315,6 @@
     { "type": "text", "id": "sibling_tag_prefix", "label": "Grouping tag prefix", "info": "Tag option only. Products carrying the same tag starting with this prefix are grouped, e.g. group:opal-crescent-cuff", "default": "group:" },
     { "type": "text", "id": "sibling_metafield_namespace", "label": "Metafield namespace", "info": "Metafield option only, e.g. custom" },
     { "type": "text", "id": "sibling_metafield_key", "label": "Metafield key", "info": "Metafield option only, e.g. color_siblings" },
-    { "type": "checkbox", "id": "color_links_to_siblings", "label": "Color row links to sibling pages", "info": "When on, the Color row shows the linked sibling products (from the source above) as clickable swatches that open each color's own page, and the Color variant swatches are hidden. Use when each color is its own product.", "default": false },
 
     { "type": "header", "content": "Size / text pills" },
     { "type": "range", "id": "pill_size", "label": "Pill font size", "min": 10, "max": 26, "step": 1, "unit": "px", "default": 16 },
