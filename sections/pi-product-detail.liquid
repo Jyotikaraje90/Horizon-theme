@@ -7,21 +7,6 @@
 
   assign color_names = section.settings.color_option_names | downcase | split: ','
 
-  comment
-    Find which option is the colour, so thumbnails can be grouped/swapped per colour.
-  endcomment
-  assign color_pos = 0
-  for pi_opt in p.options_with_values
-    assign pi_oh = pi_opt.name | downcase
-    for pi_cn in color_names
-      assign pi_cnt = pi_cn | strip
-      if pi_cnt != blank and pi_oh contains pi_cnt
-        assign color_pos = pi_opt.position
-      endif
-    endfor
-  endfor
-  assign color_idx = color_pos | minus: 1
-
   assign serif = "'Playfair Display', serif"
   assign sans  = "'Proxima Nova', 'Nunito Sans', sans-serif"
 
@@ -189,7 +174,6 @@
     display: block;
   }
   .pi-pdp__thumb.is-active { box-shadow: 0 0 0 {{ section.settings.thumb_border_width }}px var(--pi-pdp-thumb-border) inset; }
-  .pi-pdp__thumb.is-hidden { display: none; }
 
   .pi-pdp__stage {
     flex: 1 1 auto;
@@ -635,30 +619,10 @@
           {%- if section.settings.show_thumbnails -%}
             <div class="pi-pdp__thumbs">
               {%- if p.media.size > 0 -%}
-                {%- liquid
-                  assign thumb_render_limit = section.settings.thumb_limit
-                  assign default_color = ''
-                  if color_pos > 0
-                    assign thumb_render_limit = p.media.size
-                    assign default_color = cur.options[color_idx]
-                  endif
-                -%}
-                {%- for media in p.media limit: thumb_render_limit -%}
-                  {%- liquid
-                    assign media_color = default_color
-                    if color_pos > 0
-                      for mv in p.variants
-                        if mv.featured_media.id == media.id
-                          assign media_color = mv.options[color_idx]
-                          break
-                        endif
-                      endfor
-                    endif
-                  -%}
+                {%- for media in p.media limit: section.settings.thumb_limit -%}
                   <button type="button"
                           class="pi-pdp__thumb{% if forloop.first %} is-active{% endif %}"
                           data-media-id="{{ media.id }}"
-                          data-color="{{ media_color | escape }}"
                           data-full="{{ media.preview_image | image_url: width: 1400 }}"
                           aria-label="Show image {{ forloop.index }} of {{ p.title | escape }}">
                     <img src="{{ media.preview_image | image_url: width: 300 }}"
@@ -1077,20 +1041,14 @@
     if (match) activateThumb(match);
   }
 
-  /* ── Per-colour thumbnail rail ── */
-  var colorIndex = {{ color_idx }};
-  function filterThumbsByColor(colorVal) {
-    if (colorIndex < 0 || !colorVal) return;
-    var firstShown = null;
+  /* Update every thumbnail image to a colour's photo. */
+  function paintThumbs(url) {
+    if (!url) return;
     thumbs.forEach(function (t) {
-      var match = t.getAttribute('data-color') === colorVal;
-      t.classList.toggle('is-hidden', !match);
-      if (match && !firstShown) firstShown = t;
+      var im = t.querySelector('img');
+      if (im) im.src = url;
+      t.setAttribute('data-full', url);
     });
-    var activeVisible = thumbs.some(function (t) { return t.classList.contains('is-active') && !t.classList.contains('is-hidden'); });
-    if (!activeVisible && firstShown) {
-      thumbs.forEach(function (t) { t.classList.toggle('is-active', t === firstShown); });
-    }
   }
 
   /* ── Quantity ── */
@@ -1185,9 +1143,8 @@
       atcBtn.disabled = !variant.available;
       atcBtn.textContent = variant.available ? texts.atc : texts.soldOut;
     }
-    if (variant.media_id) showMedia(variant.media_id);
     if (stage && variant.image) stage.src = variant.image;
-    if (colorIndex >= 0 && variant.options) filterThumbsByColor(variant.options[colorIndex]);
+    if (variant.image) paintThumbs(variant.image);
 
     if (window.history && history.replaceState) {
       var url = new URL(window.location.href);
@@ -1225,7 +1182,6 @@
 
   markAvailability();
   syncSelectedLabels();
-  if (colorIndex >= 0 && current && current.options) filterThumbsByColor(current.options[colorIndex]);
 })();
 </script>
 
