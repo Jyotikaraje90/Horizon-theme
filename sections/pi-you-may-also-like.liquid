@@ -185,6 +185,11 @@
     .pyml__heading { font-size: {{ section.settings.heading_size | times: 0.6 | round }}px; }
     .pyml__card-title { font-size: 16px; line-height: 22px; }
   }
+  /* 481-600: keep cards near their 601px size instead of jumping to the
+     single-card phone peek, which makes the products look oversized. */
+  @media (min-width: 481px) and (max-width: 600px) {
+    .pyml__card { flex-basis: calc((100% - 16px) / 1.9); }
+  }
 </style>
 
 <div class="pyml" id="pyml-{{ section.id }}">
