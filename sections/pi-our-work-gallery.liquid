@@ -75,6 +75,16 @@
     .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
   }
 
+  /* Figma mobile heading: Playfair Display 600, 30px / 39px, uppercase, centred.
+     The clamp above bottoms out at 28px/1.3, so it needs stating explicitly. */
+  @media (max-width: 749px) {
+    .pi-owg__heading {
+      font-size: 30px;
+      line-height: 39px;
+      letter-spacing: 0;
+    }
+  }
+
 {%- if section.settings.mobile_marquee -%}
   /* ─── Mobile: two auto-scrolling marquee rows ───
      Each row holds its photo set twice, so translating by exactly -50% lands on
