@@ -194,7 +194,12 @@
       <div class="pi-hiw__steps">
         {%- for block in steps -%}
           <div class="pi-hiw__step" {{ block.shopify_attributes }}>
-            <span class="pi-hiw__icon">
+            {%- comment -%}
+              Per-step height override, for when one step's icon was exported
+              differently from the others (a padded full-circle export needs 100
+              where a tight glyph export needs 50). 0 = inherit the section value.
+            {%- endcomment -%}
+            <span class="pi-hiw__icon"{% if block.settings.icon_height > 0 %} style="--pi-hiw-icon-img: {{ block.settings.icon_height }}px;"{% endif %}>
               {%- if block.settings.icon != blank -%}
                 {%- comment -%}
                   Request 300 rather than 68: the icon fills a 100px circle, so 68
@@ -388,6 +393,17 @@
           "type": "image_picker",
           "id": "icon",
           "label": "Icon (optional) — Desktop"
+        },
+        {
+          "type": "range",
+          "id": "icon_height",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Icon height override",
+          "info": "0 = use the section's Icon image height. Set 100 if this one icon was exported at the full circle size with the glyph already centred in transparent padding.",
+          "default": 0
         },
         {
           "type": "image_picker",
