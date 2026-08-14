@@ -612,6 +612,13 @@
       --pi-pdp-acc-heading-size: {{ section.settings.mobile_acc_heading_size }}px;
     }
   }
+
+  /* 601-749: keep the full container gutter. The sections below this one
+     (You May Also Like et al.) hold their 40px gutter down to 600px, so
+     dropping to the phone gutter at 749 made the side padding disagree. */
+  @media (min-width: 601px) and (max-width: 749px) {
+    #shopify-section-{{ section.id }} { --pi-pdp-gutter: {{ section.settings.side_gutter }}px; }
+  }
 </style>
 
 <div class="pi-pdp" id="pi-pdp-{{ section.id }}">
