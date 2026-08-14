@@ -52,6 +52,10 @@
     background: #f3f3f3;
   }
 
+  /* display:contents so the <picture> wrapper (added for the mobile image)
+     doesn't become a layout box between the frame and the img */
+  .pi-owg__photo picture { display: contents; }
+
   .pi-owg__photo img,
   .pi-owg__photo .placeholder-svg {
     width: 100%;
@@ -92,13 +96,18 @@
       {%- for block in photos -%}
         <div class="pi-owg__photo" {{ block.shopify_attributes }}>
           {%- if block.settings.image != blank -%}
-            <img
-              src="{{ block.settings.image | image_url: width: 600 }}"
-              alt="{{ block.settings.image.alt | escape }}"
-              width="300"
-              height="350"
-              loading="lazy"
-            >
+            <picture>
+              {%- if block.settings.image_mobile != blank -%}
+                <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 600 }}">
+              {%- endif -%}
+              <img
+                src="{{ block.settings.image | image_url: width: 600 }}"
+                alt="{{ block.settings.image.alt | escape }}"
+                width="300"
+                height="350"
+                loading="lazy"
+              >
+            </picture>
           {%- else -%}
             {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
           {%- endif -%}
@@ -230,7 +239,13 @@
         {
           "type": "image_picker",
           "id": "image",
-          "label": "Image"
+          "label": "Image — Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Image — Mobile",
+          "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
         }
       ]
     }

@@ -51,6 +51,10 @@
      horizontally with the flourishes pointing toward each corner, so they need
      NO rotation (the Figma "−53.5°" is relative to Figma's own tall source
      element and doesn't transfer here). */
+  /* display:contents so the <picture> wrapper (added for the mobile source)
+     doesn't interrupt the swirl's absolute positioning against .pi-ph */
+  .pi-ph__deco-pic { display: contents; }
+
   .pi-ph__deco {
     position: absolute;
     z-index: 1;
@@ -101,21 +105,33 @@
 {%- liquid
   assign swirl_l = section.settings.deco_left
   assign swirl_r = section.settings.deco_right
+  assign swirl_l_m = section.settings.deco_left_mobile
+  assign swirl_r_m = section.settings.deco_right_mobile
 -%}
 
 <div class="pi-ph">
 
-  {%- if swirl_l != blank -%}
-    <img class="pi-ph__deco pi-ph__deco--l" src="{{ swirl_l | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
-  {%- else -%}
-    <img class="pi-ph__deco pi-ph__deco--l" src="{{ 'pi-swirl-left.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
-  {%- endif -%}
+  <picture class="pi-ph__deco-pic">
+    {%- if swirl_l_m != blank -%}
+      <source media="(max-width: 749px)" srcset="{{ swirl_l_m | image_url: width: 300 }}">
+    {%- endif -%}
+    {%- if swirl_l != blank -%}
+      <img class="pi-ph__deco pi-ph__deco--l" src="{{ swirl_l | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+    {%- else -%}
+      <img class="pi-ph__deco pi-ph__deco--l" src="{{ 'pi-swirl-left.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
+    {%- endif -%}
+  </picture>
 
-  {%- if swirl_r != blank -%}
-    <img class="pi-ph__deco pi-ph__deco--r" src="{{ swirl_r | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
-  {%- else -%}
-    <img class="pi-ph__deco pi-ph__deco--r" src="{{ 'pi-swirl-right.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
-  {%- endif -%}
+  <picture class="pi-ph__deco-pic">
+    {%- if swirl_r_m != blank -%}
+      <source media="(max-width: 749px)" srcset="{{ swirl_r_m | image_url: width: 300 }}">
+    {%- endif -%}
+    {%- if swirl_r != blank -%}
+      <img class="pi-ph__deco pi-ph__deco--r" src="{{ swirl_r | image_url: width: 300 }}" alt="" aria-hidden="true" loading="eager">
+    {%- else -%}
+      <img class="pi-ph__deco pi-ph__deco--r" src="{{ 'pi-swirl-right.png' | asset_url }}" alt="" aria-hidden="true" loading="eager">
+    {%- endif -%}
+  </picture>
 
   <div class="pi-ph__content">
     {%- if section.settings.heading != blank -%}
@@ -155,14 +171,26 @@
     {
       "type": "image_picker",
       "id": "deco_left",
-      "label": "Left swirl (bottom-left corner)",
+      "label": "Left swirl (bottom-left corner) — Desktop",
       "info": "Transparent PNG. If empty, the built-in swirl is used."
     },
     {
       "type": "image_picker",
+      "id": "deco_left_mobile",
+      "label": "Left swirl — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop swirl is used."
+    },
+    {
+      "type": "image_picker",
       "id": "deco_right",
-      "label": "Right swirl (top-right corner)",
+      "label": "Right swirl (top-right corner) — Desktop",
       "info": "Transparent PNG. If empty, the built-in swirl is used."
+    },
+    {
+      "type": "image_picker",
+      "id": "deco_right_mobile",
+      "label": "Right swirl — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop swirl is used."
     },
     { "type": "range", "id": "deco_scale",   "label": "Swirl size",    "min": 0.5, "max": 1.6, "step": 0.1, "default": 1.0 },
     { "type": "range", "id": "deco_opacity", "label": "Swirl opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 90 },

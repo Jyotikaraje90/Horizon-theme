@@ -103,6 +103,10 @@
     flex-shrink: 0;
   }
 
+  /* display:contents so the <picture> wrapper (added for the mobile icon)
+     isn't the flex item instead of the img */
+  .pi-hiw__icon picture { display: contents; }
+
   .pi-hiw__icon img {
     width: 44px;
     height: 44px;
@@ -166,7 +170,12 @@
           <div class="pi-hiw__step" {{ block.shopify_attributes }}>
             <span class="pi-hiw__icon">
               {%- if block.settings.icon != blank -%}
-                <img src="{{ block.settings.icon | image_url: width: 68 }}" alt="" loading="lazy">
+                <picture>
+                  {%- if block.settings.icon_mobile != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ block.settings.icon_mobile | image_url: width: 68 }}">
+                  {%- endif -%}
+                  <img src="{{ block.settings.icon | image_url: width: 68 }}" alt="" loading="lazy">
+                </picture>
               {%- else -%}
                 {%- assign icon_slot = forloop.index0 | modulo: 3 -%}
                 {%- if icon_slot == 0 -%}
@@ -327,7 +336,13 @@
         {
           "type": "image_picker",
           "id": "icon",
-          "label": "Icon (optional)"
+          "label": "Icon (optional) — Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_mobile",
+          "label": "Icon — Mobile",
+          "info": "Optional. Shown at ≤749px. If empty, the desktop icon is used."
         },
         {
           "type": "text",

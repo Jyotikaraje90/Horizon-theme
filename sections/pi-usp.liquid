@@ -104,6 +104,10 @@
     justify-content: center;
   }
 
+  /* display:contents so the <picture> wrapper (added for the mobile icon)
+     isn't the flex item instead of the img */
+  .pi-usp__icon picture { display: contents; }
+
   .pi-usp__icon img {
     width: 100%;
     height: 100%;
@@ -237,13 +241,18 @@
 
           <div class="pi-usp__icon">
             {%- if block.settings.icon != blank -%}
-              <img
-                src="{{ block.settings.icon | image_url: width: 200 }}"
-                alt="{{ block.settings.icon.alt | default: block.settings.label | escape }}"
-                width="100"
-                height="100"
-                loading="lazy"
-              >
+              <picture>
+                {%- if block.settings.icon_mobile != blank -%}
+                  <source media="(max-width: 749px)" srcset="{{ block.settings.icon_mobile | image_url: width: 200 }}">
+                {%- endif -%}
+                <img
+                  src="{{ block.settings.icon | image_url: width: 200 }}"
+                  alt="{{ block.settings.icon.alt | default: block.settings.label | escape }}"
+                  width="100"
+                  height="100"
+                  loading="lazy"
+                >
+              </picture>
             {%- else -%}
               <div class="pi-usp__icon-placeholder"></div>
             {%- endif -%}
@@ -465,7 +474,13 @@
         {
           "type": "image_picker",
           "id": "icon",
-          "label": "Icon image"
+          "label": "Icon image — Desktop"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_mobile",
+          "label": "Icon image — Mobile",
+          "info": "Optional. Shown at ≤749px. If empty, the desktop icon is used."
         },
         {
           "type": "text",
