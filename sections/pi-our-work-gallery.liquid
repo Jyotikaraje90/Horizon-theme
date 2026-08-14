@@ -78,8 +78,8 @@
 {%- if section.settings.mobile_marquee -%}
   /* ─── Mobile: two auto-scrolling marquee rows ───
      Each row holds its photo set twice, so translating by exactly -50% lands on
-     an identical frame and the loop is seamless with no JS. Row 2 runs in
-     reverse so the two rows drift in opposite directions. */
+     an identical frame and the loop is seamless with no JS. Both rows run the
+     same direction, per the design. */
   @keyframes pi-owg-marquee {
     from { transform: translateX(0); }
     to   { transform: translateX(-50%); }
@@ -104,12 +104,13 @@
       animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
       will-change: transform;
     }
-    .pi-owg__row--2 { animation-direction: reverse; }
 
-    /* Fixed item width: the track is width:max-content, so percentages would
-       have nothing to resolve against. */
+    /* Figma Mask group is 195x215, so the marquee cell is slightly less tall
+       than the desktop grid's 6/7. Fixed width because the track is
+       width:max-content — percentages would have nothing to resolve against. */
     .pi-owg__photo {
       flex: 0 0 {{ section.settings.marquee_item_width }}px;
+      aspect-ratio: 195 / 215;
     }
     .pi-owg__photo--dupe { display: block; }
   }
@@ -276,10 +277,11 @@
       "id": "marquee_item_width",
       "min": 120,
       "max": 320,
-      "step": 10,
+      "step": 5,
       "unit": "px",
       "label": "Marquee photo width",
-      "default": 180
+      "info": "Figma is 195 (each photo 195x215).",
+      "default": 195
     },
     {
       "type": "range",
