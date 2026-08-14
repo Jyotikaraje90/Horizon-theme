@@ -167,7 +167,7 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "icon": "shopify://shop_images/Nutrition.png",
+            "icon": "shopify://shop_images/Capa_1.png",
             "title": "Consultation & Jewelry Selection",
             "description": "Discuss placement, choose your jewelry, and we'll confirm the right fit and material for you."
           }
@@ -175,7 +175,7 @@
         "step_2": {
           "type": "step",
           "settings": {
-            "icon": "shopify://shop_images/Digestion.png",
+            "icon": "shopify://shop_images/2_2.png",
             "title": "Sterile Piercing Process",
             "description": "Our piercers use single-use, needle-based technique for precise, comfortable placement."
           }
