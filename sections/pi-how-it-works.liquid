@@ -10,6 +10,7 @@
     --pi-hiw-icon-bg: {{ section.settings.icon_bg }};
     --pi-hiw-icon-color: {{ section.settings.icon_color }};
     --pi-hiw-icon-img: {{ section.settings.icon_image_size | default: 100 }}px;
+    --pi-hiw-step-gap: {{ section.settings.step_gap | default: 20 }}px;
   }
 </style>
 
@@ -42,13 +43,16 @@
     text-align: center;
   }
 
+  /* The columns are flex: 1 1 0, so this gap also sets how wide each one ends up
+     and therefore where the descriptions wrap. Figma's columns land near 430px
+     on a 1500px row, i.e. roughly a 100px gap — at 20px they nearly touch. */
   .pi-hiw__steps {
     position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    gap: 20px;
+    gap: var(--pi-hiw-step-gap, 20px);
   }
 
   .pi-hiw__step {
@@ -335,6 +339,17 @@
       "id": "icon_color",
       "label": "Icon stroke color",
       "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "step_gap",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between steps",
+      "info": "Also controls how wide each step column is, so it changes where the descriptions wrap. Figma is about 100.",
+      "default": 20
     },
     {
       "type": "range",
