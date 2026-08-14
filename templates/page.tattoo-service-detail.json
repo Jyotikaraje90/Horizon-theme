@@ -135,12 +135,12 @@
       ],
       "settings": {
         "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
-        "overlay_opacity": 75,
+        "overlay_opacity": 10,
         "padding_top": 100,
         "padding_bottom": 100,
         "mobile_padding_top": 48,
         "mobile_padding_bottom": 48,
-        "min_height": 377,
+        "min_height": 370,
         "label_color": "#ffffff",
         "label_size": 34,
         "mobile_label_size": 22,
@@ -188,6 +188,7 @@
       ],
       "settings": {
         "heading": "How It Works",
+        "step_gap": 100,
         "padding_top": 80,
         "padding_bottom": 80,
         "bg_color": "#ffffff",

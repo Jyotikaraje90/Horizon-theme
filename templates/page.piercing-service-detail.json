@@ -197,6 +197,7 @@
       ],
       "settings": {
         "heading": "How It Works",
+        "step_gap": 100,
         "padding_top": 80,
         "padding_bottom": 80,
         "bg_color": "#ffffff",
