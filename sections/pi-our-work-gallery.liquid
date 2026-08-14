@@ -70,9 +70,15 @@
     .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
   }
 
+  /* Phones get the mobile column count across the whole range, not just below
+     600 — 601-749 was still falling through to the tablet count. Gap stays 0
+     and the grid stays full-bleed, so the photos sit flush edge to edge. */
+  @media (max-width: 749px) {
+    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); }
+  }
+
   @media (max-width: 600px) {
     .pi-owg__heading-wrap { padding-inline: 18px; margin-bottom: 24px; }
-    .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); }
   }
 
   #shopify-section-{{ section.id }} {
