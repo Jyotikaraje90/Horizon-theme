@@ -207,8 +207,10 @@
     .pi-hiw__steps::-webkit-scrollbar { display: none; }
 
     /* Step fills the scrollport so its icon/title/text centre on the frame,
-       lining up with the heading. Figma gap 20 between icon and text. */
+       lining up with the heading. Figma gap 20 between icon and text.
+       position:relative makes it the anchor for its own arrow. */
     .pi-hiw__step {
+      position: relative;
       flex: 0 0 100%;
       max-width: none;
       gap: 20px;
@@ -228,23 +230,23 @@
 
     /* Arrow vector 105.48 x 20 — the same 5.27 ratio as the desktop
        166.09 x 31.49, so the viewBox scales without distortion. */
-    /* The arrow keeps its real 105.48px box (so the SVG needs no overflow) but
-       negative side margins cancel that out of the layout: -60 + 105.48 - 25.48
-       leaves a net 20px, matching Figma's 20px gap and its 1102px track. The box
-       therefore starts 60px before the step's right edge and overlaps it, which
-       is how Figma shows the arrow while the step stays centred. */
+    /* Absolutely positioned against its own step, so it takes no space in the
+       flex track and can't shift the step off centre. Its right edge sits 30px
+       past the step, putting ~75 of its 105.48px over the step's right side —
+       visible while the step stays centred, exactly as Figma shows it.
+       (Earlier attempts kept it in the flex flow, via overflow from a 20px box
+       and then via negative margins; both left it invisible.) */
     .pi-hiw__arrow {
       display: block;
-      position: relative;
+      position: absolute;
       z-index: 1;
-      flex: 0 0 105.48px;
+      left: auto;
+      right: -30px;
+      top: 20px;
+      bottom: auto;
       width: 105.48px;
       height: 20px;
-      margin-left: -60px;
-      margin-right: -25.48px;
-      align-self: flex-start;
-      /* Vertical centre of the 60px circle */
-      margin-top: 20px;
+      margin: 0;
     }
     .pi-hiw__arrow svg {
       width: 105.48px;
@@ -340,8 +342,14 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
-          </div>
-          {%- unless forloop.last -%}
+            {%- comment -%}
+              The arrow lives inside its step so mobile can anchor it to that
+              step's right edge with position:absolute — outside the flex flow, so
+              it can overlap without affecting the track or the step's centring.
+              On desktop the step is position:static, so the arrow still resolves
+              against .pi-hiw__steps and its existing left/top rules apply.
+            {%- endcomment -%}
+            {%- unless forloop.last -%}
             <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
               {%- comment -%}
                 Figma vector 166.09 x 31.49. A cubic, not a quadratic: the arc has
@@ -355,7 +363,8 @@
                 <path class="pi-hiw__arrow-head" d="M155 18 L157.6 28.4 L147 27.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
-          {%- endunless -%}
+            {%- endunless -%}
+          </div>
         {%- endfor -%}
       </div>
     {%- endif -%}
