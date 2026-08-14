@@ -113,11 +113,13 @@
       animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
     }
 
-    /* Figma Mask group is 195x215, so the marquee cell is slightly less tall
-       than the desktop grid's 6/7. Fixed width because the track is
-       width:max-content — percentages would have nothing to resolve against. */
+    /* Figma shows 2 photos per row: at the 390px design width each is 195px,
+       i.e. exactly half the viewport, with a 195x215 cell. Sizing off vw rather
+       than a fixed px keeps it 2-up (and column-aligned with the row above) at
+       every screen width. The track is width:max-content, so a percentage would
+       have nothing to resolve against — vw does. */
     .pi-owg__photo {
-      flex: 0 0 {{ section.settings.marquee_item_width }}px;
+      flex: 0 0 calc((100vw - ({{ section.settings.marquee_row_gap }}px * {{ section.settings.marquee_per_row }})) / {{ section.settings.marquee_per_row }});
       aspect-ratio: 195 / 215;
     }
     .pi-owg__photo--dupe { display: block; }
@@ -272,24 +274,23 @@
     {
       "type": "range",
       "id": "marquee_speed",
-      "min": 10,
-      "max": 120,
-      "step": 5,
+      "min": 8,
+      "max": 60,
+      "step": 1,
       "unit": "s",
       "label": "Marquee loop duration",
-      "info": "Seconds for one full loop. Higher = slower.",
-      "default": 40
+      "info": "Seconds for one full loop. Lower = faster.",
+      "default": 22
     },
     {
       "type": "range",
-      "id": "marquee_item_width",
-      "min": 120,
-      "max": 320,
-      "step": 5,
-      "unit": "px",
-      "label": "Marquee photo width",
-      "info": "Figma is 195 (each photo 195x215).",
-      "default": 195
+      "id": "marquee_per_row",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "label": "Photos visible per row",
+      "info": "Figma shows 2. Each photo is sized to this fraction of the screen width.",
+      "default": 2
     },
     {
       "type": "range",
@@ -299,8 +300,8 @@
       "step": 5,
       "unit": "%",
       "label": "Second row offset",
-      "info": "Shifts row 2 along its loop so the two rows don't move in lockstep. 0 = perfectly aligned.",
-      "default": 35
+      "info": "Shifts row 2 along its loop. Any value above 0 breaks the column alignment between the two rows, so keep it at 0 to match Figma's aligned 2x2.",
+      "default": 0
     },
     {
       "type": "range",
