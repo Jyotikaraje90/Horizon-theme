@@ -263,9 +263,23 @@
       align-self: stretch;
     }
 
-    /* Image frames 354x317 and 354x391 */
-    .pi-tdc__right-img { aspect-ratio: 354 / 317; }
-    .pi-tdc__left-img  { aspect-ratio: 354 / 391; }
+    /* These images have torn top/bottom edges baked into the artwork, so forcing
+       them to a fixed ratio with object-fit:cover crops the edges off. Let each
+       image's own aspect ratio govern instead, and square off the corners —
+       Figma has no radius here, and a radius would clip the torn edge anyway.
+       (Figma's 354x317 / 354x391 frames are the artwork's own proportions, so
+       nothing needs forcing.) */
+    .pi-tdc__right-img,
+    .pi-tdc__left-img {
+      aspect-ratio: auto;
+      border-radius: 0;
+      background: none;
+    }
+    .pi-tdc__right-img img,
+    .pi-tdc__left-img img {
+      height: auto;
+      object-fit: contain;
+    }
 
     /* Features — Figma mobile: Content frame gap 10, heading 18/23 semibold,
        and both the bold label and its description at 16/26. */
