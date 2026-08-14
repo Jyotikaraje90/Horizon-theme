@@ -113,9 +113,15 @@
      isn't the flex item instead of the img */
   .pi-hiw__icon picture { display: contents; }
 
+  /* The icon PNGs are exported at the full 100x100 circle size with the 50x50
+     glyph already centred in transparent padding (Figma: `Nutrition` 100x100,
+     `Capa_1` 50x50 at top/left 25). So the img fills the circle at native size
+     and the glyph lands at 50px on its own — sizing it to 44px shrank the
+     visible glyph to 22px. The inline-SVG fallbacks below are drawn tight to
+     their viewBox, so those keep their own 44px sizing. */
   .pi-hiw__icon img {
-    width: 44px;
-    height: 44px;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     display: block;
   }
