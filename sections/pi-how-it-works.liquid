@@ -182,11 +182,18 @@
           <div class="pi-hiw__step" {{ block.shopify_attributes }}>
             <span class="pi-hiw__icon">
               {%- if block.settings.icon != blank -%}
+                {%- comment -%}
+                  Request 300 rather than 68: the icon fills a 100px circle, so 68
+                  was downscaled then stretched back up. Shopify never upscales
+                  past the original, so this asks for the largest available — and
+                  will serve 2x/3x automatically if the PNGs are ever re-exported
+                  bigger, with no further code change.
+                {%- endcomment -%}
                 <picture>
                   {%- if block.settings.icon_mobile != blank -%}
-                    <source media="(max-width: 749px)" srcset="{{ block.settings.icon_mobile | image_url: width: 68 }}">
+                    <source media="(max-width: 749px)" srcset="{{ block.settings.icon_mobile | image_url: width: 300 }}">
                   {%- endif -%}
-                  <img src="{{ block.settings.icon | image_url: width: 68 }}" alt="" loading="lazy">
+                  <img src="{{ block.settings.icon | image_url: width: 300 }}" alt="" loading="lazy">
                 </picture>
               {%- else -%}
                 {%- assign icon_slot = forloop.index0 | modulo: 3 -%}
