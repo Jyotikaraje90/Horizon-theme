@@ -92,7 +92,7 @@
   }
 
 {%- if section.settings.mobile_marquee -%}
-  /* ─── Mobile: two auto-scrolling marquee rows ───
+  /* ─── Two auto-scrolling marquee rows, at every width ───
      Each row holds its photo set twice, so translating by exactly -50% lands on
      an identical frame and the loop is seamless with no JS. Both rows run the
      same direction, per the design. */
@@ -101,44 +101,50 @@
     to   { transform: translateX(-50%); }
   }
 
+  .pi-owg { overflow-x: hidden; }
+
+  .pi-owg__grid {
+    display: flex;
+    flex-direction: column;
+    gap: {{ section.settings.marquee_row_gap }}px;
+    width: 100%;
+  }
+
+  /* Overrides the display:contents that lets these dissolve into the grid */
+  .pi-owg__row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: max-content;
+    gap: {{ section.settings.marquee_row_gap }}px;
+    animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  /* Both rows run the same direction, so without an offset they'd move in
+     perfect lockstep and read as one sliding block. A negative delay starts
+     row 2 part-way through the same loop — it's already mid-animation on load,
+     so nothing waits and the loop stays seamless. */
+  .pi-owg__row--2 {
+    animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
+  }
+
+  /* Figma's cell is 195x215 in both the 975 desktop frame (5 across) and the
+     390 mobile one (2 across), so above the phone breakpoint the width is fixed
+     at that size and however many fit, fit. */
+  .pi-owg__photo {
+    flex: 0 0 {{ section.settings.marquee_item_width }}px;
+    aspect-ratio: 195 / 215;
+  }
+  .pi-owg__photo--dupe { display: block; }
+
+  /* On phones, size off the viewport instead so it lands exactly N-up and the
+     two rows stay column-aligned. The track is width:max-content, so a
+     percentage would have nothing to resolve against — vw does. */
   @media (max-width: 749px) {
-    .pi-owg { overflow-x: hidden; }
-
-    .pi-owg__grid {
-      display: flex;
-      flex-direction: column;
-      gap: {{ section.settings.marquee_row_gap }}px;
-      width: 100%;
-    }
-
-    .pi-owg__row {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      width: max-content;
-      gap: {{ section.settings.marquee_row_gap }}px;
-      animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
-      will-change: transform;
-    }
-
-    /* Both rows run the same direction, so without an offset they'd move in
-       perfect lockstep and read as one sliding block. A negative delay starts
-       row 2 part-way through the same loop — it's already mid-animation on load,
-       so nothing waits and the loop stays seamless. */
-    .pi-owg__row--2 {
-      animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
-    }
-
-    /* Figma shows 2 photos per row: at the 390px design width each is 195px,
-       i.e. exactly half the viewport, with a 195x215 cell. Sizing off vw rather
-       than a fixed px keeps it 2-up (and column-aligned with the row above) at
-       every screen width. The track is width:max-content, so a percentage would
-       have nothing to resolve against — vw does. */
     .pi-owg__photo {
       flex: 0 0 calc((100vw - ({{ section.settings.marquee_row_gap }}px * {{ section.settings.marquee_per_row }})) / {{ section.settings.marquee_per_row }});
-      aspect-ratio: 195 / 215;
     }
-    .pi-owg__photo--dupe { display: block; }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -283,9 +289,20 @@
     {
       "type": "checkbox",
       "id": "mobile_marquee",
-      "label": "Auto-scrolling marquee on mobile",
-      "info": "Below 750px, shows two rows of photos that scroll continuously in opposite directions instead of a static grid.",
+      "label": "Auto-scrolling marquee",
+      "info": "Replaces the static grid at every width with two rows of photos that scroll continuously.",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "marquee_item_width",
+      "min": 120,
+      "max": 320,
+      "step": 5,
+      "unit": "px",
+      "label": "Marquee photo width",
+      "info": "Used above 750px. Figma's cell is 195 wide.",
+      "default": 195
     },
     {
       "type": "range",
@@ -304,8 +321,8 @@
       "min": 1,
       "max": 4,
       "step": 1,
-      "label": "Photos visible per row",
-      "info": "Figma shows 2. Each photo is sized to this fraction of the screen width.",
+      "label": "Photos visible per row — mobile",
+      "info": "Below 750px only. Figma shows 2; each photo takes that fraction of the screen width.",
       "default": 2
     },
     {
