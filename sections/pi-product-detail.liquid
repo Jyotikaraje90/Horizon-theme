@@ -590,8 +590,33 @@
       flex: 1 1 auto;
     }
   }
-  /* Phone: image on top, thumbnails in a centered row below. */
+  /* 481-749 keeps the thumbnail column beside the stage (as above 750 does), so
+     the stage gives up that width instead of filling the container and going
+     as tall as it is wide. */
   @media (max-width: 749px) {
+    .pi-pdp__buy { max-width: 460px; }
+    #shopify-section-{{ section.id }} {
+      --pi-pdp-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-pdp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-pdp-gutter: {{ section.settings.mobile_side_gutter }}px;
+      --pi-pdp-title-size: {{ section.settings.mobile_title_size }}px;
+      --pi-pdp-price-size: {{ section.settings.mobile_price_size }}px;
+      --pi-pdp-option-label-size: {{ section.settings.mobile_option_label_size }}px;
+      --pi-pdp-swatch-size: {{ section.settings.mobile_swatch_size }}px;
+      --pi-pdp-acc-heading-size: {{ section.settings.mobile_acc_heading_size }}px;
+    }
+  }
+
+  /* 601-749: keep the full container gutter. The sections below this one
+     (You May Also Like et al.) hold their 40px gutter down to 600px, so
+     dropping to the phone gutter at 749 made the side padding disagree. */
+  @media (min-width: 601px) and (max-width: 749px) {
+    #shopify-section-{{ section.id }} { --pi-pdp-gutter: {{ section.settings.side_gutter }}px; }
+  }
+
+  /* Phone: too narrow for a side column — image on top, thumbnails in a
+     centered row below. */
+  @media (max-width: 480px) {
     .pi-pdp__media {
       flex-direction: column-reverse;
       align-items: stretch;
@@ -611,24 +636,6 @@
       height: {{ section.settings.mobile_thumb_size }}px;
       flex: 0 0 {{ section.settings.mobile_thumb_size }}px;
     }
-    .pi-pdp__buy { max-width: 460px; }
-    #shopify-section-{{ section.id }} {
-      --pi-pdp-pad-top: {{ section.settings.mobile_padding_top }}px;
-      --pi-pdp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      --pi-pdp-gutter: {{ section.settings.mobile_side_gutter }}px;
-      --pi-pdp-title-size: {{ section.settings.mobile_title_size }}px;
-      --pi-pdp-price-size: {{ section.settings.mobile_price_size }}px;
-      --pi-pdp-option-label-size: {{ section.settings.mobile_option_label_size }}px;
-      --pi-pdp-swatch-size: {{ section.settings.mobile_swatch_size }}px;
-      --pi-pdp-acc-heading-size: {{ section.settings.mobile_acc_heading_size }}px;
-    }
-  }
-
-  /* 601-749: keep the full container gutter. The sections below this one
-     (You May Also Like et al.) hold their 40px gutter down to 600px, so
-     dropping to the phone gutter at 749 made the side padding disagree. */
-  @media (min-width: 601px) and (max-width: 749px) {
-    #shopify-section-{{ section.id }} { --pi-pdp-gutter: {{ section.settings.side_gutter }}px; }
   }
 </style>
 
