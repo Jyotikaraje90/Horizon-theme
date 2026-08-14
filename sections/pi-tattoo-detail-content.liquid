@@ -72,22 +72,27 @@
     text-align: left;
   }
 
+  /* Figma `Btn`: Hug width, Fixed 55px height, radius 8, padding 16/32,
+     16px/21 uppercase semibold, letter-spacing 0. border-box so the outlined
+     variant's 1px inner border doesn't push it past 55px. */
   .pi-tdc__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    box-sizing: border-box;
     background: {{ section.settings.btn_bg }};
     color: {{ section.settings.btn_text }};
-    height: 50px;
-    padding: 14px 28px;
+    height: 55px;
+    padding: 16px 32px;
     border-radius: {{ section.settings.btn_radius }}px;
     text-decoration: none;
     text-transform: uppercase;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 21px;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0;
     white-space: nowrap;
     border: none;
     cursor: pointer;
@@ -114,20 +119,6 @@
     font-weight: 700;
   }
 
-  {%- if section.settings.button2_label != blank -%}
-    /* Figma `Btn` spec, applied to both buttons of the two-button pair:
-       Fixed 55px height, padding 16/32, 16px/21 uppercase, no letter-spacing.
-       Emitted only when a secondary button is in use, so single-button
-       instances (e.g. Realistic Tattoos) keep their existing 50px/14px sizing. */
-    .pi-tdc__btn {
-      box-sizing: border-box;
-      height: 55px;
-      padding: 16px 32px;
-      font-size: 16px;
-      line-height: 21px;
-      letter-spacing: 0;
-    }
-  {%- endif -%}
   .pi-tdc__btn--outline:hover {
     background: {{ section.settings.btn_outline_hover_bg }};
     color: {{ section.settings.btn_outline_hover_text }};
