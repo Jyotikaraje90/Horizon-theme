@@ -92,7 +92,9 @@
   }
 
 {%- if section.settings.mobile_marquee -%}
-  /* ─── Two auto-scrolling marquee rows, at every width ───
+  /* ─── Two auto-scrolling marquee rows — mobile and tablet only (<=989px) ───
+     Desktop keeps the static full-bleed grid from the base rules above; the
+     duplicate cells stay display:none there, so it renders one set as before.
      Each row holds its photo set twice, so translating by exactly -50% lands on
      an identical frame and the loop is seamless with no JS. Both rows run the
      same direction, per the design. */
@@ -101,42 +103,43 @@
     to   { transform: translateX(-50%); }
   }
 
-  .pi-owg { overflow-x: hidden; }
+  @media (max-width: 989px) {
+    .pi-owg { overflow-x: hidden; }
 
-  .pi-owg__grid {
-    display: flex;
-    flex-direction: column;
-    gap: {{ section.settings.marquee_row_gap }}px;
-    width: 100%;
-  }
+    .pi-owg__grid {
+      display: flex;
+      flex-direction: column;
+      gap: {{ section.settings.marquee_row_gap }}px;
+      width: 100%;
+    }
 
-  /* Overrides the display:contents that lets these dissolve into the grid */
-  .pi-owg__row {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    width: max-content;
-    gap: {{ section.settings.marquee_row_gap }}px;
-    animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
-    will-change: transform;
-  }
+    /* Overrides the display:contents that lets these dissolve into the grid */
+    .pi-owg__row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: max-content;
+      gap: {{ section.settings.marquee_row_gap }}px;
+      animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
+      will-change: transform;
+    }
 
-  /* Both rows run the same direction, so without an offset they'd move in
-     perfect lockstep and read as one sliding block. A negative delay starts
-     row 2 part-way through the same loop — it's already mid-animation on load,
-     so nothing waits and the loop stays seamless. */
-  .pi-owg__row--2 {
-    animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
-  }
+    /* Both rows run the same direction, so without an offset they'd move in
+       perfect lockstep and read as one sliding block. A negative delay starts
+       row 2 part-way through the same loop — it's already mid-animation on load,
+       so nothing waits and the loop stays seamless. */
+    .pi-owg__row--2 {
+      animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
+    }
 
-  /* Figma's cell is 195x215 in both the 975 desktop frame (5 across) and the
-     390 mobile one (2 across), so above the phone breakpoint the width is fixed
-     at that size and however many fit, fit. */
-  .pi-owg__photo {
-    flex: 0 0 {{ section.settings.marquee_item_width }}px;
-    aspect-ratio: 195 / 215;
+    /* Tablet: Figma's cell is 195x215, so fix the width at that and let however
+       many fit, fit. */
+    .pi-owg__photo {
+      flex: 0 0 {{ section.settings.marquee_item_width }}px;
+      aspect-ratio: 195 / 215;
+    }
+    .pi-owg__photo--dupe { display: block; }
   }
-  .pi-owg__photo--dupe { display: block; }
 
   /* On phones, size off the viewport instead so it lands exactly N-up and the
      two rows stay column-aligned. The track is width:max-content, so a
@@ -289,8 +292,8 @@
     {
       "type": "checkbox",
       "id": "mobile_marquee",
-      "label": "Auto-scrolling marquee",
-      "info": "Replaces the static grid at every width with two rows of photos that scroll continuously.",
+      "label": "Auto-scrolling marquee on mobile & tablet",
+      "info": "Below 990px, replaces the static grid with two rows of photos that scroll continuously. Desktop keeps the grid.",
       "default": true
     },
     {
@@ -300,8 +303,8 @@
       "max": 320,
       "step": 5,
       "unit": "px",
-      "label": "Marquee photo width",
-      "info": "Used above 750px. Figma's cell is 195 wide.",
+      "label": "Marquee photo width — tablet",
+      "info": "Used between 750px and 989px. Figma's cell is 195 wide.",
       "default": 195
     },
     {
