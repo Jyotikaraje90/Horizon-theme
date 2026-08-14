@@ -184,6 +184,7 @@
           "type": "step",
           "settings": {
             "icon": "shopify://shop_images/Metabolism.png",
+            "icon_height": 100,
             "title": "Aftercare & Healing",
             "description": "Follow expert aftercare guidance for clean, smooth healing and long-term comfort."
           }
