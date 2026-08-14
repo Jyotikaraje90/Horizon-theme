@@ -174,12 +174,17 @@
     .pi-hiw__arrow { display: block; }
   }
 
-  /* ─── Mobile: horizontal swipe scroller ───
-     One step fills most of the width and snaps into place; the connector arrow
-     peeks in from the right as the affordance for the next one. The arrows are
-     already inline siblings between the steps in the DOM, so switching them
-     from absolute to static drops them straight into the scroll flow. */
+  /* ─── Mobile: horizontal swipe scroller (Figma 390 frame) ───
+     Figma's scroll track is 1102 = 3 steps x 354 + 2 x 20 gaps, so the arrows
+     occupy only the 20px gap and their artwork overflows across it rather than
+     taking track space. A step is exactly the 354 content width, so
+     flex-basis:100% of the padded scroll container gives 354 at 390. */
   @media (max-width: 749px) {
+    .pi-hiw__inner { gap: 30px; }
+
+    /* Heading: Playfair 600, 30/39 (the clamp bottoms out at 28/1.3) */
+    .pi-hiw__heading { font-size: 30px; line-height: 39px; }
+
     .pi-hiw__steps {
       flex-direction: row;
       flex-wrap: nowrap;
@@ -191,30 +196,54 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      /* Bleed to the section edges so a swiped step can sit flush */
-      margin-inline: calc(var(--pi-hiw-mobile-bleed, 24px) * -1);
-      padding-inline: var(--pi-hiw-mobile-bleed, 24px);
+      /* Bleed out to the viewport edges, then re-inset so the scroll container's
+         content box equals the 354 step width and centre-snap leaves the gutter */
+      margin-inline: calc(var(--pi-hiw-mobile-gutter, 24px) * -1);
+      padding-inline: var(--pi-hiw-mobile-gutter, 24px);
     }
     .pi-hiw__steps::-webkit-scrollbar { display: none; }
 
+    /* div: Fixed 354, Hug 157, gap 20 */
     .pi-hiw__step {
-      flex: 0 0 88%;
+      flex: 0 0 100%;
       max-width: none;
+      gap: 20px;
       scroll-snap-align: center;
     }
 
+    /* Nutrition: 60x60 circle, radius 30; glyph stays half the circle */
+    .pi-hiw__icon { width: 60px; height: 60px; }
+    .pi-hiw__icon img {
+      height: {{ section.settings.icon_image_size | default: 100 | times: 0.6 | round }}px;
+    }
+    .pi-hiw__icon svg { width: 26px; height: 26px; }
+
+    /* Title 18/23 semibold, description 14/22 regular */
+    .pi-hiw__step-title { font-size: 18px; line-height: 23px; }
+    .pi-hiw__step-desc  { font-size: 14px; line-height: 22px; }
+
+    /* Arrow vector 105.48 x 20 — same 5.27 ratio as desktop, so the viewBox
+       scales cleanly. It fills the 20px gap and overflows evenly either side. */
     .pi-hiw__arrow {
       display: block;
       position: static;
-      flex: 0 0 auto;
+      flex: 0 0 20px;
+      width: 20px;
+      height: 20px;
+      overflow: visible;
       align-self: flex-start;
-      /* Line the arrow up with the vertical centre of the 100px icon */
-      margin-top: 34px;
+      /* Vertical centre of the 60px circle */
+      margin-top: 20px;
+    }
+    .pi-hiw__arrow svg {
+      width: 105.48px;
+      height: 20px;
+      margin-left: -42.74px;
     }
   }
 
   @media (max-width: 600px) {
-    .pi-hiw__steps { --pi-hiw-mobile-bleed: 18px; }
+    .pi-hiw__steps { --pi-hiw-mobile-gutter: 18px; }
   }
 
   #shopify-section-{{ section.id }} {
