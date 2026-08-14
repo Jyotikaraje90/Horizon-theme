@@ -39,8 +39,6 @@
     --pi-pdp-pad-top: {{ section.settings.padding_top }}px;
     --pi-pdp-pad-bottom: {{ section.settings.padding_bottom }}px;
     --pi-pdp-gutter: {{ section.settings.side_gutter }}px;
-    /* Raised to the header's height while the header is actually stuck (below) */
-    --pi-pdp-sticky-header: 0px;
 
     /* Gallery */
     --pi-pdp-thumb-size: {{ section.settings.thumb_size }}px;
@@ -143,16 +141,11 @@
     gap: var(--pi-pdp-thumb-gap);
     flex: 1.22 1 0;
     min-width: 0;
-    {% if section.settings.sticky_media %}position: sticky; top: calc({{ section.settings.sticky_offset }}px + var(--pi-pdp-sticky-header, 0px));{% endif %}
-  }
-  {%- if section.settings.sticky_media -%}
     /* The sticky header overlays the page, so the gallery has to park below it
        instead of behind it — otherwise the first thumbnail and the top of the
-       image get clipped. Matches the theme's own sticky-content offset trick. */
-    body:has(#header-group #header-component[data-sticky-state='active']) #shopify-section-{{ section.id }} {
-      --pi-pdp-sticky-header: var(--header-height, 0px);
-    }
-  {%- endif -%}
+       image get clipped. --header-height is set on body by sections/header.liquid. */
+    {% if section.settings.sticky_media %}position: sticky; top: calc({{ section.settings.sticky_offset }}px + var(--header-height, 0px));{% endif %}
+  }
   .pi-pdp__thumbs {
     display: flex;
     flex-direction: column;
