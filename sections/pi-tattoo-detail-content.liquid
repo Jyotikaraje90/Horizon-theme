@@ -112,6 +112,21 @@
     border: 1px solid {{ section.settings.btn_outline_border }};
     font-weight: 700;
   }
+
+  {%- if section.settings.button2_label != blank -%}
+    /* Figma `Btn` spec, applied to both buttons of the two-button pair:
+       Fixed 55px height, padding 16/32, 16px/21 uppercase, no letter-spacing.
+       Emitted only when a secondary button is in use, so single-button
+       instances (e.g. Realistic Tattoos) keep their existing 50px/14px sizing. */
+    .pi-tdc__btn {
+      box-sizing: border-box;
+      height: 55px;
+      padding: 16px 32px;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: 0;
+    }
+  {%- endif -%}
   .pi-tdc__btn--outline:hover {
     background: {{ section.settings.btn_outline_hover_bg }};
     color: {{ section.settings.btn_outline_hover_text }};
