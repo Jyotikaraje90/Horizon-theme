@@ -82,6 +82,7 @@
         "button2_link": "/pages/shop-jewelry",
         "left_image": "shopify://shop_images/Frame_1618872911_1.png",
         "right_image": "shopify://shop_images/Frame_1618872905_1.png",
+        "feature_text_size": 18,
         "features_heading": "Navel Piercing Features",
         "padding_top": 80,
         "padding_bottom": 80,
