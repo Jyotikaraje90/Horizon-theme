@@ -97,6 +97,26 @@
     color: {{ section.settings.btn_hover_text }};
   }
 
+  /* Button row — a second, outlined button sits beside the primary (Figma gap 20) */
+  .pi-tdc__btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .pi-tdc__btn--outline {
+    background: transparent;
+    color: {{ section.settings.btn_outline_text }};
+    border: 1px solid {{ section.settings.btn_outline_border }};
+  }
+  .pi-tdc__btn--outline:hover {
+    background: {{ section.settings.btn_outline_hover_bg }};
+    color: {{ section.settings.btn_outline_hover_text }};
+    border-color: {{ section.settings.btn_outline_hover_bg }};
+  }
+
   .pi-tdc__left-img {
     width: 100%;
     aspect-ratio: 520 / 601;
@@ -219,8 +239,15 @@
         {%- if section.settings.about_text != blank -%}
           <p class="pi-tdc__text">{{ section.settings.about_text }}</p>
         {%- endif -%}
-        {%- if section.settings.button_label != blank -%}
-          <a href="{{ section.settings.button_link }}" class="pi-tdc__btn">{{ section.settings.button_label }}</a>
+        {%- if section.settings.button_label != blank or section.settings.button2_label != blank -%}
+          <div class="pi-tdc__btns">
+            {%- if section.settings.button_label != blank -%}
+              <a href="{{ section.settings.button_link }}" class="pi-tdc__btn">{{ section.settings.button_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.button2_label != blank -%}
+              <a href="{{ section.settings.button2_link }}" class="pi-tdc__btn pi-tdc__btn--outline">{{ section.settings.button2_label }}</a>
+            {%- endif -%}
+          </div>
         {%- endif -%}
       </div>
 
@@ -304,6 +331,17 @@
       "type": "url",
       "id": "button_link",
       "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Secondary button label",
+      "info": "Optional. Renders as an outlined button beside the first one. Leave empty to show only one button."
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary button link"
     },
     {
       "type": "image_picker",
@@ -417,6 +455,34 @@
       "type": "color",
       "id": "btn_hover_text",
       "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_text",
+      "label": "Secondary button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_border",
+      "label": "Secondary button border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_hover_bg",
+      "label": "Secondary button hover background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_hover_text",
+      "label": "Secondary button hover text color",
       "default": "#ffffff"
     },
     {

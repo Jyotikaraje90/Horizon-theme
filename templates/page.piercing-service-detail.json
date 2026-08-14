@@ -1,0 +1,378 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_detail": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Navel Piercing",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_tdc_detail": {
+      "type": "pi-tattoo-detail-content",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": {
+            "title": "Expert Precision",
+            "description": "Our trained professionals ensure an accurate and comfortable procedure."
+          }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": {
+            "title": "Premium Jewelry Selection",
+            "description": "Choose from hypoallergenic titanium, gold, or surgical steel for safe healing."
+          }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": {
+            "title": "Minimal Pain & Quick Healing",
+            "description": "Using sterile, needle-based techniques, we minimize discomfort and promote faster recovery."
+          }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": {
+            "title": "Customizable Options",
+            "description": "Whether you prefer a simple barbell, curved ring, or gemstone stud, we provide stylish, high-quality jewelry tailored to your preference."
+          }
+        }
+      },
+      "block_order": [
+        "feature_1",
+        "feature_2",
+        "feature_3",
+        "feature_4"
+      ],
+      "settings": {
+        "about_heading": "About Navel Piercing",
+        "about_text": "Navel piercings are a timeless way to express style and individuality. Whether you prefer a minimalist stud or a statement ring, our expert piercers ensure a safe, precise, and professional experience. We use hypoallergenic jewelry and advanced sterilization techniques for a comfortable healing process. Elevate your look with a beautifully placed navel piercing that enhances your aesthetic with elegance.",
+        "button_label": "Book Now",
+        "button_link": "#shopify-section-pi_book_detail",
+        "left_image": "",
+        "right_image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png",
+        "features_heading": "Navel Piercing Features",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#121212",
+        "image_radius": 10,
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_usp_detail": {
+      "type": "pi-usp",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
+            "label": "Authentic"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1.png",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
+            "label": "Creative"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
+        "overlay_opacity": 10,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48,
+        "min_height": 370,
+        "label_color": "#ffffff",
+        "label_size": 34,
+        "mobile_label_size": 22,
+        "icon_size": 100,
+        "mobile_icon_size": 50,
+        "divider_opacity": 70,
+        "divider_height": 175,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "text_alignment": "center"
+      }
+    },
+    "pi_hiw_detail": {
+      "type": "pi-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Nutrition.png",
+            "title": "Consultation & Jewelry Selection",
+            "description": "Discuss placement, choose your jewelry, and we'll confirm the right fit and material for you."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Digestion.png",
+            "title": "Sterile Piercing Process",
+            "description": "Our piercers use single-use, needle-based technique for precise, comfortable placement."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Metabolism.png",
+            "title": "Aftercare & Healing",
+            "description": "Follow expert aftercare guidance for clean, smooth healing and long-term comfort."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How It Works",
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "icon_bg": "#f0f0f0",
+        "icon_color": "#000000",
+        "step_title_color": "#121212",
+        "step_desc_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_owg_detail": {
+      "type": "pi-our-work-gallery",
+      "blocks": {
+        "photo_1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_15.png"
+          }
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_13.png"
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_20.png"
+          }
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_40.png"
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_22.png"
+          }
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_26.png"
+          }
+        },
+        "photo_7": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_41.png"
+          }
+        },
+        "photo_8": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png"
+          }
+        },
+        "photo_9": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_24.png"
+          }
+        },
+        "photo_10": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png"
+          }
+        }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+        "photo_7",
+        "photo_8",
+        "photo_9",
+        "photo_10"
+      ],
+      "settings": {
+        "heading": "Our Work",
+        "columns_desktop": 5,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "image_radius": 0,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_book_detail": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        },
+        "artist_1": {
+          "type": "artist",
+          "settings": {
+            "artist_name": "No Preference"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4",
+        "artist_1"
+      ],
+      "settings": {
+        "title": "Book An Appointment",
+        "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can!",
+        "detailed_booking_form": true,
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_detail",
+    "pi_tdc_detail",
+    "pi_usp_detail",
+    "pi_hiw_detail",
+    "pi_owg_detail",
+    "pi_book_detail"
+  ]
+}
