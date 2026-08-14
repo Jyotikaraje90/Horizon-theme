@@ -248,6 +248,13 @@
       height: 20px;
       margin: 0;
     }
+
+    /* Second arrow is the mirrored (valley) one and sits at the bottom of the
+       step, same as desktop — the rule above would otherwise pin it to the top. */
+    .pi-hiw__arrow--flip {
+      top: auto;
+      bottom: 0;
+    }
     .pi-hiw__arrow svg {
       width: 105.48px;
       height: 20px;
