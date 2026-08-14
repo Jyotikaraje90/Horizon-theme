@@ -169,7 +169,7 @@
           "settings": {
             "icon": "shopify://shop_images/Capa_1.png",
             "title": "Consultation & Jewelry Selection",
-            "description": "Discuss placement, choose your jewelry, and we'll confirm the right fit and material for you."
+            "description": "Discuss your piercing type, placement, and choose from our high-quality jewelry options."
           }
         },
         "step_2": {
@@ -177,7 +177,7 @@
           "settings": {
             "icon": "shopify://shop_images/2_2.png",
             "title": "Piercing Process",
-            "description": "Our piercers use single-use, needle-based technique for precise, comfortable placement."
+            "description": "Our expert piercers use sterile, needle-based techniques for a safe and comfortable experience."
           }
         },
         "step_3": {
@@ -186,7 +186,7 @@
             "icon": "shopify://shop_images/Metabolism.png",
             "icon_height": 100,
             "title": "Aftercare & Healing",
-            "description": "Follow expert aftercare guidance for clean, smooth healing and long-term comfort."
+            "description": "Follow our aftercare instructions to ensure proper healing and long-lasting results."
           }
         }
       },
