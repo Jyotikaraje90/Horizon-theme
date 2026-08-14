@@ -174,9 +174,47 @@
     .pi-hiw__arrow { display: block; }
   }
 
+  /* ─── Mobile: horizontal swipe scroller ───
+     One step fills most of the width and snaps into place; the connector arrow
+     peeks in from the right as the affordance for the next one. The arrows are
+     already inline siblings between the steps in the DOM, so switching them
+     from absolute to static drops them straight into the scroll flow. */
   @media (max-width: 749px) {
-    .pi-hiw__steps { flex-direction: column; align-items: center; gap: 40px; }
-    .pi-hiw__step { max-width: 400px; }
+    .pi-hiw__steps {
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 0;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      /* Bleed to the section edges so a swiped step can sit flush */
+      margin-inline: calc(var(--pi-hiw-mobile-bleed, 24px) * -1);
+      padding-inline: var(--pi-hiw-mobile-bleed, 24px);
+    }
+    .pi-hiw__steps::-webkit-scrollbar { display: none; }
+
+    .pi-hiw__step {
+      flex: 0 0 88%;
+      max-width: none;
+      scroll-snap-align: center;
+    }
+
+    .pi-hiw__arrow {
+      display: block;
+      position: static;
+      flex: 0 0 auto;
+      align-self: flex-start;
+      /* Line the arrow up with the vertical centre of the 100px icon */
+      margin-top: 34px;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .pi-hiw__steps { --pi-hiw-mobile-bleed: 18px; }
   }
 
   #shopify-section-{{ section.id }} {
