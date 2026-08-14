@@ -589,6 +589,10 @@
       width: 100%;
       flex: 1 1 auto;
     }
+    /* Stacked, the stage spans the container, and 1:1 makes it as tall as it is
+       wide (~690px at 900). Hold the height down via the existing stage-height
+       cap — image_fit is `contain`, so the product just letterboxes, no crop. */
+    #shopify-section-{{ section.id }} { --pi-pdp-stage-height: 520px; }
   }
   /* 481-749 keeps the thumbnail column beside the stage (as above 750 does), so
      the stage gives up that width instead of filling the container and going
