@@ -143,8 +143,10 @@
     min-width: 0;
     /* The sticky header overlays the page, so the gallery has to park below it
        instead of behind it — otherwise the first thumbnail and the top of the
-       image get clipped. --header-height is set on body by sections/header.liquid. */
-    {% if section.settings.sticky_media %}position: sticky; top: calc({{ section.settings.sticky_offset }}px + var(--header-height, 0px));{% endif %}
+       image get clipped. --pi-pdp-header-h is the measured height of whatever is
+       actually pinned at the top (set by the script below); --header-height is
+       the CSS fallback for the main header row alone. */
+    {% if section.settings.sticky_media %}position: sticky; top: calc({{ section.settings.sticky_offset }}px + var(--pi-pdp-header-h, var(--header-height, 0px)));{% endif %}
   }
   .pi-pdp__thumbs {
     display: flex;
@@ -1037,6 +1039,35 @@
   var id   = {{ section.id | json }};
   var root = document.getElementById('pi-pdp-' + id);
   if (!root) return;
+
+  /* ── Sticky gallery offset ──
+     The header overlays the page and its stuck height isn't knowable from CSS
+     (--header-height covers the main row only, not the announcement row), so
+     measure whatever is actually pinned at the top and park the gallery below it. */
+  {%- if section.settings.sticky_media -%}
+  var headerEl = document.querySelector('#header-component') ||
+                 document.querySelector('.header-section') ||
+                 document.querySelector('#header-group');
+  if (headerEl) {
+    var lastOffset = -1;
+    var queued = false;
+    var applyHeaderOffset = function () {
+      queued = false;
+      var h = Math.round(Math.max(0, headerEl.getBoundingClientRect().bottom));
+      if (Math.abs(h - lastOffset) < 1) return;
+      lastOffset = h;
+      root.style.setProperty('--pi-pdp-header-h', h + 'px');
+    };
+    var scheduleHeaderOffset = function () {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(applyHeaderOffset);
+    };
+    applyHeaderOffset();
+    window.addEventListener('scroll', scheduleHeaderOffset, { passive: true });
+    window.addEventListener('resize', scheduleHeaderOffset);
+  }
+  {%- endif -%}
 
   /* ── Gallery ── */
   var stage  = document.getElementById('pi-pdp-stage-' + id);
