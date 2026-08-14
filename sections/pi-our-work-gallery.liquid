@@ -45,6 +45,11 @@
     width: 100%;
   }
 
+  /* Row wrappers exist only so mobile can animate two independent marquee
+     tracks; on desktop they dissolve and the cells form the grid directly. */
+  .pi-owg__row { display: contents; }
+  .pi-owg__photo--dupe { display: none; }
+
   .pi-owg__photo {
     aspect-ratio: 6 / 7;
     border-radius: var(--pi-owg-radius, 8px);
@@ -70,12 +75,56 @@
     .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_tablet }}, 1fr); }
   }
 
+{%- if section.settings.mobile_marquee -%}
+  /* ─── Mobile: two auto-scrolling marquee rows ───
+     Each row holds its photo set twice, so translating by exactly -50% lands on
+     an identical frame and the loop is seamless with no JS. Row 2 runs in
+     reverse so the two rows drift in opposite directions. */
+  @keyframes pi-owg-marquee {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  @media (max-width: 749px) {
+    .pi-owg { overflow-x: hidden; }
+
+    .pi-owg__grid {
+      display: flex;
+      flex-direction: column;
+      gap: {{ section.settings.marquee_row_gap }}px;
+      width: 100%;
+    }
+
+    .pi-owg__row {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      width: max-content;
+      gap: {{ section.settings.marquee_row_gap }}px;
+      animation: pi-owg-marquee {{ section.settings.marquee_speed }}s linear infinite;
+      will-change: transform;
+    }
+    .pi-owg__row--2 { animation-direction: reverse; }
+
+    /* Fixed item width: the track is width:max-content, so percentages would
+       have nothing to resolve against. */
+    .pi-owg__photo {
+      flex: 0 0 {{ section.settings.marquee_item_width }}px;
+    }
+    .pi-owg__photo--dupe { display: block; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pi-owg__row { animation: none; }
+  }
+{%- else -%}
   /* Phones get the mobile column count across the whole range, not just below
      600 — 601-749 was still falling through to the tablet count. Gap stays 0
      and the grid stays full-bleed, so the photos sit flush edge to edge. */
   @media (max-width: 749px) {
     .pi-owg__grid { grid-template-columns: repeat({{ section.settings.columns_mobile }}, 1fr); }
   }
+{%- endif -%}
 
   @media (max-width: 600px) {
     .pi-owg__heading-wrap { padding-inline: 18px; margin-bottom: 24px; }
@@ -98,26 +147,59 @@
   {%- endif -%}
 
   {%- if photos.size > 0 -%}
+    {%- comment -%}
+      The mobile marquee needs the photo set rendered twice so translating the
+      strip by exactly -50% lands on an identical frame and the loop is seamless.
+      The second pass is display:none above 750px, so the desktop grid is
+      unaffected. Duplicates carry no shopify_attributes (that would give the
+      theme editor two handles for one block) and are aria-hidden.
+    {%- endcomment -%}
+    {%- comment -%}
+      Photos are split across two row wrappers. On desktop the wrappers are
+      display:contents, so the cells collapse back into the single N-column grid
+      exactly as before. On mobile each row becomes its own marquee track.
+    {%- endcomment -%}
+    {%- if section.settings.mobile_marquee -%}
+      {%- assign passes = 2 -%}
+    {%- else -%}
+      {%- assign passes = 1 -%}
+    {%- endif -%}
+    {%- assign row1_count = photos.size | plus: 1 | divided_by: 2 -%}
+    {%- assign row2_count = photos.size | minus: row1_count -%}
     <div class="pi-owg__grid">
-      {%- for block in photos -%}
-        <div class="pi-owg__photo" {{ block.shopify_attributes }}>
-          {%- if block.settings.image != blank -%}
-            <picture>
-              {%- if block.settings.image_mobile != blank -%}
-                <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 600 }}">
-              {%- endif -%}
-              <img
-                src="{{ block.settings.image | image_url: width: 600 }}"
-                alt="{{ block.settings.image.alt | escape }}"
-                width="300"
-                height="350"
-                loading="lazy"
-              >
-            </picture>
-          {%- else -%}
-            {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-          {%- endif -%}
-        </div>
+      {%- for r in (1..2) -%}
+        {%- if r == 1 -%}
+          {%- assign row_photos = photos | slice: 0, row1_count -%}
+        {%- else -%}
+          {%- assign row_photos = photos | slice: row1_count, row2_count -%}
+        {%- endif -%}
+        {%- if row_photos.size > 0 -%}
+          <div class="pi-owg__row pi-owg__row--{{ r }}">
+            {%- for pass in (1..passes) -%}
+              {%- for block in row_photos -%}
+                <div class="pi-owg__photo{% if pass == 2 %} pi-owg__photo--dupe{% endif %}"
+                     {% if pass == 1 %}{{ block.shopify_attributes }}{% else %}aria-hidden="true"{% endif %}>
+                  {%- if block.settings.image != blank -%}
+                    <picture>
+                      {%- if block.settings.image_mobile != blank -%}
+                        <source media="(max-width: 749px)" srcset="{{ block.settings.image_mobile | image_url: width: 600 }}">
+                      {%- endif -%}
+                      <img
+                        src="{{ block.settings.image | image_url: width: 600 }}"
+                        alt="{% if pass == 1 %}{{ block.settings.image.alt | escape }}{% endif %}"
+                        width="300"
+                        height="350"
+                        loading="lazy"
+                      >
+                    </picture>
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+              {%- endfor -%}
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
       {%- endfor -%}
     </div>
   {%- endif -%}
@@ -164,7 +246,50 @@
       "max": 3,
       "step": 1,
       "label": "Columns (mobile)",
+      "info": "Used only when the mobile marquee below is off.",
       "default": 2
+    },
+    {
+      "type": "header",
+      "content": "Mobile marquee"
+    },
+    {
+      "type": "checkbox",
+      "id": "mobile_marquee",
+      "label": "Auto-scrolling marquee on mobile",
+      "info": "Below 750px, shows two rows of photos that scroll continuously in opposite directions instead of a static grid.",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "marquee_speed",
+      "min": 10,
+      "max": 120,
+      "step": 5,
+      "unit": "s",
+      "label": "Marquee loop duration",
+      "info": "Seconds for one full loop. Higher = slower.",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "marquee_item_width",
+      "min": 120,
+      "max": 320,
+      "step": 10,
+      "unit": "px",
+      "label": "Marquee photo width",
+      "default": 180
+    },
+    {
+      "type": "range",
+      "id": "marquee_row_gap",
+      "min": 0,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "label": "Marquee gap",
+      "default": 0
     },
     {
       "type": "range",
