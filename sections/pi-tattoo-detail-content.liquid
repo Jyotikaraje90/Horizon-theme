@@ -230,9 +230,75 @@
     .pi-tdc__right { width: 100%; }
   }
 
+  /* ─── Mobile: Figma 390 frame, 354 content (so 18px gutters) ───
+     Figma stacks: large image -> about block -> second image -> features.
+     The DOM has about + second image in one column and the large image +
+     features in the other, so `display: contents` lifts all four out of their
+     columns into .pi-tdc__inner, where `order` can interleave them. */
+  @media (max-width: 749px) {
+    .pi-tdc__inner { flex-direction: column; gap: 24px; }
+    .pi-tdc__left,
+    .pi-tdc__right { display: contents; }
+    .pi-tdc__right-img { order: 1; }
+    .pi-tdc__about    { order: 2; }
+    .pi-tdc__left-img { order: 3; }
+    .pi-tdc__features { order: 4; }
+
+    /* Content frame: Fill 354, gap 20 */
+    .pi-tdc__about { gap: 20px; }
+
+    /* Heading 22/29 medium; accent 3px wide, 29px tall, 15px before the text */
+    .pi-tdc__label { font-size: 22px; line-height: 29px; gap: 15px; }
+    .pi-tdc__label::before { width: 3px; height: 29px; }
+
+    /* Mobile Btn: Fill width, Hug 50px, stacked with the same 20px gap */
+    .pi-tdc__btns {
+      flex-direction: column;
+      align-self: stretch;
+      width: 100%;
+    }
+    .pi-tdc__btn {
+      width: 100%;
+      height: 50px;
+      align-self: stretch;
+    }
+
+    /* These images have torn top/bottom edges baked into the artwork, so forcing
+       them to a fixed ratio with object-fit:cover crops the edges off. Let each
+       image's own aspect ratio govern instead, and square off the corners —
+       Figma has no radius here, and a radius would clip the torn edge anyway.
+       (Figma's 354x317 / 354x391 frames are the artwork's own proportions, so
+       nothing needs forcing.) */
+    .pi-tdc__right-img,
+    .pi-tdc__left-img {
+      aspect-ratio: auto;
+      border-radius: 0;
+      background: none;
+    }
+    .pi-tdc__right-img img,
+    .pi-tdc__left-img img {
+      height: auto;
+      object-fit: contain;
+    }
+
+    /* Features — Figma mobile: Content frame gap 10, heading 18/23 semibold,
+       and both the bold label and its description at 16/26. */
+    .pi-tdc__features { gap: 10px; }
+    .pi-tdc__features-heading { font-size: 18px; line-height: 23px; }
+    .pi-tdc__feature {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .pi-tdc__feature-title {
+      font-size: 16px;
+      line-height: 26px;
+    }
+    .pi-tdc__feature-desc { font-size: 16px; }
+    .pi-tdc__feature::before { top: 10px; }
+  }
+
   @media (max-width: 600px) {
-    .pi-tdc__inner { padding-inline: 18px; gap: 32px; }
-    .pi-tdc__left { gap: 32px; }
+    .pi-tdc__inner { padding-inline: 18px; }
   }
 
   #shopify-section-{{ section.id }} {
