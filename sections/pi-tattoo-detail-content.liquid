@@ -7,6 +7,7 @@
     --pi-tdc-heading-color: {{ section.settings.heading_color }};
     --pi-tdc-text-color: {{ section.settings.text_color }};
     --pi-tdc-image-radius: {{ section.settings.image_radius }}px;
+    --pi-tdc-feature-size: {{ section.settings.feature_text_size | default: 20 }}px;
   }
 </style>
 
@@ -71,22 +72,27 @@
     text-align: left;
   }
 
+  /* Figma `Btn`: Hug width, Fixed 55px height, radius 8, padding 16/32,
+     16px/21 uppercase semibold, letter-spacing 0. border-box so the outlined
+     variant's 1px inner border doesn't push it past 55px. */
   .pi-tdc__btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     align-self: flex-start;
+    box-sizing: border-box;
     background: {{ section.settings.btn_bg }};
     color: {{ section.settings.btn_text }};
-    height: 50px;
-    padding: 14px 28px;
+    height: 55px;
+    padding: 16px 32px;
     border-radius: {{ section.settings.btn_radius }}px;
     text-decoration: none;
     text-transform: uppercase;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 14px;
+    font-size: 16px;
+    line-height: 21px;
     font-weight: 600;
-    letter-spacing: 0.04em;
+    letter-spacing: 0;
     white-space: nowrap;
     border: none;
     cursor: pointer;
@@ -95,6 +101,28 @@
   .pi-tdc__btn:hover {
     background: {{ section.settings.btn_hover_bg }};
     color: {{ section.settings.btn_hover_text }};
+  }
+
+  /* Button row — a second, outlined button sits beside the primary (Figma gap 20) */
+  .pi-tdc__btns {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-self: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  .pi-tdc__btn--outline {
+    background: transparent;
+    color: {{ section.settings.btn_outline_text }};
+    border: 1px solid {{ section.settings.btn_outline_border }};
+    font-weight: 700;
+  }
+
+  .pi-tdc__btn--outline:hover {
+    background: {{ section.settings.btn_outline_hover_bg }};
+    color: {{ section.settings.btn_outline_hover_text }};
+    border-color: {{ section.settings.btn_outline_hover_bg }};
   }
 
   .pi-tdc__left-img {
@@ -121,6 +149,11 @@
     overflow: hidden;
     background: #f3f3f3;
   }
+
+  /* display:contents so the <picture> wrapper (added for the mobile source)
+     doesn't become a layout box between the frame and the img */
+  .pi-tdc__left-img picture,
+  .pi-tdc__right-img picture { display: contents; }
 
   .pi-tdc__left-img img,
   .pi-tdc__right-img img,
@@ -161,7 +194,7 @@
     position: relative;
     padding-left: 22px;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 20px;
+    font-size: var(--pi-tdc-feature-size, 20px);
     line-height: 32px;
     font-weight: 400;
     color: var(--pi-tdc-text-color, #121212);
@@ -187,7 +220,7 @@
 
   .pi-tdc__feature-desc {
     font-weight: 400;
-    font-size: 20px;
+    font-size: var(--pi-tdc-feature-size, 20px);
   }
 
   /* ─── Responsive ───────────────────────────────── */
@@ -219,18 +252,30 @@
         {%- if section.settings.about_text != blank -%}
           <p class="pi-tdc__text">{{ section.settings.about_text }}</p>
         {%- endif -%}
-        {%- if section.settings.button_label != blank -%}
-          <a href="{{ section.settings.button_link }}" class="pi-tdc__btn">{{ section.settings.button_label }}</a>
+        {%- if section.settings.button_label != blank or section.settings.button2_label != blank -%}
+          <div class="pi-tdc__btns">
+            {%- if section.settings.button_label != blank -%}
+              <a href="{{ section.settings.button_link }}" class="pi-tdc__btn">{{ section.settings.button_label }}</a>
+            {%- endif -%}
+            {%- if section.settings.button2_label != blank -%}
+              <a href="{{ section.settings.button2_link }}" class="pi-tdc__btn pi-tdc__btn--outline">{{ section.settings.button2_label }}</a>
+            {%- endif -%}
+          </div>
         {%- endif -%}
       </div>
 
       <div class="pi-tdc__left-img">
         {%- if section.settings.left_image != blank -%}
-          <img
-            src="{{ section.settings.left_image | image_url: width: 1040 }}"
-            alt="{{ section.settings.left_image.alt | escape }}"
-            loading="lazy"
-          >
+          <picture>
+            {%- if section.settings.left_image_mobile != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ section.settings.left_image_mobile | image_url: width: 1040 }}">
+            {%- endif -%}
+            <img
+              src="{{ section.settings.left_image | image_url: width: 1040 }}"
+              alt="{{ section.settings.left_image.alt | escape }}"
+              loading="lazy"
+            >
+          </picture>
         {%- else -%}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
@@ -240,11 +285,16 @@
     <div class="pi-tdc__right">
       <div class="pi-tdc__right-img">
         {%- if section.settings.right_image != blank -%}
-          <img
-            src="{{ section.settings.right_image | image_url: width: 1860 }}"
-            alt="{{ section.settings.right_image.alt | escape }}"
-            loading="lazy"
-          >
+          <picture>
+            {%- if section.settings.right_image_mobile != blank -%}
+              <source media="(max-width: 749px)" srcset="{{ section.settings.right_image_mobile | image_url: width: 1240 }}">
+            {%- endif -%}
+            <img
+              src="{{ section.settings.right_image | image_url: width: 1860 }}"
+              alt="{{ section.settings.right_image.alt | escape }}"
+              loading="lazy"
+            >
+          </picture>
         {%- else -%}
           {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
@@ -306,9 +356,26 @@
       "label": "Button link"
     },
     {
+      "type": "text",
+      "id": "button2_label",
+      "label": "Secondary button label",
+      "info": "Optional. Renders as an outlined button beside the first one. Leave empty to show only one button."
+    },
+    {
+      "type": "url",
+      "id": "button2_link",
+      "label": "Secondary button link"
+    },
+    {
       "type": "image_picker",
       "id": "left_image",
-      "label": "Left column image"
+      "label": "Left column image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "left_image_mobile",
+      "label": "Left column image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
     },
     {
       "type": "header",
@@ -317,11 +384,28 @@
     {
       "type": "image_picker",
       "id": "right_image",
-      "label": "Right column large image"
+      "label": "Right column large image — Desktop"
+    },
+    {
+      "type": "image_picker",
+      "id": "right_image_mobile",
+      "label": "Right column large image — Mobile",
+      "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
     },
     {
       "type": "header",
       "content": "Features"
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature text size",
+      "info": "Lower this to keep long feature lines from wrapping. 20 = original.",
+      "default": 20
     },
     {
       "type": "text",
@@ -417,6 +501,34 @@
       "type": "color",
       "id": "btn_hover_text",
       "label": "Button hover text color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Secondary Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_text",
+      "label": "Secondary button text color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_border",
+      "label": "Secondary button border color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_hover_bg",
+      "label": "Secondary button hover background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_outline_hover_text",
+      "label": "Secondary button hover text color",
       "default": "#ffffff"
     },
     {

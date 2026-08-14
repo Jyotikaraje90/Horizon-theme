@@ -6,6 +6,7 @@
     --pi-tsg-pad-top: {{ section.settings.padding_top }}px;
     --pi-tsg-pad-bottom: {{ section.settings.padding_bottom }}px;
     --pi-tsg-bg: {{ section.settings.bg_color }};
+    --pi-tsg-max: {{ section.settings.content_width | default: 1500 }}px;
     --pi-tsg-heading-color: {{ section.settings.heading_color }};
     --pi-tsg-card-radius: {{ section.settings.card_radius }}px;
     --pi-tsg-card-title-size: {{ section.settings.card_title_size }}px;
@@ -31,7 +32,7 @@
   }
 
   .pi-tsg__inner {
-    max-width: 1500px;
+    max-width: var(--pi-tsg-max, 1500px);
     margin-inline: auto;
     padding-inline: 40px;
     box-sizing: border-box;
@@ -323,6 +324,17 @@
     {
       "type": "header",
       "content": "Grid & Pagination"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 1200,
+      "max": 1600,
+      "step": 20,
+      "unit": "px",
+      "label": "Content max width",
+      "info": "Container width incl. 40px side padding. 1580 = 360px cards at 4 columns.",
+      "default": 1500
     },
     {
       "type": "range",

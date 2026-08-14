@@ -9,6 +9,8 @@
     --pi-hiw-step-desc-color: {{ section.settings.step_desc_color }};
     --pi-hiw-icon-bg: {{ section.settings.icon_bg }};
     --pi-hiw-icon-color: {{ section.settings.icon_color }};
+    --pi-hiw-icon-img: {{ section.settings.icon_image_size | default: 100 }}px;
+    --pi-hiw-step-gap: {{ section.settings.step_gap | default: 20 }}px;
   }
 </style>
 
@@ -20,14 +22,14 @@
   }
 
   .pi-hiw__inner {
-    max-width: 1500px;
+    max-width: 1580px;
     margin-inline: auto;
     padding-inline: 40px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 60px;
+    gap: 50px;
   }
 
   .pi-hiw__heading {
@@ -41,16 +43,16 @@
     text-align: center;
   }
 
+  /* The columns are flex: 1 1 0, so this gap also sets how wide each one ends up
+     and therefore where the descriptions wrap. Figma's columns land near 430px
+     on a 1500px row, i.e. roughly a 100px gap — at 20px they nearly touch. */
   .pi-hiw__steps {
+    position: relative;
     display: flex;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
-    gap: 24px;
-  }
-
-  @media (min-width: 1100px) {
-    .pi-hiw__steps { gap: 56px; }
+    gap: var(--pi-hiw-step-gap, 20px);
   }
 
   .pi-hiw__step {
@@ -58,17 +60,33 @@
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 16px;
+    gap: 50px;
     flex: 1 1 0;
-    max-width: 320px;
+    max-width: 487px;
   }
 
+  /* Figma "Frame 18": title + description group, 10px gap */
+  .pi-hiw__step-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  /* Figma vector: 166.09 x 31.49, #000000. The first arrow arcs up beside the
+     icons; the second is mirrored into a valley and sits at the bottom of the
+     row, below the description, overhanging it slightly (as in the design).
+     Anchoring the second to the bottom keeps it correct when a description
+     runs to one line on one page and two on another. */
   .pi-hiw__arrow {
     display: none;
-    flex: 0 0 auto;
-    width: 166px;
-    height: 36px;
-    margin-top: 14px;
+    position: absolute;
+    z-index: 1;
+    width: 166.09px;
+    height: 31.49px;
+    left: calc(33.333% - 83px);
+    top: 24px;
     color: var(--pi-hiw-icon-color, #000000);
   }
 
@@ -79,13 +97,15 @@
   }
 
   .pi-hiw__arrow--flip {
-    margin-top: 188px;
+    left: calc(66.666% - 83px);
+    top: auto;
+    bottom: -14px;
     transform: scaleY(-1);
   }
 
   .pi-hiw__icon {
-    width: 108px;
-    height: 108px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     background: var(--pi-hiw-icon-bg, #f0f0f0);
     display: flex;
@@ -94,9 +114,32 @@
     flex-shrink: 0;
   }
 
+  /* display:contents so the <picture> wrapper (added for the mobile icon)
+     isn't the flex item instead of the img */
+  .pi-hiw__icon picture { display: contents; }
+
+  /* Icon size depends on how the asset was exported, so it's a setting:
+       - 100 for assets exported at the full circle size with the glyph already
+         centred in transparent padding (e.g. Nutrition.png, 100x100 with a 50px
+         glyph) — the img fills the circle and the glyph lands at 50px.
+       - 50 for tight exports of the glyph alone (e.g. Capa_1.png, 50x50). At 100
+         these would fill the circle edge to edge and the square's corners would
+         spill outside it, since a square only fits a 100px circle up to ~70px.
+     The inline-SVG fallbacks below are drawn tight to their viewBox and keep
+     their own 44px sizing. */
+  /* Figma constrains each glyph by HEIGHT and lets the width follow its own
+     aspect ratio, all centred in the 100px circle:
+       Capa_1  50 x 50    (top 25, left 25)
+       2 2     48.33 x 50 (top 25, left 26)
+       1 9     43.33 x 50 (top 25, left 28.5)
+     So height comes from the setting and width is auto — a square box would
+     letterbox the narrower glyphs instead of matching the design. Use 50 for
+     tight glyph exports; 100 for assets exported at the full circle size with
+     the glyph already centred in transparent padding (e.g. Nutrition.png). */
   .pi-hiw__icon img {
-    width: 44px;
-    height: 44px;
+    width: auto;
+    height: var(--pi-hiw-icon-img, 100px);
+    max-width: 100%;
     object-fit: contain;
     display: block;
   }
@@ -106,18 +149,19 @@
 
   .pi-hiw__step-title {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 19px;
-    font-weight: 700;
-    color: var(--pi-hiw-step-title-color, #000000);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
+    color: var(--pi-hiw-step-title-color, #121212);
     margin: 0;
   }
 
   .pi-hiw__step-desc {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 400;
-    line-height: 24px;
-    color: var(--pi-hiw-step-desc-color, #555555);
+    line-height: 26px;
+    color: var(--pi-hiw-step-desc-color, #121212);
     margin: 0;
   }
 
@@ -154,9 +198,26 @@
       <div class="pi-hiw__steps">
         {%- for block in steps -%}
           <div class="pi-hiw__step" {{ block.shopify_attributes }}>
-            <span class="pi-hiw__icon">
+            {%- comment -%}
+              Per-step height override, for when one step's icon was exported
+              differently from the others (a padded full-circle export needs 100
+              where a tight glyph export needs 50). 0 = inherit the section value.
+            {%- endcomment -%}
+            <span class="pi-hiw__icon"{% if block.settings.icon_height > 0 %} style="--pi-hiw-icon-img: {{ block.settings.icon_height }}px;"{% endif %}>
               {%- if block.settings.icon != blank -%}
-                <img src="{{ block.settings.icon | image_url: width: 68 }}" alt="" loading="lazy">
+                {%- comment -%}
+                  Request 300 rather than 68: the icon fills a 100px circle, so 68
+                  was downscaled then stretched back up. Shopify never upscales
+                  past the original, so this asks for the largest available — and
+                  will serve 2x/3x automatically if the PNGs are ever re-exported
+                  bigger, with no further code change.
+                {%- endcomment -%}
+                <picture>
+                  {%- if block.settings.icon_mobile != blank -%}
+                    <source media="(max-width: 749px)" srcset="{{ block.settings.icon_mobile | image_url: width: 300 }}">
+                  {%- endif -%}
+                  <img src="{{ block.settings.icon | image_url: width: 300 }}" alt="" loading="lazy">
+                </picture>
               {%- else -%}
                 {%- assign icon_slot = forloop.index0 | modulo: 3 -%}
                 {%- if icon_slot == 0 -%}
@@ -183,18 +244,29 @@
                 {%- endif -%}
               {%- endif -%}
             </span>
-            {%- if block.settings.title != blank -%}
-              <h4 class="pi-hiw__step-title">{{ block.settings.title }}</h4>
-            {%- endif -%}
-            {%- if block.settings.description != blank -%}
-              <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
+            {%- if block.settings.title != blank or block.settings.description != blank -%}
+              <div class="pi-hiw__step-text">
+                {%- if block.settings.title != blank -%}
+                  <h4 class="pi-hiw__step-title">{{ block.settings.title }}</h4>
+                {%- endif -%}
+                {%- if block.settings.description != blank -%}
+                  <p class="pi-hiw__step-desc">{{ block.settings.description }}</p>
+                {%- endif -%}
+              </div>
             {%- endif -%}
           </div>
           {%- unless forloop.last -%}
             <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
-              <svg viewBox="0 0 166 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 8Q85 32 150 12" stroke="currentColor" stroke-width="2" stroke-dasharray="5 6" stroke-linecap="round"/>
-                <path d="M138 4L152 12L138 20" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              {%- comment -%}
+                Figma vector 166.09 x 31.49. A cubic, not a quadratic: the arc has
+                to rise ~14 to its peak just left of centre, then fall ~27 into the
+                arrowhead, so it reads as bending over and coming down. The old
+                symmetric Q ended almost horizontal, which is why the head pointed
+                sideways. The head is angled to the curve's end tangent (~40 deg).
+              {%- endcomment -%}
+              <svg viewBox="0 0 166.09 31.49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 15 C 38 -6 118 -4 157 28" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+                <path d="M155 18 L157.6 28.4 L147 27.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
           {%- endunless -%}
@@ -269,6 +341,28 @@
       "default": "#000000"
     },
     {
+      "type": "range",
+      "id": "step_gap",
+      "min": 20,
+      "max": 160,
+      "step": 4,
+      "unit": "px",
+      "label": "Gap between steps",
+      "info": "Also controls how wide each step column is, so it changes where the descriptions wrap. Figma is about 100.",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "icon_image_size",
+      "min": 30,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Icon image height",
+      "info": "Glyph height inside the 100px circle; width follows the image's aspect ratio. Figma uses 50. Set 100 only for assets exported at the full circle size with the glyph already centred in transparent padding.",
+      "default": 100
+    },
+    {
       "type": "color",
       "id": "step_title_color",
       "label": "Step title color",
@@ -313,7 +407,24 @@
         {
           "type": "image_picker",
           "id": "icon",
-          "label": "Icon (optional)"
+          "label": "Icon (optional) — Desktop"
+        },
+        {
+          "type": "range",
+          "id": "icon_height",
+          "min": 0,
+          "max": 100,
+          "step": 2,
+          "unit": "px",
+          "label": "Icon height override",
+          "info": "0 = use the section's Icon image height. Set 100 if this one icon was exported at the full circle size with the glyph already centred in transparent padding.",
+          "default": 0
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_mobile",
+          "label": "Icon — Mobile",
+          "info": "Optional. Shown at ≤749px. If empty, the desktop icon is used."
         },
         {
           "type": "text",

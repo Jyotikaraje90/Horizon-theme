@@ -22,13 +22,14 @@
     "pi_ph_detail": {
       "type": "pi-page-hero",
       "settings": {
-        "heading": "Realistic Tattoos",
+        "heading": "Navel Piercing",
         "heading_size": 54,
         "tablet_heading_size": 40,
         "mobile_heading_size": 28,
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_scale": 1,
         "deco_opacity": 100,
         "margin_top": 0,
         "margin_bottom": 0
@@ -40,29 +41,29 @@
         "feature_1": {
           "type": "feature",
           "settings": {
-            "title": "High-Detail Shading",
-            "description": "Advanced shading and gradient techniques for a seamless, photo-realistic look."
+            "title": "Expert Precision",
+            "description": "Our trained professionals ensure an accurate and comfortable procedure."
           }
         },
         "feature_2": {
           "type": "feature",
           "settings": {
-            "title": "Custom & Personalized Designs",
-            "description": "Every tattoo is tailored to match your vision with unmatched precision."
+            "title": "Premium Jewelry Selection",
+            "description": "Choose from hypoallergenic titanium, gold, or surgical steel for safe healing."
           }
         },
         "feature_3": {
           "type": "feature",
           "settings": {
-            "title": "Expert Artists",
-            "description": "Our team specializes in hyper-realism, ensuring lifelike textures and depth in every piece."
+            "title": "Minimal Pain & Quick Healing",
+            "description": "Using sterile, needle-based techniques, we minimize discomfort and promote faster recovery."
           }
         },
         "feature_4": {
           "type": "feature",
           "settings": {
-            "title": "Long-Lasting & Fade-Resistant",
-            "description": "We use high-quality ink and meticulous craftsmanship to create tattoos that stand the test of time."
+            "title": "Customizable Options",
+            "description": "Whether you prefer a simple barbell, curved ring, or gemstone stud, we provide stylish, high-quality jewelry tailored to your preference."
           }
         }
       },
@@ -73,14 +74,16 @@
         "feature_4"
       ],
       "settings": {
-        "about_heading": "About Realistic Tattoos",
-        "about_text": "Realistic tattoos are a true form of artistic mastery, bringing depth, contrast, and intricate details to life on the skin. Whether it's a portrait, nature-inspired piece, or hyper-detailed design, our skilled artists use advanced shading techniques to create a stunningly lifelike effect. Every tattoo is crafted with precision and passion, ensuring a flawless, long-lasting masterpiece that tells your unique story.",
+        "about_heading": "About Navel Piercing",
+        "about_text": "Navel piercings are a timeless way to express style and individuality. Whether you prefer a minimalist stud or a statement ring, our expert piercers ensure a safe, precise, and professional experience. We use hypoallergenic jewelry and advanced sterilization techniques for a comfortable healing process. Elevate your look with a beautifully placed navel piercing that enhances your aesthetic with elegance.",
         "button_label": "Book Now",
         "button_link": "#shopify-section-pi_book_detail",
-        "left_image": "shopify://shop_images/Frame_1618872911.png",
-        "right_image": "shopify://shop_images/Frame_1618872905_3.png",
+        "button2_label": "View Jewelry Collection",
+        "button2_link": "/pages/shop-jewelry",
+        "left_image": "shopify://shop_images/Frame_1618872911_1.png",
+        "right_image": "shopify://shop_images/Frame_1618872905_1.png",
         "feature_text_size": 18,
-        "features_heading": "Realistic Tattoo Features",
+        "features_heading": "Navel Piercing Features",
         "padding_top": 80,
         "padding_bottom": 80,
         "bg_color": "#ffffff",
@@ -92,6 +95,10 @@
         "btn_radius": 8,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff",
+        "btn_outline_text": "#000000",
+        "btn_outline_border": "#000000",
+        "btn_outline_hover_bg": "#b49146",
+        "btn_outline_hover_text": "#ffffff",
         "margin_top": 0,
         "margin_bottom": 0
       }
@@ -160,25 +167,26 @@
         "step_1": {
           "type": "step",
           "settings": {
-            "icon": "shopify://shop_images/Nutrition.png",
-            "title": "Consultation & Design Preparation",
-            "description": "Discuss your ideas, choose the design, and finalize the perfect placement."
+            "icon": "shopify://shop_images/Capa_1.png",
+            "title": "Consultation & Jewelry Selection",
+            "description": "Discuss your piercing type, placement, and choose from our high-quality jewelry options."
           }
         },
         "step_2": {
           "type": "step",
           "settings": {
-            "icon": "shopify://shop_images/Digestion.png",
-            "title": "Tattooing Process",
-            "description": "Our artists bring your design to life with precision and high-quality ink."
+            "icon": "shopify://shop_images/2_2.png",
+            "title": "Piercing Process",
+            "description": "Our expert piercers use sterile, needle-based techniques for a safe and comfortable experience."
           }
         },
         "step_3": {
           "type": "step",
           "settings": {
             "icon": "shopify://shop_images/Metabolism.png",
+            "icon_height": 100,
             "title": "Aftercare & Healing",
-            "description": "Follow expert aftercare tips to ensure smooth healing and long-lasting vibrancy."
+            "description": "Follow our aftercare instructions to ensure proper healing and long-lasting results."
           }
         }
       },
@@ -196,6 +204,7 @@
         "heading_color": "#000000",
         "icon_bg": "#f0f0f0",
         "icon_color": "#000000",
+        "icon_image_size": 50,
         "step_title_color": "#121212",
         "step_desc_color": "#121212",
         "margin_top": 0,
@@ -208,61 +217,61 @@
         "photo_1": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_10_b7cf75f9-f22d-44b8-b525-d78f4a84f1a9.png"
+            "image": "shopify://shop_images/Mask_group_15.png"
           }
         },
         "photo_2": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_11_4788ddf0-d4a8-4c42-9bb1-ce0f27d1b40f.png"
+            "image": "shopify://shop_images/Mask_group_13.png"
           }
         },
         "photo_3": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_12_15b823b2-dd7f-43da-a383-1bce3c3268f7.png"
+            "image": "shopify://shop_images/Mask_group_20.png"
           }
         },
         "photo_4": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_13_ad07f491-f2e6-499f-a84d-b1ea1a7a9677.png"
+            "image": "shopify://shop_images/Mask_group_40.png"
           }
         },
         "photo_5": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_14_cd08516e-3af1-4afc-8309-7be1b8e38c31.png"
+            "image": "shopify://shop_images/Mask_group_22.png"
           }
         },
         "photo_6": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_15_f7efd942-be1d-44cb-ad73-74e933269301.png"
+            "image": "shopify://shop_images/Mask_group_26.png"
           }
         },
         "photo_7": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_16.png"
+            "image": "shopify://shop_images/Mask_group_41.png"
           }
         },
         "photo_8": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_17.png"
+            "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png"
           }
         },
         "photo_9": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_18.png"
+            "image": "shopify://shop_images/Mask_group_24.png"
           }
         },
         "photo_10": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_19.png"
+            "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png"
           }
         }
       },

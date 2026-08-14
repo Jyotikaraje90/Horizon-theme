@@ -141,7 +141,12 @@
     gap: var(--pi-pdp-thumb-gap);
     flex: 1.22 1 0;
     min-width: 0;
-    {% if section.settings.sticky_media %}position: sticky; top: {{ section.settings.sticky_offset }}px;{% endif %}
+    /* The sticky header overlays the page, so the gallery has to park below it
+       instead of behind it — otherwise the first thumbnail and the top of the
+       image get clipped. --pi-pdp-header-h is the measured height of whatever is
+       actually pinned at the top (set by the script below); --header-height is
+       the CSS fallback for the main header row alone. */
+    {% if section.settings.sticky_media %}position: sticky; top: calc({{ section.settings.sticky_offset }}px + var(--pi-pdp-header-h, var(--header-height, 0px)));{% endif %}
   }
   .pi-pdp__thumbs {
     display: flex;
@@ -488,22 +493,42 @@
     content: '';
     position: absolute;
     background: var(--pi-pdp-acc-icon-color);
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
   .pi-pdp__acc-icon::before { top: 7.5px; left: 0; width: 16px; height: 1.5px; }
   .pi-pdp__acc-icon::after  { left: 7.5px; top: 0; width: 1.5px; height: 16px; }
-  .pi-pdp__acc.is-open .pi-pdp__acc-icon::after { opacity: 0; }
+  /* + → − : the upright bar rotates into the horizontal one as it fades */
+  .pi-pdp__acc.is-open .pi-pdp__acc-icon::after { opacity: 0; transform: rotate(90deg); }
 
+  /* The panel animates via grid-template-rows 0fr → 1fr, which (unlike
+     display:none) is transitionable without measuring heights in JS. The inner
+     wrapper does the clipping; the padding lives on the content so it collapses
+     along with the height instead of leaving a gap when closed. */
   .pi-pdp__acc-panel {
-    display: none;
-    padding: 0 0 var(--pi-pdp-acc-row-padding);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
     font-family: {{ sans }};
     font-size: var(--pi-pdp-acc-text-size);
     font-weight: 400;
     line-height: {{ section.settings.acc_text_line_height }};
     color: var(--pi-pdp-acc-text-color);
   }
-  .pi-pdp__acc.is-open .pi-pdp__acc-panel { display: block; }
+  .pi-pdp__acc.is-open .pi-pdp__acc-panel { grid-template-rows: 1fr; }
+  .pi-pdp__acc-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .pi-pdp__acc.is-open .pi-pdp__acc-panel-inner { opacity: 1; }
+  .pi-pdp__acc-panel-content { padding: 0 0 var(--pi-pdp-acc-row-padding); }
+  @media (prefers-reduced-motion: reduce) {
+    .pi-pdp__acc-panel,
+    .pi-pdp__acc-panel-inner,
+    .pi-pdp__acc-icon::before,
+    .pi-pdp__acc-icon::after { transition: none; }
+  }
   .pi-pdp__acc-panel p { margin: 0 0 12px; }
   .pi-pdp__acc-panel p:last-child { margin-bottom: 0; }
   .pi-pdp__acc-panel ul,
@@ -556,24 +581,48 @@
     .pi-pdp__media {
       position: static;
       width: 100%;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
     }
+    /* Fill the container so the product content lines up with the sections
+       below it (You May Also Like et al.) instead of sitting inset. The media
+       keeps its cap so the image doesn't balloon at these widths. */
     .pi-pdp__info {
       width: 100%;
-      max-width: 680px;
-      margin-left: auto;
-      margin-right: auto;
       flex: 1 1 auto;
     }
+    /* Stacked, the stage spans the container, and 1:1 makes it as tall as it is
+       wide (~690px at 900). Hold the height down via the existing stage-height
+       cap — image_fit is `contain`, so the product just letterboxes, no crop. */
+    #shopify-section-{{ section.id }} { --pi-pdp-stage-height: 520px; }
   }
-  /* Phone: image on top, thumbnails in a centered row below. */
+  /* 481-749 keeps the thumbnail column beside the stage (as above 750 does), so
+     the stage gives up that width instead of filling the container and going
+     as tall as it is wide. */
   @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      --pi-pdp-pad-top: {{ section.settings.mobile_padding_top }}px;
+      --pi-pdp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
+      --pi-pdp-gutter: {{ section.settings.mobile_side_gutter }}px;
+      --pi-pdp-title-size: {{ section.settings.mobile_title_size }}px;
+      --pi-pdp-price-size: {{ section.settings.mobile_price_size }}px;
+      --pi-pdp-option-label-size: {{ section.settings.mobile_option_label_size }}px;
+      --pi-pdp-swatch-size: {{ section.settings.mobile_swatch_size }}px;
+      --pi-pdp-acc-heading-size: {{ section.settings.mobile_acc_heading_size }}px;
+    }
+  }
+
+  /* 601-749: keep the full container gutter. The sections below this one
+     (You May Also Like et al.) hold their 40px gutter down to 600px, so
+     dropping to the phone gutter at 749 made the side padding disagree. */
+  @media (min-width: 601px) and (max-width: 749px) {
+    #shopify-section-{{ section.id }} { --pi-pdp-gutter: {{ section.settings.side_gutter }}px; }
+  }
+
+  /* Phone: too narrow for a side column — image on top, thumbnails in a
+     centered row below. */
+  @media (max-width: 480px) {
     .pi-pdp__media {
       flex-direction: column-reverse;
       align-items: stretch;
-      max-width: 460px;
       gap: {{ section.settings.mobile_thumb_gap }}px;
     }
     .pi-pdp__thumbs {
@@ -589,16 +638,6 @@
       width: {{ section.settings.mobile_thumb_size }}px;
       height: {{ section.settings.mobile_thumb_size }}px;
       flex: 0 0 {{ section.settings.mobile_thumb_size }}px;
-    }
-    #shopify-section-{{ section.id }} {
-      --pi-pdp-pad-top: {{ section.settings.mobile_padding_top }}px;
-      --pi-pdp-pad-bottom: {{ section.settings.mobile_padding_bottom }}px;
-      --pi-pdp-gutter: {{ section.settings.mobile_side_gutter }}px;
-      --pi-pdp-title-size: {{ section.settings.mobile_title_size }}px;
-      --pi-pdp-price-size: {{ section.settings.mobile_price_size }}px;
-      --pi-pdp-option-label-size: {{ section.settings.mobile_option_label_size }}px;
-      --pi-pdp-swatch-size: {{ section.settings.mobile_swatch_size }}px;
-      --pi-pdp-acc-heading-size: {{ section.settings.mobile_acc_heading_size }}px;
     }
   }
 </style>
@@ -945,7 +984,11 @@
                   {{ section.settings.description_heading }}
                   <span class="pi-pdp__acc-icon" aria-hidden="true"></span>
                 </button>
-                <div class="pi-pdp__acc-panel">{{ p.description }}</div>
+                <div class="pi-pdp__acc-panel">
+                  <div class="pi-pdp__acc-panel-inner">
+                    <div class="pi-pdp__acc-panel-content">{{ p.description }}</div>
+                  </div>
+                </div>
               </div>
             {%- endif -%}
 
@@ -966,7 +1009,11 @@
                       {{ block.settings.heading }}
                       <span class="pi-pdp__acc-icon" aria-hidden="true"></span>
                     </button>
-                    <div class="pi-pdp__acc-panel">{{ panel_content }}</div>
+                    <div class="pi-pdp__acc-panel">
+                      <div class="pi-pdp__acc-panel-inner">
+                        <div class="pi-pdp__acc-panel-content">{{ panel_content }}</div>
+                      </div>
+                    </div>
                   </div>
                 {%- endif -%}
               {%- endif -%}
@@ -1027,6 +1074,35 @@
   var root = document.getElementById('pi-pdp-' + id);
   if (!root) return;
 
+  /* ── Sticky gallery offset ──
+     The header overlays the page and its stuck height isn't knowable from CSS
+     (--header-height covers the main row only, not the announcement row), so
+     measure whatever is actually pinned at the top and park the gallery below it. */
+  {%- if section.settings.sticky_media -%}
+  var headerEl = document.querySelector('#header-component') ||
+                 document.querySelector('.header-section') ||
+                 document.querySelector('#header-group');
+  if (headerEl) {
+    var lastOffset = -1;
+    var queued = false;
+    var applyHeaderOffset = function () {
+      queued = false;
+      var h = Math.round(Math.max(0, headerEl.getBoundingClientRect().bottom));
+      if (Math.abs(h - lastOffset) < 1) return;
+      lastOffset = h;
+      root.style.setProperty('--pi-pdp-header-h', h + 'px');
+    };
+    var scheduleHeaderOffset = function () {
+      if (queued) return;
+      queued = true;
+      window.requestAnimationFrame(applyHeaderOffset);
+    };
+    applyHeaderOffset();
+    window.addEventListener('scroll', scheduleHeaderOffset, { passive: true });
+    window.addEventListener('resize', scheduleHeaderOffset);
+  }
+  {%- endif -%}
+
   /* ── Gallery ── */
   var stage  = document.getElementById('pi-pdp-stage-' + id);
   var thumbs = Array.prototype.slice.call(root.querySelectorAll('.pi-pdp__thumb'));
@@ -1038,7 +1114,12 @@
     thumbs.forEach(function (t) { t.classList.toggle('is-active', t === btn); });
   }
   thumbs.forEach(function (btn) {
-    btn.addEventListener('click', function () { activateThumb(btn); });
+    btn.addEventListener('click', function () {
+      activateThumb(btn);
+      if (typeof syncOptionsToMedia === 'function') {
+        syncOptionsToMedia(btn.getAttribute('data-media-id'));
+      }
+    });
   });
 
   function showMedia(mediaId) {
@@ -1059,11 +1140,22 @@
   });
 
   /* ── Accordions ── */
-  root.querySelectorAll('.pi-pdp__acc-trigger').forEach(function (trigger) {
+  /* One panel open at a time: opening a row closes whichever was open, and both
+     animations run together off the same class change. */
+  var accItems = Array.prototype.slice.call(root.querySelectorAll('.pi-pdp__acc'));
+  accItems.forEach(function (item) {
+    var trigger = item.querySelector('.pi-pdp__acc-trigger');
+    if (!trigger) return;
     trigger.addEventListener('click', function () {
-      var item = trigger.parentElement;
-      var open = item.classList.toggle('is-open');
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var willOpen = !item.classList.contains('is-open');
+      accItems.forEach(function (other) {
+        if (other === item) return;
+        other.classList.remove('is-open');
+        var otherTrigger = other.querySelector('.pi-pdp__acc-trigger');
+        if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+      });
+      item.classList.toggle('is-open', willOpen);
+      trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
   });
 
@@ -1173,6 +1265,44 @@
       markAvailability();
       syncSelectedLabels();
     });
+  }
+
+  /* Clicking a gallery thumbnail selects the option values that image belongs to
+     (the gold photo selects Color: Gold). Options the image doesn't pin down —
+     size, when every size shares the photo — keep their current value. */
+  function syncOptionsToMedia(mediaId) {
+    if (!mediaId || !variants || !optionsWrap) return;
+    var owners = variants.filter(function (v) { return String(v.media_id) === String(mediaId); });
+    if (!owners.length) return;
+
+    var pinned = [];
+    var changed = false;
+    selected.forEach(function (val, i) {
+      var vals = [];
+      owners.forEach(function (v) { if (vals.indexOf(v.options[i]) === -1) vals.push(v.options[i]); });
+      if (vals.length !== 1) return;
+      pinned.push(i);
+      if (vals[0] !== val) { selected[i] = vals[0]; changed = true; }
+    });
+    if (!changed) return;
+
+    var match = findVariant(selected);
+    if (!match) {
+      /* Chosen size doesn't exist in that color — keep the color, relax the rest */
+      var relaxed = selected.map(function (o, i) { return pinned.indexOf(i) === -1 ? null : o; });
+      match = findVariant(relaxed);
+      if (match) selected = match.options.slice();
+    }
+    if (!match) return;
+
+    optionsWrap.querySelectorAll('.pi-pdp__swatch, .pi-pdp__pill').forEach(function (b) {
+      var bp = parseInt(b.getAttribute('data-option-position'), 10);
+      b.classList.toggle('is-selected', selected[bp - 1] === b.getAttribute('data-value'));
+    });
+
+    render(match);
+    markAvailability();
+    syncSelectedLabels();
   }
 
   markAvailability();

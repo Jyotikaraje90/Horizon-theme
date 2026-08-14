@@ -28,9 +28,7 @@
         "mobile_heading_size": 30,
         "heading_color": "#ffffff",
         "text_alignment": "center",
-        "background_image": "shopify://shop_images/About_Us.png",
         "bg_fallback_color": "#000000",
-        "overlay_opacity": 40,
         "deco_opacity": 100,
         "margin_top": 0,
         "margin_bottom": 0
