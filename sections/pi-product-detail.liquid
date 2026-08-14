@@ -493,22 +493,42 @@
     content: '';
     position: absolute;
     background: var(--pi-pdp-acc-icon-color);
-    transition: opacity 0.2s ease;
+    transition: opacity 0.25s ease, transform 0.25s ease;
   }
   .pi-pdp__acc-icon::before { top: 7.5px; left: 0; width: 16px; height: 1.5px; }
   .pi-pdp__acc-icon::after  { left: 7.5px; top: 0; width: 1.5px; height: 16px; }
-  .pi-pdp__acc.is-open .pi-pdp__acc-icon::after { opacity: 0; }
+  /* + → − : the upright bar rotates into the horizontal one as it fades */
+  .pi-pdp__acc.is-open .pi-pdp__acc-icon::after { opacity: 0; transform: rotate(90deg); }
 
+  /* The panel animates via grid-template-rows 0fr → 1fr, which (unlike
+     display:none) is transitionable without measuring heights in JS. The inner
+     wrapper does the clipping; the padding lives on the content so it collapses
+     along with the height instead of leaving a gap when closed. */
   .pi-pdp__acc-panel {
-    display: none;
-    padding: 0 0 var(--pi-pdp-acc-row-padding);
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
     font-family: {{ sans }};
     font-size: var(--pi-pdp-acc-text-size);
     font-weight: 400;
     line-height: {{ section.settings.acc_text_line_height }};
     color: var(--pi-pdp-acc-text-color);
   }
-  .pi-pdp__acc.is-open .pi-pdp__acc-panel { display: block; }
+  .pi-pdp__acc.is-open .pi-pdp__acc-panel { grid-template-rows: 1fr; }
+  .pi-pdp__acc-panel-inner {
+    overflow: hidden;
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .pi-pdp__acc.is-open .pi-pdp__acc-panel-inner { opacity: 1; }
+  .pi-pdp__acc-panel-content { padding: 0 0 var(--pi-pdp-acc-row-padding); }
+  @media (prefers-reduced-motion: reduce) {
+    .pi-pdp__acc-panel,
+    .pi-pdp__acc-panel-inner,
+    .pi-pdp__acc-icon::before,
+    .pi-pdp__acc-icon::after { transition: none; }
+  }
   .pi-pdp__acc-panel p { margin: 0 0 12px; }
   .pi-pdp__acc-panel p:last-child { margin-bottom: 0; }
   .pi-pdp__acc-panel ul,
@@ -954,7 +974,11 @@
                   {{ section.settings.description_heading }}
                   <span class="pi-pdp__acc-icon" aria-hidden="true"></span>
                 </button>
-                <div class="pi-pdp__acc-panel">{{ p.description }}</div>
+                <div class="pi-pdp__acc-panel">
+                  <div class="pi-pdp__acc-panel-inner">
+                    <div class="pi-pdp__acc-panel-content">{{ p.description }}</div>
+                  </div>
+                </div>
               </div>
             {%- endif -%}
 
@@ -975,7 +999,11 @@
                       {{ block.settings.heading }}
                       <span class="pi-pdp__acc-icon" aria-hidden="true"></span>
                     </button>
-                    <div class="pi-pdp__acc-panel">{{ panel_content }}</div>
+                    <div class="pi-pdp__acc-panel">
+                      <div class="pi-pdp__acc-panel-inner">
+                        <div class="pi-pdp__acc-panel-content">{{ panel_content }}</div>
+                      </div>
+                    </div>
                   </div>
                 {%- endif -%}
               {%- endif -%}
@@ -1102,11 +1130,22 @@
   });
 
   /* ── Accordions ── */
-  root.querySelectorAll('.pi-pdp__acc-trigger').forEach(function (trigger) {
+  /* One panel open at a time: opening a row closes whichever was open, and both
+     animations run together off the same class change. */
+  var accItems = Array.prototype.slice.call(root.querySelectorAll('.pi-pdp__acc'));
+  accItems.forEach(function (item) {
+    var trigger = item.querySelector('.pi-pdp__acc-trigger');
+    if (!trigger) return;
     trigger.addEventListener('click', function () {
-      var item = trigger.parentElement;
-      var open = item.classList.toggle('is-open');
-      trigger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      var willOpen = !item.classList.contains('is-open');
+      accItems.forEach(function (other) {
+        if (other === item) return;
+        other.classList.remove('is-open');
+        var otherTrigger = other.querySelector('.pi-pdp__acc-trigger');
+        if (otherTrigger) otherTrigger.setAttribute('aria-expanded', 'false');
+      });
+      item.classList.toggle('is-open', willOpen);
+      trigger.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
     });
   });
 
