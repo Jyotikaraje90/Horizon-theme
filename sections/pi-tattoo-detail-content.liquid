@@ -7,6 +7,7 @@
     --pi-tdc-heading-color: {{ section.settings.heading_color }};
     --pi-tdc-text-color: {{ section.settings.text_color }};
     --pi-tdc-image-radius: {{ section.settings.image_radius }}px;
+    --pi-tdc-feature-size: {{ section.settings.feature_text_size | default: 20 }}px;
   }
 </style>
 
@@ -202,7 +203,7 @@
     position: relative;
     padding-left: 22px;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 20px;
+    font-size: var(--pi-tdc-feature-size, 20px);
     line-height: 32px;
     font-weight: 400;
     color: var(--pi-tdc-text-color, #121212);
@@ -228,7 +229,7 @@
 
   .pi-tdc__feature-desc {
     font-weight: 400;
-    font-size: 20px;
+    font-size: var(--pi-tdc-feature-size, 20px);
   }
 
   /* ─── Responsive ───────────────────────────────── */
@@ -403,6 +404,17 @@
     {
       "type": "header",
       "content": "Features"
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "min": 14,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "label": "Feature text size",
+      "info": "Lower this to keep long feature lines from wrapping. 20 = original.",
+      "default": 20
     },
     {
       "type": "text",
