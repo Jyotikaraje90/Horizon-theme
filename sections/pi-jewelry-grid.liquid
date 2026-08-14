@@ -165,6 +165,12 @@
     line-height: 21px;
   }
   .pi-jg__card-atc-btn:hover { border-bottom-color: #b49146; color: #b49146; }
+  /* Sold out: same slot, no affordance — it isn't a button */
+  .pi-jg__card-atc-btn--sold-out {
+    cursor: default;
+    opacity: 0.45;
+  }
+  .pi-jg__card-atc-btn--sold-out:hover { border-bottom-color: #000000; color: #000000; }
 
   /* ── Pagination (matches pi-tattoo-services-grid) ── */
   .pi-jg__card.is-hidden { display: none; }
@@ -321,12 +327,16 @@
                   {%- endif -%}
                 </p>
                 <div class="pi-jg__card-atc">
-                  {%- assign atc_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
-                  <form action="/cart/add" method="post" enctype="multipart/form-data">
-                    <input type="hidden" name="id" value="{{ atc_variant.id }}">
-                    <input type="hidden" name="quantity" value="1">
-                    <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
-                  </form>
+                  {%- if product.available -%}
+                    {%- assign atc_variant = product.selected_or_first_available_variant | default: product.variants.first -%}
+                    <form action="/cart/add" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="id" value="{{ atc_variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
+                    </form>
+                  {%- else -%}
+                    <span class="pi-jg__card-atc-btn pi-jg__card-atc-btn--sold-out">Out of Stock</span>
+                  {%- endif -%}
                 </div>
               </div>
 

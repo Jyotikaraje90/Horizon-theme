@@ -163,6 +163,12 @@
     line-height: 21px;
   }
   .pyml__card-atc-btn:hover { border-bottom-color: #b49146; color: #b49146; }
+  /* Sold out: same slot, no affordance — it isn't a button */
+  .pyml__card-atc-btn--sold-out {
+    cursor: default;
+    opacity: 0.45;
+  }
+  .pyml__card-atc-btn--sold-out:hover { border-bottom-color: #000000; color: #000000; }
 
   .pyml__empty {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
@@ -245,12 +251,16 @@
                 {%- endif -%}
               </p>
               <div class="pyml__card-atc">
-                {%- assign atc_variant = card_product.selected_or_first_available_variant | default: card_product.variants.first -%}
-                <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
-                  <input type="hidden" name="id" value="{{ atc_variant.id }}">
-                  <input type="hidden" name="quantity" value="1">
-                  <button type="submit" class="pyml__card-atc-btn">{{ section.settings.atc_label }}</button>
-                </form>
+                {%- if card_product.available -%}
+                  {%- assign atc_variant = card_product.selected_or_first_available_variant | default: card_product.variants.first -%}
+                  <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="id" value="{{ atc_variant.id }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <button type="submit" class="pyml__card-atc-btn">{{ section.settings.atc_label }}</button>
+                  </form>
+                {%- else -%}
+                  <span class="pyml__card-atc-btn pyml__card-atc-btn--sold-out">Out of Stock</span>
+                {%- endif -%}
               </div>
             </div>
           </div>
