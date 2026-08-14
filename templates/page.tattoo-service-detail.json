@@ -79,6 +79,7 @@
         "button_link": "#shopify-section-pi_book_detail",
         "left_image": "shopify://shop_images/Frame_1618872911.png",
         "right_image": "shopify://shop_images/Frame_1618872905_3.png",
+        "feature_text_size": 18,
         "features_heading": "Realistic Tattoo Features",
         "padding_top": 80,
         "padding_bottom": 80,
