@@ -29,6 +29,7 @@
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_scale": 1,
         "deco_opacity": 100,
         "margin_top": 0,
         "margin_bottom": 0
@@ -77,8 +78,9 @@
         "about_text": "Navel piercings are a timeless way to express style and individuality. Whether you prefer a minimalist stud or a statement ring, our expert piercers ensure a safe, precise, and professional experience. We use hypoallergenic jewelry and advanced sterilization techniques for a comfortable healing process. Elevate your look with a beautifully placed navel piercing that enhances your aesthetic with elegance.",
         "button_label": "Book Now",
         "button_link": "#shopify-section-pi_book_detail",
-        "left_image": "",
-        "right_image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png",
+        "button2_label": "",
+        "button2_link": "",
+        "right_image": "shopify://shop_images/Frame_1618872905_1.png",
         "features_heading": "Navel Piercing Features",
         "padding_top": 80,
         "padding_bottom": 80,
@@ -91,6 +93,10 @@
         "btn_radius": 8,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff",
+        "btn_outline_text": "#000000",
+        "btn_outline_border": "#000000",
+        "btn_outline_hover_bg": "#b49146",
+        "btn_outline_hover_text": "#ffffff",
         "margin_top": 0,
         "margin_bottom": 0
       }
