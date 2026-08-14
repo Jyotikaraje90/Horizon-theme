@@ -69,14 +69,19 @@
     width: 100%;
   }
 
+  /* Figma vector: 166.09 x 31.49, #000000. The first arrow arcs up beside the
+     icons; the second is mirrored into a valley and sits at the bottom of the
+     row, below the description, overhanging it slightly (as in the design).
+     Anchoring the second to the bottom keeps it correct when a description
+     runs to one line on one page and two on another. */
   .pi-hiw__arrow {
     display: none;
     position: absolute;
     z-index: 1;
-    width: 166px;
-    height: 40px;
+    width: 166.09px;
+    height: 31.49px;
     left: calc(33.333% - 83px);
-    top: 26px;
+    top: 24px;
     color: var(--pi-hiw-icon-color, #000000);
   }
 
@@ -88,7 +93,8 @@
 
   .pi-hiw__arrow--flip {
     left: calc(66.666% - 83px);
-    top: 95px;
+    top: auto;
+    bottom: -14px;
     transform: scaleY(-1);
   }
 
@@ -215,9 +221,9 @@
           </div>
           {%- unless forloop.last -%}
             <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
-              <svg viewBox="0 0 166 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 36 Q83 1 152 29" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
-                <path d="M140 21 L153 30 L140 37" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <svg viewBox="0 0 166.09 31.49" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6 28.3 Q83 0.8 152 22.8" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+                <path d="M140 16.5 L153 23.6 L140 29.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
           {%- endunless -%}
