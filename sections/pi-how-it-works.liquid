@@ -175,10 +175,11 @@
   }
 
   /* ─── Mobile: horizontal swipe scroller (Figma 390 frame) ───
-     Figma's scroll track is 1102 = 3 steps x 354 + 2 x 20 gaps, so the arrows
-     occupy only the 20px gap and their artwork overflows across it rather than
-     taking track space. A step is exactly the 354 content width, so
-     flex-basis:100% of the padded scroll container gives 354 at 390. */
+     The arrow is a real 105.48px flex item between the steps. An earlier version
+     squeezed it into a 20px box and let the artwork overflow (to match Figma's
+     1102px track exactly) but overflow inside an overflow-x:auto scroller is not
+     dependable — it rendered as a hairline sliver. Giving it its true width costs
+     a little track length and makes it reliably visible. */
   @media (max-width: 749px) {
     .pi-hiw__inner { gap: 30px; }
 
@@ -196,16 +197,13 @@
       -webkit-overflow-scrolling: touch;
       scrollbar-width: none;
       -ms-overflow-style: none;
-      /* Bleed out to the viewport edges, then re-inset so the scroll container's
-         content box equals the 354 step width and centre-snap leaves the gutter */
-      margin-inline: calc(var(--pi-hiw-mobile-gutter, 24px) * -1);
-      padding-inline: var(--pi-hiw-mobile-gutter, 24px);
     }
     .pi-hiw__steps::-webkit-scrollbar { display: none; }
 
-    /* div: Fixed 354, Hug 157, gap 20 */
+    /* Step: Figma gap 20 between icon and text. 80% rather than the full width so
+       a clear slice of the connector arrow shows beside the centred step. */
     .pi-hiw__step {
-      flex: 0 0 100%;
+      flex: 0 0 80%;
       max-width: none;
       gap: 20px;
       scroll-snap-align: center;
@@ -222,15 +220,14 @@
     .pi-hiw__step-title { font-size: 18px; line-height: 23px; }
     .pi-hiw__step-desc  { font-size: 14px; line-height: 22px; }
 
-    /* Arrow vector 105.48 x 20 — same 5.27 ratio as desktop, so the viewBox
-       scales cleanly. It fills the 20px gap and overflows evenly either side. */
+    /* Arrow vector 105.48 x 20 — the same 5.27 ratio as the desktop
+       166.09 x 31.49, so the viewBox scales without distortion. */
     .pi-hiw__arrow {
       display: block;
       position: static;
-      flex: 0 0 20px;
-      width: 20px;
+      flex: 0 0 105.48px;
+      width: 105.48px;
       height: 20px;
-      overflow: visible;
       align-self: flex-start;
       /* Vertical centre of the 60px circle */
       margin-top: 20px;
@@ -238,7 +235,6 @@
     .pi-hiw__arrow svg {
       width: 105.48px;
       height: 20px;
-      margin-left: -42.74px;
     }
 
     /* 105.48/166.09 scales the viewBox to 0.635, which would also scale the
@@ -250,8 +246,9 @@
     .pi-hiw__arrow-curve { stroke-dasharray: 9.45 11; }
   }
 
+  /* Figma mobile gutter is 18px (390 frame, 354 content) */
   @media (max-width: 600px) {
-    .pi-hiw__steps { --pi-hiw-mobile-gutter: 18px; }
+    .pi-hiw__inner { padding-inline: 18px; }
   }
 
   #shopify-section-{{ section.id }} {
