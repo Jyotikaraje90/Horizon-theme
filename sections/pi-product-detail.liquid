@@ -562,6 +562,10 @@
       position: static;
       width: 100%;
     }
+    /* Now that the gallery spans the container, a 1:1 stage makes it as tall as
+       it is wide. Landscape keeps the height sensible; image_fit is `contain`,
+       so the product just letterboxes inside the tile — nothing gets cropped. */
+    .pi-pdp__stage { aspect-ratio: 4 / 3; }
     /* Fill the container so the product content lines up with the sections
        below it (You May Also Like et al.) instead of sitting inset. The media
        keeps its cap so the image doesn't balloon at these widths. */
