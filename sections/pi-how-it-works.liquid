@@ -123,11 +123,19 @@
          spill outside it, since a square only fits a 100px circle up to ~70px.
      The inline-SVG fallbacks below are drawn tight to their viewBox and keep
      their own 44px sizing. */
+  /* Figma constrains each glyph by HEIGHT and lets the width follow its own
+     aspect ratio, all centred in the 100px circle:
+       Capa_1  50 x 50    (top 25, left 25)
+       2 2     48.33 x 50 (top 25, left 26)
+       1 9     43.33 x 50 (top 25, left 28.5)
+     So height comes from the setting and width is auto — a square box would
+     letterbox the narrower glyphs instead of matching the design. Use 50 for
+     tight glyph exports; 100 for assets exported at the full circle size with
+     the glyph already centred in transparent padding (e.g. Nutrition.png). */
   .pi-hiw__icon img {
-    width: var(--pi-hiw-icon-img, 100px);
+    width: auto;
     height: var(--pi-hiw-icon-img, 100px);
     max-width: 100%;
-    max-height: 100%;
     object-fit: contain;
     display: block;
   }
@@ -330,8 +338,8 @@
       "max": 100,
       "step": 2,
       "unit": "px",
-      "label": "Icon image size",
-      "info": "Inside the 100px circle. Use 100 for icons exported at the full circle size with built-in padding; use 50 for tight exports of the glyph alone (anything above ~70 will spill past the circle).",
+      "label": "Icon image height",
+      "info": "Glyph height inside the 100px circle; width follows the image's aspect ratio. Figma uses 50. Set 100 only for assets exported at the full circle size with the glyph already centred in transparent padding.",
       "default": 100
     },
     {
