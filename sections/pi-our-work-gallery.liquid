@@ -105,6 +105,14 @@
       will-change: transform;
     }
 
+    /* Both rows run the same direction, so without an offset they'd move in
+       perfect lockstep and read as one sliding block. A negative delay starts
+       row 2 part-way through the same loop — it's already mid-animation on load,
+       so nothing waits and the loop stays seamless. */
+    .pi-owg__row--2 {
+      animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
+    }
+
     /* Figma Mask group is 195x215, so the marquee cell is slightly less tall
        than the desktop grid's 6/7. Fixed width because the track is
        width:max-content — percentages would have nothing to resolve against. */
@@ -282,6 +290,17 @@
       "label": "Marquee photo width",
       "info": "Figma is 195 (each photo 195x215).",
       "default": 195
+    },
+    {
+      "type": "range",
+      "id": "marquee_row2_offset",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Second row offset",
+      "info": "Shifts row 2 along its loop so the two rows don't move in lockstep. 0 = perfectly aligned.",
+      "default": 35
     },
     {
       "type": "range",
