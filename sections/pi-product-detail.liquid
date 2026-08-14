@@ -1039,7 +1039,12 @@
     thumbs.forEach(function (t) { t.classList.toggle('is-active', t === btn); });
   }
   thumbs.forEach(function (btn) {
-    btn.addEventListener('click', function () { activateThumb(btn); });
+    btn.addEventListener('click', function () {
+      activateThumb(btn);
+      if (typeof syncOptionsToMedia === 'function') {
+        syncOptionsToMedia(btn.getAttribute('data-media-id'));
+      }
+    });
   });
 
   function showMedia(mediaId) {
@@ -1174,6 +1179,44 @@
       markAvailability();
       syncSelectedLabels();
     });
+  }
+
+  /* Clicking a gallery thumbnail selects the option values that image belongs to
+     (the gold photo selects Color: Gold). Options the image doesn't pin down —
+     size, when every size shares the photo — keep their current value. */
+  function syncOptionsToMedia(mediaId) {
+    if (!mediaId || !variants || !optionsWrap) return;
+    var owners = variants.filter(function (v) { return String(v.media_id) === String(mediaId); });
+    if (!owners.length) return;
+
+    var pinned = [];
+    var changed = false;
+    selected.forEach(function (val, i) {
+      var vals = [];
+      owners.forEach(function (v) { if (vals.indexOf(v.options[i]) === -1) vals.push(v.options[i]); });
+      if (vals.length !== 1) return;
+      pinned.push(i);
+      if (vals[0] !== val) { selected[i] = vals[0]; changed = true; }
+    });
+    if (!changed) return;
+
+    var match = findVariant(selected);
+    if (!match) {
+      /* Chosen size doesn't exist in that color — keep the color, relax the rest */
+      var relaxed = selected.map(function (o, i) { return pinned.indexOf(i) === -1 ? null : o; });
+      match = findVariant(relaxed);
+      if (match) selected = match.options.slice();
+    }
+    if (!match) return;
+
+    optionsWrap.querySelectorAll('.pi-pdp__swatch, .pi-pdp__pill').forEach(function (b) {
+      var bp = parseInt(b.getAttribute('data-option-position'), 10);
+      b.classList.toggle('is-selected', selected[bp - 1] === b.getAttribute('data-value'));
+    });
+
+    render(match);
+    markAvailability();
+    syncSelectedLabels();
   }
 
   markAvailability();
