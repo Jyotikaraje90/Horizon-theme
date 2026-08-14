@@ -230,9 +230,46 @@
     .pi-tdc__right { width: 100%; }
   }
 
+  /* ─── Mobile: Figma 390 frame, 354 content (so 18px gutters) ───
+     Figma stacks: large image -> about block -> second image -> features.
+     The DOM has about + second image in one column and the large image +
+     features in the other, so `display: contents` lifts all four out of their
+     columns into .pi-tdc__inner, where `order` can interleave them. */
+  @media (max-width: 749px) {
+    .pi-tdc__inner { flex-direction: column; gap: 24px; }
+    .pi-tdc__left,
+    .pi-tdc__right { display: contents; }
+    .pi-tdc__right-img { order: 1; }
+    .pi-tdc__about    { order: 2; }
+    .pi-tdc__left-img { order: 3; }
+    .pi-tdc__features { order: 4; }
+
+    /* Content frame: Fill 354, gap 20 */
+    .pi-tdc__about { gap: 20px; }
+
+    /* Heading 22/29 medium; accent 3px wide, 29px tall, 15px before the text */
+    .pi-tdc__label { font-size: 22px; line-height: 29px; gap: 15px; }
+    .pi-tdc__label::before { width: 3px; height: 29px; }
+
+    /* Mobile Btn: Fill width, Hug 50px, stacked with the same 20px gap */
+    .pi-tdc__btns {
+      flex-direction: column;
+      align-self: stretch;
+      width: 100%;
+    }
+    .pi-tdc__btn {
+      width: 100%;
+      height: 50px;
+      align-self: stretch;
+    }
+
+    /* Image frames 354x317 and 354x391 */
+    .pi-tdc__right-img { aspect-ratio: 354 / 317; }
+    .pi-tdc__left-img  { aspect-ratio: 354 / 391; }
+  }
+
   @media (max-width: 600px) {
-    .pi-tdc__inner { padding-inline: 18px; gap: 32px; }
-    .pi-tdc__left { gap: 32px; }
+    .pi-tdc__inner { padding-inline: 18px; }
   }
 
   #shopify-section-{{ section.id }} {
