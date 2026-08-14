@@ -221,9 +221,16 @@
           </div>
           {%- unless forloop.last -%}
             <div class="pi-hiw__arrow{% if forloop.index0 == 1 %} pi-hiw__arrow--flip{% endif %}" aria-hidden="true">
+              {%- comment -%}
+                Figma vector 166.09 x 31.49. A cubic, not a quadratic: the arc has
+                to rise ~14 to its peak just left of centre, then fall ~27 into the
+                arrowhead, so it reads as bending over and coming down. The old
+                symmetric Q ended almost horizontal, which is why the head pointed
+                sideways. The head is angled to the curve's end tangent (~40 deg).
+              {%- endcomment -%}
               <svg viewBox="0 0 166.09 31.49" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M6 28.3 Q83 0.8 152 22.8" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
-                <path d="M140 16.5 L153 23.6 L140 29.1" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M4 15 C 38 -6 118 -4 157 28" stroke="currentColor" stroke-width="2" stroke-dasharray="6 7" stroke-linecap="round"/>
+                <path d="M155 18 L157.6 28.4 L147 27.8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </div>
           {%- endunless -%}
