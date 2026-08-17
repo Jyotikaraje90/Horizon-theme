@@ -69,6 +69,12 @@
 
   .pi-pc > *:first-child { margin-top: 0; }
 
+  /* Lines that belong to the block above them rather than starting a new one,
+     e.g. the email and postal address under "Contact Us". Figma sets the first
+     10px below its lead-in and 5px between the lines themselves. */
+  .pi-pc > p.pi-pc__tight { margin-top: 10px; }
+  .pi-pc > p.pi-pc__tight + p.pi-pc__tight { margin-top: 5px; }
+
   .pi-pc li {
     font-weight: 400;
     font-size: {{ section.settings.body_size }}px;
