@@ -26,17 +26,18 @@
   }
 
   .pi-bd__back-icon {
-    width: 8px;
-    height: 13px;
+    width: 7.81px;
+    height: 12.61px;
     flex-shrink: 0;
     color: #000000;
   }
 
   .pi-bd__back-text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-weight: 600;
+    font-weight: 400;
     font-size: 16px;
     line-height: 26px;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: #000000;
   }
@@ -251,7 +252,7 @@
 
   <a href="{{ section.settings.back_link | default: '/pages/blogs' }}" class="pi-bd__back">
     <svg class="pi-bd__back-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
     <span class="pi-bd__back-text">{{ section.settings.back_label | default: 'Back To Blogs' }}</span>
   </a>
