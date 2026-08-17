@@ -60,12 +60,17 @@
     margin-top: 30px;
   }
 
-  /* A list belongs to the copy above it, so it sits closer than a new block. */
+  /* A list belongs to the copy above it, so it sits closer than a new block —
+     as does a closing line that trails the list, e.g. "Violations may result
+     in account termination and legal action." */
   .pi-pc > ul,
   .pi-pc > ol {
     margin-top: 10px;
     padding-left: 22px;
   }
+
+  .pi-pc > ul + p,
+  .pi-pc > ol + p { margin-top: 10px; }
 
   .pi-pc > *:first-child { margin-top: 0; }
 

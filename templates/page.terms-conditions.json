@@ -1,0 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_terms": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Terms & Conditions",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 30,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_policy_terms": {
+      "type": "pi-policy-content",
+      "settings": {
+        "content_width": 930,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_size": 34,
+        "subheading_size": 20,
+        "body_size": 18,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "body_color": "#333333"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_terms",
+    "pi_policy_terms"
+  ]
+}
