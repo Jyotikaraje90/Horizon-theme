@@ -225,8 +225,13 @@
      alpha channel, which reads far rounder than the Figma crop. Overflow the
      image past this frame to clip the baked corner off, then re-cut it here at
      the size the design asks for. */
+  /* The Figma width is an upper bound, not a fixed size: capped at 45% of the
+     row so the copy beside it always keeps the majority of the column, however
+     narrow the viewport gets. */
   .pi-bd__split-media {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 45%;
     overflow: hidden;
     border-radius: 8px;
     line-height: 0;
@@ -316,7 +321,8 @@
   }
 
   .pi-bd__sidebar {
-    flex: 0 0 407px;
+    flex: 0 1 407px;
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -425,9 +431,10 @@
   }
 
   /* ── Responsive ──────────────────────────────────── */
-  /* Below the point where 1063 + 30 + 407 still fits comfortably, the sidebar
-     drops under the article rather than squeezing the hero image. */
-  @media (max-width: 989px) {
+  /* The row needs 1063 + 30 + 407 plus padding — about 1580px — to hold its
+     Figma proportions. Below 1200 the article column is squeezed harder than
+     the copy can take, so the sidebar drops underneath instead. */
+  @media (max-width: 1199px) {
     #shopify-section-{{ section.id }} {
       padding-left: 30px;
       padding-right: 30px;
@@ -440,6 +447,7 @@
     .pi-bd__sidebar {
       flex: none;
       width: 100%;
+      min-width: 0;
     }
 
     .pi-bd__next-heading {
@@ -492,7 +500,7 @@
 
     .pi-bd__split--right { flex-direction: column-reverse; }
 
-    .pi-bd__split-media { width: 100% !important; }
+    .pi-bd__split-media { width: 100% !important; max-width: 100%; }
     .pi-bd__split-text { gap: 14px; }
 
     .pi-bd__quote { padding: 20px; gap: 14px; }
