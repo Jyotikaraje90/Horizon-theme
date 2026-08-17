@@ -99,15 +99,14 @@
   }
 
   .pi-contact-us__row {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
     gap: 20px;
     width: 100%;
   }
 
   .pi-contact-us__row > * {
-    flex: 1 1 0%;
     min-width: 0;
     box-sizing: border-box;
   }
@@ -135,8 +134,8 @@
 
   .pi-contact-us__select-wrap {
     position: relative;
-    flex: 1;
     min-width: 0;
+    width: 100%;
   }
 
   .pi-contact-us__select {
