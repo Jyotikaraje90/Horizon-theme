@@ -43,6 +43,7 @@
         "blog_3": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/image_90.png",
             "blog_date": "Feb 26, 2025",
             "blog_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
             "blog_link": ""
