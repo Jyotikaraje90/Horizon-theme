@@ -12,12 +12,23 @@
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
   }
 
-  /* thumb | details | quantity + remove | line total */
+  /* [thumb + details] ... [quantity + remove] ... [line total], spread with
+     space-between exactly as the Figma frame does. The details hug their text
+     rather than stretching, which is what keeps the controls off the far right. */
   .pi-cart__row {
-    display: grid;
-    grid-template-columns: 110px minmax(0, 1fr) auto minmax(120px, 150px);
-    column-gap: 50px;
+    display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    gap: 30px;
+  }
+
+  .pi-cart__product {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 50px;
+    min-width: 0;
   }
 
   /* ── Column headings ─────────────────────────────── */
@@ -36,9 +47,7 @@
     margin: 0;
   }
 
-  /* The heading row only fills the first and last columns. */
-  .pi-cart__head .pi-cart__head-label:first-child { grid-column: 1 / 3; }
-  .pi-cart__head .pi-cart__head-label:last-child { grid-column: 4; text-align: right; }
+  .pi-cart__head .pi-cart__head-label:last-child { text-align: right; }
 
   /* ── Line items ──────────────────────────────────── */
   .pi-cart__item {
@@ -61,10 +70,11 @@
     display: block;
   }
 
+  /* Figma: 12px under the title, then 5px between the option lines. */
   .pi-cart__details {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 5px;
     min-width: 0;
   }
 
@@ -77,6 +87,7 @@
     text-decoration: none;
   }
 
+  .pi-cart__title { margin-bottom: 7px; }
   .pi-cart__title:hover { color: {{ section.settings.accent_color }}; }
 
   .pi-cart__option {
@@ -165,6 +176,8 @@
   .pi-cart__remove svg { width: 20.37px; height: 23px; }
 
   .pi-cart__price {
+    flex: 0 0 auto;
+    min-width: 90px;
     font-weight: 600;
     font-size: 20px;
     line-height: 26px;
@@ -288,7 +301,8 @@
       padding-right: 30px;
     }
 
-    .pi-cart__row { column-gap: 24px; }
+    .pi-cart__row { gap: 24px; }
+    .pi-cart__product { gap: 24px; }
   }
 
   /* The quantity control drops under the details and the line total moves up
@@ -299,10 +313,15 @@
     }
 
     .pi-cart__row {
-      grid-template-columns: 90px minmax(0, 1fr);
-      column-gap: 16px;
-      row-gap: 16px;
-      align-items: start;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .pi-cart__product {
+      flex: 1 1 100%;
+      align-items: flex-start;
+      gap: 16px;
     }
 
     .pi-cart__head { display: none; }
@@ -312,24 +331,16 @@
     .pi-cart__title { font-size: 16px; line-height: 22px; }
     .pi-cart__option { font-size: 14px; line-height: 20px; }
 
-    .pi-cart__controls {
-      grid-column: 2;
-      justify-content: space-between;
-      gap: 12px;
-    }
+    .pi-cart__controls { gap: 12px; }
 
     .pi-cart__qty { width: 128px; height: 46px; }
     .pi-cart__qty-btn { flex: 0 0 40px; }
 
     .pi-cart__price {
-      grid-column: 2;
-      grid-row: 1;
+      min-width: 0;
       text-align: right;
-      align-self: start;
-      font-size: 16px;
+      font-size: 18px;
     }
-
-    .pi-cart__details { grid-column: 2; grid-row: 2; }
 
     .pi-cart__subtotal,
     .pi-cart__note { max-width: 100%; }
@@ -356,6 +367,7 @@
       {%- for item in cart.items -%}
         <div class="pi-cart__row pi-cart__item">
 
+          <div class="pi-cart__product">
           <div class="pi-cart__media">
             {%- if item.image -%}
               <img
@@ -382,6 +394,7 @@
                 <p class="pi-cart__option">{{ property.first }}: {{ property.last }}</p>
               {%- endunless -%}
             {%- endfor -%}
+          </div>
           </div>
 
           <div class="pi-cart__controls">
