@@ -1632,15 +1632,56 @@
 
     /* No horizontal offset: the anchor is already on the right edge. !important
        cancels the base mega-menu's translateY animation on
-       .menu-list__submenu-inner. */
-    transform: none !important;
-    opacity: 1 !important;
+       .menu-list__submenu-inner and substitutes a short one sized for this
+       small panel — the base value is scaled for a full-width mega menu.
+
+       This is also what makes the panel ease open at all: the wrapper above
+       drops the base clip-path reveal, so `visibility` is the only remaining
+       open/close switch and it is binary. Fading the inner gives the panel its
+       own transition instead of letting it pop. */
+    transform: translateY(-6px) !important;
+    opacity: 0 !important;
+    transition:
+      opacity 200ms var(--ease-out-cubic, ease),
+      transform 200ms var(--ease-out-cubic, ease);
     position: relative;
     z-index: var(--layer-header-menu, 100);
 
     /* Hugs its content like the Figma panel (~138px) instead of the previous
        200px, which left a wide empty gutter once the links were left-aligned. */
     min-width: 140px;
+  }
+
+  /* Open state. Mirrors the two selectors the base sheet uses to reveal a
+     submenu — aria-expanded on the item (set by header-menu.js) and hover on
+     the panel itself, which is what keeps it open once the pointer is inside. */
+  .menu-list__list-item:has([aria-expanded='true']) > .pi-simple-dropdown .pi-simple-dropdown__inner,
+  .pi-simple-dropdown:hover .pi-simple-dropdown__inner {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+  }
+
+  /* `visibility` flips instantly, which would clip the fade-out mid-way. Delay
+     the hide until the fade has finished; on open the delay is removed so the
+     panel becomes visible immediately and the opacity transition is seen. */
+  .menu-list__list-item:where(:not([slot='overflow'])) > .pi-simple-dropdown {
+    transition: visibility 0s linear 200ms !important;
+  }
+
+  .menu-list__list-item:has([aria-expanded='true']) > .pi-simple-dropdown,
+  .pi-simple-dropdown:hover {
+    transition-delay: 0s !important;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pi-simple-dropdown__inner {
+      transition: none !important;
+      transform: none !important;
+    }
+
+    .menu-list__list-item:where(:not([slot='overflow'])) > .pi-simple-dropdown {
+      transition: none !important;
+    }
   }
 
   .pi-simple-dropdown__list {
