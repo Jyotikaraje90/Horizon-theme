@@ -190,17 +190,20 @@
 
   .pi-bd__p > p { margin: 0 0 29px; }
   .pi-bd__p > p:last-child { margin-bottom: 0; }
-  /* Set the list off from the copy so it reads as its own sub-block: 18px on
-     top of the paragraph's 29px bottom margin gives the ~47px Figma shows.
-     Collapsed at the edges, where the block gap already does the spacing. */
+  /* Figma runs the list 39px below the last line of copy against a 29px line
+     height, so the paragraph's own 29px margin already covers it — no extra
+     margin on top. Items sit exactly one line apart, with no gap between. */
   .pi-bd__p ul,
-  .pi-bd__p ol { margin: 18px 0; padding-left: 22px; }
-  .pi-bd__p > ul:first-child,
-  .pi-bd__p > ol:first-child { margin-top: 0; }
+  .pi-bd__p ol { margin: 0 0 18px; padding-left: 22px; }
   .pi-bd__p > ul:last-child,
   .pi-bd__p > ol:last-child { margin-bottom: 0; }
-  .pi-bd__p li { margin-bottom: 6px; }
-  .pi-bd__p li:last-child { margin-bottom: 0; }
+  .pi-bd__p li { margin-bottom: 0; }
+
+  /* Small, soft markers rather than the full-size disc in the text colour. */
+  .pi-bd__p li::marker {
+    color: #808080;
+    font-size: 0.7em;
+  }
   .pi-bd__p a { color: inherit; }
 
   /* Image beside text, 20px gap. The image keeps its natural ratio at the
@@ -469,7 +472,7 @@
 
     .pi-bd__p > p { margin-bottom: 26px; }
     .pi-bd__p ul,
-    .pi-bd__p ol { margin: 14px 0; }
+    .pi-bd__p ol { margin: 0 0 14px; }
 
     /* The image goes full width above the copy rather than holding its
        Figma width in a column that no longer has room for it. */
