@@ -88,6 +88,174 @@
     transform: scale(1.09);
   }
 
+  /* ── Article header ──────────────────────────────── */
+  .pi-bd__head {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* 1063 × 31 row, space-between: category badge left, share control right. */
+  .pi-bd__meta {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .pi-bd__tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    background: #CCCCCC;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+
+  /* 80.03px hug = 52 label + 10 gap + 18.03 icon. */
+  .pi-bd__share {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #808080;
+  }
+
+  .pi-bd__share:hover {
+    color: {{ section.settings.accent_color }};
+  }
+
+  .pi-bd__share-icon {
+    width: 18.03px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  .pi-bd__title {
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
+    font-size: 44px;
+    line-height: 57px;
+    letter-spacing: 0;
+    color: #000000;
+    margin: 0;
+  }
+
+  /* ── Article body ────────────────────────────────── */
+  /* Outer stack 30px between groups, 20px inside each group. */
+  .pi-bd__body {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pi-bd__group {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pi-bd__h {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 26px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pi-bd__p {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: #121212;
+    margin: 0;
+  }
+
+  .pi-bd__p > p { margin: 0 0 29px; }
+  .pi-bd__p > p:last-child { margin-bottom: 0; }
+  .pi-bd__p ul,
+  .pi-bd__p ol { margin: 0; padding-left: 22px; }
+  .pi-bd__p a { color: inherit; }
+
+  /* Image beside text, 20px gap. The image keeps its natural ratio at the
+     chosen width and the copy takes the remainder of the 1063px column. */
+  .pi-bd__split {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+  }
+
+  .pi-bd__split--right { flex-direction: row-reverse; }
+
+  .pi-bd__split-media {
+    flex: 0 0 auto;
+  }
+
+  /* No CSS radius here: the blog PNGs carry their corners in the alpha channel
+     and adding one on top cuts a second edge just inside it. */
+  .pi-bd__split-media img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .pi-bd__split-text {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Callout panel: 10px radius, 30px padding, 20px gap, #F0F0F0. */
+  .pi-bd__quote {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 30px;
+    border-radius: 10px;
+    background: {{ section.settings.panel_bg }};
+  }
+
+  .pi-bd__quote-icon {
+    width: 24px;
+    height: 24px;
+    flex-shrink: 0;
+    color: #808080;
+  }
+
+  .pi-bd__quote-text {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #121212;
+    margin: 0;
+  }
+
+  .pi-bd__quote-text > p { margin: 0 0 26px; }
+  .pi-bd__quote-text > p:last-child { margin-bottom: 0; }
+
   .pi-bd__sidebar {
     flex: 0 0 407px;
     display: flex;
@@ -219,6 +387,11 @@
       font-size: 28px;
       line-height: 36px;
     }
+
+    .pi-bd__title {
+      font-size: 36px;
+      line-height: 46px;
+    }
   }
 
   @media (max-width: 749px) {
@@ -230,6 +403,37 @@
     .pi-bd__main { gap: 20px; }
     .pi-bd__hero-wrap { border-radius: 12px; }
     .pi-bd__search-input { height: 53px; }
+
+    .pi-bd__title {
+      font-size: 28px;
+      line-height: 38px;
+    }
+
+    .pi-bd__body { gap: 24px; }
+    .pi-bd__group { gap: 14px; }
+
+    .pi-bd__h { font-size: 18px; line-height: 24px; }
+
+    .pi-bd__p {
+      font-size: 16px;
+      line-height: 26px;
+    }
+
+    .pi-bd__p > p { margin-bottom: 26px; }
+
+    /* The image goes full width above the copy rather than holding its
+       Figma width in a column that no longer has room for it. */
+    .pi-bd__split,
+    .pi-bd__split--right {
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pi-bd__split-media { width: 100% !important; }
+    .pi-bd__split-text { gap: 14px; }
+
+    .pi-bd__quote { padding: 20px; gap: 14px; }
+    .pi-bd__quote-icon { width: 20px; height: 20px; }
 
     .pi-bd__next-heading {
       font-size: 24px;
@@ -271,6 +475,87 @@
             height="786"
           >
         {%- endif -%}
+      </div>
+
+      <div class="pi-bd__head">
+        {%- if section.settings.category_label != blank or section.settings.show_share -%}
+          <div class="pi-bd__meta">
+            {%- if section.settings.category_label != blank -%}
+              <span class="pi-bd__tag">{{ section.settings.category_label }}</span>
+            {%- else -%}
+              <span></span>
+            {%- endif -%}
+
+            {%- if section.settings.show_share -%}
+              <button type="button" class="pi-bd__share" data-pi-bd-share>
+                <span class="pi-bd__share-text">{{ section.settings.share_label | default: 'Share' }}</span>
+                <svg class="pi-bd__share-icon" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="15" cy="4" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="4" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <circle cx="15" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/>
+                  <path d="M6.6 8.6L12.4 5.4M6.6 11.4L12.4 14.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.article_title != blank -%}
+          <h1 class="pi-bd__title">{{ section.settings.article_title }}</h1>
+        {%- endif -%}
+      </div>
+
+      <div class="pi-bd__body">
+        {%- for block in section.blocks -%}
+          {%- case block.type -%}
+
+            {%- when 'body_group' -%}
+              <div class="pi-bd__group" {{ block.shopify_attributes }}>
+                {%- if block.settings.heading != blank -%}
+                  <h2 class="pi-bd__h">{{ block.settings.heading }}</h2>
+                {%- endif -%}
+                {%- if block.settings.text != blank -%}
+                  <div class="pi-bd__p">{{ block.settings.text }}</div>
+                {%- endif -%}
+              </div>
+
+            {%- when 'body_split' -%}
+              <div
+                class="pi-bd__split{% if block.settings.image_position == 'right' %} pi-bd__split--right{% endif %}"
+                {{ block.shopify_attributes }}
+              >
+                {%- if block.settings.image != blank -%}
+                  <div class="pi-bd__split-media" style="width: {{ block.settings.image_width }}px;">
+                    <img
+                      src="{{ block.settings.image | image_url: width: 1000 }}"
+                      alt="{{ block.settings.image.alt | escape }}"
+                      loading="lazy"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}"
+                    >
+                  </div>
+                {%- endif -%}
+
+                <div class="pi-bd__split-text">
+                  {%- if block.settings.heading != blank -%}
+                    <h2 class="pi-bd__h">{{ block.settings.heading }}</h2>
+                  {%- endif -%}
+                  {%- if block.settings.text != blank -%}
+                    <div class="pi-bd__p">{{ block.settings.text }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- when 'body_quote' -%}
+              <div class="pi-bd__quote" {{ block.shopify_attributes }}>
+                <svg class="pi-bd__quote-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M9.5 5.5C6.2 7 4.5 9.6 4.5 13v5.5h7V12H8c0-2 .8-3.5 2.6-4.4L9.5 5.5Zm10 0C16.2 7 14.5 9.6 14.5 13v5.5h7V12H18c0-2 .8-3.5 2.6-4.4L19.5 5.5Z"/>
+                </svg>
+                <div class="pi-bd__quote-text">{{ block.settings.text }}</div>
+              </div>
+
+          {%- endcase -%}
+        {%- endfor -%}
       </div>
     </div>
 
@@ -326,6 +611,19 @@
   </div>
 </div>
 
+<script>
+  document.querySelectorAll('[data-pi-bd-share]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var url = window.location.href;
+      if (navigator.share) {
+        navigator.share({ title: document.title, url: url }).catch(function () {});
+      } else if (navigator.clipboard) {
+        navigator.clipboard.writeText(url);
+      }
+    });
+  });
+</script>
+
 {% schema %}
 {
   "name": "PI Blog Detail",
@@ -354,6 +652,28 @@
       "id": "hero_image",
       "label": "Hero image",
       "info": "Shown at a 1063 × 786 ratio."
+    },
+    {
+      "type": "text",
+      "id": "category_label",
+      "label": "Category badge"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_share",
+      "label": "Show share button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "share_label",
+      "label": "Share label",
+      "default": "Share"
+    },
+    {
+      "type": "text",
+      "id": "article_title",
+      "label": "Article title"
     },
     {
       "type": "header",
@@ -465,6 +785,74 @@
     }
   ],
   "blocks": [
+    {
+      "type": "body_group",
+      "name": "Body — Heading + Text",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "body_split",
+      "name": "Body — Image + Text",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "image_position",
+          "label": "Image position",
+          "options": [
+            { "value": "left", "label": "Left" },
+            { "value": "right", "label": "Right" }
+          ],
+          "default": "left"
+        },
+        {
+          "type": "range",
+          "id": "image_width",
+          "label": "Image width",
+          "min": 200,
+          "max": 704,
+          "step": 8,
+          "default": 472,
+          "unit": "px"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
+    {
+      "type": "body_quote",
+      "name": "Body — Callout",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
+    },
     {
       "type": "next_post",
       "name": "Read Next Post",
