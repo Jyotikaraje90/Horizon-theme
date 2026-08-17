@@ -167,7 +167,9 @@
 </style>
 
 <div class="pi-blogs">
-  <h2 class="pi-blogs__heading">{{ section.settings.title | default: 'Blogs' }}</h2>
+  {%- if section.settings.show_heading -%}
+    <h2 class="pi-blogs__heading">{{ section.settings.title | default: 'Blogs' }}</h2>
+  {%- endif -%}
 
   <div class="pi-blogs__grid">
     {%- for block in section.blocks -%}
@@ -204,6 +206,13 @@
 {
   "name": "PI Blogs",
   "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_heading",
+      "label": "Show heading",
+      "info": "Turn off when a page hero above the section already shows the title.",
+      "default": true
+    },
     {
       "type": "text",
       "id": "title",
