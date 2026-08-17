@@ -112,10 +112,9 @@
     border-radius: 4px;
     background: #CCCCCC;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
+    font-weight: 500;
+    font-size: 14px;
     line-height: 21px;
-    text-transform: uppercase;
     color: #000000;
   }
 
@@ -237,17 +236,18 @@
     background: {{ section.settings.panel_bg }};
   }
 
-  .pi-bd__quote-icon {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    color: #808080;
+  /* Vertical rule down the left of the pull quote, sized to the copy. */
+  .pi-bd__quote-bar {
+    flex: 0 0 4px;
+    align-self: stretch;
+    background: #121212;
+    border-radius: 2px;
   }
 
   .pi-bd__quote-text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-weight: 400;
-    font-size: 16px;
+    font-weight: 600;
+    font-size: 18px;
     line-height: 26px;
     color: #121212;
     margin: 0;
@@ -255,6 +255,38 @@
 
   .pi-bd__quote-text > p { margin: 0 0 26px; }
   .pi-bd__quote-text > p:last-child { margin-bottom: 0; }
+
+  /* ── Previous / Next ─────────────────────────────── */
+  .pi-bd__nav {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+
+  .pi-bd__nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+
+  .pi-bd__nav-link--prev { color: #808080; }
+
+  .pi-bd__nav-link:hover { color: {{ section.settings.accent_color }}; }
+
+  .pi-bd__nav-icon {
+    width: 7.81px;
+    height: 12.61px;
+    flex-shrink: 0;
+  }
 
   .pi-bd__sidebar {
     flex: 0 0 407px;
@@ -433,7 +465,9 @@
     .pi-bd__split-text { gap: 14px; }
 
     .pi-bd__quote { padding: 20px; gap: 14px; }
-    .pi-bd__quote-icon { width: 20px; height: 20px; }
+    .pi-bd__quote-text { font-size: 16px; line-height: 24px; }
+
+    .pi-bd__nav-link { font-size: 14px; }
 
     .pi-bd__next-heading {
       font-size: 24px;
@@ -548,15 +582,31 @@
 
             {%- when 'body_quote' -%}
               <div class="pi-bd__quote" {{ block.shopify_attributes }}>
-                <svg class="pi-bd__quote-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <path d="M9.5 5.5C6.2 7 4.5 9.6 4.5 13v5.5h7V12H8c0-2 .8-3.5 2.6-4.4L9.5 5.5Zm10 0C16.2 7 14.5 9.6 14.5 13v5.5h7V12H18c0-2 .8-3.5 2.6-4.4L19.5 5.5Z"/>
-                </svg>
+                <span class="pi-bd__quote-bar"></span>
                 <div class="pi-bd__quote-text">{{ block.settings.text }}</div>
               </div>
 
           {%- endcase -%}
         {%- endfor -%}
       </div>
+
+      {%- if section.settings.show_nav -%}
+        <div class="pi-bd__nav">
+          <a href="{{ section.settings.prev_link | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
+            <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <span>{{ section.settings.prev_label | default: 'Previous' }}</span>
+          </a>
+
+          <a href="{{ section.settings.next_link | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--next">
+            <span>{{ section.settings.next_label | default: 'Next' }}</span>
+            <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M1 1L7 6.5L1 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+        </div>
+      {%- endif -%}
     </div>
 
     <aside class="pi-bd__sidebar">
@@ -656,7 +706,8 @@
     {
       "type": "text",
       "id": "category_label",
-      "label": "Category badge"
+      "label": "Badge",
+      "info": "Shown above the title — a date or a category."
     },
     {
       "type": "checkbox",
@@ -674,6 +725,38 @@
       "type": "text",
       "id": "article_title",
       "label": "Article title"
+    },
+    {
+      "type": "header",
+      "content": "Previous / Next"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_nav",
+      "label": "Show previous / next links",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "prev_label",
+      "label": "Previous label",
+      "default": "Previous"
+    },
+    {
+      "type": "url",
+      "id": "prev_link",
+      "label": "Previous URL"
+    },
+    {
+      "type": "text",
+      "id": "next_label",
+      "label": "Next label",
+      "default": "Next"
+    },
+    {
+      "type": "url",
+      "id": "next_link",
+      "label": "Next URL"
     },
     {
       "type": "header",
