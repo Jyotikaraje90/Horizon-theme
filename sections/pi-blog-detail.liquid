@@ -482,13 +482,15 @@
     .pi-bd__p > * + ul,
     .pi-bd__p > * + ol { margin-top: 8px; }
 
-    /* The image goes full width above the copy rather than holding its
-       Figma width in a column that no longer has room for it. */
-    .pi-bd__split,
-    .pi-bd__split--right {
+    /* The image goes full width rather than holding its Figma width in a column
+       that no longer has room for it. It keeps its side: an image set to the
+       left of the copy stacks above it, one set to the right stacks below. */
+    .pi-bd__split {
       flex-direction: column;
       gap: 14px;
     }
+
+    .pi-bd__split--right { flex-direction: column-reverse; }
 
     .pi-bd__split-media { width: 100% !important; }
     .pi-bd__split-text { gap: 14px; }
