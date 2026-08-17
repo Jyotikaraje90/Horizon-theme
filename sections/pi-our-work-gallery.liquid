@@ -92,7 +92,9 @@
   }
 
 {%- if section.settings.mobile_marquee -%}
-  /* ─── Mobile: two auto-scrolling marquee rows ───
+  /* ─── Two auto-scrolling marquee rows — mobile and tablet only (<=989px) ───
+     Desktop keeps the static full-bleed grid from the base rules above; the
+     duplicate cells stay display:none there, so it renders one set as before.
      Each row holds its photo set twice, so translating by exactly -50% lands on
      an identical frame and the loop is seamless with no JS. Both rows run the
      same direction, per the design. */
@@ -101,7 +103,7 @@
     to   { transform: translateX(-50%); }
   }
 
-  @media (max-width: 749px) {
+  @media (max-width: 989px) {
     .pi-owg { overflow-x: hidden; }
 
     .pi-owg__grid {
@@ -111,6 +113,7 @@
       width: 100%;
     }
 
+    /* Overrides the display:contents that lets these dissolve into the grid */
     .pi-owg__row {
       display: flex;
       flex-direction: row;
@@ -129,16 +132,22 @@
       animation-delay: -{{ section.settings.marquee_speed | times: section.settings.marquee_row2_offset | divided_by: 100.0 }}s;
     }
 
-    /* Figma shows 2 photos per row: at the 390px design width each is 195px,
-       i.e. exactly half the viewport, with a 195x215 cell. Sizing off vw rather
-       than a fixed px keeps it 2-up (and column-aligned with the row above) at
-       every screen width. The track is width:max-content, so a percentage would
-       have nothing to resolve against — vw does. */
+    /* Tablet: Figma's cell is 195x215, so fix the width at that and let however
+       many fit, fit. */
     .pi-owg__photo {
-      flex: 0 0 calc((100vw - ({{ section.settings.marquee_row_gap }}px * {{ section.settings.marquee_per_row }})) / {{ section.settings.marquee_per_row }});
+      flex: 0 0 {{ section.settings.marquee_item_width }}px;
       aspect-ratio: 195 / 215;
     }
     .pi-owg__photo--dupe { display: block; }
+  }
+
+  /* On phones, size off the viewport instead so it lands exactly N-up and the
+     two rows stay column-aligned. The track is width:max-content, so a
+     percentage would have nothing to resolve against — vw does. */
+  @media (max-width: 749px) {
+    .pi-owg__photo {
+      flex: 0 0 calc((100vw - ({{ section.settings.marquee_row_gap }}px * {{ section.settings.marquee_per_row }})) / {{ section.settings.marquee_per_row }});
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -283,9 +292,20 @@
     {
       "type": "checkbox",
       "id": "mobile_marquee",
-      "label": "Auto-scrolling marquee on mobile",
-      "info": "Below 750px, shows two rows of photos that scroll continuously in opposite directions instead of a static grid.",
+      "label": "Auto-scrolling marquee on mobile & tablet",
+      "info": "Below 990px, replaces the static grid with two rows of photos that scroll continuously. Desktop keeps the grid.",
       "default": true
+    },
+    {
+      "type": "range",
+      "id": "marquee_item_width",
+      "min": 120,
+      "max": 320,
+      "step": 5,
+      "unit": "px",
+      "label": "Marquee photo width — tablet",
+      "info": "Used between 750px and 989px. Figma's cell is 195 wide.",
+      "default": 195
     },
     {
       "type": "range",
@@ -304,8 +324,8 @@
       "min": 1,
       "max": 4,
       "step": 1,
-      "label": "Photos visible per row",
-      "info": "Figma shows 2. Each photo is sized to this fraction of the screen width.",
+      "label": "Photos visible per row — mobile",
+      "info": "Below 750px only. Figma shows 2; each photo takes that fraction of the screen width.",
       "default": 2
     },
     {
