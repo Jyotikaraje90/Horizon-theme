@@ -13,45 +13,78 @@
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
   }
 
-  /* Spacing lives between siblings so nothing trails a margin at either end
-     and the list case can be tighter than block-to-block. */
-  .pi-pc > * { margin: 0; }
-  .pi-pc > * + * { margin-top: 30px; }
-  .pi-pc > * + ul,
-  .pi-pc > * + ol { margin-top: 10px; }
+  /* Every property is restated rather than inherited: the theme styles h1–h6
+     and p globally, and an explicit rule anywhere beats inheritance from the
+     container, so the Figma type would otherwise be overridden. */
+  .pi-pc h1,
+  .pi-pc h2,
+  .pi-pc h3,
+  .pi-pc h4,
+  .pi-pc h5,
+  .pi-pc h6,
+  .pi-pc p,
+  .pi-pc ul,
+  .pi-pc ol,
+  .pi-pc li {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-style: normal;
+    letter-spacing: 0;
+    text-transform: none;
+    margin: 0;
+  }
 
-  .pi-pc h2 {
+  /* Section heading — Proxima Nova Medium 34/44. */
+  .pi-pc > h2 {
     font-weight: 500;
     font-size: {{ section.settings.heading_size }}px;
     line-height: 44px;
-    letter-spacing: 0;
     color: {{ section.settings.heading_color }};
+    margin-top: 30px;
   }
 
   /* Sub-heading inside a section, e.g. "Personal Information". */
-  .pi-pc h3,
-  .pi-pc h4 {
+  .pi-pc > h3,
+  .pi-pc > h4 {
     font-weight: 600;
     font-size: {{ section.settings.subheading_size }}px;
     line-height: 26px;
     color: {{ section.settings.heading_color }};
+    margin-top: 30px;
   }
 
-  .pi-pc p,
+  .pi-pc > p {
+    font-weight: 400;
+    font-size: {{ section.settings.body_size }}px;
+    line-height: 29px;
+    color: {{ section.settings.body_color }};
+    margin-top: 30px;
+  }
+
+  /* A list belongs to the copy above it, so it sits closer than a new block. */
+  .pi-pc > ul,
+  .pi-pc > ol {
+    margin-top: 10px;
+    padding-left: 22px;
+  }
+
+  .pi-pc > *:first-child { margin-top: 0; }
+
   .pi-pc li {
     font-weight: 400;
     font-size: {{ section.settings.body_size }}px;
     line-height: 29px;
     color: {{ section.settings.body_color }};
+    margin-bottom: 10px;
   }
 
-  .pi-pc ul,
-  .pi-pc ol { padding-left: 22px; }
-  .pi-pc li { margin-bottom: 0; }
+  .pi-pc li:last-child { margin-bottom: 0; }
   .pi-pc li::marker { font-size: 0.55em; }
 
   .pi-pc strong,
-  .pi-pc b { font-weight: 600; color: {{ section.settings.heading_color }}; }
+  .pi-pc b {
+    font-weight: 600;
+    color: {{ section.settings.heading_color }};
+  }
 
   .pi-pc a { color: inherit; }
 
@@ -61,7 +94,7 @@
       padding-right: 30px;
     }
 
-    .pi-pc h2 { font-size: 28px; line-height: 36px; }
+    .pi-pc > h2 { font-size: 28px; line-height: 36px; }
   }
 
   @media (max-width: 749px) {
@@ -69,15 +102,19 @@
       padding: {{ section.settings.mobile_padding_top }}px 20px {{ section.settings.mobile_padding_bottom }}px;
     }
 
-    .pi-pc > * + * { margin-top: 24px; }
-    .pi-pc > * + ul,
-    .pi-pc > * + ol { margin-top: 8px; }
+    .pi-pc > h2,
+    .pi-pc > h3,
+    .pi-pc > h4,
+    .pi-pc > p { margin-top: 24px; }
+    .pi-pc > ul,
+    .pi-pc > ol { margin-top: 8px; }
+    .pi-pc > *:first-child { margin-top: 0; }
 
-    .pi-pc h2 { font-size: 24px; line-height: 32px; }
-    .pi-pc h3,
-    .pi-pc h4 { font-size: 18px; line-height: 24px; }
+    .pi-pc > h2 { font-size: 24px; line-height: 32px; }
+    .pi-pc > h3,
+    .pi-pc > h4 { font-size: 18px; line-height: 24px; }
 
-    .pi-pc p,
+    .pi-pc > p,
     .pi-pc li { font-size: 16px; line-height: 26px; }
   }
 </style>
