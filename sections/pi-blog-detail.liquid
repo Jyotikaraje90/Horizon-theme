@@ -188,15 +188,19 @@
     margin: 0;
   }
 
-  .pi-bd__p > p { margin: 0 0 29px; }
-  .pi-bd__p > p:last-child { margin-bottom: 0; }
+  /* Spacing lives between siblings, so the paragraph-before-a-list case can be
+     tighter than paragraph-to-paragraph without trailing margins at the edges. */
+  .pi-bd__p > * { margin: 0; }
+  .pi-bd__p > * + * { margin-top: 29px; }
   /* Figma runs the list 39px below the last line of copy against a 29px line
      height, so the paragraph's own 29px margin already covers it — no extra
      margin on top. Items sit exactly one line apart, with no gap between. */
   .pi-bd__p ul,
-  .pi-bd__p ol { margin: 0 0 18px; padding-left: 22px; }
-  .pi-bd__p > ul:last-child,
-  .pi-bd__p > ol:last-child { margin-bottom: 0; }
+  .pi-bd__p ol { padding-left: 22px; }
+  /* A list belongs to the copy above it, so it sits 10px below rather than a
+     full paragraph's 29px. */
+  .pi-bd__p > * + ul,
+  .pi-bd__p > * + ol { margin-top: 10px; }
   .pi-bd__p li { margin-bottom: 0; }
 
   /* Smaller marker, still in the body text colour. */
@@ -469,9 +473,9 @@
       line-height: 26px;
     }
 
-    .pi-bd__p > p { margin-bottom: 26px; }
-    .pi-bd__p ul,
-    .pi-bd__p ol { margin: 0 0 14px; }
+    .pi-bd__p > * + * { margin-top: 26px; }
+    .pi-bd__p > * + ul,
+    .pi-bd__p > * + ol { margin-top: 8px; }
 
     /* The image goes full width above the copy rather than holding its
        Figma width in a column that no longer has room for it. */
