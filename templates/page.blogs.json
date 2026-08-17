@@ -61,6 +61,7 @@
         "blog_5": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_6.png",
             "blog_date": "Feb 24, 2025",
             "blog_title": "Healing Process 101: How to Care for Your New Piercing",
             "blog_link": ""
