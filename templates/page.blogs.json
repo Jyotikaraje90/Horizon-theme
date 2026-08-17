@@ -70,6 +70,7 @@
         "blog_6": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_7.png",
             "blog_date": "Feb 23, 2025",
             "blog_title": "Tattoo Trends 2025: What's In and What's Out?",
             "blog_link": ""
@@ -78,6 +79,7 @@
         "blog_7": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_8.png",
             "blog_date": "Feb 22, 2025",
             "blog_title": "Piercing Pain Scale: What to Expect for Every Type of Piercing",
             "blog_link": ""
