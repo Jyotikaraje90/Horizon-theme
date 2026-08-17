@@ -157,11 +157,12 @@
   }
 
   /* ── Article body ────────────────────────────────── */
-  /* Outer stack 30px between groups, 20px inside each group. */
+  /* Blocks sit 20px apart. Paragraph-to-paragraph inside a block is already
+     29px, so a wider gap here reads as a hole rather than a division. */
   .pi-bd__body {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
   }
 
   .pi-bd__group {
@@ -188,10 +189,25 @@
     margin: 0;
   }
 
-  .pi-bd__p > p { margin: 0 0 29px; }
-  .pi-bd__p > p:last-child { margin-bottom: 0; }
+  /* Spacing lives between siblings, so the paragraph-before-a-list case can be
+     tighter than paragraph-to-paragraph without trailing margins at the edges. */
+  .pi-bd__p > * { margin: 0; }
+  .pi-bd__p > * + * { margin-top: 29px; }
+  /* Figma runs the list 39px below the last line of copy against a 29px line
+     height, so the paragraph's own 29px margin already covers it — no extra
+     margin on top. Items sit exactly one line apart, with no gap between. */
   .pi-bd__p ul,
-  .pi-bd__p ol { margin: 0; padding-left: 22px; }
+  .pi-bd__p ol { padding-left: 22px; }
+  /* A list belongs to the copy above it, so it sits 10px below rather than a
+     full paragraph's 29px. */
+  .pi-bd__p > * + ul,
+  .pi-bd__p > * + ol { margin-top: 10px; }
+  .pi-bd__p li { margin-bottom: 0; }
+
+  /* Smaller marker, still in the body text colour. */
+  .pi-bd__p li::marker {
+    font-size: 0.55em;
+  }
   .pi-bd__p a { color: inherit; }
 
   /* Image beside text, 20px gap. The image keeps its natural ratio at the
@@ -205,16 +221,28 @@
 
   .pi-bd__split--right { flex-direction: row-reverse; }
 
+  /* Same treatment as the hero: the blog PNGs carry a 19px corner in their
+     alpha channel, which reads far rounder than the Figma crop. Overflow the
+     image past this frame to clip the baked corner off, then re-cut it here at
+     the size the design asks for. */
+  /* The Figma width is an upper bound, not a fixed size: capped at 45% of the
+     row so the copy beside it always keeps the majority of the column, however
+     narrow the viewport gets. */
   .pi-bd__split-media {
-    flex: 0 0 auto;
+    flex: 0 1 auto;
+    min-width: 0;
+    max-width: 45%;
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
   }
 
-  /* No CSS radius here: the blog PNGs carry their corners in the alpha channel
-     and adding one on top cuts a second edge just inside it. */
   .pi-bd__split-media img {
     display: block;
     width: 100%;
     height: auto;
+    /* 19/487 = 3.9% per side; scaling 9% crops 4.5% each side, clearing it. */
+    transform: scale(1.09);
   }
 
   .pi-bd__split-text {
@@ -244,6 +272,9 @@
     border-radius: 2px;
   }
 
+  /* Figma sets this panel two lines tall (112px = 30 + 26 + 26 + 30). The live
+     font runs narrower than the Proxima Nova the design uses, so the sentence
+     would otherwise fit on one line; the cap holds the intended break. */
   .pi-bd__quote-text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
@@ -251,6 +282,7 @@
     line-height: 26px;
     color: #121212;
     margin: 0;
+    max-width: 900px;
   }
 
   .pi-bd__quote-text > p { margin: 0 0 26px; }
@@ -289,7 +321,8 @@
   }
 
   .pi-bd__sidebar {
-    flex: 0 0 407px;
+    flex: 0 1 407px;
+    min-width: 320px;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -398,9 +431,10 @@
   }
 
   /* ── Responsive ──────────────────────────────────── */
-  /* Below the point where 1063 + 30 + 407 still fits comfortably, the sidebar
-     drops under the article rather than squeezing the hero image. */
-  @media (max-width: 989px) {
+  /* The row needs 1063 + 30 + 407 plus padding — about 1580px — to hold its
+     Figma proportions. Below 1200 the article column is squeezed harder than
+     the copy can take, so the sidebar drops underneath instead. */
+  @media (max-width: 1199px) {
     #shopify-section-{{ section.id }} {
       padding-left: 30px;
       padding-right: 30px;
@@ -413,6 +447,7 @@
     .pi-bd__sidebar {
       flex: none;
       width: 100%;
+      min-width: 0;
     }
 
     .pi-bd__next-heading {
@@ -441,7 +476,7 @@
       line-height: 38px;
     }
 
-    .pi-bd__body { gap: 24px; }
+    .pi-bd__body { gap: 18px; }
     .pi-bd__group { gap: 14px; }
 
     .pi-bd__h { font-size: 18px; line-height: 24px; }
@@ -451,17 +486,21 @@
       line-height: 26px;
     }
 
-    .pi-bd__p > p { margin-bottom: 26px; }
+    .pi-bd__p > * + * { margin-top: 26px; }
+    .pi-bd__p > * + ul,
+    .pi-bd__p > * + ol { margin-top: 8px; }
 
-    /* The image goes full width above the copy rather than holding its
-       Figma width in a column that no longer has room for it. */
-    .pi-bd__split,
-    .pi-bd__split--right {
+    /* The image goes full width rather than holding its Figma width in a column
+       that no longer has room for it. It keeps its side: an image set to the
+       left of the copy stacks above it, one set to the right stacks below. */
+    .pi-bd__split {
       flex-direction: column;
       gap: 14px;
     }
 
-    .pi-bd__split-media { width: 100% !important; }
+    .pi-bd__split--right { flex-direction: column-reverse; }
+
+    .pi-bd__split-media { width: 100% !important; max-width: 100%; }
     .pi-bd__split-text { gap: 14px; }
 
     .pi-bd__quote { padding: 20px; gap: 14px; }
@@ -522,13 +561,13 @@
 
             {%- if section.settings.show_share -%}
               <button type="button" class="pi-bd__share" data-pi-bd-share>
-                <span class="pi-bd__share-text">{{ section.settings.share_label | default: 'Share' }}</span>
-                <svg class="pi-bd__share-icon" viewBox="0 0 19 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                  <circle cx="15" cy="4" r="3" stroke="currentColor" stroke-width="1.5"/>
-                  <circle cx="4" cy="10" r="3" stroke="currentColor" stroke-width="1.5"/>
-                  <circle cx="15" cy="16" r="3" stroke="currentColor" stroke-width="1.5"/>
-                  <path d="M6.6 8.6L12.4 5.4M6.6 11.4L12.4 14.6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <svg class="pi-bd__share-icon" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M5.1 8.9L12.9 4.6M5.1 11.1L12.9 15.4" stroke="currentColor" stroke-width="1"/>
+                  <circle cx="3" cy="10" r="2.4" fill="currentColor"/>
+                  <circle cx="15" cy="3.6" r="2.4" fill="currentColor"/>
+                  <circle cx="15" cy="16.4" r="2.4" fill="currentColor"/>
                 </svg>
+                <span class="pi-bd__share-text">{{ section.settings.share_label | default: 'Share' }}</span>
               </button>
             {%- endif -%}
           </div>
