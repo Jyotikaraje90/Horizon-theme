@@ -35,15 +35,22 @@
   .pi-blogs__card {
     position: relative;
     width: 100%;
-    aspect-ratio: 487 / 423;
-    border-radius: 12px;
-    overflow: hidden;
+    height: 423px;
   }
 
-  .pi-blogs__image {
+  .pi-blogs__image-wrap {
     position: absolute;
     top: 0;
     left: 0;
+    right: 0;
+    height: 360px;
+    border-radius: 20px;
+    overflow: hidden;
+    background: #e0e0e0;
+    z-index: 1;
+  }
+
+  .pi-blogs__image {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -53,17 +60,26 @@
 
   .pi-blogs__card-content {
     position: absolute;
-    bottom: 0;
+    top: 270px;
     left: 0;
-    right: 0;
-    padding: 20px;
+    width: calc(100% - 60px);
+    box-sizing: border-box;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
     background: #F0F0F0;
-    height: 153px;
-    justify-content: flex-start;
-    z-index: 10;
+    border-radius: 0 20px 20px 20px;
+    z-index: 2;
+  }
+
+  .pi-blogs__date-wrap {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: 5px 10px;
+    background: #CCCCCC;
+    border-radius: 4px;
   }
 
   .pi-blogs__date {
@@ -111,6 +127,10 @@
       font-size: clamp(28px, 5vw, 48px);
       margin-bottom: 40px;
     }
+
+    .pi-blogs__card { height: 380px; }
+    .pi-blogs__image-wrap { height: 310px; }
+    .pi-blogs__card-content { top: 230px; }
   }
 
   @media (max-width: 749px) {
@@ -128,8 +148,15 @@
       margin-bottom: 30px;
     }
 
+    .pi-blogs__card { height: 340px; }
+    .pi-blogs__image-wrap { height: 280px; border-radius: 12px; }
+
     .pi-blogs__card-content {
-      padding: 16px;
+      top: 205px;
+      width: calc(100% - 40px);
+      padding: 20px;
+      gap: 12px;
+      border-radius: 0 12px 12px 12px;
     }
 
     .pi-blogs__title {
@@ -147,20 +174,22 @@
       {%- if block.type == 'blog_post' -%}
         <a href="{{ block.settings.blog_link | default: '#' }}" class="pi-blogs__card-link">
           <div class="pi-blogs__card">
-            {%- if block.settings.blog_image != blank -%}
-              <img
-                src="{{ block.settings.blog_image | image_url: width: 600 }}"
-                alt="{{ block.settings.blog_title | escape }}"
-                loading="lazy"
-                class="pi-blogs__image"
-              >
-            {%- else -%}
-              <div class="pi-blogs__image" style="background: #f0f0f0;"></div>
-            {%- endif -%}
+            <div class="pi-blogs__image-wrap">
+              {%- if block.settings.blog_image != blank -%}
+                <img
+                  src="{{ block.settings.blog_image | image_url: width: 600 }}"
+                  alt="{{ block.settings.blog_title | escape }}"
+                  loading="lazy"
+                  class="pi-blogs__image"
+                >
+              {%- endif -%}
+            </div>
 
             <div class="pi-blogs__card-content">
               {%- if block.settings.blog_date != blank -%}
-                <p class="pi-blogs__date">{{ block.settings.blog_date }}</p>
+                <span class="pi-blogs__date-wrap">
+                  <span class="pi-blogs__date">{{ block.settings.blog_date }}</span>
+                </span>
               {%- endif -%}
               <h3 class="pi-blogs__title">{{ block.settings.blog_title | default: 'Blog Post Title' }}</h3>
             </div>
