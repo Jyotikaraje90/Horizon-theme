@@ -64,16 +64,17 @@
   }
 
   /* The blog PNGs carry a 19px rounded corner baked into their alpha channel.
-     At 487px wide displayed across 1063px that corner renders ~41px and reads
-     as an unwanted radius, and no border-radius rule can remove it because the
-     pixels are simply transparent. Overflowing the image past this frame and
-     clipping pushes the transparent corners outside the visible box, leaving
-     true square corners. */
+     At 487px wide displayed across 1063px that corner renders ~41px — twice
+     the intended radius — and layering a CSS radius on top cut a second corner
+     just inside it. So the image is overflowed past this frame (below) to clip
+     the baked corners away entirely, and the rounding is re-applied here at a
+     controlled size. One corner, right radius, at any display width. */
   .pi-bd__hero-wrap {
     width: 100%;
     aspect-ratio: 1063 / 786;
     overflow: hidden;
     background: #e0e0e0;
+    border-radius: 20px;
   }
 
   .pi-bd__hero {
@@ -225,6 +226,7 @@
 
     .pi-bd__row { gap: 24px; }
     .pi-bd__main { gap: 20px; }
+    .pi-bd__hero-wrap { border-radius: 12px; }
     .pi-bd__search-input { height: 53px; }
 
     .pi-bd__next-heading {
