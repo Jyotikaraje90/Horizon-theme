@@ -157,11 +157,12 @@
   }
 
   /* ── Article body ────────────────────────────────── */
-  /* Outer stack 30px between groups, 20px inside each group. */
+  /* Blocks sit 20px apart. Paragraph-to-paragraph inside a block is already
+     29px, so a wider gap here reads as a hole rather than a division. */
   .pi-bd__body {
     display: flex;
     flex-direction: column;
-    gap: 30px;
+    gap: 20px;
   }
 
   .pi-bd__group {
@@ -463,7 +464,7 @@
       line-height: 38px;
     }
 
-    .pi-bd__body { gap: 24px; }
+    .pi-bd__body { gap: 18px; }
     .pi-bd__group { gap: 14px; }
 
     .pi-bd__h { font-size: 18px; line-height: 24px; }
