@@ -1,0 +1,488 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+
+  .pi-bd {
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+
+  /* ── Back link ───────────────────────────────────── */
+  /* Sits above the two-column row: in Figma the search box aligns with the top
+     of the hero image, not with this link. */
+  .pi-bd__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 22px;
+    text-decoration: none;
+  }
+
+  .pi-bd__back-icon {
+    width: 8px;
+    height: 13px;
+    flex-shrink: 0;
+    color: #000000;
+  }
+
+  .pi-bd__back-text {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    text-transform: uppercase;
+    color: #000000;
+  }
+
+  .pi-bd__back:hover .pi-bd__back-text {
+    color: {{ section.settings.accent_color }};
+  }
+
+  /* ── Two-column row ──────────────────────────────── */
+  /* 1063 + 30 + 407 = 1500. The sidebar keeps its fixed width and the article
+     column takes the remainder, so the pair still fills narrower viewports. */
+  .pi-bd__row {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 30px;
+  }
+
+  .pi-bd__main {
+    flex: 1 1 0%;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .pi-bd__hero {
+    width: 100%;
+    aspect-ratio: 1063 / 786;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 12px;
+    background: #e0e0e0;
+  }
+
+  .pi-bd__sidebar {
+    flex: 0 0 407px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* ── Search ──────────────────────────────────────── */
+  .pi-bd__search {
+    position: relative;
+  }
+
+  .pi-bd__search-input {
+    box-sizing: border-box;
+    width: 100%;
+    height: 59px;
+    padding: 0 52px 0 20px;
+    background: #ffffff;
+    border: 1px solid #808080;
+    border-radius: 8px;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 21px;
+    color: #000000;
+    outline: none;
+  }
+
+  .pi-bd__search-input::placeholder {
+    color: #000000;
+    opacity: 0.55;
+  }
+
+  .pi-bd__search-input:focus {
+    border-color: {{ section.settings.accent_color }};
+  }
+
+  /* 22px icon with its right edge 20px in from the panel edge, matching the
+     20px text inset on the left. */
+  .pi-bd__search-icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 22px;
+    height: 22px;
+    color: #808080;
+    pointer-events: none;
+  }
+
+  /* ── Read Next ───────────────────────────────────── */
+  /* 20px padding on all sides and a 20px internal gap reproduce the 432px
+     panel height: 20 + 44 + 20 + (96 × 3) + (20 × 2) + 20. */
+  .pi-bd__next {
+    background: {{ section.settings.panel_bg }};
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .pi-bd__next-heading {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 34px;
+    line-height: 44px;
+    color: #000000;
+    margin: 0;
+  }
+
+  .pi-bd__next-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pi-bd__next-thumb {
+    flex: 0 0 130px;
+    width: 130px;
+    height: 96px;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    border-radius: 8px;
+    background: #e0e0e0;
+  }
+
+  .pi-bd__next-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 26px;
+    color: #000000;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .pi-bd__next-item:hover .pi-bd__next-title {
+    color: {{ section.settings.accent_color }};
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  /* Below the point where 1063 + 30 + 407 still fits comfortably, the sidebar
+     drops under the article rather than squeezing the hero image. */
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .pi-bd__row {
+      flex-direction: column;
+    }
+
+    .pi-bd__sidebar {
+      flex: none;
+      width: 100%;
+    }
+
+    .pi-bd__next-heading {
+      font-size: 28px;
+      line-height: 36px;
+    }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 20px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .pi-bd__row { gap: 24px; }
+    .pi-bd__main { gap: 20px; }
+    .pi-bd__hero { border-radius: 8px; }
+    .pi-bd__search-input { height: 53px; }
+
+    .pi-bd__next-heading {
+      font-size: 24px;
+      line-height: 32px;
+    }
+
+    .pi-bd__next-thumb {
+      flex: 0 0 104px;
+      width: 104px;
+      height: 77px;
+    }
+
+    .pi-bd__next-title {
+      font-size: 15px;
+      line-height: 23px;
+    }
+  }
+</style>
+
+<div class="pi-bd">
+
+  <a href="{{ section.settings.back_link | default: '/pages/blogs' }}" class="pi-bd__back">
+    <svg class="pi-bd__back-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    <span class="pi-bd__back-text">{{ section.settings.back_label | default: 'Back To Blogs' }}</span>
+  </a>
+
+  <div class="pi-bd__row">
+
+    <div class="pi-bd__main">
+      {%- if section.settings.hero_image != blank -%}
+        <img
+          src="{{ section.settings.hero_image | image_url: width: 1400 }}"
+          alt="{{ section.settings.hero_image.alt | escape }}"
+          class="pi-bd__hero"
+          width="1063"
+          height="786"
+        >
+      {%- else -%}
+        <div class="pi-bd__hero"></div>
+      {%- endif -%}
+    </div>
+
+    <aside class="pi-bd__sidebar">
+
+      {%- if section.settings.show_search -%}
+        <form action="{{ routes.search_url }}" method="get" role="search" class="pi-bd__search">
+          <input
+            type="search"
+            name="q"
+            class="pi-bd__search-input"
+            placeholder="{{ section.settings.search_placeholder | default: 'Search' | escape }}"
+            aria-label="{{ section.settings.search_placeholder | default: 'Search' | escape }}"
+          >
+          <svg class="pi-bd__search-icon" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="9.5" cy="9.5" r="7" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M15 15L20 20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </form>
+      {%- endif -%}
+
+      {%- assign next_blocks = section.blocks | where: 'type', 'next_post' -%}
+      {%- if next_blocks.size > 0 -%}
+        <div class="pi-bd__next">
+          <h2 class="pi-bd__next-heading">{{ section.settings.next_heading | default: 'Read Next' }}</h2>
+
+          {%- for block in next_blocks -%}
+            <a
+              href="{{ block.settings.post_link | default: '#' }}"
+              class="pi-bd__next-item"
+              {{ block.shopify_attributes }}
+            >
+              {%- if block.settings.post_image != blank -%}
+                <img
+                  src="{{ block.settings.post_image | image_url: width: 300 }}"
+                  alt="{{ block.settings.post_title | escape }}"
+                  class="pi-bd__next-thumb"
+                  loading="lazy"
+                  width="130"
+                  height="96"
+                >
+              {%- else -%}
+                <span class="pi-bd__next-thumb"></span>
+              {%- endif -%}
+              <h3 class="pi-bd__next-title">{{ block.settings.post_title | default: 'Blog post title' }}</h3>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+    </aside>
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "PI Blog Detail",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Back Link"
+    },
+    {
+      "type": "text",
+      "id": "back_label",
+      "label": "Back link label",
+      "default": "Back To Blogs"
+    },
+    {
+      "type": "url",
+      "id": "back_link",
+      "label": "Back link URL"
+    },
+    {
+      "type": "header",
+      "content": "Article"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero image",
+      "info": "Shown at a 1063 × 786 ratio."
+    },
+    {
+      "type": "header",
+      "content": "Sidebar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search box",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search"
+    },
+    {
+      "type": "text",
+      "id": "next_heading",
+      "label": "Sidebar heading",
+      "default": "Read Next"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 24,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "panel_bg",
+      "label": "Sidebar Panel Background",
+      "default": "#F0F0F0"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Hover / Focus Accent",
+      "default": "#B49146"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "next_post",
+      "name": "Read Next Post",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "post_image",
+          "label": "Thumbnail",
+          "info": "Shown at 130 × 96."
+        },
+        {
+          "type": "text",
+          "id": "post_title",
+          "label": "Post title",
+          "default": "Blog post title"
+        },
+        {
+          "type": "url",
+          "id": "post_link",
+          "label": "Post URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Blog Detail",
+      "blocks": [
+        { "type": "next_post" },
+        { "type": "next_post" },
+        { "type": "next_post" }
+      ]
+    }
+  ]
+}
+{% endschema %}
