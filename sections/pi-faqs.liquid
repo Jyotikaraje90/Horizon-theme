@@ -195,7 +195,9 @@
 
 <div class="pi-faqs">
 
-  <h2 class="pi-faqs__title">{{ section.settings.title }}</h2>
+  {%- if section.settings.title != blank -%}
+    <h2 class="pi-faqs__title">{{ section.settings.title }}</h2>
+  {%- endif -%}
 
   <div class="pi-faqs__body">
 
