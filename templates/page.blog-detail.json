@@ -22,53 +22,6 @@
     "pi_blog_detail": {
       "type": "pi-blog-detail",
       "blocks": {
-        "body_1": {
-          "type": "body_group",
-          "settings": {
-            "heading": "Choosing the Right Piercing Jewelry for Your Style",
-            "text": "<p>Piercing jewelry is more than just an accessory—it's a reflection of your personal style and comfort. Whether you prefer a minimalist stud, a statement hoop, or an elegant gemstone, the right jewelry enhances your piercing experience.<br>Selecting the best material, size, and design ensures long-term wearability while reducing the risk of irritation. This guide will help you navigate through the best options for your unique aesthetic and lifestyle.</p>"
-          }
-        },
-        "body_2": {
-          "type": "body_split",
-          "settings": {
-            "image": "shopify://shop_images/Blog_Image_6.png",
-            "image_position": "right",
-            "image_width": 344,
-            "heading": "Material Matters: Finding the Safest Option",
-            "text": "<p>Not all piercing jewelry is created equal! Choosing high-quality materials is essential for safety, longevity, and comfort. Here's a breakdown of the best options:</p><ul><li>Titanium – Lightweight, hypoallergenic, and perfect for sensitive skin.</li><li>Surgical Stainless Steel – A durable and cost-effective choice for healed piercings.</li><li>Solid Gold (14K & Higher) – Elegant and safe, but best for fully healed piercings.</li><li>Bioplast & PTFE – Flexible and ideal for reducing irritation, commonly used in new piercings.</li></ul>"
-          }
-        },
-        "body_3": {
-          "type": "body_group",
-          "settings": {
-            "heading": "",
-            "text": "<p>Choosing the right piercing jewelry is about more than just aesthetics—it's about comfort, safety, and self-expression. From sleek titanium hoops to elegant gold studs, selecting high-quality materials ensures better healing and long-term wear. Whether you're drawn to minimalist designs or bold statement pieces, the perfect jewelry enhances your look while keeping your piercing healthy and stylish.</p>"
-          }
-        },
-        "body_4": {
-          "type": "body_split",
-          "settings": {
-            "image": "shopify://shop_images/Blog_Image_7.png",
-            "image_position": "left",
-            "image_width": 472,
-            "heading": "Factors to Consider When Choosing Jewelry:",
-            "text": "<ul><li>Jewelry Type Matters: Hoops, studs, and barbells all serve different purposes—choose based on your piercing placement.</li><li>Find the Perfect Fit: The wrong size can cause irritation or migration—always consult a professional for measurements.</li><li>Match Your Style: Opt for minimalist designs for a subtle look or bold, gem-studded pieces for a statement.</li><li>Check for Hypoallergenic Materials: Nickel-free jewelry is a must for sensitive skin.</li></ul>"
-          }
-        },
-        "body_5": {
-          "type": "body_quote",
-          "settings": {
-            "text": "<p>\"Your jewelry is an extension of your personality—choose pieces that make you feel confident and comfortable.\"</p>"
-          }
-        },
-        "body_6": {
-          "type": "body_group",
-          "settings": {
-            "heading": "",
-            "text": "<p>Your choice of piercing jewelry plays a huge role in both aesthetic appeal and healing process. Whether you're looking for a classic gold hoop, an edgy black titanium ring, or a delicate stud, selecting high-quality materials and the right size is key.</p>"
-          }
-        },
         "next_1": {
           "type": "next_post",
           "settings": {
@@ -95,12 +48,6 @@
         }
       },
       "block_order": [
-        "body_1",
-        "body_2",
-        "body_3",
-        "body_4",
-        "body_5",
-        "body_6",
         "next_1",
         "next_2",
         "next_3"
@@ -108,16 +55,7 @@
       "settings": {
         "back_label": "Back To Blogs",
         "back_link": "/pages/blogs",
-        "hero_image": "shopify://shop_images/Blog_Image_3.png",
-        "category_label": "Feb 28, 2025",
-        "show_share": true,
-        "share_label": "Share",
-        "article_title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
-        "show_nav": true,
-        "prev_label": "Previous",
-        "prev_link": "",
-        "next_label": "Next",
-        "next_link": "",
+        "hero_image": "shopify://shop_images/Blog_Image_11.png",
         "show_search": true,
         "search_placeholder": "Search",
         "next_heading": "Read Next",
