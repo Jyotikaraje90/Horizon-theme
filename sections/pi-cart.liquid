@@ -1,0 +1,700 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+
+  .pi-cart {
+    max-width: 1500px;
+    margin: 0 auto;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* thumb | details | quantity + remove | line total */
+  .pi-cart__row {
+    display: grid;
+    grid-template-columns: 110px minmax(0, 1fr) auto minmax(120px, 150px);
+    column-gap: 50px;
+    align-items: center;
+  }
+
+  /* ── Column headings ─────────────────────────────── */
+  .pi-cart__head {
+    padding-bottom: 18px;
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  .pi-cart__head-label {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  /* The heading row only fills the first and last columns. */
+  .pi-cart__head .pi-cart__head-label:first-child { grid-column: 1 / 3; }
+  .pi-cart__head .pi-cart__head-label:last-child { grid-column: 4; text-align: right; }
+
+  /* ── Line items ──────────────────────────────────── */
+  .pi-cart__item {
+    padding: 18px 0;
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  .pi-cart__media {
+    width: 110px;
+    height: 110px;
+    border-radius: 8px;
+    overflow: hidden;
+    background: {{ section.settings.thumb_bg }};
+  }
+
+  .pi-cart__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .pi-cart__details {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  .pi-cart__title {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+    text-decoration: none;
+  }
+
+  .pi-cart__title:hover { color: {{ section.settings.accent_color }}; }
+
+  .pi-cart__option {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: {{ section.settings.muted_color }};
+    margin: 0;
+  }
+
+  /* ── Quantity + remove ───────────────────────────── */
+  .pi-cart__controls {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pi-cart__qty {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 149px;
+    height: 53px;
+    border: 1px solid {{ section.settings.text_color }};
+    border-radius: 8px;
+    box-sizing: border-box;
+    overflow: hidden;
+  }
+
+  .pi-cart__qty-btn {
+    flex: 0 0 46px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    color: {{ section.settings.text_color }};
+    font: inherit;
+  }
+
+  .pi-cart__qty-btn:hover { color: {{ section.settings.accent_color }}; }
+  .pi-cart__qty-btn svg { width: 14px; height: 14px; }
+
+  .pi-cart__qty-input {
+    flex: 1 1 auto;
+    width: 100%;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    padding: 0;
+    text-align: center;
+    background: transparent;
+    font-family: inherit;
+    font-weight: 400;
+    font-size: 16px;
+    color: {{ section.settings.text_color }};
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  .pi-cart__qty-input::-webkit-outer-spin-button,
+  .pi-cart__qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .pi-cart__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    color: {{ section.settings.muted_color }};
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .pi-cart__remove:hover { color: {{ section.settings.accent_color }}; }
+  .pi-cart__remove svg { width: 20px; height: 20px; }
+
+  .pi-cart__price {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: {{ section.settings.text_color }};
+    text-align: right;
+    margin: 0;
+  }
+
+  /* ── Totals ──────────────────────────────────────── */
+  /* Aligned to the right-hand pair of columns so SUBTOTAL sits above the
+     quantity column and the amount lines up with the line totals. */
+  .pi-cart__foot {
+    padding-top: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 12px;
+  }
+
+  .pi-cart__subtotal {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 40px;
+    width: 100%;
+    max-width: 552px;
+  }
+
+  .pi-cart__subtotal-label {
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  .pi-cart__subtotal-value {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 24px;
+    color: {{ section.settings.text_color }};
+    margin: 0;
+  }
+
+  .pi-cart__note {
+    width: 100%;
+    max-width: 552px;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: {{ section.settings.muted_color }};
+    margin: 0;
+  }
+
+  .pi-cart__actions {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 30px;
+    margin-top: 30px;
+  }
+
+  .pi-cart__continue {
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+  }
+
+  .pi-cart__continue:hover { color: {{ section.settings.accent_color }}; }
+
+  .pi-cart__checkout {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 52px;
+    padding: 0 32px;
+    border: 1px solid {{ section.settings.btn_bg }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    background: {{ section.settings.btn_bg }};
+    color: {{ section.settings.btn_text }};
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+
+  .pi-cart__checkout:hover {
+    background: {{ section.settings.btn_hover_bg }};
+    border-color: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+
+  /* ── Empty state ─────────────────────────────────── */
+  .pi-cart__empty {
+    text-align: center;
+    padding: 40px 0 20px;
+  }
+
+  .pi-cart__empty p {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 29px;
+    color: {{ section.settings.muted_color }};
+    margin: 0 0 30px;
+  }
+
+  /* ── Responsive ──────────────────────────────────── */
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .pi-cart__row { column-gap: 24px; }
+  }
+
+  /* The quantity control drops under the details and the line total moves up
+     beside the title, so a phone row stays two columns rather than four. */
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 20px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .pi-cart__row {
+      grid-template-columns: 90px minmax(0, 1fr);
+      column-gap: 16px;
+      row-gap: 16px;
+      align-items: start;
+    }
+
+    .pi-cart__head { display: none; }
+
+    .pi-cart__media { width: 90px; height: 90px; }
+
+    .pi-cart__title { font-size: 16px; line-height: 22px; }
+    .pi-cart__option { font-size: 14px; line-height: 20px; }
+
+    .pi-cart__controls {
+      grid-column: 2;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .pi-cart__qty { width: 128px; height: 46px; }
+    .pi-cart__qty-btn { flex: 0 0 40px; }
+
+    .pi-cart__price {
+      grid-column: 2;
+      grid-row: 1;
+      text-align: right;
+      align-self: start;
+      font-size: 16px;
+    }
+
+    .pi-cart__details { grid-column: 2; grid-row: 2; }
+
+    .pi-cart__subtotal,
+    .pi-cart__note { max-width: 100%; }
+
+    .pi-cart__actions {
+      width: 100%;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .pi-cart__checkout { padding: 0 24px; }
+  }
+</style>
+
+<div class="pi-cart">
+  {%- if cart.item_count > 0 -%}
+    <form action="{{ routes.cart_url }}" method="post" novalidate data-pi-cart-form>
+
+      <div class="pi-cart__row pi-cart__head">
+        <p class="pi-cart__head-label">{{ section.settings.product_label | default: 'Product' }}</p>
+        <p class="pi-cart__head-label">{{ section.settings.total_label | default: 'Total' }}</p>
+      </div>
+
+      {%- for item in cart.items -%}
+        <div class="pi-cart__row pi-cart__item">
+
+          <div class="pi-cart__media">
+            {%- if item.image -%}
+              <img
+                src="{{ item.image | image_url: width: 300 }}"
+                alt="{{ item.image.alt | escape }}"
+                loading="lazy"
+                width="110"
+                height="110"
+              >
+            {%- endif -%}
+          </div>
+
+          <div class="pi-cart__details">
+            <a href="{{ item.url }}" class="pi-cart__title">{{ item.product.title }}</a>
+
+            {%- unless item.product.has_only_default_variant -%}
+              {%- for option in item.options_with_values -%}
+                <p class="pi-cart__option">{{ option.name }}: {{ option.value }}</p>
+              {%- endfor -%}
+            {%- endunless -%}
+
+            {%- for property in item.properties -%}
+              {%- unless property.last == blank or property.first.first == '_' -%}
+                <p class="pi-cart__option">{{ property.first }}: {{ property.last }}</p>
+              {%- endunless -%}
+            {%- endfor -%}
+          </div>
+
+          <div class="pi-cart__controls">
+            <div class="pi-cart__qty">
+              <button
+                type="button"
+                class="pi-cart__qty-btn"
+                data-pi-cart-step="-1"
+                aria-label="{{ 'accessibility.decrease_quantity' | t | default: 'Decrease quantity' }}"
+              >
+                <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M2 7H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+
+              <input
+                type="number"
+                class="pi-cart__qty-input"
+                name="updates[{{ item.key }}]"
+                value="{{ item.quantity }}"
+                min="0"
+                aria-label="{{ 'accessibility.quantity' | t | default: 'Quantity' }}"
+                data-pi-cart-qty
+              >
+
+              <button
+                type="button"
+                class="pi-cart__qty-btn"
+                data-pi-cart-step="1"
+                aria-label="{{ 'accessibility.increase_quantity' | t | default: 'Increase quantity' }}"
+              >
+                <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 2V12M2 7H12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <a
+              href="{{ item.url_to_remove }}"
+              class="pi-cart__remove"
+              aria-label="Remove {{ item.product.title | escape }}"
+            >
+              <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M3 5.5H17M8 5.5V3.5H12V5.5M5 5.5L5.8 17H14.2L15 5.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M8.5 9V13.5M11.5 9V13.5" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <p class="pi-cart__price">{{ item.final_line_price | money }}</p>
+        </div>
+      {%- endfor -%}
+
+      <div class="pi-cart__foot">
+        <div class="pi-cart__subtotal">
+          <p class="pi-cart__subtotal-label">{{ section.settings.subtotal_label | default: 'Subtotal' }}</p>
+          <p class="pi-cart__subtotal-value">{{ cart.total_price | money }}</p>
+        </div>
+
+        <p class="pi-cart__note">{{ section.settings.tax_note | default: 'Taxes and shipping calculated at checkout' }}</p>
+
+        <div class="pi-cart__actions">
+          <a href="{{ section.settings.continue_link | default: routes.all_products_collection_url }}" class="pi-cart__continue">
+            {{ section.settings.continue_label | default: 'Continue Shopping' }}
+          </a>
+
+          <button type="submit" name="checkout" class="pi-cart__checkout">
+            {{ section.settings.checkout_label | default: 'Checkout' }}
+          </button>
+        </div>
+      </div>
+
+    </form>
+  {%- else -%}
+    <div class="pi-cart__empty">
+      <p>{{ section.settings.empty_text | default: 'Your cart is currently empty.' }}</p>
+      <a href="{{ section.settings.continue_link | default: routes.all_products_collection_url }}" class="pi-cart__checkout">
+        {{ section.settings.continue_label | default: 'Continue Shopping' }}
+      </a>
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    var form = root.querySelector('[data-pi-cart-form]');
+    if (!form) return;
+
+    /* Stepping submits the form so the line total and subtotal are recalculated
+       by Shopify rather than guessed on the client. */
+    root.querySelectorAll('[data-pi-cart-step]').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var input = btn.parentElement.querySelector('[data-pi-cart-qty]');
+        if (!input) return;
+        var next = parseInt(input.value, 10) + parseInt(btn.dataset.piCartStep, 10);
+        if (isNaN(next) || next < 0) next = 0;
+        input.value = next;
+        form.submit();
+      });
+    });
+
+    root.querySelectorAll('[data-pi-cart-qty]').forEach(function (input) {
+      input.addEventListener('change', function () {
+        form.submit();
+      });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "PI Cart",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Labels"
+    },
+    {
+      "type": "text",
+      "id": "product_label",
+      "label": "Product column label",
+      "default": "Product"
+    },
+    {
+      "type": "text",
+      "id": "total_label",
+      "label": "Total column label",
+      "default": "Total"
+    },
+    {
+      "type": "text",
+      "id": "subtotal_label",
+      "label": "Subtotal label",
+      "default": "Subtotal"
+    },
+    {
+      "type": "text",
+      "id": "tax_note",
+      "label": "Tax note",
+      "default": "Taxes and shipping calculated at checkout"
+    },
+    {
+      "type": "text",
+      "id": "continue_label",
+      "label": "Continue shopping label",
+      "default": "Continue Shopping"
+    },
+    {
+      "type": "url",
+      "id": "continue_link",
+      "label": "Continue shopping URL"
+    },
+    {
+      "type": "text",
+      "id": "checkout_label",
+      "label": "Checkout label",
+      "default": "Checkout"
+    },
+    {
+      "type": "text",
+      "id": "empty_text",
+      "label": "Empty cart message",
+      "default": "Your cart is currently empty."
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "muted_color",
+      "label": "Secondary Text Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "divider_color",
+      "label": "Divider Color",
+      "default": "#E0E0E0"
+    },
+    {
+      "type": "color",
+      "id": "thumb_bg",
+      "label": "Thumbnail Background",
+      "default": "#D9D9D9"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Hover Accent",
+      "default": "#B49146"
+    },
+    {
+      "type": "header",
+      "content": "Checkout Button"
+    },
+    {
+      "type": "color",
+      "id": "btn_bg",
+      "label": "Button background",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "btn_text",
+      "label": "Button text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_bg",
+      "label": "Button hover background",
+      "default": "#B49146"
+    },
+    {
+      "type": "color",
+      "id": "btn_hover_text",
+      "label": "Button hover text",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "btn_radius",
+      "label": "Button radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 8,
+      "unit": "px"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Cart"
+    }
+  ]
+}
+{% endschema %}
