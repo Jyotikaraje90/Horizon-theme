@@ -63,16 +63,27 @@
     gap: 30px;
   }
 
-  .pi-bd__hero {
+  /* The blog PNGs carry a 19px rounded corner baked into their alpha channel.
+     At 487px wide displayed across 1063px that corner renders ~41px and reads
+     as an unwanted radius, and no border-radius rule can remove it because the
+     pixels are simply transparent. Overflowing the image past this frame and
+     clipping pushes the transparent corners outside the visible box, leaving
+     true square corners. */
+  .pi-bd__hero-wrap {
     width: 100%;
     aspect-ratio: 1063 / 786;
+    overflow: hidden;
+    background: #e0e0e0;
+  }
+
+  .pi-bd__hero {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    /* No border-radius: the source images already have rounded corners baked
-       in, so clipping again here cuts a second corner just inside the first
-       and leaves a visible doubled edge. */
-    background: #e0e0e0;
+    /* 19/487 = 3.9% per side; scaling 9% crops 4.5% each side, clearing it. */
+    transform: scale(1.09);
   }
 
   .pi-bd__sidebar {
@@ -246,17 +257,17 @@
   <div class="pi-bd__row">
 
     <div class="pi-bd__main">
-      {%- if section.settings.hero_image != blank -%}
-        <img
-          src="{{ section.settings.hero_image | image_url: width: 1400 }}"
-          alt="{{ section.settings.hero_image.alt | escape }}"
-          class="pi-bd__hero"
-          width="1063"
-          height="786"
-        >
-      {%- else -%}
-        <div class="pi-bd__hero"></div>
-      {%- endif -%}
+      <div class="pi-bd__hero-wrap">
+        {%- if section.settings.hero_image != blank -%}
+          <img
+            src="{{ section.settings.hero_image | image_url: width: 1400 }}"
+            alt="{{ section.settings.hero_image.alt | escape }}"
+            class="pi-bd__hero"
+            width="1063"
+            height="786"
+          >
+        {%- endif -%}
+      </div>
     </div>
 
     <aside class="pi-bd__sidebar">
