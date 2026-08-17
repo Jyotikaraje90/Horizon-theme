@@ -34,18 +34,21 @@
 
   .pi-blogs__card {
     position: relative;
-    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 487 / 423;
     border-radius: 12px;
-    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .pi-blogs__image {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
-    aspect-ratio: 487 / 270;
+    height: 100%;
     object-fit: cover;
     object-position: center;
     display: block;
-    border-radius: 12px;
   }
 
   .pi-blogs__card-content {
@@ -58,9 +61,9 @@
     flex-direction: column;
     gap: 8px;
     background: #F0F0F0;
-    min-height: 153px;
+    height: 153px;
     justify-content: flex-start;
-    border-radius: 0 0 12px 12px;
+    z-index: 10;
   }
 
   .pi-blogs__date {
