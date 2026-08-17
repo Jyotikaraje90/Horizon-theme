@@ -19,6 +19,22 @@
         "padding-block-end": 0
       }
     },
+    "pi_ph_blogs": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Blogs",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_scale": 1,
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
     "pi_blogs_section": {
       "type": "pi-blogs",
       "blocks": {
@@ -97,6 +113,7 @@
         "blog_9": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_10.png",
             "blog_date": "Feb 19, 2025",
             "blog_title": "Jewelry Guide: Choosing the Right Metal for Your Piercing",
             "blog_link": ""
@@ -115,6 +132,7 @@
         "blog_9"
       ],
       "settings": {
+        "show_heading": false,
         "title": "Blogs",
         "heading_size": 40,
         "mobile_heading_size": 28,
@@ -202,6 +220,7 @@
   },
   "order": [
     "main",
+    "pi_ph_blogs",
     "pi_blogs_section",
     "pi_contact_blogs"
   ]
