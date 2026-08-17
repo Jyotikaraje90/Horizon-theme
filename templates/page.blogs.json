@@ -88,6 +88,7 @@
         "blog_8": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_9.png",
             "blog_date": "Feb 20, 2025",
             "blog_title": "Tattoo Removal vs. Cover-Up: Which Option is Best for You?",
             "blog_link": ""
