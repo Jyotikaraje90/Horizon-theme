@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -10,70 +19,104 @@
         "padding-block-end": 0
       }
     },
+    "pi_ph_blogs": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Blogs",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_scale": 1,
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
     "pi_blogs_section": {
       "type": "pi-blogs",
       "blocks": {
         "blog_1": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_3.png",
             "blog_date": "Feb 28, 2025",
-            "blog_title": "How to Choose the Perfect Piercing Jewelry for Your Style?"
+            "blog_title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
+            "blog_link": ""
           }
         },
         "blog_2": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_4.png",
             "blog_date": "Feb 27, 2025",
-            "blog_title": "The Rising Trend of Minimalist Tattoos & Their Meaning"
+            "blog_title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
+            "blog_link": ""
           }
         },
         "blog_3": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/image_90.png",
             "blog_date": "Feb 26, 2025",
-            "blog_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink"
+            "blog_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
+            "blog_link": ""
           }
         },
         "blog_4": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_5.png",
             "blog_date": "Feb 25, 2025",
-            "blog_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot"
+            "blog_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot",
+            "blog_link": ""
           }
         },
         "blog_5": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_6.png",
             "blog_date": "Feb 24, 2025",
-            "blog_title": "Healing Process 101: How to Care for Your New Piercing"
+            "blog_title": "Healing Process 101: How to Care for Your New Piercing",
+            "blog_link": ""
           }
         },
         "blog_6": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_7.png",
             "blog_date": "Feb 23, 2025",
-            "blog_title": "Tattoo Trends 2025: What's In and What's Out?"
+            "blog_title": "Tattoo Trends 2025: What's In and What's Out?",
+            "blog_link": ""
           }
         },
         "blog_7": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_8.png",
             "blog_date": "Feb 22, 2025",
-            "blog_title": "Piercing Pain Scale: What to Expect for Every Type of Piercing"
+            "blog_title": "Piercing Pain Scale: What to Expect for Every Type of Piercing",
+            "blog_link": ""
           }
         },
         "blog_8": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_9.png",
             "blog_date": "Feb 20, 2025",
-            "blog_title": "Tattoo Removal vs. Cover-Up: Which Option is Best for You?"
+            "blog_title": "Tattoo Removal vs. Cover-Up: Which Option is Best for You?",
+            "blog_link": ""
           }
         },
         "blog_9": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_10.png",
             "blog_date": "Feb 19, 2025",
-            "blog_title": "Jewelry Guide: Choosing the Right Metal for Your Piercing"
+            "blog_title": "Jewelry Guide: Choosing the Right Metal for Your Piercing",
+            "blog_link": ""
           }
         }
       },
@@ -89,6 +132,7 @@
         "blog_9"
       ],
       "settings": {
+        "show_heading": false,
         "title": "Blogs",
         "heading_size": 40,
         "mobile_heading_size": 28,
@@ -102,7 +146,7 @@
         "heading_color": "#000000",
         "text_color": "#000000",
         "date_color": "#666666",
-        "hover_color": "#B49146"
+        "hover_color": "#b49146"
       }
     },
     "pi_contact_blogs": {
@@ -176,6 +220,7 @@
   },
   "order": [
     "main",
+    "pi_ph_blogs",
     "pi_blogs_section",
     "pi_contact_blogs"
   ]
