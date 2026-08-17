@@ -33,8 +33,10 @@
   }
 
   .pi-blogs__card {
-    position: relative;
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    background: #ffffff;
     border-radius: 12px;
     box-sizing: border-box;
   }
@@ -45,20 +47,14 @@
     object-fit: cover;
     object-position: center;
     display: block;
-    border-radius: 12px;
   }
 
   .pi-blogs__card-content {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
     padding: 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
-    background: #ffffff;
-    border-radius: 0 0 12px 12px;
+    flex: 1;
   }
 
   .pi-blogs__date {
