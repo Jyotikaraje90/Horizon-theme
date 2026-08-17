@@ -52,6 +52,7 @@
         "blog_4": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_5.png",
             "blog_date": "Feb 25, 2025",
             "blog_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot",
             "blog_link": ""
