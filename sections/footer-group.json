@@ -32,28 +32,28 @@
           "type": "quick_link",
           "settings": {
             "label": "Tattoo Services",
-            "link": "/collections/all"
+            "link": "/pages/tattoo-services"
           }
         },
         "ql_4": {
           "type": "quick_link",
           "settings": {
             "label": "Piercing Services",
-            "link": "/collections/all"
+            "link": "/pages/piercing-services"
           }
         },
         "ql_5": {
           "type": "quick_link",
           "settings": {
             "label": "Shop Jewelry",
-            "link": "/collections/all"
+            "link": "/pages/shop-jewelry"
           }
         },
         "rl_1": {
           "type": "resource_link",
           "settings": {
             "label": "Blogs",
-            "link": "/blogs/news"
+            "link": "/pages/blogs"
           }
         },
         "rl_2": {
@@ -67,14 +67,14 @@
           "type": "resource_link",
           "settings": {
             "label": "Contact Us",
-            "link": "/pages/contact"
+            "link": "/pages/contact-us"
           }
         },
         "rl_4": {
           "type": "resource_link",
           "settings": {
             "label": "Privacy Policy",
-            "link": "/policies/privacy-policy"
+            "link": "/pages/privacy-policy"
           }
         },
         "rl_5": {
