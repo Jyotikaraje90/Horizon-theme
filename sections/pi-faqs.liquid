@@ -73,10 +73,13 @@
     gap: 20px;
   }
 
+  /* No flex gap here: the answer stays in the layout so it can animate, and a
+     gap would still be spent on it while collapsed. The 20px is carried by the
+     answer's padding and the divider's margin instead. */
   .pi-faqs__item {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 0;
   }
 
   .pi-faqs__trigger {
@@ -120,13 +123,18 @@
   .pi-faqs__item.is-open .pi-faqs__icon-plus  { display: none; }
   .pi-faqs__item.is-open .pi-faqs__icon-minus { display: block; }
 
+  /* Collapsed by height rather than display:none, so both directions animate.
+     The open height is measured in JS. */
   .pi-faqs__answer {
-    display: none;
     width: 100%;
+    max-height: 0;
+    padding-top: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease, padding-top 0.35s ease;
   }
 
   .pi-faqs__item.is-open .pi-faqs__answer {
-    display: block;
+    padding-top: 20px;
   }
 
   .pi-faqs__answer-text {
@@ -140,6 +148,7 @@
 
   .pi-faqs__divider {
     width: 100%;
+    margin-top: 20px;
     height: 1px;
     background: var(--pi-faqs-divider-color, #000000);
     flex-shrink: 0;
@@ -249,11 +258,59 @@
 
 <script>
   (function () {
-    document.querySelectorAll('#shopify-section-{{ section.id }} .pi-faqs__trigger').forEach(function (trigger) {
-      trigger.addEventListener('click', function () {
-        var item = this.closest('.pi-faqs__item');
-        var isOpen = item.classList.toggle('is-open');
-        this.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    var items = Array.prototype.slice.call(root.querySelectorAll('.pi-faqs__item'));
+
+    function parts(item) {
+      return {
+        panel: item.querySelector('.pi-faqs__answer'),
+        trigger: item.querySelector('.pi-faqs__trigger')
+      };
+    }
+
+    function open(item) {
+      var p = parts(item);
+      if (!p.panel) return;
+      item.classList.add('is-open');
+      if (p.trigger) p.trigger.setAttribute('aria-expanded', 'true');
+      p.panel.style.maxHeight = p.panel.scrollHeight + 'px';
+    }
+
+    function close(item) {
+      var p = parts(item);
+      if (!p.panel) return;
+      /* Pin the measured height first so the transition has a value to run
+         from — going straight to 0 from `none` would snap shut. */
+      p.panel.style.maxHeight = p.panel.scrollHeight + 'px';
+      void p.panel.offsetHeight;
+      requestAnimationFrame(function () {
+        item.classList.remove('is-open');
+        if (p.trigger) p.trigger.setAttribute('aria-expanded', 'false');
+        p.panel.style.maxHeight = '0px';
+      });
+    }
+
+    items.forEach(function (item) {
+      var p = parts(item);
+      if (!p.trigger) return;
+
+      /* Drop the cap once open, so the panel is never a few pixels short of
+         its content and can reflow freely afterwards. */
+      if (p.panel) p.panel.addEventListener('transitionend', function (e) {
+        if (e.propertyName === 'max-height' && item.classList.contains('is-open')) {
+          p.panel.style.maxHeight = 'none';
+        }
+      });
+
+      if (item.classList.contains('is-open')) open(item);
+
+      p.trigger.addEventListener('click', function () {
+        var wasOpen = item.classList.contains('is-open');
+        items.forEach(function (other) {
+          if (other !== item && other.classList.contains('is-open')) close(other);
+        });
+        if (wasOpen) { close(item); } else { open(item); }
       });
     });
   })();
