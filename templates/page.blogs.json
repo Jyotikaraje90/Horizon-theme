@@ -187,6 +187,7 @@
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can!",
         "detailed_booking_form": false,
+        "background_image": "shopify://shop_images/Background.png",
         "button_label": "Submit",
         "success_message": "Thank you! We'll be in touch soon.",
         "padding_top": 32,
