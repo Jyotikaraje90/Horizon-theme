@@ -1,0 +1,191 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_blogs_section": {
+      "type": "pi-blogs",
+      "blocks": {
+        "blog_1": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 28, 2025",
+            "blog_title": "How to Choose the Perfect Piercing Jewelry for Your Style?"
+          }
+        },
+        "blog_2": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 27, 2025",
+            "blog_title": "The Rising Trend of Minimalist Tattoos & Their Meaning"
+          }
+        },
+        "blog_3": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 26, 2025",
+            "blog_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink"
+          }
+        },
+        "blog_4": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 25, 2025",
+            "blog_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot"
+          }
+        },
+        "blog_5": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 24, 2025",
+            "blog_title": "Healing Process 101: How to Care for Your New Piercing"
+          }
+        },
+        "blog_6": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 23, 2025",
+            "blog_title": "Tattoo Trends 2025: What's In and What's Out?"
+          }
+        },
+        "blog_7": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 22, 2025",
+            "blog_title": "Piercing Pain Scale: What to Expect for Every Type of Piercing"
+          }
+        },
+        "blog_8": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 20, 2025",
+            "blog_title": "Tattoo Removal vs. Cover-Up: Which Option is Best for You?"
+          }
+        },
+        "blog_9": {
+          "type": "blog_post",
+          "settings": {
+            "blog_date": "Feb 19, 2025",
+            "blog_title": "Jewelry Guide: Choosing the Right Metal for Your Piercing"
+          }
+        }
+      },
+      "block_order": [
+        "blog_1",
+        "blog_2",
+        "blog_3",
+        "blog_4",
+        "blog_5",
+        "blog_6",
+        "blog_7",
+        "blog_8",
+        "blog_9"
+      ],
+      "settings": {
+        "title": "Blogs",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#000000",
+        "date_color": "#666666",
+        "hover_color": "#B49146"
+      }
+    },
+    "pi_contact_blogs": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can!",
+        "detailed_booking_form": false,
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_blogs_section",
+    "pi_contact_blogs"
+  ]
+}
