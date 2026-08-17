@@ -81,7 +81,7 @@
           "type": "resource_link",
           "settings": {
             "label": "Terms & Conditions",
-            "link": "/policies/terms-of-service"
+            "link": "/pages/terms-conditions"
           }
         },
         "st_1": {
