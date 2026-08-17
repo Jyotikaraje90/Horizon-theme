@@ -267,6 +267,9 @@
     border-radius: 2px;
   }
 
+  /* Figma sets this panel two lines tall (112px = 30 + 26 + 26 + 30). The live
+     font runs narrower than the Proxima Nova the design uses, so the sentence
+     would otherwise fit on one line; the cap holds the intended break. */
   .pi-bd__quote-text {
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-weight: 600;
@@ -274,6 +277,7 @@
     line-height: 26px;
     color: #121212;
     margin: 0;
+    max-width: 900px;
   }
 
   .pi-bd__quote-text > p { margin: 0 0 26px; }
