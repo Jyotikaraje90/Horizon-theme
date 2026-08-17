@@ -1,0 +1,78 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_blog_detail": {
+      "type": "pi-blog-detail",
+      "blocks": {
+        "next_1": {
+          "type": "next_post",
+          "settings": {
+            "post_image": "shopify://shop_images/Blog_Image_4.png",
+            "post_title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
+            "post_link": ""
+          }
+        },
+        "next_2": {
+          "type": "next_post",
+          "settings": {
+            "post_image": "shopify://shop_images/image_90.png",
+            "post_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
+            "post_link": ""
+          }
+        },
+        "next_3": {
+          "type": "next_post",
+          "settings": {
+            "post_image": "shopify://shop_images/Blog_Image_5.png",
+            "post_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot",
+            "post_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "next_1",
+        "next_2",
+        "next_3"
+      ],
+      "settings": {
+        "back_label": "Back To Blogs",
+        "back_link": "/pages/blogs",
+        "hero_image": "shopify://shop_images/Blog_Image_3.png",
+        "show_search": true,
+        "search_placeholder": "Search",
+        "next_heading": "Read Next",
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "mobile_padding_top": 24,
+        "mobile_padding_bottom": 24,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff",
+        "panel_bg": "#f0f0f0",
+        "accent_color": "#b49146"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_blog_detail"
+  ]
+}
