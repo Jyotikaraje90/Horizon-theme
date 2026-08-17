@@ -205,16 +205,23 @@
 
   .pi-bd__split--right { flex-direction: row-reverse; }
 
+  /* Same treatment as the hero: the blog PNGs carry a 19px corner in their
+     alpha channel, which reads far rounder than the Figma crop. Overflow the
+     image past this frame to clip the baked corner off, then re-cut it here at
+     the size the design asks for. */
   .pi-bd__split-media {
     flex: 0 0 auto;
+    overflow: hidden;
+    border-radius: 8px;
+    line-height: 0;
   }
 
-  /* No CSS radius here: the blog PNGs carry their corners in the alpha channel
-     and adding one on top cuts a second edge just inside it. */
   .pi-bd__split-media img {
     display: block;
     width: 100%;
     height: auto;
+    /* 19/487 = 3.9% per side; scaling 9% crops 4.5% each side, clearing it. */
+    transform: scale(1.09);
   }
 
   .pi-bd__split-text {
