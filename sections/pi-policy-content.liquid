@@ -1,0 +1,240 @@
+<style>
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+
+  /* Fixed 930px measure, centred, with 30px between blocks. */
+  .pi-pc {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Spacing lives between siblings so nothing trails a margin at either end
+     and the list case can be tighter than block-to-block. */
+  .pi-pc > * { margin: 0; }
+  .pi-pc > * + * { margin-top: 30px; }
+  .pi-pc > * + ul,
+  .pi-pc > * + ol { margin-top: 10px; }
+
+  .pi-pc h2 {
+    font-weight: 500;
+    font-size: {{ section.settings.heading_size }}px;
+    line-height: 44px;
+    letter-spacing: 0;
+    color: {{ section.settings.heading_color }};
+  }
+
+  /* Sub-heading inside a section, e.g. "Personal Information". */
+  .pi-pc h3,
+  .pi-pc h4 {
+    font-weight: 600;
+    font-size: {{ section.settings.subheading_size }}px;
+    line-height: 26px;
+    color: {{ section.settings.heading_color }};
+  }
+
+  .pi-pc p,
+  .pi-pc li {
+    font-weight: 400;
+    font-size: {{ section.settings.body_size }}px;
+    line-height: 29px;
+    color: {{ section.settings.body_color }};
+  }
+
+  .pi-pc ul,
+  .pi-pc ol { padding-left: 22px; }
+  .pi-pc li { margin-bottom: 0; }
+  .pi-pc li::marker { font-size: 0.55em; }
+
+  .pi-pc strong,
+  .pi-pc b { font-weight: 600; color: {{ section.settings.heading_color }}; }
+
+  .pi-pc a { color: inherit; }
+
+  @media (max-width: 989px) {
+    #shopify-section-{{ section.id }} {
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .pi-pc h2 { font-size: 28px; line-height: 36px; }
+  }
+
+  @media (max-width: 749px) {
+    #shopify-section-{{ section.id }} {
+      padding: {{ section.settings.mobile_padding_top }}px 20px {{ section.settings.mobile_padding_bottom }}px;
+    }
+
+    .pi-pc > * + * { margin-top: 24px; }
+    .pi-pc > * + ul,
+    .pi-pc > * + ol { margin-top: 8px; }
+
+    .pi-pc h2 { font-size: 24px; line-height: 32px; }
+    .pi-pc h3,
+    .pi-pc h4 { font-size: 18px; line-height: 24px; }
+
+    .pi-pc p,
+    .pi-pc li { font-size: 16px; line-height: 26px; }
+  }
+</style>
+
+<div class="pi-pc">
+  {%- if section.settings.content != blank -%}
+    {{ section.settings.content }}
+  {%- else -%}
+    {{ page.content }}
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "PI Policy Content",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content override",
+      "info": "Leave empty to use the page's own content, edited under Content > Pages."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "label": "Content width",
+      "min": 600,
+      "max": 1200,
+      "step": 10,
+      "default": 930,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding Top",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding Bottom",
+      "min": 0,
+      "max": 148,
+      "step": 4,
+      "default": 80,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_top",
+      "label": "Mobile Padding Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "mobile_padding_bottom",
+      "label": "Mobile Padding Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 40,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margin Top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margin Bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 48,
+      "step": 2,
+      "default": 34,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "subheading_size",
+      "label": "Sub-heading size",
+      "min": 14,
+      "max": 28,
+      "step": 1,
+      "default": 20,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "body_size",
+      "label": "Body size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 18,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "body_color",
+      "label": "Body Color",
+      "default": "#333333"
+    }
+  ],
+  "presets": [
+    {
+      "name": "PI Policy Content"
+    }
+  ]
+}
+{% endschema %}
