@@ -1,0 +1,228 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_faqs": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "FAQs",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 30,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_faqs_page": {
+      "type": "pi-faqs",
+      "blocks": {
+        "faq_1": {
+          "type": "faq",
+          "settings": {
+            "question": "Is there an age requirement for tattoos and piercings?",
+            "answer": "Yes, you must be 18+ for tattoos. For piercings, 16+ with parental consent (valid ID required)."
+          }
+        },
+        "faq_2": {
+          "type": "faq",
+          "settings": {
+            "question": "What payment methods do you accept?",
+            "answer": "We accept all major credit and debit cards, Apple Pay, Google Pay, and cash in studio. Booking deposits can be paid online or at reception."
+          }
+        },
+        "faq_3": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I do before getting a tattoo?",
+            "answer": "Eat a full meal, stay hydrated, and get a good night's sleep. Avoid alcohol for 24 hours beforehand, and wear comfortable clothing that gives easy access to the area being tattooed."
+          }
+        },
+        "faq_4": {
+          "type": "faq",
+          "settings": {
+            "question": "What material do you use for initial piercings?",
+            "answer": "Implant-grade titanium as standard. It is lightweight, hypoallergenic, and the safest choice for a fresh piercing."
+          }
+        },
+        "faq_5": {
+          "type": "faq",
+          "settings": {
+            "question": "How do I clean and maintain my jewelry?",
+            "answer": "Wash with warm water and a mild soap, dry thoroughly, and store pieces separately so they do not scratch. Remove jewelry before swimming or using harsh cleaning products."
+          }
+        },
+        "faq_6": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does a tattoo take to heal?",
+            "answer": "The surface usually heals within two to three weeks, while the deeper layers settle over two to three months. Healing times vary with placement, size, and aftercare."
+          }
+        },
+        "faq_7": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I do if my piercing gets infected?",
+            "answer": "Do not remove the jewelry, as that can trap the infection. Keep the area clean with a saline rinse and contact us or a medical professional as soon as you can."
+          }
+        },
+        "faq_8": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I return or exchange my jewelry?",
+            "answer": "Unworn jewelry in its original packaging can be exchanged within 14 days of purchase. For hygiene reasons, worn body jewelry cannot be returned."
+          }
+        },
+        "faq_9": {
+          "type": "faq",
+          "settings": {
+            "question": "What should I avoid after getting a tattoo?",
+            "answer": "Avoid direct sun, swimming pools, saunas, and tight clothing over the area for the first two weeks. Do not pick or scratch it while it is healing."
+          }
+        },
+        "faq_10": {
+          "type": "faq",
+          "settings": {
+            "question": "What type of jewelry do you use for new piercings?",
+            "answer": "Simple, well-fitted labret studs and rings in implant-grade titanium. Each piece is sized to allow for swelling and can be downsized once the piercing has healed."
+          }
+        }
+      },
+      "block_order": [
+        "faq_1",
+        "faq_2",
+        "faq_3",
+        "faq_4",
+        "faq_5",
+        "faq_6",
+        "faq_7",
+        "faq_8",
+        "faq_9",
+        "faq_10"
+      ],
+      "settings": {
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48,
+        "bg_color": "#ffffff",
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "title": "",
+        "title_size": 54,
+        "mobile_title_size": 32,
+        "title_color": "#000000",
+        "text_alignment": "center",
+        "question_size": 20,
+        "question_color": "#000000",
+        "answer_size": 18,
+        "answer_color": "#121212",
+        "divider_color": "#000000",
+        "icon_color": "#000000",
+        "button_label": "",
+        "button_link": "",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff"
+      }
+    },
+    "pi_contact_faqs": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
+      ],
+      "settings": {
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
+        "detailed_booking_form": false,
+        "button_label": "Submit",
+        "success_message": "Thank you! We'll be in touch soon.",
+        "background_image": "shopify://shop_images/Background.png",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_faqs",
+    "pi_faqs_page",
+    "pi_contact_faqs"
+  ]
+}
