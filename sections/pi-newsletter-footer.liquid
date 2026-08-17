@@ -414,11 +414,15 @@
        opening and closing can animate. The open height is measured in JS. */
     .pi-nf__links {
       display: flex;
-      padding-bottom: 12px;
+      padding-bottom: 0;
       max-height: 0;
       overflow: hidden;
-      transition: max-height 0.35s ease;
+      transition: max-height 0.35s ease, padding-bottom 0.35s ease;
     }
+    /* Padding has to collapse with the height: max-height only zeroes the
+       content box, so padding left behind keeps the panel that tall and the
+       first link shows through it. */
+    .pi-nf__col.is-open .pi-nf__links { padding-bottom: 12px; }
     .pi-nf__link { font-size: 14px; line-height: 22px; }
 
     .pi-nf__copyright { padding: 0 20px 30px; height: auto; border-top: none; margin-top: 20px; }
@@ -713,6 +717,7 @@
       /* Pin the measured height first so the transition has a value to run
          from — going straight to 0 from `none` would snap shut. */
       p.style.maxHeight = p.scrollHeight + 'px';
+      void p.offsetHeight;
       requestAnimationFrame(function(){
         col.classList.remove('is-open');
         p.style.maxHeight = '0px';
@@ -723,7 +728,17 @@
 
     cols.forEach(function(col){
       var h = col.querySelector('.pi-nf__col-heading');
+      var p = panel(col);
       if(!h) return;
+
+      /* Drop the cap once open, so the panel is never a few pixels short of
+         its real content and can reflow freely afterwards. */
+      if(p) p.addEventListener('transitionend', function(e){
+        if(e.propertyName === 'max-height' && col.classList.contains('is-open')) {
+          p.style.maxHeight = 'none';
+        }
+      });
+
       h.addEventListener('click', function(){
         var wasOpen = col.classList.contains('is-open');
         cols.forEach(function(other){
