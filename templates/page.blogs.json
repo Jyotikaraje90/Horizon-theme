@@ -34,6 +34,7 @@
         "blog_2": {
           "type": "blog_post",
           "settings": {
+            "blog_image": "shopify://shop_images/Blog_Image_4.png",
             "blog_date": "Feb 27, 2025",
             "blog_title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
             "blog_link": ""
