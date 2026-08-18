@@ -91,7 +91,7 @@
         "divider_size": "page-width",
         "border_width": 0,
         "inquire_label": "Inquire Now",
-        "inquire_link": "/pages/contact",
+        "inquire_link": "/pages/contact-us",
         "actions_display_style": "icon",
         "actions_font_size": "0.875rem",
         "actions_font": "body",
