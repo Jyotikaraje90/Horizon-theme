@@ -25,6 +25,29 @@
     margin: 0 0 60px;
   }
 
+  /* Search result notice — only visible when the page is filtered by ?q= */
+  .pi-blogs__note,
+  .pi-blogs__empty {
+    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    color: {{ section.settings.heading_color }};
+    text-align: center;
+    margin: -30px 0 40px;
+  }
+
+  .pi-blogs__empty { margin: 20px 0 0; }
+
+  .pi-blogs__note-clear {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .pi-blogs__note-clear:hover { opacity: .7; }
+
+  .pi-blogs__note[hidden],
+  .pi-blogs__empty[hidden],
+  .pi-blogs__card-link[hidden] { display: none !important; }
+
   .pi-blogs__grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -171,10 +194,22 @@
     <h2 class="pi-blogs__heading">{{ section.settings.title | default: 'Blogs' }}</h2>
   {%- endif -%}
 
-  <div class="pi-blogs__grid">
+  {%- comment -%}
+    Populated by the script below when the page is opened with ?q=…, e.g. from
+    the blog sidebar search. Server-rendered empty so it costs nothing when
+    there is no query.
+  {%- endcomment -%}
+  <p class="pi-blogs__note" data-blogs-note hidden></p>
+
+  <div class="pi-blogs__grid" data-blogs-grid>
     {%- for block in section.blocks -%}
       {%- if block.type == 'blog_post' -%}
-        <a href="{{ block.settings.blog_link | default: '#' }}" class="pi-blogs__card-link">
+        <a
+          href="{{ block.settings.blog_link | default: '#' }}"
+          class="pi-blogs__card-link"
+          data-blog-card
+          data-blog-title="{{ block.settings.blog_title | escape }}"
+        >
           <div class="pi-blogs__card">
             <div class="pi-blogs__image-wrap">
               {%- if block.settings.blog_image != blank -%}
@@ -200,7 +235,58 @@
       {%- endif -%}
     {%- endfor -%}
   </div>
+
+  <p class="pi-blogs__empty" data-blogs-empty hidden>
+    {{ section.settings.no_results_text | default: 'No blogs match your search.' }}
+  </p>
 </div>
+
+<script>
+(function () {
+  var root = document.getElementById('shopify-section-{{ section.id }}');
+  if (!root) return;
+
+  var grid  = root.querySelector('[data-blogs-grid]');
+  var note  = root.querySelector('[data-blogs-note]');
+  var empty = root.querySelector('[data-blogs-empty]');
+  if (!grid) return;
+
+  var cards = grid.querySelectorAll('[data-blog-card]');
+
+  /* Read the query the blog sidebar search sends over. */
+  var params = new URLSearchParams(window.location.search);
+  var raw = (params.get('q') || '').trim();
+  if (!raw) return;
+
+  /* Match on title only — the blog blocks carry no body text to search. */
+  var needle = raw.toLowerCase();
+  var shown = 0;
+
+  for (var i = 0; i < cards.length; i++) {
+    var title = (cards[i].getAttribute('data-blog-title') || '').toLowerCase();
+    var hit = title.indexOf(needle) !== -1;
+    cards[i].hidden = !hit;
+    if (hit) shown++;
+  }
+
+  if (note) {
+    /* textContent, not innerHTML — the query comes straight from the URL. */
+    note.textContent = shown
+      ? shown + (shown === 1 ? ' result for “' : ' results for “') + raw + '”'
+      : 'No results for “' + raw + '”';
+
+    var clear = document.createElement('a');
+    clear.href = window.location.pathname;
+    clear.className = 'pi-blogs__note-clear';
+    clear.textContent = 'Show all blogs';
+    note.appendChild(document.createTextNode(' — '));
+    note.appendChild(clear);
+    note.hidden = false;
+  }
+
+  if (empty) empty.hidden = shown !== 0;
+})();
+</script>
 
 {% schema %}
 {
@@ -218,6 +304,13 @@
       "id": "title",
       "label": "Heading",
       "default": "Blogs"
+    },
+    {
+      "type": "text",
+      "id": "no_results_text",
+      "label": "No search results text",
+      "default": "No blogs match your search.",
+      "info": "Shown when the blog search returns nothing."
     },
     {
       "type": "range",

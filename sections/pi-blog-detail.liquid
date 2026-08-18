@@ -651,7 +651,18 @@
     <aside class="pi-bd__sidebar">
 
       {%- if section.settings.show_search -%}
-        <form action="{{ routes.search_url }}" method="get" role="search" class="pi-bd__search">
+        {%- comment -%}
+          Searches the blog listing, not the storefront. Shopify search would
+          return jewelry products, and scoping it to articles would return
+          nothing at all — the blog posts are Pages on the blog-detail
+          template, not blog articles.
+        {%- endcomment -%}
+        <form
+          action="{{ section.settings.search_action | default: '/pages/blogs' }}"
+          method="get"
+          role="search"
+          class="pi-bd__search"
+        >
           <input
             type="search"
             name="q"
@@ -812,6 +823,12 @@
       "id": "search_placeholder",
       "label": "Search placeholder",
       "default": "Search"
+    },
+    {
+      "type": "url",
+      "id": "search_action",
+      "label": "Search results page",
+      "info": "Where the blog search submits. Defaults to /pages/blogs, which filters its posts by the query."
     },
     {
       "type": "text",
