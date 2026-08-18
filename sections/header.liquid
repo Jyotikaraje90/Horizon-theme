@@ -1478,18 +1478,32 @@
     }
   }
 
+  /* The two lowest bands were re-fitted after the dropdown carets were added.
+     Each caret link costs an extra 41px of nav width (11px chevron + 10px gap +
+     20px trailing padding) and there are two of them, so ~82px appeared in the
+     row after the factors above were measured. Re-measuring at the band lower
+     bounds showed the RESOURCES caret overlapping the search icon by 17px at
+     1200 and touching it at 1260; the upper bands stayed clear (+16 at 1300,
+     +11 at 1340, +18 at 1380, +25 at 1420) and are left alone.
+
+     Refitted from measurements taken across all six bands, which fit
+     `caretRight = 231 + 730*f` and `searchIconLeft = W - 40 - 395.5*f` to within
+     1px, i.e. gap = W - 271 - 1125.5*f. Solving that for the gap 1420 gets
+     (23.5px, scaled by f so the spacing stays proportional) gives 0.808 at
+     W=1200 and 0.861 at W=1260, rounded down to the values below. Verified: 29px
+     of clearance at 1200 and 21px at 1260. */
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
     .header__row--top {
-      --pi-header-scale: 0.84;
-      --pi-logo-unzoom: 1.1905;
+      --pi-header-scale: 0.8;
+      --pi-logo-unzoom: 1.25;
     }
   }
 
   /* covers 1280-wide viewports on any platform */
   @media screen and (min-width: 1260px) and (max-width: 1299px) {
     .header__row--top {
-      --pi-header-scale: 0.88;
-      --pi-logo-unzoom: 1.1364;
+      --pi-header-scale: 0.86;
+      --pi-logo-unzoom: 1.1628;
     }
   }
 
