@@ -242,8 +242,10 @@ class HeaderMenu extends Component {
         requestAnimationFrame(() => {
           // Double requestAnimationFrame to ensure the height is properly calculated and not defaulting to the contain-intrinsic-size
           requestAnimationFrame(() => {
-            if (submenu.offsetHeight > 0) {
-              this.headerComponent?.style.setProperty('--submenu-height', `${submenu.offsetHeight}px`);
+            // Visual px, to match --submenu-height's unzoomed consumer. See #activate.
+            const injectedHeight = submenu.getBoundingClientRect().height;
+            if (injectedHeight > 0) {
+              this.headerComponent?.style.setProperty('--submenu-height', `${injectedHeight}px`);
               this.#cleanupMutationObserver();
             }
           });
@@ -272,7 +274,7 @@ class HeaderMenu extends Component {
       if (hasSubmenu) {
         /* Note: When the submenu is inside the overflow menu, its offsetHeight is not valid due to the lack of padding
          * we could add the padding variables to the submenu.offsetHeight, but measuring the overflowMenu.offsetHeight is just easier */
-        const overflowHeight = this.overflowMenu?.offsetHeight || 0;
+        const overflowHeight = this.overflowMenu?.getBoundingClientRect().height || 0;
         finalHeight = Math.max(overflowHeight, overflowListHeight);
       } else {
         finalHeight = overflowListHeight;
@@ -346,7 +348,7 @@ class HeaderMenu extends Component {
 
   #getOverflowListLinksHeight() {
     const slottedMenuLinks = this.overflowMenu?.querySelector('slot')?.assignedElements();
-    if (!slottedMenuLinks) return this.overflowMenu?.offsetHeight || 0;
+    if (!slottedMenuLinks) return this.overflowMenu?.getBoundingClientRect().height || 0;
 
     /**
      * @param {(submenu: HTMLElement) => void} cb
@@ -363,7 +365,7 @@ class HeaderMenu extends Component {
     mapSubmenus((submenu) => {
       submenu.style.setProperty('display', 'none');
     });
-    const height = this.overflowMenu?.offsetHeight || 0;
+    const height = this.overflowMenu?.getBoundingClientRect().height || 0;
     mapSubmenus((submenu) => {
       submenu.style.removeProperty('display');
     });
