@@ -719,7 +719,7 @@
                   <span></span>
                 {%- endif -%}
                 {%- if section.settings.show_wishlist -%}
-                  <button type="button" class="pi-pdp__wishlist" aria-label="{{ section.settings.wishlist_label }}">
+                  <button type="button" class="pi-pdp__wishlist" aria-label="{{ section.settings.wishlist_label }}" data-pi-wish="{{ product.handle }}">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
@@ -1159,9 +1159,18 @@
     });
   });
 
-  /* ── Wishlist ── */
+  /* ── Wishlist ── visual state here, persistence in pi-wishlist.js */
   var wish = root.querySelector('.pi-pdp__wishlist');
-  if (wish) wish.addEventListener('click', function () { wish.classList.toggle('is-active'); });
+  if (wish) {
+    wish.addEventListener('click', function () {
+      var active = wish.classList.toggle('is-active');
+      if (window.PIWishlist) window.PIWishlist.set(wish.getAttribute('data-pi-wish'), active);
+    });
+
+    if (window.PIWishlist && window.PIWishlist.has(wish.getAttribute('data-pi-wish'))) {
+      wish.classList.add('is-active');
+    }
+  }
 
   /* ── Variant picker ── */
   var dataEl = root.querySelector('[data-pi-pdp-variants="' + id + '"]');

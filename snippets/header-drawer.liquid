@@ -610,6 +610,8 @@
             <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
           </svg>
           <span>Wishlist</span>
+          {%- comment -%} Filled by pi-wishlist.js; hidden while the count is 0 {%- endcomment -%}
+          <span class="pi-drawer-actions__wish-count" data-pi-wish-count hidden>0</span>
         </a>
         <a
           href="{{ section.settings.inquire_link | default: '/pages/contact' }}"
@@ -1605,6 +1607,24 @@
       display: none;
     }
   }
+
+  /* Saved-count pill sits inline after the "Wishlist" label in the drawer,
+     since there is no icon-only box to anchor a corner badge to. */
+  .pi-drawer-actions__wish-count {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    margin-inline-start: 6px;
+    border-radius: 999px;
+    background: currentColor;
+    color: var(--color-background, #fff);
+    font-size: 11px;
+    line-height: 18px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .pi-drawer-actions__wish-count[hidden] { display: none; }
 
   @media screen and (min-width: 850px) {
     .pi-drawer-actions__wishlist {

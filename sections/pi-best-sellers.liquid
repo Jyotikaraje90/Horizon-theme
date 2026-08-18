@@ -549,6 +549,7 @@
                     class="pi-bs__wishlist"
                     aria-label="Add {{ product.title | escape }} to wishlist"
                     data-product-id="{{ product.id }}"
+                    data-pi-wish="{{ product.handle }}"
                     type="button"
                   >
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -691,17 +692,30 @@
 
   window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });
 
-  /* Wishlist toggle */
-  track.querySelectorAll('.pi-bs__wishlist').forEach(function (btn) {
+  /* Wishlist toggle — visual state here, persistence in pi-wishlist.js */
+  function bsPaint(btn, active) {
+    var path = btn.querySelector('.pi-bs__wishlist-path');
+    btn.classList.toggle('pi-bs__wishlist--active', active);
+    if (path) path.setAttribute('fill', active ? '#000000' : 'transparent');
+  }
+
+  var bsHearts = track.querySelectorAll('.pi-bs__wishlist');
+
+  bsHearts.forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.preventDefault();
       e.stopPropagation();
-      var path = btn.querySelector('.pi-bs__wishlist-path');
-      if (!path) return;
-      var active = btn.classList.toggle('pi-bs__wishlist--active');
-      path.setAttribute('fill', active ? '#000000' : 'transparent');
+      var handle = btn.getAttribute('data-pi-wish');
+      var active = !btn.classList.contains('pi-bs__wishlist--active');
+      bsPaint(btn, active);
+      if (window.PIWishlist) window.PIWishlist.set(handle, active);
     });
   });
+
+  /* Restore saved hearts on load so the state survives a refresh */
+  if (window.PIWishlist) {
+    window.PIWishlist.hydrate(bsHearts, function (btn) { bsPaint(btn, true); });
+  }
 
   slideTo(0);
   updateMobileArrowPos();
