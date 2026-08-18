@@ -120,7 +120,8 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_7.png",
             "title": "Realistic Tattoos",
-            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
+            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect.",
+            "link": "/pages/realistic-tattoos"
           }
         },
         "ts_card_2": {
