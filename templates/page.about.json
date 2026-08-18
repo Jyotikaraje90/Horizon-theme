@@ -223,7 +223,7 @@
         "heading": "Trusted By The Best",
         "deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png",
         "button_label": "Explore More",
-        "button_link": "",
+        "button_link": "/pages/contact-us",
         "padding_top": 100,
         "mobile_padding_top": 60,
         "margin_top": 0,
@@ -254,7 +254,7 @@
           "settings": {
             "city_name": "Crete",
             "hover_image": "shopify://shop_images/image_69_1.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_2": {
@@ -262,7 +262,7 @@
           "settings": {
             "city_name": "Athens",
             "hover_image": "shopify://shop_images/1_7.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_3": {
@@ -270,7 +270,7 @@
           "settings": {
             "city_name": "Antwerp",
             "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_4": {
@@ -278,7 +278,7 @@
           "settings": {
             "city_name": "Amsterdam",
             "hover_image": "shopify://shop_images/1.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         }
       },
@@ -378,7 +378,7 @@
         "divider_color": "#000000",
         "icon_color": "#000000",
         "button_label": "VIEW ALL FAQS",
-        "button_link": "",
+        "button_link": "/pages/faqs",
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,

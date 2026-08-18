@@ -88,28 +88,28 @@
           "type": "studio",
           "settings": {
             "name": "Crete",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "st_2": {
           "type": "studio",
           "settings": {
             "name": "Athens",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "st_3": {
           "type": "studio",
           "settings": {
             "name": "Antwerp",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "st_4": {
           "type": "studio",
           "settings": {
             "name": "Amsterdam",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         }
       },

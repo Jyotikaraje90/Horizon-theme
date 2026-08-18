@@ -17,13 +17,13 @@
         "main_heading": "The Art of Self Expression With Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
-        "main_button_link": "",
+        "main_button_link": "/pages/contact-us",
         "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
-        "banner2_link": "",
+        "banner2_link": "/pages/tattoo-services",
         "banner3_image": "shopify://shop_images/IMG_4558_1_bb261ca3-c878-4f11-957b-e8416116b683.png",
         "banner3_label": "Piercings",
-        "banner3_link": "",
+        "banner3_link": "/pages/piercing-services",
         "side_margin_desktop": 60,
         "side_margin_mobile": 18,
         "border_radius": 20,
@@ -63,7 +63,7 @@
         "card_radius": 20,
         "card_bg": "#e6e6e6",
         "explore_label": "Explore Our Jewelry Collection",
-        "explore_link": "/collections/all",
+        "explore_link": "/pages/shop-jewelry",
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
@@ -87,7 +87,7 @@
         "heading": "Luxury Piercing Jewelry For Every Look",
         "subheading": "Premium designs tailored for elegance and everyday style.",
         "button_label": "Discover More",
-        "button_link": "/collections/all",
+        "button_link": "/pages/shop-jewelry",
         "right_image": "shopify://shop_images/Maskgroup_5.png",
         "padding_top": 60,
         "padding_bottom": 60,
@@ -157,8 +157,8 @@
       "settings": {
         "heading": "Tattoo Services",
         "button_label": "View All Tattoo Services",
-        "mobile_button_label": "Explore Our Jewelry Collection",
-        "button_link": "/collections/all",
+        "mobile_button_label": "View All Tattoo Services",
+        "button_link": "/pages/tattoo-services",
         "padding_top": 48,
         "padding_bottom": 80,
         "mobile_padding_top": 0,
@@ -338,14 +338,12 @@
       "settings": {
         "piercing_heading": "Piercing Services",
         "piercing_button_label": "View All Piercing Services",
-        "piercing_mobile_button_label": "Explore Our Jewelry Collection",
-        "piercing_button_link": "",
+        "piercing_mobile_button_label": "View All Piercing Services",
+        "piercing_button_link": "/pages/piercing-services",
         "customers_heading": "Happy Customers",
-        "customers_heading_size": 54,
-        "customers_mobile_heading_size": 30,
         "trusted_heading": "Trusted by the Best",
         "trusted_button_label": "Explore More",
-        "trusted_button_link": "",
+        "trusted_button_link": "/pages/about",
         "trusted_deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png",
         "padding_top": 48,
         "padding_bottom": 48,
@@ -364,22 +362,10 @@
         "card_title_size": 20,
         "card_desc_color": "#121212",
         "card_desc_size": 18,
-        "hc_content_gap": 50,
-        "hc_row_gap": 30,
         "testimonial_card_bg": "#ffffff",
         "testimonial_card_radius": 30,
-        "testimonial_card_padding_y": 40,
-        "testimonial_card_padding_x": 0,
-        "testimonial_card_gap": 30,
-        "avatar_size": 70,
         "star_color": "#ffba00",
-        "star_size": 20,
-        "star_gap": 6,
         "review_color": "#121212",
-        "review_size": 18,
-        "review_max_width": 930,
-        "author_color": "#000000",
-        "author_size": 14,
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
@@ -396,7 +382,7 @@
           "settings": {
             "city_name": "Crete",
             "hover_image": "shopify://shop_images/image_69_1.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_studio_2": {
@@ -404,7 +390,7 @@
           "settings": {
             "city_name": "Athens",
             "hover_image": "shopify://shop_images/1_7.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_studio_3": {
@@ -412,7 +398,7 @@
           "settings": {
             "city_name": "Antwerp",
             "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         },
         "os_studio_4": {
@@ -420,7 +406,7 @@
           "settings": {
             "city_name": "Amsterdam",
             "hover_image": "shopify://shop_images/1.png",
-            "link": ""
+            "link": "/pages/contact-us"
           }
         }
       },
@@ -489,9 +475,9 @@
         "subheading": "Turning Visions into Timeless Tattoos",
         "text": "At PuertoInk, we believe tattoos and piercings are more than just body art – they are a form of self-expression, a story inked onto skin. With a team of passionate artists, we've built a reputation for precision, creativity, and a commitment to safety. Whether you're looking for a fine-line tattoo, bold blackwork, or a perfectly placed piercing, our studios across Europe bring your vision to life. Visit us in Crete, Athens, Antwerp, or Amsterdam, and let's create something unforgettable together.",
         "button_1_label": "Book a Session",
-        "button_1_link": "",
+        "button_1_link": "/pages/contact-us",
         "button_2_label": "Shop Piercing Jewelry",
-        "button_2_link": "/collections/all"
+        "button_2_link": "/pages/piercing-services"
       }
     },
     "pi_latest_blogs_Nb3kPw": {
@@ -503,7 +489,7 @@
             "image": "shopify://shop_images/Blog_Image.png",
             "date": "Feb 28, 2025",
             "title": "How to Choose the Perfect Piercing Jewelry for Your Style?",
-            "link": ""
+            "link": "/pages/how-to-choose-the-perfect-piercing-jewelry"
           }
         },
         "lb_post_2": {
@@ -512,7 +498,7 @@
             "image": "shopify://shop_images/Blog_Image_1.png",
             "date": "Feb 27, 2025",
             "title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
-            "link": ""
+            "link": "/pages/blogs"
           }
         },
         "lb_post_3": {
@@ -521,7 +507,7 @@
             "image": "shopify://shop_images/Blog_Image_2.png",
             "date": "Feb 26, 2025",
             "title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
-            "link": ""
+            "link": "/pages/blogs"
           }
         }
       },
@@ -551,7 +537,7 @@
         "date_badge_bg": "#cccccc",
         "date_badge_radius": 4,
         "button_label": "View All Blogs",
-        "button_link": "",
+        "button_link": "/pages/blogs",
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
@@ -626,7 +612,7 @@
         "divider_color": "#000000",
         "icon_color": "#000000",
         "button_label": "VIEW ALL FAQS",
-        "button_link": "",
+        "button_link": "/pages/faqs",
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,

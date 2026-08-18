@@ -1,6 +1,19 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
 
+{%- comment -%}
+  When the Book Now button points at an in-page anchor (e.g. the booking
+  section further down), the sticky header would otherwise cover the top of
+  the target. Offset the landing position by the header height so the
+  booking heading is actually visible after the jump.
+{%- endcomment -%}
+{%- liquid
+  assign book_anchor = ''
+  if section.settings.button_link contains '#'
+    assign book_anchor = section.settings.button_link | split: '#' | last
+  endif
+-%}
+
 <style>
   #pi-tdc-{{ section.id }} {
     --pi-tdc-bg: {{ section.settings.bg_color }};
@@ -9,6 +22,12 @@
     --pi-tdc-image-radius: {{ section.settings.image_radius }}px;
     --pi-tdc-feature-size: {{ section.settings.feature_text_size | default: 20 }}px;
   }
+
+  {%- if book_anchor != blank -%}
+  #{{ book_anchor }} {
+    scroll-margin-top: calc(var(--header-height, 95px) + 24px);
+  }
+  {%- endif -%}
 </style>
 
 <style>
