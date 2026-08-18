@@ -74,7 +74,7 @@
           "settings": {
             "post_image": "shopify://shop_images/Blog_Image_4.png",
             "post_title": "The Rising Trend of Minimalist Tattoos & Their Meaning",
-            "post_link": ""
+            "post_link": "/pages/blogs"
           }
         },
         "next_2": {
@@ -82,7 +82,7 @@
           "settings": {
             "post_image": "shopify://shop_images/image_90.png",
             "post_title": "Tattoo Aftercare 101: Essential Tips for Long-Lasting Ink",
-            "post_link": ""
+            "post_link": "/pages/blogs"
           }
         },
         "next_3": {
@@ -90,7 +90,7 @@
           "settings": {
             "post_image": "shopify://shop_images/Blog_Image_5.png",
             "post_title": "The Ultimate Guide to Tattoo Placement: Finding the Perfect Spot",
-            "post_link": ""
+            "post_link": "/pages/blogs"
           }
         }
       },
