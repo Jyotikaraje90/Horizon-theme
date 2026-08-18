@@ -68,10 +68,16 @@ class HeaderMenu extends Component {
 
       const isOpen = this.#state.activeItem != null && listItem.contains(this.#state.activeItem);
 
-      if (isOpen) {
-        this.#deactivate();
-      } else {
+      if (!isOpen) {
         listItem.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false }));
+      } else if (!window.matchMedia('(hover: hover)').matches) {
+        /* Only a pointer that cannot hover gets a toggle. With a mouse the
+         * submenu is already open from pointerenter by the time the click
+         * lands, so closing it here meant the first click shut the menu the
+         * hover had just opened and the second one reopened it — the
+         * "have to click twice" behaviour. Leaving it open on a hover device is
+         * correct: pointerleave still closes it when the mouse moves away. */
+        this.#deactivate();
       }
     }
   };

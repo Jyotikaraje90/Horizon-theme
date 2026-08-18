@@ -1454,6 +1454,27 @@
        than fold into More — re-tune the bands if the menu changes. */
     #header-component .overflow-menu::part(list) {
       flex-wrap: nowrap !important;
+
+      /* PI: let the dropdown panels escape the nav row.
+         overflow-list's shadow sheet sets `overflow-x: auto; overflow-y: hidden`
+         on this <ul> so a too-wide nav can scroll sideways. In stock Horizon
+         that is harmless: the mega-menu panel is positioned against
+         #header-component, i.e. an ancestor of this <ul>, so the clip does not
+         apply to it. The PI dropdown is different — `.menu-list__list-item` was
+         given `position: relative` so the small panel could anchor under its own
+         link, which moves the panel's containing block INSIDE this <ul>. It then
+         gets clipped at the bottom edge of the ~30px nav row, which is exactly
+         where the panel starts: the whole dropdown was cut away, both visually
+         and for hit-testing. Measured with elementFromPoint at 1280 and 1440 —
+         the point over a dropdown link resolved to page content behind the
+         header, so the links could not be clicked at all, and moving the pointer
+         off the parent link fired pointerleave and closed the menu.
+
+         Nothing needs the scroll here: the rule above forces nowrap and the
+         `::part(more)` rule zeroes the More chip, so at every width >=1200px the
+         five links are guaranteed to fit. Below 1200px the inline nav is hidden
+         in favour of the drawer, so the stock scrolling behaviour is untouched. */
+      overflow: visible;
     }
   }
 
