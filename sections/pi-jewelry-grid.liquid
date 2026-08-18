@@ -155,7 +155,7 @@
     border-bottom: 1px solid #000000;
     padding: 0 0 2px;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: {{ section.settings.card_btn_size | default: 16 }}px;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -332,10 +332,10 @@
                     <form action="/cart/add" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="id" value="{{ atc_variant.id }}">
                       <input type="hidden" name="quantity" value="1">
-                      <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
+                      <button type="submit" class="pi-jg__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                     </form>
                   {%- else -%}
-                    <span class="pi-jg__card-atc-btn pi-jg__card-atc-btn--sold-out">Out of Stock</span>
+                    <span class="pi-jg__card-atc-btn pi-jg__card-atc-btn--sold-out">{{ section.settings.sold_out_label | default: 'Out of Stock' }}</span>
                   {%- endif -%}
                 </div>
               </div>
@@ -452,6 +452,10 @@
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
     { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards (paginated by 'Products per page').", "min": 4, "max": 48, "step": 4, "default": 36 },
+    { "type": "header", "content": "Card buttons" },
+    { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Out of Stock" },
+    { "type": "range", "id": "card_btn_size", "label": "Card button text size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 16 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },

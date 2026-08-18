@@ -218,7 +218,7 @@
     border-bottom: 1px solid #000000;
     padding: 0;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.8rem;
+    font-size: {{ section.settings.card_btn_size | default: 12.8 }}px;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -581,10 +581,10 @@
                       <form action="/cart/add" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="pi-bs__card-atc-btn">Add to Cart</button>
+                        <button type="submit" class="pi-bs__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                       </form>
                     {%- else -%}
-                      <a href="{{ product.url }}" class="pi-bs__card-atc-btn">View Product</a>
+                      <a href="{{ product.url }}" class="pi-bs__card-atc-btn">{{ section.settings.view_label | default: 'View Product' }}</a>
                     {%- endif -%}
                   </div>
 
@@ -610,7 +610,7 @@
                   <span class="pi-bs__card-title">Sample Jewelry Product</span>
                   <p class="pi-bs__card-price">€0.00</p>
                   <div class="pi-bs__card-atc">
-                    <button type="button" class="pi-bs__card-atc-btn">Add to Cart</button>
+                    <button type="button" class="pi-bs__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                   </div>
                 </div>
 
@@ -827,6 +827,32 @@
       "id": "explore_label",
       "label": "Button label",
       "default": "Explore Our Jewelry Collection"
+    },
+    {
+      "type": "header",
+      "content": "Product card buttons"
+    },
+    {
+      "type": "text",
+      "id": "atc_label",
+      "label": "Add to cart label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "view_label",
+      "label": "View product label",
+      "default": "View Product"
+    },
+    {
+      "type": "range",
+      "id": "card_btn_size",
+      "label": "Card button text size",
+      "min": 10,
+      "max": 24,
+      "step": 0.2,
+      "default": 12.8,
+      "unit": "px"
     },
     {
       "type": "url",
