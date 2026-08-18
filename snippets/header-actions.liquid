@@ -74,6 +74,8 @@
         <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
       </svg>
     </span>
+    {%- comment -%} Filled by pi-wishlist.js; stays hidden while the count is 0 {%- endcomment -%}
+    <span class="pi-wishlist-count" data-pi-wish-count hidden>0</span>
   </a>
 
   {% if shop.customer_accounts_enabled %}
@@ -577,7 +579,30 @@
     color: var(--color-foreground);
     text-decoration: none;
     transition: color 0.2s ease;
+    /* Anchor for the saved-count badge */
+    position: relative;
   }
+
+  /* Saved-count badge — mirrors the cart bubble's size and offsets so the two
+     icons read as a pair. Hidden via [hidden] while the wishlist is empty. */
+  .pi-wishlist-count {
+    position: absolute;
+    top: 4.5px;
+    right: 2.5px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 999px;
+    background: var(--color-foreground);
+    color: var(--color-background);
+    font-size: 10px;
+    line-height: 16px;
+    font-weight: 600;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .pi-wishlist-count[hidden] { display: none; }
 
   .pi-wishlist-action:hover {
     color: var(--color-foreground);
