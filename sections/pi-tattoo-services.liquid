@@ -158,6 +158,20 @@
     flex-direction: column;
   }
 
+  /* Linked cards keep the card's own typography rather than anchor styling */
+  .pi-ts__card--link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pi-ts__card--link .pi-ts__card-img img {
+    transition: transform .35s ease;
+  }
+
+  .pi-ts__card--link:hover .pi-ts__card-img img {
+    transform: scale(1.05);
+  }
+
   .pi-ts__card-img {
     width: 360px;
     height: 360px;
@@ -357,7 +371,21 @@
           <div class="pi-ts__track" id="pi-ts-track-{{ section.id }}">
             {%- for block in section.blocks -%}
               {%- if block.type == 'card' -%}
-                <div class="pi-ts__card" {{ block.shopify_attributes }}>
+                {%- comment -%}
+                  Render the card as an anchor when it has a link, keeping the
+                  same class so it stays the flex item the track sizes against.
+                {%- endcomment -%}
+                {%- liquid
+                  assign card_tag = 'div'
+                  if block.settings.link != blank
+                    assign card_tag = 'a'
+                  endif
+                -%}
+                <{{ card_tag }}
+                  class="pi-ts__card{% if block.settings.link != blank %} pi-ts__card--link{% endif %}"
+                  {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}
+                  {{ block.shopify_attributes }}
+                >
                   <div class="pi-ts__card-img">
                     {%- if block.settings.image != blank -%}
                       <img
@@ -379,7 +407,7 @@
                       <p class="pi-ts__card-desc">{{ block.settings.description }}</p>
                     {%- endif -%}
                   </div>
-                </div>
+                </{{ card_tag }}>
               {%- endif -%}
             {%- endfor -%}
           </div>
@@ -730,6 +758,12 @@
           "id": "description",
           "label": "Description",
           "default": "Describe this tattoo style in a few words."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Detail page for this style. Leave empty to keep the card unclickable."
         }
       ]
     }
