@@ -57,6 +57,22 @@ class HeaderMenu extends Component {
     const link = event.target.closest('[ref="menuitem"]');
     if (link && link.getAttribute('aria-haspopup') === 'true') {
       event.preventDefault();
+
+      /* Blocking navigation is only half the job: the submenu opens from
+       * pointerenter, which never fires on a tap (touch devices, and Chrome
+       * DevTools' responsive mode, which emulates touch). Without this the tap
+       * did nothing at all — no navigation and no dropdown. Toggle it here
+       * using the same synthetic pointerenter #reconcilePointerTarget uses. */
+      const listItem = link.closest('.menu-list__list-item');
+      if (!listItem) return;
+
+      const isOpen = this.#state.activeItem != null && listItem.contains(this.#state.activeItem);
+
+      if (isOpen) {
+        this.#deactivate();
+      } else {
+        listItem.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false }));
+      }
     }
   };
 
