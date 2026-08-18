@@ -257,7 +257,14 @@ class HeaderMenu extends Component {
       }, 500);
     }
 
-    let finalHeight = submenu?.offsetHeight || 0;
+    /* getBoundingClientRect() rather than offsetHeight: the submenu sits inside
+     * the header's `zoom: var(--pi-header-scale)` bands (1200-1419px) while
+     * --submenu-height is applied to #header-component, which is outside that
+     * zoom. offsetHeight reports the pre-zoom layout height, so the panel
+     * animated to a height that did not match its rendered content and the
+     * reveal looked jumpy. getBoundingClientRect() reports visual pixels, which
+     * is the space #header-component actually needs to open. */
+    let finalHeight = submenu?.getBoundingClientRect().height || 0;
 
     // For overflow menu, the height needs to be either content of the submenu or the total height of the menu list links
     if (!isDefaultSlot) {
