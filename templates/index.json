@@ -157,7 +157,7 @@
       "settings": {
         "heading": "Tattoo Services",
         "button_label": "View All Tattoo Services",
-        "mobile_button_label": "Explore Our Jewelry Collection",
+        "mobile_button_label": "View All Tattoo Services",
         "button_link": "/pages/tattoo-services",
         "padding_top": 48,
         "padding_bottom": 80,
@@ -338,7 +338,7 @@
       "settings": {
         "piercing_heading": "Piercing Services",
         "piercing_button_label": "View All Piercing Services",
-        "piercing_mobile_button_label": "Explore Our Jewelry Collection",
+        "piercing_mobile_button_label": "View All Piercing Services",
         "piercing_button_link": "/pages/piercing-services",
         "customers_heading": "Happy Customers",
         "trusted_heading": "Trusted by the Best",
