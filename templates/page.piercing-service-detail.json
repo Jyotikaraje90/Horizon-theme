@@ -168,6 +168,7 @@
           "type": "step",
           "settings": {
             "icon": "shopify://shop_images/Capa_1.png",
+            "icon_height": 0,
             "title": "Consultation & Jewelry Selection",
             "description": "Discuss your piercing type, placement, and choose from our high-quality jewelry options."
           }
@@ -176,6 +177,7 @@
           "type": "step",
           "settings": {
             "icon": "shopify://shop_images/2_2.png",
+            "icon_height": 0,
             "title": "Piercing Process",
             "description": "Our expert piercers use sterile, needle-based techniques for a safe and comfortable experience."
           }
@@ -197,13 +199,13 @@
       ],
       "settings": {
         "heading": "How It Works",
-        "step_gap": 100,
         "padding_top": 80,
         "padding_bottom": 80,
         "bg_color": "#ffffff",
         "heading_color": "#000000",
         "icon_bg": "#f0f0f0",
         "icon_color": "#000000",
+        "step_gap": 100,
         "icon_image_size": 50,
         "step_title_color": "#121212",
         "step_desc_color": "#121212",
@@ -217,61 +219,61 @@
         "photo_1": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_15.png"
+            "image": "shopify://shop_images/Mask_group_27.png"
           }
         },
         "photo_2": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_13.png"
+            "image": "shopify://shop_images/Mask_group_28.png"
           }
         },
         "photo_3": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_20.png"
+            "image": "shopify://shop_images/Mask_group_29.png"
           }
         },
         "photo_4": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_40.png"
+            "image": "shopify://shop_images/Mask_group_30.png"
           }
         },
         "photo_5": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_22.png"
+            "image": "shopify://shop_images/Mask_group_31.png"
           }
         },
         "photo_6": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_26.png"
+            "image": "shopify://shop_images/Mask_group_32.png"
           }
         },
         "photo_7": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_41.png"
+            "image": "shopify://shop_images/Mask_group_33.png"
           }
         },
         "photo_8": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png"
+            "image": "shopify://shop_images/Mask_group_34.png"
           }
         },
         "photo_9": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_24.png"
+            "image": "shopify://shop_images/Mask_group_35.png"
           }
         },
         "photo_10": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png"
+            "image": "shopify://shop_images/Mask_group_43.png"
           }
         }
       },
