@@ -1454,21 +1454,56 @@
        than fold into More — re-tune the bands if the menu changes. */
     #header-component .overflow-menu::part(list) {
       flex-wrap: nowrap !important;
+
+      /* PI: let the dropdown panels escape the nav row.
+         overflow-list's shadow sheet sets `overflow-x: auto; overflow-y: hidden`
+         on this <ul> so a too-wide nav can scroll sideways. In stock Horizon
+         that is harmless: the mega-menu panel is positioned against
+         #header-component, i.e. an ancestor of this <ul>, so the clip does not
+         apply to it. The PI dropdown is different — `.menu-list__list-item` was
+         given `position: relative` so the small panel could anchor under its own
+         link, which moves the panel's containing block INSIDE this <ul>. It then
+         gets clipped at the bottom edge of the ~30px nav row, which is exactly
+         where the panel starts: the whole dropdown was cut away, both visually
+         and for hit-testing. Measured with elementFromPoint at 1280 and 1440 —
+         the point over a dropdown link resolved to page content behind the
+         header, so the links could not be clicked at all, and moving the pointer
+         off the parent link fired pointerleave and closed the menu.
+
+         Nothing needs the scroll here: the rule above forces nowrap and the
+         `::part(more)` rule zeroes the More chip, so at every width >=1200px the
+         five links are guaranteed to fit. Below 1200px the inline nav is hidden
+         in favour of the drawer, so the stock scrolling behaviour is untouched. */
+      overflow: visible;
     }
   }
 
+  /* The two lowest bands were re-fitted after the dropdown carets were added.
+     Each caret link costs an extra 41px of nav width (11px chevron + 10px gap +
+     20px trailing padding) and there are two of them, so ~82px appeared in the
+     row after the factors above were measured. Re-measuring at the band lower
+     bounds showed the RESOURCES caret overlapping the search icon by 17px at
+     1200 and touching it at 1260; the upper bands stayed clear (+16 at 1300,
+     +11 at 1340, +18 at 1380, +25 at 1420) and are left alone.
+
+     Refitted from measurements taken across all six bands, which fit
+     `caretRight = 231 + 730*f` and `searchIconLeft = W - 40 - 395.5*f` to within
+     1px, i.e. gap = W - 271 - 1125.5*f. Solving that for the gap 1420 gets
+     (23.5px, scaled by f so the spacing stays proportional) gives 0.808 at
+     W=1200 and 0.861 at W=1260, rounded down to the values below. Verified: 29px
+     of clearance at 1200 and 21px at 1260. */
   @media screen and (min-width: 1200px) and (max-width: 1259px) {
     .header__row--top {
-      --pi-header-scale: 0.84;
-      --pi-logo-unzoom: 1.1905;
+      --pi-header-scale: 0.8;
+      --pi-logo-unzoom: 1.25;
     }
   }
 
   /* covers 1280-wide viewports on any platform */
   @media screen and (min-width: 1260px) and (max-width: 1299px) {
     .header__row--top {
-      --pi-header-scale: 0.88;
-      --pi-logo-unzoom: 1.1364;
+      --pi-header-scale: 0.86;
+      --pi-logo-unzoom: 1.1628;
     }
   }
 

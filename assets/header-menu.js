@@ -57,6 +57,28 @@ class HeaderMenu extends Component {
     const link = event.target.closest('[ref="menuitem"]');
     if (link && link.getAttribute('aria-haspopup') === 'true') {
       event.preventDefault();
+
+      /* Blocking navigation is only half the job: the submenu opens from
+       * pointerenter, which never fires on a tap (touch devices, and Chrome
+       * DevTools' responsive mode, which emulates touch). Without this the tap
+       * did nothing at all — no navigation and no dropdown. Toggle it here
+       * using the same synthetic pointerenter #reconcilePointerTarget uses. */
+      const listItem = link.closest('.menu-list__list-item');
+      if (!listItem) return;
+
+      const isOpen = this.#state.activeItem != null && listItem.contains(this.#state.activeItem);
+
+      if (!isOpen) {
+        listItem.dispatchEvent(new PointerEvent('pointerenter', { bubbles: false }));
+      } else if (!window.matchMedia('(hover: hover)').matches) {
+        /* Only a pointer that cannot hover gets a toggle. With a mouse the
+         * submenu is already open from pointerenter by the time the click
+         * lands, so closing it here meant the first click shut the menu the
+         * hover had just opened and the second one reopened it — the
+         * "have to click twice" behaviour. Leaving it open on a hover device is
+         * correct: pointerleave still closes it when the mouse moves away. */
+        this.#deactivate();
+      }
     }
   };
 
@@ -226,8 +248,10 @@ class HeaderMenu extends Component {
         requestAnimationFrame(() => {
           // Double requestAnimationFrame to ensure the height is properly calculated and not defaulting to the contain-intrinsic-size
           requestAnimationFrame(() => {
-            if (submenu.offsetHeight > 0) {
-              this.headerComponent?.style.setProperty('--submenu-height', `${submenu.offsetHeight}px`);
+            // Visual px, to match --submenu-height's unzoomed consumer. See #activate.
+            const injectedHeight = submenu.getBoundingClientRect().height;
+            if (injectedHeight > 0) {
+              this.headerComponent?.style.setProperty('--submenu-height', `${injectedHeight}px`);
               this.#cleanupMutationObserver();
             }
           });
@@ -241,7 +265,14 @@ class HeaderMenu extends Component {
       }, 500);
     }
 
-    let finalHeight = submenu?.offsetHeight || 0;
+    /* getBoundingClientRect() rather than offsetHeight: the submenu sits inside
+     * the header's `zoom: var(--pi-header-scale)` bands (1200-1419px) while
+     * --submenu-height is applied to #header-component, which is outside that
+     * zoom. offsetHeight reports the pre-zoom layout height, so the panel
+     * animated to a height that did not match its rendered content and the
+     * reveal looked jumpy. getBoundingClientRect() reports visual pixels, which
+     * is the space #header-component actually needs to open. */
+    let finalHeight = submenu?.getBoundingClientRect().height || 0;
 
     // For overflow menu, the height needs to be either content of the submenu or the total height of the menu list links
     if (!isDefaultSlot) {
@@ -249,7 +280,7 @@ class HeaderMenu extends Component {
       if (hasSubmenu) {
         /* Note: When the submenu is inside the overflow menu, its offsetHeight is not valid due to the lack of padding
          * we could add the padding variables to the submenu.offsetHeight, but measuring the overflowMenu.offsetHeight is just easier */
-        const overflowHeight = this.overflowMenu?.offsetHeight || 0;
+        const overflowHeight = this.overflowMenu?.getBoundingClientRect().height || 0;
         finalHeight = Math.max(overflowHeight, overflowListHeight);
       } else {
         finalHeight = overflowListHeight;
@@ -323,7 +354,7 @@ class HeaderMenu extends Component {
 
   #getOverflowListLinksHeight() {
     const slottedMenuLinks = this.overflowMenu?.querySelector('slot')?.assignedElements();
-    if (!slottedMenuLinks) return this.overflowMenu?.offsetHeight || 0;
+    if (!slottedMenuLinks) return this.overflowMenu?.getBoundingClientRect().height || 0;
 
     /**
      * @param {(submenu: HTMLElement) => void} cb
@@ -340,7 +371,7 @@ class HeaderMenu extends Component {
     mapSubmenus((submenu) => {
       submenu.style.setProperty('display', 'none');
     });
-    const height = this.overflowMenu?.offsetHeight || 0;
+    const height = this.overflowMenu?.getBoundingClientRect().height || 0;
     mapSubmenus((submenu) => {
       submenu.style.removeProperty('display');
     });
