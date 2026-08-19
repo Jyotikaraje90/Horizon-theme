@@ -125,7 +125,13 @@
   .pi-hero__btn {
     display: inline-block;
     padding: 16px 32px;
-    border: 2px solid var(--pi-hero-btn-border-color, #ffffff);
+    /* No border: the Figma "Btn" component has a #FFFFFF fill and no stroke.
+       This carried `border: 2px solid var(--pi-hero-btn-border-color)` with the
+       colour defaulting to the same #ffffff as the background, so it was
+       invisible but still added 4px to the width and height — the button
+       measured 262x57 against the design's 250x55. The btn_border_color setting
+       that drove it has been removed too rather than left as a control that
+       changes nothing. */
     border-radius: var(--pi-hero-btn-radius, 8px);
     color: var(--pi-hero-btn-text-color, #000000);
     text-decoration: none;
@@ -687,12 +693,6 @@
       "id": "btn_text_color",
       "label": "Button text color",
       "default": "#000000"
-    },
-    {
-      "type": "color",
-      "id": "btn_border_color",
-      "label": "Button border color",
-      "default": "#ffffff"
     },
     {
       "type": "range",
