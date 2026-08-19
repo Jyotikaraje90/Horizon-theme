@@ -109,6 +109,12 @@
 
   .pi-hero__main-content p {
     color: var(--pi-hero-subheading-color, #ffffff);
+    /* Figma "V2/Paragraph Proxima Nova": Regular 400, 18/29 desktop and 16/26 on
+       the mobile frame — both of which the sizes here already matched. The family
+       did not: with nothing declared this inherited Inter from the theme font
+       settings, the same way the button did. Proxima Nova is unlicensed here so
+       it resolves to Nunito Sans, as everywhere else in the theme. */
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
     font-size: var(--pi-hero-subheading-size, 18px);
     line-height: 29px;
     font-weight: 400;
