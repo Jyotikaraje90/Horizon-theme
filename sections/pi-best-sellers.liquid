@@ -8,7 +8,13 @@
   }
 
   .pi-bs__inner {
-    max-width: 1500px;
+    /* 1580 = the design's 1500 content column + the 40px gutters below, so the
+       inner width is 1500 rather than 1420. At 1500 the section was an outer box
+       and the 40px padding ate into it: the track measured 1420, the four-card
+       formula produced 333px cards against the Figma rectangle's 360x360, and
+       the whole section sat 40px inset from the rest of the page (cards started
+       at x=245 where the logo and header content start at 205). */
+    max-width: 1580px;
     margin: 0 auto;
     padding: var(--pi-bs-pad-top) 40px var(--pi-bs-pad-bottom);
     display: flex;
