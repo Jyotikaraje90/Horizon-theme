@@ -390,7 +390,17 @@
     {%- endif -%}
     <div class="pi-hero__main-content">
       {%- if section.settings.main_heading != blank -%}
-        <h1>{{ section.settings.main_heading }}</h1>
+        {%- comment -%}
+          newline_to_br so the heading's line break is authored in the setting
+          rather than forced by CSS. The Figma frames break it as
+          "THE ART OF SELF EXPRESSION" / "WITH PUERTO INK" on desktop and
+          "THE ART OF SELF" / "EXPRESSION" / "WITH PUERTO INK" at 390 — one hard
+          break before WITH reproduces both, because the first group then wraps
+          naturally inside whatever column it has. A max-width cap cannot: it
+          would need 16em at 1920 but ~8.9em at 390, so no single font-relative
+          value serves both.
+        {%- endcomment -%}
+        <h1>{{ section.settings.main_heading | newline_to_br }}</h1>
       {%- endif -%}
       <div class="pi-hero__subframe">
         {%- if section.settings.main_subheading != blank -%}
