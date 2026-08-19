@@ -41,7 +41,14 @@
   }
 
   .pi-ts__inner {
-    max-width: 1500px;
+    /* Same correction as pi-best-sellers: 1500 is the design's content column,
+       so the outer box needs to be 1500 + the 40px gutters. At max-width 1500
+       with box-sizing: border-box the padding came out of the column, leaving
+       1420 -- while this section's own card values (flex 0 0 360px, 20px track
+       gap) need 4*360 + 3*20 = 1500. The fourth card was clipped by 80px and
+       reachable only through the arrows, and the section sat 40px inset from the
+       rest of the page (content began at x=245 against the header's 205). */
+    max-width: 1580px;
     margin-inline: auto;
     padding-inline: 40px;
     display: flex;
@@ -156,6 +163,20 @@
     width: 360px;
     display: flex;
     flex-direction: column;
+  }
+
+  /* Linked cards keep the card's own typography rather than anchor styling */
+  .pi-ts__card--link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .pi-ts__card--link .pi-ts__card-img img {
+    transition: transform .35s ease;
+  }
+
+  .pi-ts__card--link:hover .pi-ts__card-img img {
+    transform: scale(1.05);
   }
 
   .pi-ts__card-img {
@@ -357,7 +378,21 @@
           <div class="pi-ts__track" id="pi-ts-track-{{ section.id }}">
             {%- for block in section.blocks -%}
               {%- if block.type == 'card' -%}
-                <div class="pi-ts__card" {{ block.shopify_attributes }}>
+                {%- comment -%}
+                  Render the card as an anchor when it has a link, keeping the
+                  same class so it stays the flex item the track sizes against.
+                {%- endcomment -%}
+                {%- liquid
+                  assign card_tag = 'div'
+                  if block.settings.link != blank
+                    assign card_tag = 'a'
+                  endif
+                -%}
+                <{{ card_tag }}
+                  class="pi-ts__card{% if block.settings.link != blank %} pi-ts__card--link{% endif %}"
+                  {% if block.settings.link != blank %}href="{{ block.settings.link }}"{% endif %}
+                  {{ block.shopify_attributes }}
+                >
                   <div class="pi-ts__card-img">
                     {%- if block.settings.image != blank -%}
                       <img
@@ -379,7 +414,7 @@
                       <p class="pi-ts__card-desc">{{ block.settings.description }}</p>
                     {%- endif -%}
                   </div>
-                </div>
+                </{{ card_tag }}>
               {%- endif -%}
             {%- endfor -%}
           </div>
@@ -730,6 +765,12 @@
           "id": "description",
           "label": "Description",
           "default": "Describe this tattoo style in a few words."
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link",
+          "info": "Detail page for this style. Leave empty to keep the card unclickable."
         }
       ]
     }
