@@ -8,7 +8,13 @@
   }
 
   .pi-bs__inner {
-    max-width: 1500px;
+    /* 1580 = the design's 1500 content column + the 40px gutters below, so the
+       inner width is 1500 rather than 1420. At 1500 the section was an outer box
+       and the 40px padding ate into it: the track measured 1420, the four-card
+       formula produced 333px cards against the Figma rectangle's 360x360, and
+       the whole section sat 40px inset from the rest of the page (cards started
+       at x=245 where the logo and header content start at 205). */
+    max-width: 1580px;
     margin: 0 auto;
     padding: var(--pi-bs-pad-top) 40px var(--pi-bs-pad-bottom);
     display: flex;
@@ -112,14 +118,17 @@
   .pi-bs__track {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    /* 20, not 30: four 360px cards plus three gaps must total the design's 1500
+       content column (1440 + 60). The mobile track below already used 20. */
+    gap: 20px;
     transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
     will-change: transform;
   }
 
   /* ── Product card: 360px, Vertical, gap 20px ── */
   .pi-bs__card {
-    flex: 0 0 calc((100% - 90px) / 4);
+    /* 60px = three 20px gaps. Was 90px, which paired with the old 30px gap. */
+    flex: 0 0 calc((100% - 60px) / 4);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -169,6 +178,12 @@
 
   .pi-bs__wishlist svg { width: 100%; height: 100%; display: block; }
 
+  /* Figma "favorite": 2px border on desktop, 1px on the mobile frame. The markup
+     carries stroke-width="1.5" as an attribute, which cannot vary by breakpoint;
+     this presentation attribute is the weakest source in the cascade, so setting
+     the property here overrides it at both sizes. */
+  .pi-bs__wishlist svg path { stroke-width: 2; }
+
   .pi-bs__wishlist--active path { fill: #000000; }
 
   /* ── Description: plain, no border, no frame ── */
@@ -183,10 +198,15 @@
 
   /* ── Product title ── */
   .pi-bs__card-title {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 1.3;
+    /* Figma "V2/H5 Proxima Nova": Semibold 600, 20/26. The rem-based 1.1rem/1.3
+       resolved to 17.6/22.88 -- the fractional values were the tell that this was
+       a type scale rather than a design number. Weight was 400, which inverted
+       the hierarchy against the price below (design has the name heavier than the
+       price; this had it the other way round). */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
     color: #000000;
     margin: 0;
     text-decoration: none;
@@ -200,10 +220,12 @@
 
   /* ── Price ── */
   .pi-bs__card-price {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    line-height: 1.6;
+    /* Figma "V2/Paragraph Proxima Nova": Regular 400, 18/29. Was 600 at
+       1rem/1.6 (16/25.6) -- see the note on the title about the swapped weights. */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 29px;
     color: #000000;
     margin: 0;
   }
@@ -217,15 +239,17 @@
     border: none;
     border-bottom: 1px solid #000000;
     padding: 0;
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 0.8rem;
+    /* Figma "V2/Btn Proxima Nova": Semibold 600, 16/21 (14/18 on mobile, set in
+       the breakpoint block below). The 12.8px default came from a 0.8rem scale. */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: {{ section.settings.card_btn_size | default: 16 }}px;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
     color: #000000;
     cursor: pointer;
     text-decoration: none;
-    line-height: 1.5;
+    line-height: 21px;
   }
 
   .pi-bs__card-atc-btn:hover {
@@ -252,9 +276,13 @@
     background: var(--pi-bs-btn-bg, #000000);
     color: var(--pi-bs-btn-text, #ffffff);
     border: none;
-    font-family: 'Nunito Sans', sans-serif;
+    /* Figma "V2/Btn Proxima Nova": Semibold 600, 16/21. Line height was
+       unset and inherited to 25.6; the button keeps its fixed 55px height either
+       way, but the label sat in a taller line box than the design's. */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: var(--pi-bs-btn-size, 16px);
     font-weight: 600;
+    line-height: 21px;
     letter-spacing: 0;
     text-transform: uppercase;
     white-space: nowrap;
@@ -288,8 +316,12 @@
   }
 
   @media (max-width: 989px) {
+    /* One 20px gap between the two visible cards, matching the track gap. This
+       said 30px, which was correct only while the base track gap was also 30 --
+       once that moved to 20 to hit the design's 360px desktop card, this left the
+       cards 4px narrower than the space available. */
     .pi-bs__card {
-      flex: 0 0 calc((100% - 30px) / 2);
+      flex: 0 0 calc((100% - 20px) / 2);
     }
     .pi-bs__title {
       font-size: clamp(28px, 5vw, calc(var(--pi-bs-heading-base, 54px) * 0.89));
@@ -400,16 +432,30 @@
       width: 100%;
     }
 
+    /* Mobile frame type: name 600 18/23, price 400 14/22, add-to-cart 600 14/18.
+       The sizes were inheriting the desktop values and every weight was one step
+       heavy, which flattened the name/price contrast the design relies on. */
     .pi-bs__card-title {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 23px;
     }
 
     .pi-bs__card-price {
-      font-weight: 600;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
     }
 
     .pi-bs__card-atc-btn {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    /* 1px on the mobile frame, against 2px on desktop */
+    .pi-bs__wishlist svg path {
+      stroke-width: 1;
     }
 
     .pi-bs__explore-btn {
@@ -581,10 +627,10 @@
                       <form action="/cart/add" method="post" enctype="multipart/form-data">
                         <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
                         <input type="hidden" name="quantity" value="1">
-                        <button type="submit" class="pi-bs__card-atc-btn">Add to Cart</button>
+                        <button type="submit" class="pi-bs__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                       </form>
                     {%- else -%}
-                      <a href="{{ product.url }}" class="pi-bs__card-atc-btn">View Product</a>
+                      <a href="{{ product.url }}" class="pi-bs__card-atc-btn">{{ section.settings.view_label | default: 'View Product' }}</a>
                     {%- endif -%}
                   </div>
 
@@ -610,7 +656,7 @@
                   <span class="pi-bs__card-title">Sample Jewelry Product</span>
                   <p class="pi-bs__card-price">€0.00</p>
                   <div class="pi-bs__card-atc">
-                    <button type="button" class="pi-bs__card-atc-btn">Add to Cart</button>
+                    <button type="button" class="pi-bs__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                   </div>
                 </div>
 
@@ -827,6 +873,32 @@
       "id": "explore_label",
       "label": "Button label",
       "default": "Explore Our Jewelry Collection"
+    },
+    {
+      "type": "header",
+      "content": "Product card buttons"
+    },
+    {
+      "type": "text",
+      "id": "atc_label",
+      "label": "Add to cart label",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "text",
+      "id": "view_label",
+      "label": "View product label",
+      "default": "View Product"
+    },
+    {
+      "type": "range",
+      "id": "card_btn_size",
+      "label": "Card button text size",
+      "min": 10,
+      "max": 24,
+      "step": 0.2,
+      "default": 16,
+      "unit": "px"
     },
     {
       "type": "url",
