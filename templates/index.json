@@ -14,7 +14,7 @@
       "name": "PI Main Banner",
       "settings": {
         "main_image": "shopify://shop_images/Main_Banner.png",
-        "main_heading": "The Art of Self Expression With Puerto Ink",
+        "main_heading": "The Art of Self Expression\nWith Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
         "main_button_link": "/pages/contact-us",
@@ -39,9 +39,8 @@
         "subheading_color": "#ffffff",
         "btn_bg": "#ffffff",
         "btn_text_color": "#000000",
-        "btn_border_color": "#ffffff",
         "btn_radius": 8,
-        "btn_size": 18,
+        "btn_size": 16,
         "side_label_size": 36,
         "side_label_color": "#ffffff",
         "margin_top": 0,
@@ -120,7 +119,8 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_7.png",
             "title": "Realistic Tattoos",
-            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect."
+            "description": "Bringing art to life with hyper-detailed shading and depth for a lifelike effect.",
+            "link": "/pages/realistic-tattoos"
           }
         },
         "ts_card_2": {

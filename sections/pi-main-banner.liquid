@@ -14,7 +14,6 @@
     --pi-hero-subheading-color: {{ section.settings.subheading_color }};
     --pi-hero-btn-bg: {{ section.settings.btn_bg }};
     --pi-hero-btn-text-color: {{ section.settings.btn_text_color }};
-    --pi-hero-btn-border-color: {{ section.settings.btn_border_color }};
     --pi-hero-btn-radius: {{ section.settings.btn_radius }}px;
     --pi-hero-btn-size: {{ section.settings.btn_size }}px;
     --pi-hero-side-label-size: {{ section.settings.side_label_size }}px;
@@ -125,13 +124,26 @@
   .pi-hero__btn {
     display: inline-block;
     padding: 16px 32px;
-    border: 2px solid var(--pi-hero-btn-border-color, #ffffff);
+    /* No border: the Figma "Btn" component has a #FFFFFF fill and no stroke.
+       This carried `border: 2px solid var(--pi-hero-btn-border-color)` with the
+       colour defaulting to the same #ffffff as the background, so it was
+       invisible but still added 4px to the width and height — the button
+       measured 262x57 against the design's 250x55. The btn_border_color setting
+       that drove it has been removed too rather than left as a control that
+       changes nothing. */
     border-radius: var(--pi-hero-btn-radius, 8px);
     color: var(--pi-hero-btn-text-color, #000000);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: var(--pi-hero-btn-size, 18px);
-    line-height: 23px;
+    /* Figma "Btn" text layer: Proxima Nova Semibold 600, 16/21, 0% tracking,
+       uppercase, #000 — and 14/18 on the Mobile Btn, which the <=749 rules below
+       already match. Proxima Nova is not licensed here, so it falls through to
+       Nunito Sans as everywhere else in the theme; without this declaration the
+       button inherited Inter from the theme font settings and rendered ~16%
+       wider than the design's 186px text box. */
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: var(--pi-hero-btn-size, 16px);
+    line-height: 21px;
     letter-spacing: 0;
     font-weight: 600;
     background: var(--pi-hero-btn-bg, #ffffff);
@@ -375,7 +387,17 @@
     {%- endif -%}
     <div class="pi-hero__main-content">
       {%- if section.settings.main_heading != blank -%}
-        <h1>{{ section.settings.main_heading }}</h1>
+        {%- comment -%}
+          newline_to_br so the heading's line break is authored in the setting
+          rather than forced by CSS. The Figma frames break it as
+          "THE ART OF SELF EXPRESSION" / "WITH PUERTO INK" on desktop and
+          "THE ART OF SELF" / "EXPRESSION" / "WITH PUERTO INK" at 390 — one hard
+          break before WITH reproduces both, because the first group then wraps
+          naturally inside whatever column it has. A max-width cap cannot: it
+          would need 16em at 1920 but ~8.9em at 390, so no single font-relative
+          value serves both.
+        {%- endcomment -%}
+        <h1>{{ section.settings.main_heading | newline_to_br }}</h1>
       {%- endif -%}
       <div class="pi-hero__subframe">
         {%- if section.settings.main_subheading != blank -%}
@@ -453,10 +475,11 @@
       "info": "Optional. Shown at ≤749px. If empty, the desktop image is used."
     },
     {
-      "type": "text",
+      "type": "textarea",
       "id": "main_heading",
       "label": "Heading",
-      "default": "The Art of Self Expression With Puerto Ink"
+      "info": "Press Enter to force a line break. The design breaks before \"With\".",
+      "default": "The Art of Self Expression\nWith Puerto Ink"
     },
     {
       "type": "text",
@@ -671,12 +694,6 @@
       "default": "#000000"
     },
     {
-      "type": "color",
-      "id": "btn_border_color",
-      "label": "Button border color",
-      "default": "#ffffff"
-    },
-    {
       "type": "range",
       "id": "btn_radius",
       "label": "Button border radius",
@@ -694,7 +711,7 @@
       "max": 24,
       "step": 1,
       "unit": "px",
-      "default": 18
+      "default": 16
     },
     {
       "type": "header",

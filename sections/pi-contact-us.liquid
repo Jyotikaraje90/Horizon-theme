@@ -450,7 +450,16 @@
         <p class="pi-contact-us__subtitle">{{ section.settings.subtitle | default: "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email." }}</p>
       </div>
 
-      {%- form 'contact', id: 'pi-contact-form-{{ section.id }}' -%}
+      {%- comment -%}
+        Built with `assign` rather than inline `{{ }}`: Liquid does not
+        interpolate inside a quoted tag argument, so the id was rendering as the
+        literal string "pi-contact-form-{{ section.id }}". Shopify posts the form
+        and redirects to `/contact#<id>` to surface the success/error message, so
+        with an unresolvable id the anchor matched nothing and the page never
+        scrolled to the response.
+      {%- endcomment -%}
+      {%- assign contact_form_id = 'pi-contact-form-' | append: section.id -%}
+      {%- form 'contact', id: contact_form_id -%}
 
         {%- if form.posted_successfully? -%}
           <p class="pi-contact-us__success" style="display:block;">

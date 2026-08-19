@@ -528,7 +528,13 @@
       </h2>
 
       <div class="pi-nf__nl-form-wrap">
-        {%- form 'customer', id: 'pi-newsletter-{{ section.id }}' -%}
+        {%- comment -%}
+          See pi-contact-us.liquid: Liquid does not interpolate `{{ }}` inside a
+          quoted tag argument, so this id rendered literally and broke the
+          post-submit anchor Shopify redirects to.
+        {%- endcomment -%}
+        {%- assign newsletter_form_id = 'pi-newsletter-' | append: section.id -%}
+        {%- form 'customer', id: newsletter_form_id -%}
           {%- if form.posted_successfully? -%}
             <p class="pi-nf__nl-success" style="display:block;">
               {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
