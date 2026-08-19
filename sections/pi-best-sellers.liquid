@@ -192,10 +192,15 @@
 
   /* ── Product title ── */
   .pi-bs__card-title {
-    font-family: 'Nunito Sans', sans-serif;
-    font-size: 1.1rem;
-    font-weight: 400;
-    line-height: 1.3;
+    /* Figma "V2/H5 Proxima Nova": Semibold 600, 20/26. The rem-based 1.1rem/1.3
+       resolved to 17.6/22.88 -- the fractional values were the tell that this was
+       a type scale rather than a design number. Weight was 400, which inverted
+       the hierarchy against the price below (design has the name heavier than the
+       price; this had it the other way round). */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 26px;
     color: #000000;
     margin: 0;
     text-decoration: none;
