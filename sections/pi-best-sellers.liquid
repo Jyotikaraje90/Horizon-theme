@@ -316,8 +316,12 @@
   }
 
   @media (max-width: 989px) {
+    /* One 20px gap between the two visible cards, matching the track gap. This
+       said 30px, which was correct only while the base track gap was also 30 --
+       once that moved to 20 to hit the design's 360px desktop card, this left the
+       cards 4px narrower than the space available. */
     .pi-bs__card {
-      flex: 0 0 calc((100% - 30px) / 2);
+      flex: 0 0 calc((100% - 20px) / 2);
     }
     .pi-bs__title {
       font-size: clamp(28px, 5vw, calc(var(--pi-bs-heading-base, 54px) * 0.89));
