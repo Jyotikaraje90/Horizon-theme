@@ -578,6 +578,21 @@
     }
   }
 
+  /* The -8px above is stock Horizon pulling the row out so the last ICON's glyph
+     sits optically on the page margin — the icon's own padding absorbs it. That
+     assumption breaks once INQUIRE NOW is the last child: it is a solid filled
+     button with no transparent padding to absorb the pull, so the whole button
+     hung 8px past the content edge (measured at 1920: button right 1713 against a
+     content edge of 1705; the Figma frame has it ending flush at the 1710 margin).
+     Zeroed only where that button actually renders — below 750px it is hidden and
+     the cart icon becomes the last child, which is the case the -8px was written
+     for. */
+  @media screen and (min-width: 750px) {
+    header-actions:has(.pi-inquire-btn) {
+      margin-inline-end: 0;
+    }
+  }
+
   .pi-wishlist-action {
     display: flex;
     align-items: center;
