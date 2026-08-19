@@ -428,16 +428,30 @@
       width: 100%;
     }
 
+    /* Mobile frame type: name 600 18/23, price 400 14/22, add-to-cart 600 14/18.
+       The sizes were inheriting the desktop values and every weight was one step
+       heavy, which flattened the name/price contrast the design relies on. */
     .pi-bs__card-title {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 18px;
+      line-height: 23px;
     }
 
     .pi-bs__card-price {
-      font-weight: 600;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 22px;
     }
 
     .pi-bs__card-atc-btn {
-      font-weight: 700;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 18px;
+    }
+
+    /* 1px on the mobile frame, against 2px on desktop */
+    .pi-bs__wishlist svg path {
+      stroke-width: 1;
     }
 
     .pi-bs__explore-btn {
