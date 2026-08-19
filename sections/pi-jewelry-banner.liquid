@@ -215,10 +215,16 @@
     border-radius: var(--pi-jb-btn-radius, 8px);
     text-decoration: none;
     text-transform: uppercase;
-    font-family: 'Nunito Sans', sans-serif;
+    /* Figma "V2/Btn Proxima Nova": Semibold 600, 16/21, 0% tracking (14/18 on the
+       Mobile Btn, set below). This was 700 with 0.04em of tracking and no line
+       height, which inherited 25.6 -- together those widened the label from the
+       design's 127px text box and made it read heavier than every other button
+       on the page, all of which use this same component. */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: var(--pi-jb-btn-size, 16px);
-    font-weight: 700;
-    letter-spacing: 0.04em;
+    font-weight: 600;
+    line-height: 21px;
+    letter-spacing: 0;
     white-space: nowrap;
     border: none;
     cursor: pointer;
