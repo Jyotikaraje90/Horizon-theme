@@ -41,7 +41,14 @@
   }
 
   .pi-ts__inner {
-    max-width: 1500px;
+    /* Same correction as pi-best-sellers: 1500 is the design's content column,
+       so the outer box needs to be 1500 + the 40px gutters. At max-width 1500
+       with box-sizing: border-box the padding came out of the column, leaving
+       1420 -- while this section's own card values (flex 0 0 360px, 20px track
+       gap) need 4*360 + 3*20 = 1500. The fourth card was clipped by 80px and
+       reachable only through the arrows, and the section sat 40px inset from the
+       rest of the page (content began at x=245 against the header's 205). */
+    max-width: 1580px;
     margin-inline: auto;
     padding-inline: 40px;
     display: flex;
