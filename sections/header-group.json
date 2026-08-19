@@ -24,7 +24,7 @@
         "bg_color": "#000000",
         "text_color": "#ffffff",
         "icon_color": "#ffffff",
-        "icon_size": 20,
+        "icon_size": 15,
         "text_size": 13,
         "location_size": 11,
         "text_alignment": "center",

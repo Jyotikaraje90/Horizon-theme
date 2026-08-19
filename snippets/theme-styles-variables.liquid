@@ -129,7 +129,14 @@
     --narrow-content-width: 36rem;
     --normal-content-width: 42rem;
     --wide-content-width: 46rem;
-    --narrow-page-width: 90rem;
+    /* PI: 93.75rem = 1500px, the content width the Figma desktop frames use —
+       measured on the 1920 frames, where content runs 210..1710 (header, and
+       sections like Latest Blogs which is itself 1500 wide). Stock Horizon's
+       90rem/1440px left every section 60px narrower than the design, 30px on
+       each side. This store's page_width setting is "narrow", so retuning this
+       token is the single point that moves the whole site onto the design width;
+       the "normal" and "wide" presets are untouched and unused here. */
+    --narrow-page-width: 93.75rem;
     --normal-page-width: 120rem;
     --wide-page-width: 150rem;
 
