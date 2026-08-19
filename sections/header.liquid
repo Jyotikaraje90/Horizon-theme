@@ -1335,13 +1335,16 @@
     }
   }
 
-  /* Phones (<=599): search also drops into the drawer, leaving just the cart on
-     the right (hamburger left + centred logo come from the <=1199 rule above). */
-  @media screen and (max-width: 599px) {
-    #header-component .header__columns .search-action {
-      display: none !important;
-    }
-  }
+  /* Phones (<=599): search stays in the bar, next to the cart.
+     It used to be hidden here and reachable only from inside the drawer, but the
+     Figma 390 frame puts search and cart side by side on the right of the navbar,
+     so hiding it was a departure from the design. The grid already reserves a
+     44px track for it (the mobile template is
+     `140px 1fr 44px 44px 44px` / 'leftB center rightA rightB leftA'), so showing
+     it fills an existing empty column rather than adding width — measured at 390:
+     logo ends at 264 and the search button occupies 292-336, clear of both the
+     logo and the cart. The drawer keeps its own search as well, which is
+     harmless: two entry points to the same panel. */
 
   /* PI: at >=1200px show the inline nav and hide the hamburger on first paint,
      so there's no hamburger flash before header.js runs. Safe against overlap
