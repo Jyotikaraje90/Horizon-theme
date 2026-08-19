@@ -118,14 +118,17 @@
   .pi-bs__track {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    /* 20, not 30: four 360px cards plus three gaps must total the design's 1500
+       content column (1440 + 60). The mobile track below already used 20. */
+    gap: 20px;
     transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1);
     will-change: transform;
   }
 
   /* ── Product card: 360px, Vertical, gap 20px ── */
   .pi-bs__card {
-    flex: 0 0 calc((100% - 90px) / 4);
+    /* 60px = three 20px gaps. Was 90px, which paired with the old 30px gap. */
+    flex: 0 0 calc((100% - 60px) / 4);
     display: flex;
     flex-direction: column;
     gap: 20px;
