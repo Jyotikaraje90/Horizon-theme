@@ -99,22 +99,7 @@
     text-align: {{ section.settings.text_alignment }};
     margin: 0;
     padding: 0;
-
-    /* 16em, not 100%, so the heading breaks where the Figma frame breaks:
-       "THE ART OF SELF EXPRESSION" / "WITH PUERTO INK". The parent computes to
-       1158px at 1920 and "THE ART OF SELF EXPRESSION WITH" renders at 1156px, so
-       WITH was fitting on line 1 by two pixels and pulling up from line 2.
-
-       Measured at 64px: line 1 alone is 971px (15.2em) and line 1 + WITH is
-       1156px (18.1em), so the cap has to sit between those. 16em = 1024px is
-       mid-range rather than near either edge, which matters because a 2px margin
-       is what caused this in the first place.
-
-       em rather than px so it tracks the clamp()ed font size and the same break
-       holds as the heading scales. It is deliberately inert on small screens: the
-       parent is far narrower than 16em there (268px at 390), so `max-width: 100%`
-       still governs and the tuned mobile wrapping below is untouched. */
-    max-width: 16em;
+    max-width: 100%;
   }
 
   .pi-hero__subframe {
@@ -145,8 +130,15 @@
     color: var(--pi-hero-btn-text-color, #000000);
     text-decoration: none;
     text-transform: uppercase;
-    font-size: var(--pi-hero-btn-size, 18px);
-    line-height: 23px;
+    /* Figma "Btn" text layer: Proxima Nova Semibold 600, 16/21, 0% tracking,
+       uppercase, #000 — and 14/18 on the Mobile Btn, which the <=749 rules below
+       already match. Proxima Nova is not licensed here, so it falls through to
+       Nunito Sans as everywhere else in the theme; without this declaration the
+       button inherited Inter from the theme font settings and rendered ~16%
+       wider than the design's 186px text box. */
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: var(--pi-hero-btn-size, 16px);
+    line-height: 21px;
     letter-spacing: 0;
     font-weight: 600;
     background: var(--pi-hero-btn-bg, #ffffff);
