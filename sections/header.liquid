@@ -1342,9 +1342,23 @@
      44px track for it (the mobile template is
      `140px 1fr 44px 44px 44px` / 'leftB center rightA rightB leftA'), so showing
      it fills an existing empty column rather than adding width — measured at 390:
-     logo ends at 264 and the search button occupies 292-336, clear of both the
+     logo ends at 264 and the search button occupies 284-328, clear of both the
      logo and the cart. The drawer keeps its own search as well, which is
      harmless: two entry points to the same panel. */
+
+  /* Below the 390 design frame there is genuinely no room for it. The row needs
+     10 + hamburger 51 + logo 193 + search 44 + cart 44 + 10 = 352px of content
+     before any gaps, so at 360 the cart was pushed 18px past the right edge
+     (measured: cart right 368 against a content edge of 350; hiding search put it
+     back at exactly 350). The logo is fixed at 193px by design and 44px is the
+     minimum touch target, so nothing here can absorb that. Falling back to the
+     drawer below 390 keeps search reachable without breaking the row — and 390 is
+     the narrowest width the design actually specifies. */
+  @media screen and (max-width: 389px) {
+    #header-component .header__columns .search-action {
+      display: none !important;
+    }
+  }
 
   /* PI: at >=1200px show the inline nav and hide the hamburger on first paint,
      so there's no hamburger flash before header.js runs. Safe against overlap
