@@ -99,7 +99,22 @@
     text-align: {{ section.settings.text_alignment }};
     margin: 0;
     padding: 0;
-    max-width: 100%;
+
+    /* 16em, not 100%, so the heading breaks where the Figma frame breaks:
+       "THE ART OF SELF EXPRESSION" / "WITH PUERTO INK". The parent computes to
+       1158px at 1920 and "THE ART OF SELF EXPRESSION WITH" renders at 1156px, so
+       WITH was fitting on line 1 by two pixels and pulling up from line 2.
+
+       Measured at 64px: line 1 alone is 971px (15.2em) and line 1 + WITH is
+       1156px (18.1em), so the cap has to sit between those. 16em = 1024px is
+       mid-range rather than near either edge, which matters because a 2px margin
+       is what caused this in the first place.
+
+       em rather than px so it tracks the clamp()ed font size and the same break
+       holds as the heading scales. It is deliberately inert on small screens: the
+       parent is far narrower than 16em there (268px at 390), so `max-width: 100%`
+       still governs and the tuned mobile wrapping below is untouched. */
+    max-width: 16em;
   }
 
   .pi-hero__subframe {
