@@ -189,8 +189,14 @@
 
   .pi-hero__side-label span {
     font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: var(--pi-hero-side-label-size, 36px);
+    /* Figma "V2/H3 Playfair Display" on both labels: SemiBold 600, 44/57, 0%
+       tracking, #FFFFFF — and 26/34 on the mobile frame, set in the <=989 block
+       below. This was 700 at 36px, so the labels rendered both lighter-cut and
+       ~20% small: "Tattoos" measured 123px wide against the design's 149px and
+       "Piercings" 156px against 188px. Both ratios matched 44/36 exactly, which
+       is what identified the size as the only variable. */
+    font-weight: 600;
+    font-size: var(--pi-hero-side-label-size, 44px);
     line-height: 57px;
     color: var(--pi-hero-side-label-color, #ffffff);
     display: block;
@@ -249,7 +255,11 @@
     }
 
     .pi-hero__side-label span {
-      font-size: 24px;
+      /* Figma mobile frame: 26/34. The line-height matters as much as the size —
+         without it the desktop 57px carried over onto 24px text, leaving the
+         label sitting in a box more than twice its own height. */
+      font-size: 26px;
+      line-height: 34px;
     }
   }
 
