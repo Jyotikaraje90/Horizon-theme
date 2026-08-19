@@ -178,6 +178,12 @@
 
   .pi-bs__wishlist svg { width: 100%; height: 100%; display: block; }
 
+  /* Figma "favorite": 2px border on desktop, 1px on the mobile frame. The markup
+     carries stroke-width="1.5" as an attribute, which cannot vary by breakpoint;
+     this presentation attribute is the weakest source in the cascade, so setting
+     the property here overrides it at both sizes. */
+  .pi-bs__wishlist svg path { stroke-width: 2; }
+
   .pi-bs__wishlist--active path { fill: #000000; }
 
   /* ── Description: plain, no border, no frame ── */
