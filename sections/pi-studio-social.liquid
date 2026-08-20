@@ -528,7 +528,9 @@
        A single flex gap cannot do both, so the gap carries the smaller value and
        the header makes up the extra 10. */
     .pi-ps__inner { padding: 0 18px; gap: 20px; }
-    .pi-ps__header { margin-bottom: 10px; }
+    /* min-height:0 releases the 70px desktop header box — on mobile the frame
+       hugs the 39px heading (Figma: 39 + 30 + 249 + 20 + 50 = 388). */
+    .pi-ps__header { margin-bottom: 10px; min-height: 0; }
     /* Figma: Playfair Display 600, 30/39, uppercase — one line */
     .pi-ps__heading {
       font-size: 30px;
