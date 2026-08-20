@@ -192,8 +192,22 @@
     border: none;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    /* 10px here is the title→price gap; the price→ADD TO CART gap is taken to
+       20px by the margin on .pi-bs__card-atc below. Figma nests title+price in
+       their own frame, so the two gaps differ — a single 20px gap made the block
+       116px against the design's 106px (26 + 10 + 29 + 20 + 21). */
+    gap: 10px;
     padding: 0;
+  }
+
+  /* Second half of the 20px price→ADD TO CART gap (10px flex gap + 10px here). */
+  .pi-bs__card-atc {
+    margin-top: 10px;
+    /* Without a family and line-height this block inherited Inter at 22.4px and
+       stood 23px tall against the design's 21px, padding every card by 2px. The
+       button inside it was already correct; only its wrapper was not. */
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    line-height: 21px;
   }
 
   /* ── Product title ── */
@@ -373,7 +387,9 @@
     .pi-bs__inner {
       padding-left: 18px;
       padding-right: 18px;
-      gap: 20px;
+      /* 30px between the heading and the carousel, per the mobile frame's
+         section gap. Was 20px. */
+      gap: 30px;
     }
 
     .pi-bs__title {
@@ -424,8 +440,18 @@
     }
 
     .pi-bs__card-info {
-      padding: 8px;
-      gap: 10px;
+      /* No padding on the mobile frame — the card is a plain hug of image (167),
+         10px, and this block (101). The 8px all round added 16px to every card. */
+      padding: 0;
+      /* Mobile runs the same two-gap rhythm as desktop at half scale:
+         5px title→price, 10px price→ADD TO CART, giving
+         46 + 5 + 22 + 10 + 18 = 101. */
+      gap: 5px;
+    }
+
+    .pi-bs__card-atc {
+      margin-top: 5px;
+      line-height: 18px;
     }
 
     .pi-bs__explore {
@@ -482,14 +508,16 @@
       top: 0;
       transform: translateY(-50%);
 
-      /* Flush with the carousel edges, not -17px outside them. The arrows are
-         35px wide, so a -17px offset centred each one on the container edge —
-         and since the section gutter here is only 18px, that left the next arrow
-         1px from the viewport edge at every width, looking cut off (and sitting
-         under the scrollbar in a real browser). At 0 they sit just inside the
-         card edges and inherit the section's gutter as clearance. */
-      left: 0;
-      right: 0;
+      /* Figma's arrow row is Fixed(380) against a 354px content column, i.e. it
+         hangs 13px outside the cards on each side.
+
+         An earlier revision tried -17px (a full half-arrow, centring each one on
+         the container edge) and reverted to 0 because the 18px section gutter
+         left the next arrow 1px from the viewport edge, looking cut off and
+         sitting under the scrollbar. -13px is the design's own figure and keeps
+         5px of clearance, so it does not reintroduce that. */
+      left: -13px;
+      right: -13px;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
