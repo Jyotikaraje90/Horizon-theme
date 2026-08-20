@@ -16,7 +16,6 @@
     --pi-ts-card-title-color: {{ section.settings.card_title_color }};
     --pi-ts-card-desc-size: {{ section.settings.card_desc_size }}px;
     --pi-ts-card-desc-color: {{ section.settings.card_desc_color }};
-    --pi-ts-card-border-color: {{ section.settings.card_border_color }};
     --pi-ts-btn-bg: {{ section.settings.btn_bg }};
     --pi-ts-btn-text: {{ section.settings.btn_text }};
     --pi-ts-btn-radius: {{ section.settings.btn_radius }}px;
@@ -213,12 +212,6 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    /* Dashed "U" under the text: right/bottom/left only, bottom corners
-       rounded. Figma specifies dashes 10,10 -- CSS cannot set dash length, so
-       the UA picks it. Swap for an SVG background if that rhythm matters. */
-    border-right: 1px dashed var(--pi-ts-card-border-color, #d9d9d9);
-    border-bottom: 1px dashed var(--pi-ts-card-border-color, #d9d9d9);
-    border-left: 1px dashed var(--pi-ts-card-border-color, #d9d9d9);
     border-radius: 0 0 var(--pi-ts-card-radius, 10px) var(--pi-ts-card-radius, 10px);
     background: #ffffff;
   }
@@ -326,9 +319,8 @@
     .pi-ts__track { gap: 20px; }
     .pi-ts__card { flex: 0 0 calc((100% - 20px) / 2); width: auto; gap: 10px; }
     .pi-ts__card-img { width: 100%; height: auto; aspect-ratio: 1 / 1; }
-    /* Mobile keeps its own 10px image->text gap (now on .pi-ts__card) and no
-       dashed border -- the border is a desktop-only element in the design. */
-    .pi-ts__card-body { width: 100%; gap: 5px; padding: 0; border: 0; }
+    /* Mobile keeps its own 10px image->text gap (now on .pi-ts__card). */
+    .pi-ts__card-body { width: 100%; gap: 5px; padding: 0; }
     .pi-ts__card-title { font-size: 18px; line-height: 23px; -webkit-line-clamp: 2; -webkit-font-smoothing: antialiased; }
     .pi-ts__card-desc { font-size: 14px; line-height: 22px; -webkit-line-clamp: 2; -webkit-font-smoothing: antialiased; color: #121212; }
 
@@ -694,13 +686,6 @@
       "id": "card_desc_color",
       "label": "Card description color",
       "default": "#121212"
-    },
-    {
-      "type": "color",
-      "id": "card_border_color",
-      "label": "Card text border color",
-      "info": "Dashed border around the card text block. Not specified in Figma — confirm the value.",
-      "default": "#D9D9D9"
     },
     {
       "type": "header",
