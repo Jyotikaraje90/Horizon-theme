@@ -1954,12 +1954,13 @@
     /* .header__column--right already carries a 20px flex gap, which is exactly
        the spec — so no extra margin is needed between search and the actions
        group. What did need removing is stock Horizon's negative inline-start
-       pull (calc(var(--gap-md) * -1) = -14.4px). That exists to drag 44px tap
-       targets outward so their glyphs sit optically on the margin; with the
-       boxes now sized to the glyph it just eats 14.4px out of the gap. */
+       pulls (-14.4px inline-start, -8px inline-end on the search button). Those
+       exist to drag 44px tap targets outward so their glyphs sit optically on
+       the margin; with the boxes now sized to the glyph they just eat into the
+       gap — the -8px is why search→account measured 12px instead of 20px. */
     #header-component .header__column--right .search-action,
     #header-component .header__column--right header-actions {
-      margin-inline-start: 0;
+      margin-inline: 0;
     }
 
     /* 30px from the cart to the button. 20px of that is the header-actions flex
