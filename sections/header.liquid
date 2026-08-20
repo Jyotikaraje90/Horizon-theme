@@ -1792,13 +1792,17 @@
     line-height: 23px;
   }
 
-  /* PI: Figma header fill + hairline rule. The row painted nothing at all — it
-     only looked white because the page behind it is, which shows through once
-     content scrolls under the sticky header. The border colour is already
-     declared by the theme; only its width was 0. */
+  /* PI: Figma header fill. The row painted nothing at all — it only looked white
+     because the page behind it is, which shows through once content scrolls
+     under the sticky header.
+
+     The 1px bottom rule is NOT set here: the theme drives it from the
+     `border_width` section setting via --border-bottom-width /
+     --border-bottom-width-mobile (see the row loop near the top of this file),
+     and those rules outrank a plain `.header__row--top`. It is set to 1 in
+     header-group.json instead. */
   .header__row--top {
     background-color: #ffffff;
-    border-bottom-width: 1px;
   }
 
   /* PI: logo left-aligned right after the hamburger (not absolutely centred),
@@ -1908,6 +1912,51 @@
     #header-component .header__columns .search-action,
     #header-component[data-menu-style='drawer'] .header__columns .search-action {
       margin-inline-end: 15px !important;
+    }
+  }
+
+  /* PI: Figma desktop action cluster — "Top Right icons" is Hug(153) × Hug(20)
+     with a uniform 20px gap, then 30px before INQUIRE NOW. Stock Horizon centres
+     22×22 glyphs inside 44px tap targets, which reads as 22–25px of drift
+     between icons and 43px before the button. Sizing the boxes to the glyph and
+     spacing them explicitly restores the design's rhythm.
+     The account glyph is 15×17, not square, so it is scaled by height only —
+     forcing it to 20×20 would stretch it ~13% wider than drawn. */
+  @media screen and (min-width: 1200px) {
+    #header-component .header__column--right .search-action .header-actions__action,
+    #header-component .header__column--right header-actions .header-actions__action {
+      width: 20px;
+      min-width: 0;
+      padding: 0;
+    }
+
+    #header-component .header__column--right .search-action .svg-wrapper,
+    #header-component .header__column--right header-actions .svg-wrapper {
+      width: 20px;
+      height: 20px;
+    }
+
+    #header-component .header__column--right .search-action svg,
+    #header-component .header__column--right header-actions svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #header-component .header__column--right .account-button svg {
+      width: auto;
+      height: 20px;
+    }
+
+    #header-component .header__column--right header-actions {
+      gap: 20px;
+    }
+
+    #header-component .header__column--right .search-action {
+      margin-inline-end: 20px;
+    }
+
+    #header-component .header__column--right .pi-inquire-btn {
+      margin-left: 30px;
     }
   }
 {% endstylesheet %}
