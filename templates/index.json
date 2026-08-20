@@ -176,7 +176,7 @@
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
-        "btn_size": 16,
+        "btn_size": 18,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff",
         "margin_top": 0,
