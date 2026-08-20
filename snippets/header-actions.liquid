@@ -39,20 +39,35 @@
 {% endcapture %}
 
 {% capture account_icon %}
+  {%- comment -%}
+    Figma navbar account glyph. Square 24 grid at 1.5 stroke, matching
+    assets/icon-account.svg — kept inline here because <shopify-account> needs
+    the slot attribute on the element itself. Keep the two in sync.
+  {%- endcomment -%}
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="15"
-    height="17"
-    viewBox="0 0 15 17"
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
     fill="none"
     slot="signed-out-avatar"
     class="account-button__icon"
   >
+    <circle
+      cx="12"
+      cy="7.5"
+      r="3.25"
+      stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
     <path
       stroke="currentColor"
+      stroke-width="1.5"
+      stroke-linecap="round"
       stroke-linejoin="round"
-      stroke-width="var(--icon-stroke-width)"
-      d="M10.375 3.813a3.063 3.063 0 1 1-6.125 0 3.063 3.063 0 0 1 6.125 0ZM7.313 9.5c-3.667 0-6.24 2.691-6.563 6.125h13.125C13.552 12.191 10.979 9.5 7.312 9.5Z"
+      d="M4.75 19.75a7.25 7.25 0 0 1 14.5 0"
     />
   </svg>
 {% endcapture %}
@@ -127,7 +142,7 @@
   >
     <span class="svg-wrapper" aria-hidden="true">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        <path d="M12 20.5C12 20.5 3.25 15.35 3.25 9.5C3.25 6.74 5.49 4.5 8.25 4.5C10 4.5 11.29 5.34 12 6.53C12.71 5.34 14 4.5 15.75 4.5C18.51 4.5 20.75 6.74 20.75 9.5C20.75 15.35 12 20.5 12 20.5Z"/>
       </svg>
     </span>
     {%- comment -%} Filled by pi-wishlist.js; stays hidden while the count is 0 {%- endcomment -%}
