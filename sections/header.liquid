@@ -1843,7 +1843,16 @@
       height: 60px;
       padding-block: 10px;
       padding-inline: 20px;
-      gap: 0;
+    }
+
+    /* Spacing is done with explicit margins below, so the inherited 8px flex gap
+       has to go. The [data-menu-style='drawer'] twin is required: the ≤1199 block
+       above declares its rules against both selectors, and that variant scores
+       higher than a plain `#header-component .header__columns`, so a single-
+       selector override silently loses the cascade. */
+    #header-component .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      gap: 0 !important;
     }
 
     /* Undoes the blanket `@media (max-width: 1199px)` rule further up that feeds
@@ -1896,7 +1905,8 @@
       height: 20px !important;
     }
 
-    #header-component .header__columns .search-action {
+    #header-component .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
       margin-inline-end: 15px !important;
     }
   }
