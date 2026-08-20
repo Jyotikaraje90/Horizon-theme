@@ -45,7 +45,8 @@
     font-family: 'Playfair Display', serif;
     font-size: clamp(28px, 3.75vw, 54px);
     font-weight: 600;
-    line-height: 1.3;
+    /* Figma H2 is 54/70. Kept as a ratio so it holds if the clamp resolves lower. */
+    line-height: 1.2963;
     text-transform: uppercase;
     color: var(--pi-tsg-heading-color, #000000);
     margin: 0;
@@ -90,7 +91,8 @@
   .pi-tsg__card-body {
     display: flex;
     flex-direction: column;
-    gap: 5px;
+    /* Figma frame 2123: 93 hug - 26 title - 57 desc leaves 10px between them. */
+    gap: 10px;
     margin-top: 20px;
   }
 
@@ -104,9 +106,9 @@
   }
   .pi-tsg__card-desc {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: var(--pi-tsg-card-desc-size, 16px);
+    font-size: var(--pi-tsg-card-desc-size, 18px);
     font-weight: 400;
-    line-height: 26px;
+    line-height: 29px;
     color: var(--pi-tsg-card-desc-color, #121212);
     margin: 0;
     display: -webkit-box;
@@ -174,10 +176,25 @@
     cursor: default;
   }
 
-  /* ─── Responsive (desktop-first: placeholder until mobile spec arrives) ─── */
+  /* ─── Responsive ─────────────────────────────── */
   @media (max-width: 989px) {
     .pi-tsg__inner { padding-inline: 24px; }
     .pi-tsg__grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  /* Figma mobile: 18px gutters give a 167px card at 390 ((390 - 36 - 20) / 2),
+     matching the Mask group. The 24px above produced 161px.
+
+     The card typography here mirrors pi-tattoo-services at the same breakpoint.
+     Figma's mobile row is 248 = 167 image + 81 text, and these values land at
+     10 + 23 + 5 + 44 = 82. NOTE: the mobile panels supplied cover layout only,
+     no card type, so these sizes are carried over from the homepage section
+     rather than measured. Replace them if a mobile type spec arrives. */
+  @media (max-width: 767px) {
+    .pi-tsg__inner { padding-inline: 18px; }
+    .pi-tsg__card-body { gap: 5px; margin-top: 10px; }
+    .pi-tsg__card-title { font-size: 18px; line-height: 23px; }
+    .pi-tsg__card-desc { font-size: 14px; line-height: 22px; }
   }
 
   #shopify-section-{{ section.id }} {
@@ -445,7 +462,7 @@
       "step": 1,
       "unit": "px",
       "label": "Card description font size",
-      "default": 16
+      "default": 18
     },
     {
       "type": "color",
