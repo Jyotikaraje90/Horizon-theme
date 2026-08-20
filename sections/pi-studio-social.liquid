@@ -37,13 +37,17 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    /* Figma stacks heading → carousel at 50 and carousel → button at 30
+       (Hug 678 = 70 + 50 + 473 + 30 + 55). One flex gap cannot do both, so the
+       gap carries the smaller value and the header makes up the extra 20. */
+    gap: 30px;
   }
   .pi-ps__header {
     display: flex;
     align-items: flex-end;
     justify-content: space-between;
     min-height: 70px;
+    margin-bottom: 20px;
   }
   .pi-ps__heading {
     font-family: 'Playfair Display', serif;
