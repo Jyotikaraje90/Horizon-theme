@@ -25,8 +25,8 @@
         "text_color": "#ffffff",
         "icon_color": "#ffffff",
         "icon_size": 15,
-        "text_size": 13,
-        "location_size": 11,
+        "text_size": 16,
+        "location_size": 16,
         "text_alignment": "center",
         "margin_top": 0,
         "margin_bottom": 0
