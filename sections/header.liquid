@@ -1951,6 +1951,15 @@
       gap: 20px;
     }
 
+    /* Figma puts 40px between the logo and the HOME label. The left column's
+       flex gap is already 40px, but overflow-list pulls its items 20px back to
+       cancel the 20px inline padding each menu item carries — which lands the
+       first label 20px from the logo. Re-add the 20px here rather than unpicking
+       that padding system, which the caret spacing above depends on. */
+    #header-component .header__column--left .header-menu {
+      margin-inline-start: 20px;
+    }
+
     /* .header__column--right already carries a 20px flex gap, which is exactly
        the spec — so no extra margin is needed between search and the actions
        group. What did need removing is stock Horizon's negative inline-start
