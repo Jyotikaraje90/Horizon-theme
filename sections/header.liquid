@@ -1768,16 +1768,37 @@
     color: rgb(0 0 0 / 0.7);
   }
 
-  /* PI: all nav links pure black, active/hovered links grayish with underline */
+  /* PI: all nav links pure black. Figma types every top-level link at #000000,
+     so the active/hovered state is distinguished by the underline alone rather
+     than by also dropping to --opacity-subdued-text (which rendered the current
+     page's link at 70% black against a spec of 100%). */
   #header-component .menu-list .menu-list__link {
     color: var(--menu-top-level-font-color) !important;
   }
 
   #header-component .menu-list .menu-list__link--active,
   #header-component .menu-list .menu-list__link:hover {
-    color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text)) !important;
+    color: var(--menu-top-level-font-color) !important;
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  /* PI: Figma nav type — Proxima Nova is not licensed on this store (no font
+     files, no @font-face anywhere), so Nunito Sans stands in for it, matching
+     the substitution used across the pi-* sections. Without a family here the
+     links fell back to the theme default (Inter) and to a 30.09px line box. */
+  #header-component .menu-list .menu-list__link {
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 23px;
+  }
+
+  /* PI: Figma header fill + hairline rule. The row painted nothing at all — it
+     only looked white because the page behind it is, which shows through once
+     content scrolls under the sticky header. The border colour is already
+     declared by the theme; only its width was 0. */
+  .header__row--top {
+    background-color: #ffffff;
+    border-bottom-width: 1px;
   }
 
   /* PI: logo left-aligned right after the hamburger (not absolutely centred),
@@ -1803,16 +1824,80 @@
     }
   }
 
-  /* PI: on very narrow phones, tighten the header side padding and the
-     hamburger↔logo gap so the cart icon isn't clipped at the right edge.
-     Logo size is untouched. */
-  @media screen and (max-width: 400px) {
-    .header__row--top .header__columns {
-      padding-inline: 10px !important;
+  /* PI: Figma mobile navbar (390px frame) — 60px bar, 20px side padding,
+     140×40 logo, 27×20 hamburger flush to the 20px edge, 20×20 search + cart
+     15px apart ending on the 20px right edge:
+       [hamburger] 20px [logo] …… [search] 15px [cart]
+
+     This replaces an earlier `@media (max-width: 400px) { padding-inline: 10px }`
+     hack. That hack existed only because the logo was rendering at its 193×55
+     DESKTOP size on phones and shoved the cart past the edge — see the logo
+     override below for why. With the logo at its real mobile size there is room
+     to spare, so the side padding can match the design instead of fighting it. */
+  @media screen and (max-width: 749px) {
+    body {
+      --header-height: 60px;
     }
+
+    .header__row--top .header__columns {
+      height: 60px;
+      padding-block: 10px;
+      padding-inline: 20px;
+      gap: 0;
+    }
+
+    /* Undoes the blanket `@media (max-width: 1199px)` rule further up that feeds
+       the DESKTOP --header-logo-image-* vars to every sub-desktop width. That
+       rule outranks `.header-logo__image` (id + 3 classes vs 1 class), so the
+       -mobile vars _blocks/_header-logo.liquid_ emits could never win and the
+       mobile logo size was dead code. Re-asserted here for phones only; the
+       750–1199 tablet band keeps the constant-size behaviour it was given. */
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: var(--header-logo-image-height-mobile) !important;
+      width: var(--header-logo-image-width-mobile) !important;
+    }
+
+    /* Hamburger glyph flush to the 20px padding, 20px before the logo. The stock
+       summary is a 51px-wide tap target that centres the 27px glyph, which left
+       it sitting ~14px from the edge. */
     #header-component .header__columns .header__drawer,
     #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
-      margin: 0 6px 0 -4px !important;
+      margin: 0 20px 0 0 !important;
+      min-height: 0 !important;
+    }
+
+    #header-component .header__columns .header__drawer .header__icon--menu {
+      width: 27px !important;
+      min-width: 0 !important;
+      padding-inline: 0 !important;
+      justify-content: flex-start !important;
+    }
+
+    /* 20×20 action glyphs with a real 15px gap, instead of 22×22 glyphs centred
+       in 44px tap targets (which read as a 30px gap). */
+    #header-component .header__columns .search-action .header-actions__action,
+    #header-component .header__columns header-actions .header-actions__action {
+      width: 20px !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+    }
+
+    #header-component .header__columns .search-action .svg-wrapper,
+    #header-component .header__columns header-actions .svg-wrapper {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    #header-component .header__columns .search-action svg,
+    #header-component .header__columns header-actions svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    #header-component .header__columns .search-action {
+      margin-inline-end: 15px !important;
     }
   }
 {% endstylesheet %}
