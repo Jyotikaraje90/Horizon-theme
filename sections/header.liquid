@@ -1920,8 +1920,8 @@
      22×22 glyphs inside 44px tap targets, which reads as 22–25px of drift
      between icons and 43px before the button. Sizing the boxes to the glyph and
      spacing them explicitly restores the design's rhythm.
-     The account glyph is 15×17, not square, so it is scaled by height only —
-     forcing it to 20×20 would stretch it ~13% wider than drawn. */
+     The account glyph is now drawn on the same square 24 grid as the other
+     Figma icons, so it takes the plain 20×20 sizing along with them. */
   @media screen and (min-width: 1200px) {
     #header-component .header__column--right .search-action .header-actions__action,
     #header-component .header__column--right header-actions .header-actions__action {
@@ -1943,7 +1943,7 @@
     }
 
     #header-component .header__column--right .account-button svg {
-      width: auto;
+      width: 20px;
       height: 20px;
     }
 
