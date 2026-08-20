@@ -1996,6 +1996,21 @@
      Scoped to the two bands where the boxes were actually shrunk — the 750–1199
      tablet band still uses 44px targets, where the stock offsets remain correct. */
   @media screen and (max-width: 749px), screen and (min-width: 1200px) {
+    /* Normalise every action box to the glyph height and centre its contents.
+       The cart was the odd one out: .header-actions__cart-icon is display:block
+       with a 22.4px line-height wrapping an inline-flex .svg-wrapper, so the
+       glyph rode a text baseline inside a 26.39px box and sat 3.2px higher than
+       the other three icons. Flex-centring at a fixed 20px removes the baseline
+       from the equation. The INQUIRE button is not a .header-actions__action, so
+       its 55px height is untouched. */
+    #header-component .header__columns .header-actions__action,
+    #header-component .header__columns .header-actions__cart-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+    }
+
     #header-component .cart-bubble:not(.visually-hidden),
     #header-component .pi-wishlist-count:not([hidden]) {
       inset: -9px auto auto 14px;
