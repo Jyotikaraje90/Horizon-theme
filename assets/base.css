@@ -4518,12 +4518,18 @@ product-recommendations:has([data-has-recommendations='false']) {
   margin: 0 auto;
   max-width: var(--page-width, 1440px);
   width: 100%;
+  min-height: 40px;
 }
 
+/* The social and location clusters flex from a 0 basis so they always claim
+   equal space. That is what puts the centre text on the true page centre —
+   with the default `flex: 1` on the text instead, it centres in the leftover
+   space between two unequal-width siblings and lands ~90px off. */
 .pi-announcement__social {
   display: flex;
   align-items: center;
   gap: 20px;
+  flex: 1 1 0;
 }
 
 .pi-announcement__social a,
@@ -4548,9 +4554,10 @@ product-recommendations:has([data-has-recommendations='false']) {
 }
 
 .pi-announcement__text {
-  flex: 1;
+  flex: 0 1 auto;
   text-align: center;
   white-space: nowrap;
+  font-family: 'Nunito Sans', sans-serif;
   font-size: 16px;
   line-height: 21px;
   letter-spacing: 0;
@@ -4562,6 +4569,7 @@ product-recommendations:has([data-has-recommendations='false']) {
   align-items: center;
   justify-content: flex-end;
   gap: 10px;
+  flex: 1 1 0;
 }
 
 .pi-announcement__locations svg {
@@ -4587,6 +4595,7 @@ product-recommendations:has([data-has-recommendations='false']) {
 .pi-announcement__location-list li {
   display: flex;
   align-items: center;
+  font-family: 'Nunito Sans', sans-serif;
   font-size: 16px;
   line-height: 21px;
   letter-spacing: 0;
@@ -4631,7 +4640,7 @@ product-recommendations:has([data-has-recommendations='false']) {
 .pi-announcement-mobile__text {
   display: block;
   width: 100%;
-  font-family: 'Proxima Nova', sans-serif;
+  font-family: 'Nunito Sans', sans-serif;
   font-size: 12px;
   line-height: 19px;
   font-weight: 400;

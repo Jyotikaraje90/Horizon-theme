@@ -1768,16 +1768,41 @@
     color: rgb(0 0 0 / 0.7);
   }
 
-  /* PI: all nav links pure black, active/hovered links grayish with underline */
+  /* PI: all nav links pure black. Figma types every top-level link at #000000,
+     so the active/hovered state is distinguished by the underline alone rather
+     than by also dropping to --opacity-subdued-text (which rendered the current
+     page's link at 70% black against a spec of 100%). */
   #header-component .menu-list .menu-list__link {
     color: var(--menu-top-level-font-color) !important;
   }
 
   #header-component .menu-list .menu-list__link--active,
   #header-component .menu-list .menu-list__link:hover {
-    color: rgb(var(--menu-top-level-font-color-rgb) / var(--opacity-subdued-text)) !important;
+    color: var(--menu-top-level-font-color) !important;
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+
+  /* PI: Figma nav type — Proxima Nova is not licensed on this store (no font
+     files, no @font-face anywhere), so Nunito Sans stands in for it, matching
+     the substitution used across the pi-* sections. Without a family here the
+     links fell back to the theme default (Inter) and to a 30.09px line box. */
+  #header-component .menu-list .menu-list__link {
+    font-family: 'Nunito Sans', sans-serif;
+    line-height: 23px;
+  }
+
+  /* PI: Figma header fill. The row painted nothing at all — it only looked white
+     because the page behind it is, which shows through once content scrolls
+     under the sticky header.
+
+     The 1px bottom rule is NOT set here: the theme drives it from the
+     `border_width` section setting via --border-bottom-width /
+     --border-bottom-width-mobile (see the row loop near the top of this file),
+     and those rules outrank a plain `.header__row--top`. It is set to 1 in
+     header-group.json instead. */
+  .header__row--top {
+    background-color: #ffffff;
   }
 
   /* PI: logo left-aligned right after the hamburger (not absolutely centred),
@@ -1803,16 +1828,209 @@
     }
   }
 
-  /* PI: on very narrow phones, tighten the header side padding and the
-     hamburger↔logo gap so the cart icon isn't clipped at the right edge.
-     Logo size is untouched. */
-  @media screen and (max-width: 400px) {
-    .header__row--top .header__columns {
-      padding-inline: 10px !important;
+  /* PI: Figma mobile navbar (390px frame) — 60px bar, 20px side padding,
+     140×40 logo, 27×20 hamburger flush to the 20px edge, 20×20 search + cart
+     15px apart ending on the 20px right edge:
+       [hamburger] 20px [logo] …… [search] 15px [cart]
+
+     This replaces an earlier `@media (max-width: 400px) { padding-inline: 10px }`
+     hack. That hack existed only because the logo was rendering at its 193×55
+     DESKTOP size on phones and shoved the cart past the edge — see the logo
+     override below for why. With the logo at its real mobile size there is room
+     to spare, so the side padding can match the design instead of fighting it. */
+  @media screen and (max-width: 749px) {
+    body {
+      --header-height: 60px;
     }
+
+    .header__row--top .header__columns {
+      height: 60px;
+      padding-block: 10px;
+      padding-inline: 20px;
+    }
+
+    /* Spacing is done with explicit margins below, so the inherited 8px flex gap
+       has to go. The [data-menu-style='drawer'] twin is required: the ≤1199 block
+       above declares its rules against both selectors, and that variant scores
+       higher than a plain `#header-component .header__columns`, so a single-
+       selector override silently loses the cascade. */
+    #header-component .header__columns,
+    #header-component[data-menu-style='drawer'] .header__columns {
+      gap: 0 !important;
+    }
+
+    /* Undoes the blanket `@media (max-width: 1199px)` rule further up that feeds
+       the DESKTOP --header-logo-image-* vars to every sub-desktop width. That
+       rule outranks `.header-logo__image` (id + 3 classes vs 1 class), so the
+       -mobile vars _blocks/_header-logo.liquid_ emits could never win and the
+       mobile logo size was dead code. Re-asserted here for phones only; the
+       750–1199 tablet band keeps the constant-size behaviour it was given. */
+    #header-component .header__columns .header-logo img,
+    #header-component .header__columns .header-logo svg,
+    #header-component .header__columns .header-logo__image {
+      height: var(--header-logo-image-height-mobile) !important;
+      width: var(--header-logo-image-width-mobile) !important;
+    }
+
+    /* Hamburger glyph flush to the 20px padding, 20px before the logo. The stock
+       summary is a 51px-wide tap target that centres the 27px glyph, which left
+       it sitting ~14px from the edge. */
     #header-component .header__columns .header__drawer,
     #header-component[data-menu-style='drawer'] .header__columns .header__drawer {
-      margin: 0 6px 0 -4px !important;
+      margin: 0 20px 0 0 !important;
+      min-height: 0 !important;
+    }
+
+    #header-component .header__columns .header__drawer .header__icon--menu {
+      width: 27px !important;
+      min-width: 0 !important;
+      padding-inline: 0 !important;
+      justify-content: flex-start !important;
+    }
+
+    /* 20×20 action glyphs with a real 15px gap, instead of 22×22 glyphs centred
+       in 44px tap targets (which read as a 30px gap). */
+    #header-component .header__columns .search-action .header-actions__action,
+    #header-component .header__columns header-actions .header-actions__action {
+      width: 20px !important;
+      min-width: 0 !important;
+      padding: 0 !important;
+    }
+
+    #header-component .header__columns .search-action .svg-wrapper,
+    #header-component .header__columns header-actions .svg-wrapper {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    #header-component .header__columns .search-action svg,
+    #header-component .header__columns header-actions svg {
+      width: 20px !important;
+      height: 20px !important;
+    }
+
+    #header-component .header__columns .search-action,
+    #header-component[data-menu-style='drawer'] .header__columns .search-action {
+      margin-inline-end: 15px !important;
+    }
+  }
+
+  /* PI: Figma desktop action cluster — "Top Right icons" is Hug(153) × Hug(20)
+     with a uniform 20px gap, then 30px before INQUIRE NOW. Stock Horizon centres
+     22×22 glyphs inside 44px tap targets, which reads as 22–25px of drift
+     between icons and 43px before the button. Sizing the boxes to the glyph and
+     spacing them explicitly restores the design's rhythm.
+     The account glyph is 15×17, not square, so it is scaled by height only —
+     forcing it to 20×20 would stretch it ~13% wider than drawn. */
+  @media screen and (min-width: 1200px) {
+    #header-component .header__column--right .search-action .header-actions__action,
+    #header-component .header__column--right header-actions .header-actions__action {
+      width: 20px;
+      min-width: 0;
+      padding: 0;
+    }
+
+    #header-component .header__column--right .search-action .svg-wrapper,
+    #header-component .header__column--right header-actions .svg-wrapper {
+      width: 20px;
+      height: 20px;
+    }
+
+    #header-component .header__column--right .search-action svg,
+    #header-component .header__column--right header-actions svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    #header-component .header__column--right .account-button svg {
+      width: auto;
+      height: 20px;
+    }
+
+    #header-component .header__column--right header-actions {
+      gap: 20px;
+    }
+
+    /* Figma puts 40px between the logo and the HOME label. The left column's
+       flex gap is already 40px, but overflow-list pulls its items 20px back to
+       cancel the 20px inline padding each menu item carries — which lands the
+       first label 20px from the logo. Re-add the 20px here rather than unpicking
+       that padding system, which the caret spacing above depends on. */
+    #header-component .header__column--left .header-menu {
+      margin-inline-start: 20px;
+    }
+
+    /* .header__column--right already carries a 20px flex gap, which is exactly
+       the spec — so no extra margin is needed between search and the actions
+       group. What did need removing is stock Horizon's negative inline-start
+       pulls (-14.4px inline-start, -8px inline-end on the search button). Those
+       exist to drag 44px tap targets outward so their glyphs sit optically on
+       the margin; with the boxes now sized to the glyph they just eat into the
+       gap — the -8px is why search→account measured 12px instead of 20px. */
+    #header-component .header__column--right .search-action,
+    #header-component .header__column--right header-actions {
+      margin-inline: 0;
+    }
+
+    /* 30px from the cart to the button. 20px of that is the header-actions flex
+       gap above (the button is the last child of header-actions), so only the
+       remaining 10px comes from the margin. */
+    #header-component .header__column--right .pi-inquire-btn {
+      margin-left: 10px;
+    }
+  }
+
+  /* PI: count badges, re-anchored for the glyph-sized action boxes.
+
+     The cart bubble and wishlist count are absolutely positioned against their
+     action box using stock offsets (top 4.5 / right 2.5) that assume a 44px tap
+     target. Once the boxes were sized to the 20px glyph those offsets covered
+     the icon completely — the cart rendered as a solid black disc with the
+     number on it, and the heart sat behind its own badge.
+
+     Figma draws the qty badge as 18×18 overhanging the icon's top-right corner
+     (Left 14, Top -9), which is exactly why its cart frame measures 33×20 rather
+     than 20×20. The wishlist badge mirrors it, per the pairing note in
+     header-actions.liquid.
+
+     Scoped to the two bands where the boxes were actually shrunk — the 750–1199
+     tablet band still uses 44px targets, where the stock offsets remain correct. */
+  @media screen and (max-width: 749px), screen and (min-width: 1200px) {
+    /* Re-centre the cart glyph. .header-actions__cart-icon is display:block with
+       a 22.4px line-height wrapping an inline-flex .svg-wrapper, so the glyph
+       rode a text baseline inside a 26.39px box and sat 3.2px above the other
+       three icons. Flex-centring at a fixed 20px takes the baseline out of it.
+
+       Scoped to the cart on purpose. A blanket rule on .header-actions__action
+       looks tidier but sets `display`, which outranks the `display: none` that
+       hides the account (≤989) and wishlist (≤849) buttons — it put both back on
+       phones and pushed the search icon 40px out of place. The other three
+       actions were already centred and need nothing. */
+    #header-component .header__columns .action__cart {
+      height: 20px;
+      align-items: center;
+    }
+
+    #header-component .header__columns .header-actions__cart-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 20px;
+    }
+
+    #header-component .cart-bubble:not(.visually-hidden),
+    #header-component .pi-wishlist-count:not([hidden]) {
+      inset: -9px auto auto 14px;
+      width: 18px;
+      min-width: 18px;
+      height: 18px;
+      padding: 0;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      line-height: 1;
     }
   }
 {% endstylesheet %}
