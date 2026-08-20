@@ -186,7 +186,12 @@
 
   .pi-bs__wishlist--active path { fill: #000000; }
 
-  /* ── Description: plain, no border, no frame ── */
+  /* ── Description: plain, no border, no frame ──
+     Figma's "Frame 2123" draws this block as a #FFFFFF panel with a 1px dashed
+     (10, 10) border on left/right/bottom and 10px bottom corners. That is
+     deliberately NOT implemented — confirmed with the client on review. Treat the
+     dashed outline in the design file as a frame guide, not a visual element, and
+     do not "restore" it on a future design-fidelity pass. */
   .pi-bs__card-info {
     background: transparent;
     border: none;
