@@ -28,7 +28,10 @@
     background: #fff;
   }
   .pi-ps__inner {
-    max-width: 1500px;
+    /* 1580 = the design's 1500 content column plus the 40px gutters. The old
+       1500 max-width included the padding, so the column measured 1420 — 80px
+       narrower than every other homepage section. */
+    max-width: 1580px;
     margin: 0 auto;
     padding: 0 40px;
     box-sizing: border-box;
@@ -49,13 +52,15 @@
     text-transform: uppercase;
     color: #000;
     margin: 0;
-    line-height: 1.2;
+    /* Figma H2 is 54/70. Kept as a ratio so it survives a heading_size change. */
+    line-height: 1.2963;
   }
   .pi-ps__arrows { display: flex; gap: 20px; }
   .pi-ps__track-wrap { overflow: hidden; }
   .pi-ps__track {
     display: flex;
-    gap: 30px;
+    /* Figma Row 2: four 360px cards across a 1500 column = 20px gaps. */
+    gap: 20px;
     transition: transform 0.4s ease;
     will-change: transform;
   }
@@ -64,6 +69,9 @@
     width: 360px;
     display: flex;
     flex-direction: column;
+    /* Image → text. Previously came from .pi-ps__card-body's top padding, which
+       also inset the text horizontally; as a gap it only affects the vertical. */
+    gap: 20px;
   }
   .pi-ps__card-img {
     width: 360px;
@@ -81,10 +89,14 @@
     display: block;
   }
   .pi-ps__card-body {
-    padding: 20px;
+    /* Figma Frame 2120 is a Fill(360) hug with no padding: image 360 + gap 20 +
+       body 93 = the 473 card. The 20px padding here made the text column 320
+       inside a 360 card and pushed the card to 492. The 20px sits on the card as
+       a flex gap instead, so the image-to-text distance is unchanged. */
+    padding: 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 10px;
   }
   .pi-ps__card-title {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
@@ -118,14 +130,18 @@
     background: #000;
     color: #fff;
     height: 55px;
-    padding: 16px 40px;
+    padding: 16px 32px;
     border-radius: 8px;
     text-decoration: none;
     text-transform: uppercase;
     font-family: 'Nunito Sans', sans-serif;
-    font-size: 14px;
+    /* Figma V2/Btn text: 16/21, 0% tracking. The 55px height above is explicit,
+       so the smaller line box does not shrink the button — it brings the hug
+       width down from 313 toward the design's 287. */
+    font-size: 16px;
+    line-height: 21px;
     font-weight: 600;
-    letter-spacing: 0.08em;
+    letter-spacing: 0;
     border: none;
     cursor: pointer;
     transition: background 0.2s;
@@ -389,12 +405,13 @@
       top: 0;
       transform: translateY(-50%);
 
-      /* Flush with the carousel edges, not -17px outside them — see the same
-         change in pi-best-sellers and pi-tattoo-services. The 35px arrows were
-         centred on the container edge, which put the next arrow ~1px from the
-         viewport edge wherever the gutter is 18px. */
-      left: 0;
-      right: 0;
+      /* Figma's arrow row is Fixed(380) against the 354 content column, so it
+         hangs 13px outside the cards each side. An earlier revision tried -17px
+         (a full half-arrow) and reverted to 0 because the 18px gutter left the
+         next arrow ~1px from the viewport edge; -13px is the design's own figure
+         and keeps 5px clearance. Matches pi-best-sellers. */
+      left: -13px;
+      right: -13px;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
@@ -503,7 +520,11 @@
     /* 18px inset, same as tattoo services. The overlay arrows sit at
        -17px, so they need this much gutter or they run off-screen.
        Also matches the Banner spec: 354px wide in a 390px frame. */
-    .pi-ps__inner { padding: 0 18px; }
+    /* Figma mobile stacks heading → carousel at 30 and carousel → button at 20.
+       A single flex gap cannot do both, so the gap carries the smaller value and
+       the header makes up the extra 10. */
+    .pi-ps__inner { padding: 0 18px; gap: 20px; }
+    .pi-ps__header { margin-bottom: 10px; }
     /* Figma: Playfair Display 600, 30/39, uppercase — one line */
     .pi-ps__heading {
       font-size: 30px;
@@ -514,8 +535,11 @@
        Figma card size used by every carousel section */
     .pi-ps__track { gap: 20px; }
     .pi-ps__card { flex: 0 0 calc((100% - 20px) / 2); }
-    /* No side padding, so the text column gets the full card width */
-    .pi-ps__card-body { padding: 12px 0 0; gap: 4px; }
+    /* Figma mobile card: image 167 + gap 10 + body 72 = 249, and the body's own
+       title→desc gap is 5. Padding is zero at every breakpoint now, so the
+       image→text distance comes from the card gap below. */
+    .pi-ps__card { gap: 10px; }
+    .pi-ps__card-body { padding: 0; gap: 5px; }
     /* Figma: Proxima Nova 600, 18/23 — one line */
     .pi-ps__card-title {
       font-size: 18px;

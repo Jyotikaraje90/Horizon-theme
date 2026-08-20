@@ -352,7 +352,7 @@
         "margin_top": 0,
         "margin_bottom": 0,
         "bg_color": "#ffffff",
-        "heading_color": "#1a1a1a",
+        "heading_color": "#000000",
         "heading_size": 54,
         "mobile_heading_size": 30,
         "text_alignment": "center",
@@ -369,7 +369,7 @@
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
-        "btn_size": 14,
+        "btn_size": 16,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff"
       }
