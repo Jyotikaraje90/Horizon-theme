@@ -104,7 +104,10 @@
   .pi-hero__subframe {
     display: flex;
     flex-direction: column;
-    gap: 13px;
+    /* 20px, matching the parent content frame — Figma stacks the h1, paragraph
+       and button on one even 20px rhythm. The 13px this used to carry made the
+       gap under the paragraph visibly tighter than the one above it. */
+    gap: 20px;
   }
 
   .pi-hero__main-content p {
@@ -128,7 +131,16 @@
   }
 
   .pi-hero__btn {
-    display: inline-block;
+    /* inline-flex + centring rather than inline-block, so the min-height below
+       can pad the box without pushing the label off centre. */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    /* Figma fixes the button at 55px. Padding 16+16 plus a 21px line box only
+       comes to 53, so the last 2px has to be asked for explicitly. The mobile
+       Btn is a genuine hug at 50px (16+16+18), so this is scoped to the desktop
+       rule and left alone in the <=480 block. */
+    min-height: 55px;
     padding: 16px 32px;
     /* No border: the Figma "Btn" component has a #FFFFFF fill and no stroke.
        This carried `border: 2px solid var(--pi-hero-btn-border-color)` with the
@@ -335,6 +347,10 @@
     .pi-hero__btn {
       font-size: 14px;
       line-height: 18px;
+      /* Figma's Mobile Btn is a true hug at 50px (16 + 18 + 16). Restated here
+         because the desktop rule now carries min-height: 55px, which would
+         otherwise stretch the mobile button 5px past the design. */
+      min-height: 50px;
     }
   }
 
@@ -363,6 +379,10 @@
     }
     .pi-hero__btn {
       padding: 12px 24px;
+      /* Hug at this width. The reduced padding here exists to claw back vertical
+         space so the content still fits the 514px banner at 320px; holding the
+         50px floor from the block above would give back 8px of it. */
+      min-height: 0;
     }
   }
 
