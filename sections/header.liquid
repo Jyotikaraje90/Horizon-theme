@@ -1951,12 +1951,22 @@
       gap: 20px;
     }
 
-    #header-component .header__column--right .search-action {
-      margin-inline-end: 20px;
+    /* .header__column--right already carries a 20px flex gap, which is exactly
+       the spec — so no extra margin is needed between search and the actions
+       group. What did need removing is stock Horizon's negative inline-start
+       pull (calc(var(--gap-md) * -1) = -14.4px). That exists to drag 44px tap
+       targets outward so their glyphs sit optically on the margin; with the
+       boxes now sized to the glyph it just eats 14.4px out of the gap. */
+    #header-component .header__column--right .search-action,
+    #header-component .header__column--right header-actions {
+      margin-inline-start: 0;
     }
 
+    /* 30px from the cart to the button. 20px of that is the header-actions flex
+       gap above (the button is the last child of header-actions), so only the
+       remaining 10px comes from the margin. */
     #header-component .header__column--right .pi-inquire-btn {
-      margin-left: 30px;
+      margin-left: 10px;
     }
   }
 {% endstylesheet %}
