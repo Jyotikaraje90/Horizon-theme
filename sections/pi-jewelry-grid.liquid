@@ -268,9 +268,16 @@
   <div class="pi-jg__inner">
 
     {%- if collection != blank and collection.products_count > 0 -%}
-      {%- assign fill_count = section.settings.grid_card_count -%}
       {%- assign jewelry_products = collection.products | reverse -%}
       {%- assign prod_n = jewelry_products.size -%}
+      {%- comment -%}
+        One card per product. This block used to pad the grid out to
+        grid_card_count by cycling the collection with a modulo index, so a
+        12-product collection rendered 36 cards — each product three times, and
+        every copy linked to the same URL. grid_card_count is now a ceiling
+        rather than a repeat target, so distinct products keep distinct pages.
+      {%- endcomment -%}
+      {%- assign fill_count = prod_n | at_most: section.settings.grid_card_count -%}
       {%- assign per_page = section.settings.products_per_page -%}
       {%- assign total_pages = fill_count | plus: per_page | minus: 1 | divided_by: per_page -%}
 
@@ -289,13 +296,9 @@
           <span class="pi-jg__count">{{ fill_count }} Products</span>
         </div>
 
-        {%- comment -%} Grid — cycle the collection's products to fill fill_count cards {%- endcomment -%}
+        {%- comment -%} Grid — one card per product, in collection order {%- endcomment -%}
         <div class="pi-jg__grid" id="pi-jg-grid-{{ section.id }}">
-          {%- for i in (1..fill_count) -%}
-            {%- comment -%} Cascade: shift each 4-col row by one so the same product never stacks in a column (matches Figma) {%- endcomment -%}
-            {%- assign row = forloop.index0 | divided_by: 4 -%}
-            {%- assign idx = forloop.index0 | plus: row | modulo: prod_n -%}
-            {%- assign product = jewelry_products[idx] -%}
+          {%- for product in jewelry_products limit: fill_count -%}
             <div class="pi-jg__card"
                  data-price="{{ product.price | divided_by: 1.0 }}"
                  data-title="{{ product.title | escape | downcase }}">
@@ -444,7 +447,7 @@
   "settings": [
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
-    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards (paginated by 'Products per page').", "min": 4, "max": 48, "step": 4, "default": 36 },
+    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Maximum number of cards to show. Each product appears once; if the collection has fewer products than this, the grid simply shows fewer cards.", "min": 4, "max": 48, "step": 4, "default": 36 },
     { "type": "header", "content": "Card buttons" },
     { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Add to Cart" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Out of Stock" },
