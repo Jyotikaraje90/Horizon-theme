@@ -326,28 +326,28 @@
           "type": "faq",
           "settings": {
             "question": "What payment methods do you accept?",
-            "answer": ""
+            "answer": "We accept all major credit and debit cards, Apple Pay, Google Pay, and cash in studio. Booking deposits can be paid online or at reception."
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "What should I do before getting a tattoo?",
-            "answer": ""
+            "answer": "Eat a full meal, stay hydrated, and get a good night's sleep. Avoid alcohol for 24 hours beforehand, and wear comfortable clothing that gives easy access to the area being tattooed."
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "What material do you use for initial piercings?",
-            "answer": ""
+            "answer": "Implant-grade titanium as standard. It is lightweight, hypoallergenic, and the safest choice for a fresh piercing."
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "How do I clean and maintain my jewelry?",
-            "answer": ""
+            "answer": "Wash with warm water and a mild soap, dry thoroughly, and store pieces separately so they do not scratch. Remove jewelry before swimming or using harsh cleaning products."
           }
         }
       },
