@@ -47,6 +47,12 @@
     <link rel="stylesheet" href="{{ 'pi-wishlist.css' | asset_url }}">
 
     {%- comment -%}
+      Predictive-search product tiles, restyled to match the Best Sellers card.
+      Scoped in the file to the search results container — see the note there.
+    {%- endcomment -%}
+    <link rel="stylesheet" href="{{ 'pi-search-cards.css' | asset_url }}">
+
+    {%- comment -%}
       AJAX add-to-cart for the PI product cards, so the button can show its
       "Added" state instead of reloading the page. Deferred: the cards' forms
       post natively until this lands, so nothing breaks in between.
