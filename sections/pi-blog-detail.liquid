@@ -747,8 +747,8 @@
       {%- endcomment -%}
       {%- if section.settings.show_nav -%}
         <div class="pi-bd__nav">
-          {%- if bd_prev_url != blank -%}
-          <a href="{{ bd_prev_url }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
+          {%- if bd_prev_url != blank or bd_is_article == false -%}
+          <a href="{{ bd_prev_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -756,8 +756,8 @@
           </a>
           {%- else -%}<span></span>{%- endif -%}
 
-          {%- if bd_next_url != blank -%}
-          <a href="{{ bd_next_url }}" class="pi-bd__nav-link pi-bd__nav-link--next">
+          {%- if bd_next_url != blank or bd_is_article == false -%}
+          <a href="{{ bd_next_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--next">
             <span>{{ bd_next_text | default: 'Next' }}</span>
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 1L7 6.5L1 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
