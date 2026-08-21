@@ -588,6 +588,13 @@
       {%- form 'contact', id: contact_form_id -%}
 
         {%- if form.posted_successfully? -%}
+          {%- comment -%}
+            `form` only exists between {% form %} and {% endform %}, so the
+            thank-you modal further down cannot test it directly. Carry the
+            result out on an assign, which stays in scope for the rest of the
+            template.
+          {%- endcomment -%}
+          {%- assign pi_contact_posted = true -%}
           <p class="pi-contact-us__success" style="display:block;">
             {{- section.settings.success_message | default: "Thank you! We'll be in touch soon." -}}
           </p>
@@ -822,9 +829,10 @@
   Thank-you confirmation. Shopify's contact form is a real POST: it redirects
   back to this page with form.posted_successfully?, so the modal is rendered
   server-side on that response rather than shown by an AJAX callback. Kept
-  outside <form> so its buttons cannot re-submit.
+  outside <form> so its buttons cannot re-submit — which is also why it tests
+  the pi_contact_posted flag assigned above instead of `form` itself.
 {%- endcomment -%}
-{%- if form.posted_successfully? -%}
+{%- if pi_contact_posted -%}
   <div
     class="pi-contact-us__modal"
     data-pi-contact-modal
