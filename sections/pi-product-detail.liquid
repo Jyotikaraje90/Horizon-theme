@@ -721,7 +721,7 @@
                 {%- if section.settings.show_wishlist -%}
                   <button type="button" class="pi-pdp__wishlist" aria-label="{{ section.settings.wishlist_label }}" data-pi-wish="{{ product.handle }}">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <path d="M12 21.47C12 21.47 0.9 15.43 0.9 8.57C0.9 5.33 3.74 2.7 7.24 2.7C9.46 2.7 11.1 3.69 12 5.08C12.9 3.69 14.54 2.7 16.76 2.7C20.26 2.7 23.1 5.33 23.1 8.57C23.1 15.43 12 21.47 12 21.47Z"
+                      <path d="M12 21.68C12 21.68 0.69 15.505 0.69 8.491C0.69 5.179 3.583 2.49 7.148 2.49C9.41 2.49 11.081 3.502 12 4.923C12.919 3.502 14.59 2.49 16.852 2.49C20.417 2.49 23.31 5.179 23.31 8.491C23.31 15.505 12 21.68 12 21.68Z"
                             stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
                             fill="transparent" class="pi-pdp__wishlist-path"/>
                     </svg>
@@ -1159,17 +1159,14 @@
     });
   });
 
-  /* ── Wishlist ── visual state here, persistence in pi-wishlist.js */
-  var wish = root.querySelector('.pi-pdp__wishlist');
-  if (wish) {
-    wish.addEventListener('click', function () {
-      var active = wish.classList.toggle('is-active');
-      if (window.PIWishlist) window.PIWishlist.set(wish.getAttribute('data-pi-wish'), active);
-    });
-
-    if (window.PIWishlist && window.PIWishlist.has(wish.getAttribute('data-pi-wish'))) {
-      wish.classList.add('is-active');
-    }
+  /* ── Wishlist ── look defined here, state owned by pi-wishlist.js. bind()
+     paints on load and on every later change, so the heart agrees with the
+     card the visitor saved this product from. */
+  if (window.PIWishlist) {
+    window.PIWishlist.bind(
+      root.querySelectorAll('.pi-pdp__wishlist[data-pi-wish]'),
+      function (btn, active) { btn.classList.toggle('is-active', active); }
+    );
   }
 
   /* ── Variant picker ── */

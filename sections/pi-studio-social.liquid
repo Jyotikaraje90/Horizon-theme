@@ -77,6 +77,14 @@
        also inset the text horizontally; as a gap it only affects the vertical. */
     gap: 20px;
   }
+
+  /* Linked cards keep the card's own typography rather than anchor styling */
+  .pi-ps__card--link {
+    text-decoration: none;
+    color: inherit;
+  }
+  .pi-ps__card--link .pi-ps__card-img img { transition: transform .35s ease; }
+  .pi-ps__card--link:hover .pi-ps__card-img img { transform: scale(1.05); }
   .pi-ps__card-img {
     width: 360px;
     height: 360px;
@@ -767,7 +775,17 @@
       <div class="pi-ps__track-wrap">
         <div class="pi-ps__track" id="pi-ps-track-{{ section.id }}">
         {%- for block in piercing_cards -%}
-          <div class="pi-ps__card" {{ block.shopify_attributes }}>
+          {%- assign card_tag = 'div' -%}
+          {%- assign card_link_class = '' -%}
+          {%- if block.settings.title_link != blank -%}
+            {%- assign card_tag = 'a' -%}
+            {%- assign card_link_class = ' pi-ps__card--link' -%}
+          {%- endif -%}
+          <{{ card_tag }}
+            class="pi-ps__card{{ card_link_class }}"
+            {%- if card_tag == 'a' %} href="{{ block.settings.title_link }}"{% endif %}
+            {{ block.shopify_attributes }}
+          >
             <div class="pi-ps__card-img">
               {%- if block.settings.image != blank -%}
                 <img
@@ -789,7 +807,7 @@
                 <p class="pi-ps__card-desc">{{ block.settings.description }}</p>
               {%- endif -%}
             </div>
-          </div>
+          </{{ card_tag }}>
         {%- endfor -%}
         </div>
       </div>
@@ -1255,6 +1273,7 @@
       "settings": [
         { "type": "image_picker", "id": "image",       "label": "Image" },
         { "type": "text",         "id": "title",       "label": "Title",       "default": "Piercing Style" },
+        { "type": "url",          "id": "title_link",  "label": "Link (optional)" },
         { "type": "textarea",     "id": "description", "label": "Description", "default": "Describe this piercing style." }
       ]
     },

@@ -226,9 +226,10 @@
 
   function write(list) {
     try { window.localStorage.setItem(KEY, JSON.stringify(list)); } catch (e) {}
-    /* Repaint the header badge immediately — removing an item here must not
-       leave a stale count in the header until the next page load. */
-    if (window.PIWishlist) window.PIWishlist.refresh();
+    /* Announce the change immediately — removing an item here must not leave a
+       stale count in the header, or a still-filled heart on a product card in
+       another tab, until the next page load. */
+    if (window.PIWishlist) window.PIWishlist.changed();
   }
 
   function money(cents) {

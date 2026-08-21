@@ -423,21 +423,14 @@
     });
   }
 
-  /* Wishlist toggle — visual state here, persistence in pi-wishlist.js */
-  var jgHearts = grid.querySelectorAll('.pi-jg__wishlist');
-
-  jgHearts.forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      var active = btn.classList.toggle('pi-jg__wishlist--active');
-      if (window.PIWishlist) window.PIWishlist.set(btn.getAttribute('data-pi-wish'), active);
-    });
-  });
-
+  /* Wishlist — look defined here, state owned by pi-wishlist.js. bind() paints
+     on load and on every later change, so a product saved anywhere reads as
+     saved here too. */
   if (window.PIWishlist) {
-    window.PIWishlist.hydrate(jgHearts, function (btn) {
-      btn.classList.add('pi-jg__wishlist--active');
-    });
+    window.PIWishlist.bind(
+      grid.querySelectorAll('.pi-jg__wishlist[data-pi-wish]'),
+      function (btn, active) { btn.classList.toggle('pi-jg__wishlist--active', active); }
+    );
   }
 
   showPage(1);
