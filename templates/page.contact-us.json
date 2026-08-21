@@ -73,7 +73,7 @@
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "detailed_booking_form": false,
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
+        "success_message": "Thank you. The form has been submitted.",
         "background_image": "shopify://shop_images/Background.png",
         "padding_top": 64,
         "padding_bottom": 64,

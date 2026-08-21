@@ -86,7 +86,7 @@
         "title": "Get In Touch",
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
+        "success_message": "Thank you. The form has been submitted.",
         "background_image": "shopify://shop_images/Background_813c9047-2b21-4e7f-b1b4-492d0e4a8499.png",
         "padding_top": 64,
         "padding_bottom": 64,

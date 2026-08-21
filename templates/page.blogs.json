@@ -189,7 +189,7 @@
         "detailed_booking_form": false,
         "background_image": "shopify://shop_images/Background.png",
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
+        "success_message": "Thank you. The form has been submitted.",
         "padding_top": 32,
         "padding_bottom": 32,
         "mobile_padding_top": 40,
