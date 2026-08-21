@@ -543,7 +543,16 @@
 {%- if bd_is_article -%}
   {%- assign bd_hero        = article.image -%}
   {%- assign bd_title       = article.title -%}
-  {%- assign bd_tag         = article.tags.first | default: section.settings.category_label -%}
+  {%- comment -%}
+    This slot renders the post date in the design (the legacy page had
+    "Feb 28, 2025" in category_label), so an article fills it from published_at.
+    Set "Meta shows" to Tag to use the article's first tag instead.
+  {%- endcomment -%}
+  {%- if section.settings.article_meta == 'tag' -%}
+    {%- assign bd_tag = article.tags.first -%}
+  {%- else -%}
+    {%- assign bd_tag = article.published_at | date: section.settings.date_format | default: '%b %d, %Y' -%}
+  {%- endif -%}
   {%- assign bd_sections    = article.metafields.custom.body_sections.value -%}
   {%- assign bd_prev        = blog.previous_article -%}
   {%- assign bd_next        = blog.next_article -%}
@@ -868,6 +877,24 @@
 {
   "name": "PI Blog Detail",
   "settings": [
+    {
+      "type": "select",
+      "id": "article_meta",
+      "label": "Meta shows",
+      "options": [
+        { "value": "date", "label": "Published date" },
+        { "value": "tag", "label": "First tag" }
+      ],
+      "default": "date",
+      "info": "What appears in the small label above the title. Articles only."
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y",
+      "info": "Liquid date format, used only for articles."
+    },
     {
       "type": "header",
       "content": "Back Link"
