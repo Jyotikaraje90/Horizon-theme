@@ -526,9 +526,40 @@
   }
 </style>
 
+{%- comment -%}
+  Data source. On templates/article.json the `article` object drives everything
+  and each post gets its own page for free. The section settings stay as
+  fallbacks so the older page-based post still renders while content moves over.
+
+  Per-article layout comes from the `custom.body_sections` metafield: an ordered
+  list of `blog_body_section` metaobjects, each one a group / split / quote —
+  the same three shapes this section's blocks used to provide.
+{%- endcomment -%}
+{%- assign bd_is_article = false -%}
+{%- if article != blank and article.title != blank -%}
+  {%- assign bd_is_article = true -%}
+{%- endif -%}
+
+{%- if bd_is_article -%}
+  {%- assign bd_hero        = article.image -%}
+  {%- assign bd_title       = article.title -%}
+  {%- assign bd_tag         = article.tags.first | default: section.settings.category_label -%}
+  {%- assign bd_sections    = article.metafields.custom.body_sections.value -%}
+  {%- assign bd_prev        = blog.previous_article -%}
+  {%- assign bd_next        = blog.next_article -%}
+  {%- assign bd_back_link   = blog.url | default: section.settings.back_link -%}
+  {%- assign bd_search_action = blog.url | default: section.settings.search_action -%}
+{%- else -%}
+  {%- assign bd_hero        = section.settings.hero_image -%}
+  {%- assign bd_title       = section.settings.article_title -%}
+  {%- assign bd_tag         = section.settings.category_label -%}
+  {%- assign bd_back_link   = section.settings.back_link -%}
+  {%- assign bd_search_action = section.settings.search_action -%}
+{%- endif -%}
+
 <div class="pi-bd">
 
-  <a href="{{ section.settings.back_link | default: '/pages/blogs' }}" class="pi-bd__back">
+  <a href="{{ bd_back_link | default: '/pages/blogs' }}" class="pi-bd__back">
     <svg class="pi-bd__back-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -539,10 +570,10 @@
 
     <div class="pi-bd__main">
       <div class="pi-bd__hero-wrap">
-        {%- if section.settings.hero_image != blank -%}
+        {%- if bd_hero != blank -%}
           <img
-            src="{{ section.settings.hero_image | image_url: width: 1400 }}"
-            alt="{{ section.settings.hero_image.alt | escape }}"
+            src="{{ bd_hero | image_url: width: 1400 }}"
+            alt="{{ bd_hero.alt | default: bd_title | escape }}"
             class="pi-bd__hero"
             width="1063"
             height="786"
@@ -551,10 +582,10 @@
       </div>
 
       <div class="pi-bd__head">
-        {%- if section.settings.category_label != blank or section.settings.show_share -%}
+        {%- if bd_tag != blank or section.settings.show_share -%}
           <div class="pi-bd__meta">
-            {%- if section.settings.category_label != blank -%}
-              <span class="pi-bd__tag">{{ section.settings.category_label }}</span>
+            {%- if bd_tag != blank -%}
+              <span class="pi-bd__tag">{{ bd_tag }}</span>
             {%- else -%}
               <span></span>
             {%- endif -%}
@@ -573,12 +604,71 @@
           </div>
         {%- endif -%}
 
-        {%- if section.settings.article_title != blank -%}
-          <h1 class="pi-bd__title">{{ section.settings.article_title }}</h1>
+        {%- if bd_title != blank -%}
+          <h1 class="pi-bd__title">{{ bd_title }}</h1>
         {%- endif -%}
       </div>
 
       <div class="pi-bd__body">
+        {%- if bd_sections != blank and bd_sections.size > 0 -%}
+
+          {%- comment -%}
+            Same three shapes as the old blocks, driven per article. Rich text
+            goes through metafield_tag so Shopify renders its own markup rather
+            than us re-implementing it.
+          {%- endcomment -%}
+          {%- for bd_part in bd_sections -%}
+            {%- assign bd_layout = bd_part.layout.value | default: 'group' -%}
+
+            {%- if bd_layout == 'quote' -%}
+              <div class="pi-bd__quote">
+                <span class="pi-bd__quote-bar"></span>
+                <div class="pi-bd__quote-text">{{ bd_part.quote.value }}</div>
+              </div>
+
+            {%- elsif bd_layout == 'split' -%}
+              <div class="pi-bd__split{% if bd_part.image_position.value == 'right' %} pi-bd__split--right{% endif %}">
+                {%- if bd_part.image.value != blank -%}
+                  <div class="pi-bd__split-media">
+                    <img
+                      src="{{ bd_part.image.value | image_url: width: 1000 }}"
+                      alt="{{ bd_part.image.value.alt | default: bd_part.heading.value | escape }}"
+                      loading="lazy"
+                    >
+                  </div>
+                {%- endif -%}
+                <div class="pi-bd__split-text">
+                  {%- if bd_part.heading.value != blank -%}
+                    <h2 class="pi-bd__h">{{ bd_part.heading.value }}</h2>
+                  {%- endif -%}
+                  {%- if bd_part.body != blank -%}
+                    <div class="pi-bd__p">{{ bd_part.body | metafield_tag }}</div>
+                  {%- endif -%}
+                </div>
+              </div>
+
+            {%- else -%}
+              <div class="pi-bd__group">
+                {%- if bd_part.heading.value != blank -%}
+                  <h2 class="pi-bd__h">{{ bd_part.heading.value }}</h2>
+                {%- endif -%}
+                {%- if bd_part.body != blank -%}
+                  <div class="pi-bd__p">{{ bd_part.body | metafield_tag }}</div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+
+        {%- elsif bd_is_article and article.content != blank -%}
+          {%- comment -%}
+            No body_sections filled in yet — fall back to the article's own rich
+            text so a post is never blank just because the metafield is empty.
+          {%- endcomment -%}
+          <div class="pi-bd__group">
+            <div class="pi-bd__p">{{ article.content }}</div>
+          </div>
+
+        {%- else -%}
         {%- for block in section.blocks -%}
           {%- case block.type -%}
 
@@ -627,23 +717,44 @@
 
           {%- endcase -%}
         {%- endfor -%}
+        {%- endif -%}
       </div>
 
+      {%- if bd_is_article -%}
+        {%- assign bd_prev_url = bd_prev.url -%}
+        {%- assign bd_next_url = bd_next.url -%}
+        {%- assign bd_prev_text = bd_prev.title | default: section.settings.prev_label -%}
+        {%- assign bd_next_text = bd_next.title | default: section.settings.next_label -%}
+      {%- else -%}
+        {%- assign bd_prev_url = section.settings.prev_link -%}
+        {%- assign bd_next_url = section.settings.next_link -%}
+        {%- assign bd_prev_text = section.settings.prev_label -%}
+        {%- assign bd_next_text = section.settings.next_label -%}
+      {%- endif -%}
+
+      {%- comment -%}
+        On an article the arrows are hidden when there is no neighbour, rather
+        than linking to '#'.
+      {%- endcomment -%}
       {%- if section.settings.show_nav -%}
         <div class="pi-bd__nav">
-          <a href="{{ section.settings.prev_link | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
+          {%- if bd_prev_url != blank -%}
+          <a href="{{ bd_prev_url }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-            <span>{{ section.settings.prev_label | default: 'Previous' }}</span>
+            <span>{{ bd_prev_text | default: 'Previous' }}</span>
           </a>
+          {%- else -%}<span></span>{%- endif -%}
 
-          <a href="{{ section.settings.next_link | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--next">
-            <span>{{ section.settings.next_label | default: 'Next' }}</span>
+          {%- if bd_next_url != blank -%}
+          <a href="{{ bd_next_url }}" class="pi-bd__nav-link pi-bd__nav-link--next">
+            <span>{{ bd_next_text | default: 'Next' }}</span>
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 1L7 6.5L1 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </a>
+          {%- else -%}<span></span>{%- endif -%}
         </div>
       {%- endif -%}
     </div>
@@ -658,7 +769,7 @@
           template, not blog articles.
         {%- endcomment -%}
         <form
-          action="{{ section.settings.search_action | default: '/pages/blogs' }}"
+          action="{{ bd_search_action | default: '/pages/blogs' }}"
           method="get"
           role="search"
           class="pi-bd__search"
@@ -677,8 +788,37 @@
         </form>
       {%- endif -%}
 
+      {%- comment -%}
+        Read Next builds itself from the blog on an article, skipping the post
+        being read. The next_post blocks remain for the legacy page.
+      {%- endcomment -%}
       {%- assign next_blocks = section.blocks | where: 'type', 'next_post' -%}
-      {%- if next_blocks.size > 0 -%}
+      {%- if bd_is_article -%}
+        <div class="pi-bd__next">
+          <h2 class="pi-bd__next-heading">{{ section.settings.next_heading | default: 'Read Next' }}</h2>
+          {%- assign bd_shown = 0 -%}
+          {%- for bd_other in blog.articles -%}
+            {%- if bd_other.id == article.id -%}{%- continue -%}{%- endif -%}
+            {%- if bd_shown >= 3 -%}{%- break -%}{%- endif -%}
+            {%- assign bd_shown = bd_shown | plus: 1 -%}
+            <a href="{{ bd_other.url }}" class="pi-bd__next-item">
+              {%- if bd_other.image != blank -%}
+                <img
+                  src="{{ bd_other.image | image_url: width: 300 }}"
+                  alt="{{ bd_other.title | escape }}"
+                  class="pi-bd__next-thumb"
+                  loading="lazy"
+                  width="130"
+                  height="96"
+                >
+              {%- else -%}
+                <span class="pi-bd__next-thumb"></span>
+              {%- endif -%}
+              <h3 class="pi-bd__next-title">{{ bd_other.title }}</h3>
+            </a>
+          {%- endfor -%}
+        </div>
+      {%- elsif next_blocks.size > 0 -%}
         <div class="pi-bd__next">
           <h2 class="pi-bd__next-heading">{{ section.settings.next_heading | default: 'Read Next' }}</h2>
 

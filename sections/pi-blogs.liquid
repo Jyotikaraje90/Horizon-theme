@@ -201,7 +201,54 @@
   {%- endcomment -%}
   <p class="pi-blogs__note" data-blogs-note hidden></p>
 
+  {%- comment -%}
+    Source. A picked blog wins; otherwise the blog of the current page when this
+    section sits on templates/blog.json. Falling back to the hand-entered
+    blog_post blocks keeps the old /pages/blogs listing alive until every post
+    exists as an article.
+
+    Articles give each card `article.url`, so every post opens its own detail
+    page automatically — no per-card link to fill in.
+  {%- endcomment -%}
+  {%- assign bl_blog = nil -%}
+  {%- if section.settings.blog != blank -%}
+    {%- assign bl_blog = blogs[section.settings.blog] -%}
+  {%- elsif blog != blank -%}
+    {%- assign bl_blog = blog -%}
+  {%- endif -%}
+  {%- assign bl_fmt = section.settings.date_format | default: '%b %d, %Y' -%}
+
   <div class="pi-blogs__grid" data-blogs-grid>
+    {%- if bl_blog != blank and bl_blog.articles.size > 0 -%}
+      {%- for bl_art in bl_blog.articles -%}
+        <a
+          href="{{ bl_art.url }}"
+          class="pi-blogs__card-link"
+          data-blog-card
+          data-blog-title="{{ bl_art.title | escape }}"
+        >
+          <div class="pi-blogs__card">
+            <div class="pi-blogs__image-wrap">
+              {%- if bl_art.image != blank -%}
+                <img
+                  src="{{ bl_art.image | image_url: width: 600 }}"
+                  alt="{{ bl_art.image.alt | default: bl_art.title | escape }}"
+                  loading="lazy"
+                  class="pi-blogs__image"
+                >
+              {%- endif -%}
+            </div>
+
+            <div class="pi-blogs__card-content">
+              <span class="pi-blogs__date-wrap">
+                <span class="pi-blogs__date">{{ bl_art.published_at | date: bl_fmt }}</span>
+              </span>
+              <h3 class="pi-blogs__title">{{ bl_art.title }}</h3>
+            </div>
+          </div>
+        </a>
+      {%- endfor -%}
+    {%- else -%}
     {%- for block in section.blocks -%}
       {%- if block.type == 'blog_post' -%}
         <a
@@ -234,6 +281,7 @@
         </a>
       {%- endif -%}
     {%- endfor -%}
+    {%- endif -%}
   </div>
 
   <p class="pi-blogs__empty" data-blogs-empty hidden>
@@ -292,6 +340,19 @@
 {
   "name": "PI Blogs",
   "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Pick a blog to list its articles. Each card then links to its own article page. Leave empty to keep using the manual Blog Post blocks below."
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y",
+      "info": "Liquid date format, used only for articles."
+    },
     {
       "type": "checkbox",
       "id": "show_heading",

@@ -251,7 +251,47 @@
 
   <div class="pi-lb__content">
 
+    {%- comment -%}
+      Same source rule as pi-blogs: a picked blog drives the cards and each one
+      links to its own article, otherwise the manual post blocks are used.
+    {%- endcomment -%}
+    {%- assign lb_blog = nil -%}
+    {%- if section.settings.blog != blank -%}
+      {%- assign lb_blog = blogs[section.settings.blog] -%}
+    {%- elsif blog != blank -%}
+      {%- assign lb_blog = blog -%}
+    {%- endif -%}
+    {%- assign lb_fmt = section.settings.date_format | default: '%b %d, %Y' -%}
+    {%- assign lb_limit = section.settings.post_limit | default: 3 -%}
+
     <div class="pi-lb__grid">
+      {%- if lb_blog != blank and lb_blog.articles.size > 0 -%}
+        {%- for lb_art in lb_blog.articles limit: lb_limit -%}
+          <a href="{{ lb_art.url }}" class="pi-lb__card">
+            <div class="pi-lb__card-img">
+              {%- if lb_art.image != blank -%}
+                <img
+                  src="{{ lb_art.image | image_url: width: 600 }}"
+                  alt="{{ lb_art.image.alt | default: lb_art.title | escape }}"
+                  width="600"
+                  height="360"
+                  loading="lazy"
+                >
+              {%- else -%}
+                {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+            </div>
+            <div class="pi-lb__card-text">
+              <div class="pi-lb__card-inner">
+                <span class="pi-lb__card-date-wrap">
+                  <span class="pi-lb__card-date">{{ lb_art.published_at | date: lb_fmt }}</span>
+                </span>
+                <h3 class="pi-lb__card-title">{{ lb_art.title }}</h3>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      {%- else -%}
       {%- for block in section.blocks -%}
         {%- assign card_tag = 'div' -%}
         {%- if block.settings.link != blank -%}{%- assign card_tag = 'a' -%}{%- endif -%}
@@ -288,6 +328,7 @@
           </div>
         </{{ card_tag }}>
       {%- endfor -%}
+      {%- endif -%}
     </div>
 
     {%- if section.settings.button_label != blank -%}
@@ -356,6 +397,28 @@
       "type": "post",
       "name": "Blog Post",
       "settings": [
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog",
+      "info": "Pick a blog to show its newest articles, each linking to its own page. Leave empty to keep using the manual Post blocks below."
+    },
+    {
+      "type": "range",
+      "id": "post_limit",
+      "label": "Posts to show",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y",
+      "info": "Liquid date format, used only for articles."
+    },
         {
           "type": "image_picker",
           "id": "image",
