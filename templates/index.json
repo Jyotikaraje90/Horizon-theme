@@ -382,32 +382,28 @@
           "type": "studio",
           "settings": {
             "city_name": "Crete",
-            "hover_image": "shopify://shop_images/image_69_1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/image_69_1.png"
           }
         },
         "os_studio_2": {
           "type": "studio",
           "settings": {
             "city_name": "Athens",
-            "hover_image": "shopify://shop_images/1_7.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1_7.png"
           }
         },
         "os_studio_3": {
           "type": "studio",
           "settings": {
             "city_name": "Antwerp",
-            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png"
           }
         },
         "os_studio_4": {
           "type": "studio",
           "settings": {
             "city_name": "Amsterdam",
-            "hover_image": "shopify://shop_images/1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1.png"
           }
         }
       },
