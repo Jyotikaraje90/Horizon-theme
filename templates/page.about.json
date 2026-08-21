@@ -253,32 +253,28 @@
           "type": "studio",
           "settings": {
             "city_name": "Crete",
-            "hover_image": "shopify://shop_images/image_69_1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/image_69_1.png"
           }
         },
         "os_2": {
           "type": "studio",
           "settings": {
             "city_name": "Athens",
-            "hover_image": "shopify://shop_images/1_7.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1_7.png"
           }
         },
         "os_3": {
           "type": "studio",
           "settings": {
             "city_name": "Antwerp",
-            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png"
           }
         },
         "os_4": {
           "type": "studio",
           "settings": {
             "city_name": "Amsterdam",
-            "hover_image": "shopify://shop_images/1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1.png"
           }
         }
       },
@@ -326,28 +322,28 @@
           "type": "faq",
           "settings": {
             "question": "What payment methods do you accept?",
-            "answer": ""
+            "answer": "We accept all major credit and debit cards, Apple Pay, Google Pay, and cash in studio. Booking deposits can be paid online or at reception."
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "What should I do before getting a tattoo?",
-            "answer": ""
+            "answer": "Eat a full meal, stay hydrated, and get a good night's sleep. Avoid alcohol for 24 hours beforehand, and wear comfortable clothing that gives easy access to the area being tattooed."
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "What material do you use for initial piercings?",
-            "answer": ""
+            "answer": "Implant-grade titanium as standard. It is lightweight, hypoallergenic, and the safest choice for a fresh piercing."
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "How do I clean and maintain my jewelry?",
-            "answer": ""
+            "answer": "Wash with warm water and a mild soap, dry thoroughly, and store pieces separately so they do not scratch. Remove jewelry before swimming or using harsh cleaning products."
           }
         }
       },
@@ -426,7 +422,7 @@
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "detailed_booking_form": false,
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
+        "success_message": "Thank you. The form has been submitted.",
         "background_image": "shopify://shop_images/Background.png",
         "padding_top": 64,
         "padding_bottom": 64,

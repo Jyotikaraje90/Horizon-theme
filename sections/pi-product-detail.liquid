@@ -1159,17 +1159,14 @@
     });
   });
 
-  /* ── Wishlist ── visual state here, persistence in pi-wishlist.js */
-  var wish = root.querySelector('.pi-pdp__wishlist');
-  if (wish) {
-    wish.addEventListener('click', function () {
-      var active = wish.classList.toggle('is-active');
-      if (window.PIWishlist) window.PIWishlist.set(wish.getAttribute('data-pi-wish'), active);
-    });
-
-    if (window.PIWishlist && window.PIWishlist.has(wish.getAttribute('data-pi-wish'))) {
-      wish.classList.add('is-active');
-    }
+  /* ── Wishlist ── look defined here, state owned by pi-wishlist.js. bind()
+     paints on load and on every later change, so the heart agrees with the
+     card the visitor saved this product from. */
+  if (window.PIWishlist) {
+    window.PIWishlist.bind(
+      root.querySelectorAll('.pi-pdp__wishlist[data-pi-wish]'),
+      function (btn, active) { btn.classList.toggle('is-active', active); }
+    );
   }
 
   /* ── Variant picker ── */

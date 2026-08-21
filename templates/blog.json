@@ -8,108 +8,115 @@
  * ------------------------------------------------------------
  */{
   "sections": {
-    "main": {
-      "type": "main-blog",
+    "pi_ph_blogs": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "Blogs",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_scale": 1,
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_blogs_section": {
+      "type": "pi-blogs",
+      "settings": {
+        "show_heading": false,
+        "title": "Blogs",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "text_color": "#000000",
+        "date_color": "#666666",
+        "hover_color": "#b49146"
+      }
+    },
+    "pi_contact_blogs": {
+      "type": "pi-contact-us",
       "blocks": {
-        "title": {
-          "type": "text",
-          "name": "Title",
+        "loc_1": {
+          "type": "location",
           "settings": {
-            "text": "<h1>{{ closest.blog.title }}</h1>",
-            "width": "fit-content",
-            "max_width": "narrow",
-            "alignment": "left",
-            "type_preset": "h2",
-            "font": "var(--font-primary--family)",
-            "font_size": "",
-            "line_height": "normal",
-            "letter_spacing": "normal",
-            "case": "none",
-            "wrap": "pretty",
-            "color": "",
-            "background": false,
-            "background_color": "#00000026",
-            "corner_radius": 0,
-            "padding-block-start": 48,
-            "padding-block-end": 48,
-            "padding-inline-start": 0,
-            "padding-inline-end": 0
-          },
-          "blocks": {}
+            "location_name": "Crete"
+          }
         },
-        "static-blog-post-card": {
-          "type": "_blog-post-card",
-          "static": true,
+        "loc_2": {
+          "type": "location",
           "settings": {
-            "alignment": "left"
-          },
-          "blocks": {
-            "heading": {
-              "type": "_heading",
-              "name": "t:names.title",
-              "static": true,
-              "settings": {
-                "type_preset": "h4",
-                "font": "var(--font-primary--family)",
-                "font_size": "",
-                "line_height": "normal",
-                "letter_spacing": "normal",
-                "case": "none",
-                "wrap": "pretty",
-                "color": "",
-                "text": "",
-                "read_only": true,
-                "alignment": "left",
-                "show_alignment": false,
-                "padding-block-start": 0,
-                "padding-block-end": 10,
-                "padding-inline-start": 0,
-                "padding-inline-end": 0
-              },
-              "blocks": {}
-            },
-            "blog-post-details": {
-              "type": "_blog-post-info-text",
-              "name": "t:names.details",
-              "static": true,
-              "settings": {
-                "show_date": true,
-                "show_author": false,
-                "type_preset": "",
-                "alignment": "left",
-                "show_alignment": false,
-                "padding-block-start": 0,
-                "padding-block-end": 0
-              },
-              "blocks": {}
-            },
-            "image": {
-              "type": "_blog-post-image",
-              "static": true,
-              "settings": {
-                "height": "large",
-                "border": "none",
-                "border_width": 1,
-                "border_opacity": 100,
-                "border_radius": 4
-              },
-              "blocks": {}
-            }
-          },
-          "block_order": []
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
         }
       },
       "block_order": [
-        "title"
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4"
       ],
       "settings": {
-        "color_scheme": "",
-        "padding-block-start": 0,
-        "padding-block-end": 48
+        "title": "Get In Touch",
+        "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can!",
+        "detailed_booking_form": false,
+        "background_image": "shopify://shop_images/Background.png",
+        "button_label": "Submit",
+        "success_message": "Thank you. The form has been submitted.",
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
       }
     }
   },
   "order": [
-    "main"
+    "pi_ph_blogs",
+    "pi_blogs_section",
+    "pi_contact_blogs"
   ]
 }

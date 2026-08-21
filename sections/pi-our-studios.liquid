@@ -271,11 +271,12 @@
     <div class="pi-os__grid">
       {%- for block in section.blocks -%}
         {%- if block.type == 'studio' -%}
-          {%- if block.settings.link != blank -%}
-            <a href="{{ block.settings.link }}" class="pi-os__card" {{ block.shopify_attributes }}>
-          {%- else -%}
+          {%- comment -%}
+            Deliberately never an anchor. These cards are a visual index of the
+            studios — hovering swaps in the studio photo and that is the whole
+            interaction. Rendering an <a> here made every card navigate.
+          {%- endcomment -%}
             <div class="pi-os__card" {{ block.shopify_attributes }}>
-          {%- endif -%}
 
             {%- if block.settings.hover_image != blank -%}
               <div
@@ -297,11 +298,7 @@
               <p class="pi-os__city">{{ block.settings.city_name }}</p>
             {%- endif -%}
 
-          {%- if block.settings.link != blank -%}
-            </a>
-          {%- else -%}
             </div>
-          {%- endif -%}
         {%- endif -%}
       {%- endfor -%}
     </div>
@@ -537,11 +534,6 @@
           "type": "image_picker",
           "id": "hover_image",
           "label": "Hover image (studio photo)"
-        },
-        {
-          "type": "url",
-          "id": "link",
-          "label": "Link (optional)"
         }
       ]
     }

@@ -320,14 +320,72 @@
     color: {{ section.settings.btn_hover_text }};
   }
 
+  /* Success sits where the fields were, so it gets the field area's width but
+     hugs its own content rather than holding the form's old height. */
   .pi-contact-us__success {
-    display: none;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 22px 24px;
+    border: 1.5px solid #1E8E3E;
+    border-left-width: 4px;
+    border-radius: 10px;
+    background: #EDF7EE;
     font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
-    font-size: 16px;
-    color: #000000;
-    padding: 12px 0;
-    margin: 0;
   }
+
+  .pi-contact-us__success-icon {
+    flex-shrink: 0;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: #1E8E3E;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+  .pi-contact-us__success-icon svg { display: block; width: 15px; height: 15px; }
+
+  .pi-contact-us__success-body { display: flex; flex-direction: column; gap: 4px; }
+
+  .pi-contact-us__success-title {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #14622B;
+  }
+
+  .pi-contact-us__success-text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #1B4D2B;
+  }
+
+  @media (max-width: 749px) {
+    .pi-contact-us__success { padding: 18px 16px; gap: 12px; }
+    .pi-contact-us__success-title { font-size: 16px; }
+    .pi-contact-us__success-text { font-size: 14px; }
+  }
+
+  /* Shopify re-renders the page with form.errors when e.g. the email is
+     malformed. Without this the submit silently appeared to do nothing. */
+  .pi-contact-us__errors {
+    margin: 0 0 15px;
+    padding: 14px 18px;
+    border: 1.5px solid #C0392B;
+    border-radius: 8px;
+    background: #FDECEA;
+    font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #8E2A20;
+  }
+  .pi-contact-us__errors ul { margin: 6px 0 0; padding-left: 20px; }
+
 
   /* ── Right panel ─────────────────────────────────── */
   .pi-contact-us__image-panel {
@@ -461,10 +519,41 @@
       {%- assign contact_form_id = 'pi-contact-form-' | append: section.id -%}
       {%- form 'contact', id: contact_form_id -%}
 
+        {%- comment -%}
+          Success takes the place of the fields, the way the newsletter form and
+          Horizon's email-signup block both do it: a checkmark plus the message,
+          in the flow of the page. Replacing the fields also stops a visitor
+          re-posting the same enquiry by refreshing.
+        {%- endcomment -%}
         {%- if form.posted_successfully? -%}
-          <p class="pi-contact-us__success" style="display:block;">
-            {{- section.settings.success_message | default: "Thank you! We'll be in touch soon." -}}
-          </p>
+
+          <div class="pi-contact-us__success" role="status" tabindex="-1" data-pi-contact-success>
+            <span class="pi-contact-us__success-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 12.5L9.5 18L20 6.5" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            <div class="pi-contact-us__success-body">
+              <p class="pi-contact-us__success-title">
+                {{- section.settings.success_heading | default: 'Success' -}}
+              </p>
+              <p class="pi-contact-us__success-text">
+                {{- section.settings.success_message | default: "Thank you. The form has been submitted." -}}
+              </p>
+            </div>
+          </div>
+
+        {%- else -%}
+
+        {%- if form.errors -%}
+          <div class="pi-contact-us__errors" role="alert" tabindex="-1" data-pi-contact-errors>
+            {{ 'templates.contact.form.error_heading' | t | default: 'Please check the form and try again:' }}
+            <ul>
+              {%- for field in form.errors -%}
+                <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
         {%- endif -%}
 
         {%- assign location_blocks = section.blocks | where: 'type', 'location' -%}
@@ -655,6 +744,8 @@
 
         </div>
 
+        {%- endif -%}
+
       {%- endform -%}
 
     </div>
@@ -709,6 +800,12 @@
       "id": "button_label",
       "label": "Button label",
       "default": "Submit"
+    },
+    {
+      "type": "text",
+      "id": "success_heading",
+      "label": "Success heading",
+      "default": "Success"
     },
     {
       "type": "text",

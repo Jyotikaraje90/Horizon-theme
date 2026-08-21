@@ -155,7 +155,7 @@
     border-bottom: 1px solid #000000;
     padding: 0 0 2px;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: {{ section.settings.card_btn_size | default: 16 }}px;
     font-weight: 600;
     letter-spacing: 0;
     text-transform: uppercase;
@@ -268,9 +268,16 @@
   <div class="pi-jg__inner">
 
     {%- if collection != blank and collection.products_count > 0 -%}
-      {%- assign fill_count = section.settings.grid_card_count -%}
       {%- assign jewelry_products = collection.products | reverse -%}
       {%- assign prod_n = jewelry_products.size -%}
+      {%- comment -%}
+        One card per product. This block used to pad the grid out to
+        grid_card_count by cycling the collection with a modulo index, so a
+        12-product collection rendered 36 cards — each product three times, and
+        every copy linked to the same URL. grid_card_count is now a ceiling
+        rather than a repeat target, so distinct products keep distinct pages.
+      {%- endcomment -%}
+      {%- assign fill_count = prod_n | at_most: section.settings.grid_card_count -%}
       {%- assign per_page = section.settings.products_per_page -%}
       {%- assign total_pages = fill_count | plus: per_page | minus: 1 | divided_by: per_page -%}
 
@@ -289,13 +296,9 @@
           <span class="pi-jg__count">{{ fill_count }} Products</span>
         </div>
 
-        {%- comment -%} Grid — cycle the collection's products to fill fill_count cards {%- endcomment -%}
+        {%- comment -%} Grid — one card per product, in collection order {%- endcomment -%}
         <div class="pi-jg__grid" id="pi-jg-grid-{{ section.id }}">
-          {%- for i in (1..fill_count) -%}
-            {%- comment -%} Cascade: shift each 4-col row by one so the same product never stacks in a column (matches Figma) {%- endcomment -%}
-            {%- assign row = forloop.index0 | divided_by: 4 -%}
-            {%- assign idx = forloop.index0 | plus: row | modulo: prod_n -%}
-            {%- assign product = jewelry_products[idx] -%}
+          {%- for product in jewelry_products limit: fill_count -%}
             <div class="pi-jg__card"
                  data-price="{{ product.price | divided_by: 1.0 }}"
                  data-title="{{ product.title | escape | downcase }}">
@@ -332,10 +335,10 @@
                     <form action="/cart/add" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="id" value="{{ atc_variant.id }}">
                       <input type="hidden" name="quantity" value="1">
-                      <button type="submit" class="pi-jg__card-atc-btn">Add to Cart</button>
+                      <button type="submit" class="pi-jg__card-atc-btn">{{ section.settings.atc_label | default: 'Add to Cart' }}</button>
                     </form>
                   {%- else -%}
-                    <span class="pi-jg__card-atc-btn pi-jg__card-atc-btn--sold-out">Out of Stock</span>
+                    <span class="pi-jg__card-atc-btn pi-jg__card-atc-btn--sold-out">{{ section.settings.sold_out_label | default: 'Out of Stock' }}</span>
                   {%- endif -%}
                 </div>
               </div>
@@ -345,6 +348,11 @@
         </div>
 
         {%- comment -%} Pagination — same pattern as pi-tattoo-services-grid {%- endcomment -%}
+        {%- comment -%}
+          Only rendered when the grid actually spans more than one page. A
+          lone "1" with two dead arrows reads as broken, so a single-page
+          grid shows no pagination at all.
+        {%- endcomment -%}
         {%- if total_pages > 1 -%}
           <div class="pi-jg__pagination">
             <button type="button" class="pi-jg__page-arrow pi-jg__page-prev" aria-label="Previous page">
@@ -423,21 +431,14 @@
     });
   }
 
-  /* Wishlist toggle — visual state here, persistence in pi-wishlist.js */
-  var jgHearts = grid.querySelectorAll('.pi-jg__wishlist');
-
-  jgHearts.forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault(); e.stopPropagation();
-      var active = btn.classList.toggle('pi-jg__wishlist--active');
-      if (window.PIWishlist) window.PIWishlist.set(btn.getAttribute('data-pi-wish'), active);
-    });
-  });
-
+  /* Wishlist — look defined here, state owned by pi-wishlist.js. bind() paints
+     on load and on every later change, so a product saved anywhere reads as
+     saved here too. */
   if (window.PIWishlist) {
-    window.PIWishlist.hydrate(jgHearts, function (btn) {
-      btn.classList.add('pi-jg__wishlist--active');
-    });
+    window.PIWishlist.bind(
+      grid.querySelectorAll('.pi-jg__wishlist[data-pi-wish]'),
+      function (btn, active) { btn.classList.toggle('pi-jg__wishlist--active', active); }
+    );
   }
 
   showPage(1);
@@ -451,7 +452,11 @@
   "settings": [
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
-    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Repeats the collection's products to fill this many cards (paginated by 'Products per page').", "min": 4, "max": 48, "step": 4, "default": 36 },
+    { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Maximum number of cards to show. Each product appears once; if the collection has fewer products than this, the grid simply shows fewer cards.", "min": 4, "max": 48, "step": 4, "default": 36 },
+    { "type": "header", "content": "Card buttons" },
+    { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Out of Stock" },
+    { "type": "range", "id": "card_btn_size", "label": "Card button text size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 16 },
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
     { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },

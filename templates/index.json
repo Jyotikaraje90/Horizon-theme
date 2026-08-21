@@ -6,8 +6,7 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */
-{
+ */{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
@@ -176,7 +175,7 @@
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
-        "btn_size": 16,
+        "btn_size": 18,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff",
         "margin_top": 0,
@@ -258,6 +257,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_11_5882d001-8f0f-4743-aa7f-f45f5a1503f3.png",
             "title": "Navel Piercing",
+            "title_link": "/pages/navel-piercing",
             "description": "A trendy and stylish piercing on belly button for body jewelry lovers."
           }
         },
@@ -352,7 +352,7 @@
         "margin_top": 0,
         "margin_bottom": 0,
         "bg_color": "#ffffff",
-        "heading_color": "#1a1a1a",
+        "heading_color": "#000000",
         "heading_size": 54,
         "mobile_heading_size": 30,
         "text_alignment": "center",
@@ -369,7 +369,7 @@
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
         "btn_radius": 8,
-        "btn_size": 14,
+        "btn_size": 16,
         "btn_hover_bg": "#b49146",
         "btn_hover_text": "#ffffff"
       }
@@ -381,32 +381,28 @@
           "type": "studio",
           "settings": {
             "city_name": "Crete",
-            "hover_image": "shopify://shop_images/image_69_1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/image_69_1.png"
           }
         },
         "os_studio_2": {
           "type": "studio",
           "settings": {
             "city_name": "Athens",
-            "hover_image": "shopify://shop_images/1_7.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1_7.png"
           }
         },
         "os_studio_3": {
           "type": "studio",
           "settings": {
             "city_name": "Antwerp",
-            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/Property_1_v3_3fb30967-03cb-4dcf-b15e-3439288d6a7d.png"
           }
         },
         "os_studio_4": {
           "type": "studio",
           "settings": {
             "city_name": "Amsterdam",
-            "hover_image": "shopify://shop_images/1.png",
-            "link": "/pages/contact-us"
+            "hover_image": "shopify://shop_images/1.png"
           }
         }
       },
@@ -543,7 +539,8 @@
         "btn_radius": 8,
         "btn_size": 16,
         "btn_hover_bg": "#b49146",
-        "btn_hover_text": "#ffffff"
+        "btn_hover_text": "#ffffff",
+        "blog": "news"
       }
     },
     "pi_faqs_Xc6dYn": {
@@ -560,28 +557,28 @@
           "type": "faq",
           "settings": {
             "question": "What payment methods do you accept?",
-            "answer": ""
+            "answer": "We accept all major credit and debit cards, Apple Pay, Google Pay, and cash in studio. Booking deposits can be paid online or at reception."
           }
         },
         "faq_3": {
           "type": "faq",
           "settings": {
             "question": "What should I do before getting a tattoo?",
-            "answer": ""
+            "answer": "Eat a full meal, stay hydrated, and get a good night's sleep. Avoid alcohol for 24 hours beforehand, and wear comfortable clothing that gives easy access to the area being tattooed."
           }
         },
         "faq_4": {
           "type": "faq",
           "settings": {
             "question": "What material do you use for initial piercings?",
-            "answer": ""
+            "answer": "Implant-grade titanium as standard. It is lightweight, hypoallergenic, and the safest choice for a fresh piercing."
           }
         },
         "faq_5": {
           "type": "faq",
           "settings": {
             "question": "How do I clean and maintain my jewelry?",
-            "answer": ""
+            "answer": "Wash with warm water and a mild soap, dry thoroughly, and store pieces separately so they do not scratch. Remove jewelry before swimming or using harsh cleaning products."
           }
         }
       },
@@ -660,7 +657,7 @@
         "subtitle": "Fill out the contact form below and we'll get back to you as soon as we can! You can also get in touch via phone or email.",
         "detailed_booking_form": false,
         "button_label": "Submit",
-        "success_message": "Thank you! We'll be in touch soon.",
+        "success_message": "Thank you. The form has been submitted.",
         "background_image": "shopify://shop_images/Background.png",
         "padding_top": 64,
         "padding_bottom": 64,

@@ -297,7 +297,14 @@
       position: absolute;
       display: none;
       top: var(--header-padding);
-      height: var(--box-height);
+      /* --box-height is measured in JS with getBoundingClientRect(), which
+         already reports visual (zoom-applied) pixels. This element sits inside
+         the header's `zoom: var(--pi-header-scale)` bands (1200-1419px), so the
+         browser would scale that value a second time and leave the hover safety
+         box short — the pointer drops out of it before reaching the submenu and
+         the dropdown closes. Divide it back out; the fallback of 1 makes this a
+         no-op at widths with no zoom. */
+      height: calc(var(--box-height) / var(--pi-header-scale, 1));
       left: 0;
       right: 0;
     }

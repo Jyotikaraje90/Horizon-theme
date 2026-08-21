@@ -771,29 +771,17 @@
 
   window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });
 
-  /* Wishlist toggle — visual state here, persistence in pi-wishlist.js */
+  /* Wishlist — look defined here, state owned by pi-wishlist.js. bind() paints
+     on load and on every later change, so a product saved anywhere reads as
+     saved here too. */
   function bsPaint(btn, active) {
     var path = btn.querySelector('.pi-bs__wishlist-path');
     btn.classList.toggle('pi-bs__wishlist--active', active);
     if (path) path.setAttribute('fill', active ? '#000000' : 'transparent');
   }
 
-  var bsHearts = track.querySelectorAll('.pi-bs__wishlist');
-
-  bsHearts.forEach(function (btn) {
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      var handle = btn.getAttribute('data-pi-wish');
-      var active = !btn.classList.contains('pi-bs__wishlist--active');
-      bsPaint(btn, active);
-      if (window.PIWishlist) window.PIWishlist.set(handle, active);
-    });
-  });
-
-  /* Restore saved hearts on load so the state survives a refresh */
   if (window.PIWishlist) {
-    window.PIWishlist.hydrate(bsHearts, function (btn) { bsPaint(btn, true); });
+    window.PIWishlist.bind(track.querySelectorAll('.pi-bs__wishlist[data-pi-wish]'), bsPaint);
   }
 
   slideTo(0);

@@ -1,0 +1,276 @@
+/*
+ * PI Wishlist UI — toast + header panel.
+ *
+ * Both are built in JS by pi-wishlist.js and appended to <body>, so nothing
+ * here is scoped to a section id. Kept out of base.css so the wishlist UI can
+ * be changed without touching shared theme CSS.
+ */
+
+/* ── Toast ───────────────────────────────────────────────────────────────── */
+.pi-wl-toasts {
+  position: fixed;
+  top: 90px;
+  right: 20px;
+  z-index: 10001;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  /* The stack itself must never eat clicks between toasts. */
+  pointer-events: none;
+}
+
+.pi-wl-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 440px;
+  max-width: calc(100vw - 40px);
+  box-sizing: border-box;
+  padding: 12px 14px;
+  border-radius: 4px;
+  background: #29A35A;
+  color: #ffffff;
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.18);
+  /* Enter state is applied on the next frame by the script. */
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.pi-wl-toast.is-in { opacity: 1; transform: translateX(0); }
+
+.pi-wl-toast--removed { background: #3A3A3A; }
+
+.pi-wl-toast__thumb {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 3px;
+  background: #ffffff;
+  object-fit: contain;
+  display: block;
+}
+
+.pi-wl-toast__text { flex: 1 1 auto; }
+
+.pi-wl-toast__close {
+  flex-shrink: 0;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  background: none;
+  color: currentColor;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+}
+.pi-wl-toast__close:hover { opacity: 1; }
+.pi-wl-toast__close svg { display: block; width: 13px; height: 13px; }
+
+@media (max-width: 749px) {
+  .pi-wl-toasts { top: 74px; right: 10px; left: 10px; }
+  .pi-wl-toast { width: 100%; font-size: 13px; }
+  .pi-wl-toast__thumb { width: 40px; height: 40px; }
+}
+
+/* ── Header panel ────────────────────────────────────────────────────────── */
+.pi-wl-panel {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+.pi-wl-panel[hidden] { display: none; }
+
+.pi-wl-panel__card {
+  position: relative;
+  width: 100%;
+  max-width: 990px;
+  box-sizing: border-box;
+  padding: 28px 32px 32px;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  color: #121212;
+}
+
+.pi-wl-panel__close {
+  position: absolute;
+  top: 14px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #6b6b6b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pi-wl-panel__close:hover { color: #121212; }
+.pi-wl-panel__close svg { display: block; width: 15px; height: 15px; }
+
+.pi-wl-panel__title {
+  margin: 0 0 4px;
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.pi-wl-panel__login {
+  margin: 0 0 20px;
+  text-align: center;
+  font-size: 15px;
+  color: #444444;
+}
+.pi-wl-panel__login a { color: #121212; text-decoration: underline; }
+
+.pi-wl-panel__share {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #e3e3e3;
+}
+.pi-wl-panel__share-label { font-size: 14px; font-weight: 600; margin-right: 2px; }
+
+.pi-wl-panel__share-btn {
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid #d5d5d5;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #121212;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+.pi-wl-panel__share-btn:hover { background: #121212; color: #ffffff; border-color: #121212; }
+.pi-wl-panel__share-btn svg { display: block; width: 15px; height: 15px; }
+
+.pi-wl-panel__copied {
+  font-size: 13px;
+  color: #1E8E3E;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+/* Rows use a grid rather than a table so they can collapse on mobile. */
+.pi-wl-panel__head,
+.pi-wl-panel__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 110px 120px 190px;
+  align-items: center;
+  gap: 16px;
+}
+
+.pi-wl-panel__head {
+  padding: 16px 0 12px;
+  border-bottom: 1px solid #e3e3e3;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.pi-wl-panel__row {
+  padding: 18px 0;
+  border-bottom: 1px solid #ededed;
+}
+
+.pi-wl-panel__product { display: flex; align-items: center; gap: 16px; min-width: 0; }
+
+.pi-wl-panel__thumb {
+  flex-shrink: 0;
+  width: 84px;
+  height: 84px;
+  border: 1px solid #e3e3e3;
+  border-radius: 2px;
+  object-fit: contain;
+  background: #ffffff;
+  display: block;
+}
+
+.pi-wl-panel__name {
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #121212;
+  text-decoration: none;
+  line-height: 1.35;
+}
+.pi-wl-panel__name:hover { text-decoration: underline; }
+
+.pi-wl-panel__price { font-size: 15px; font-weight: 600; }
+
+.pi-wl-panel__stock { display: flex; align-items: center; gap: 7px; font-size: 14px; }
+.pi-wl-panel__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; background: #1E8E3E; }
+.pi-wl-panel__stock--out .pi-wl-panel__dot { background: #C0392B; }
+
+.pi-wl-panel__actions { display: flex; align-items: center; gap: 16px; justify-content: flex-end; }
+
+.pi-wl-panel__atc {
+  height: 40px;
+  padding: 0 22px;
+  border: none;
+  border-radius: 20px;
+  background: #121212;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s;
+}
+.pi-wl-panel__atc:hover { background: #B49146; }
+.pi-wl-panel__atc[disabled] { background: #9a9a9a; cursor: default; }
+
+.pi-wl-panel__remove {
+  border: none;
+  background: none;
+  padding: 0;
+  color: #E2665B;
+  font-size: 14px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.pi-wl-panel__remove:hover { text-decoration: underline; }
+
+.pi-wl-panel__empty { padding: 40px 0 10px; text-align: center; font-size: 15px; color: #555555; }
+.pi-wl-panel__loading { padding: 40px 0; text-align: center; font-size: 15px; color: #555555; }
+
+.pi-wl-panel__footer { padding-top: 20px; text-align: center; }
+.pi-wl-panel__footer a { font-size: 14px; color: #121212; text-decoration: underline; }
+
+@media (max-width: 899px) {
+  .pi-wl-panel { padding: 20px 12px; }
+  .pi-wl-panel__card { padding: 24px 16px 26px; }
+  .pi-wl-panel__head { display: none; }
+  .pi-wl-panel__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .pi-wl-panel__actions { justify-content: flex-start; }
+  .pi-wl-panel__thumb { width: 64px; height: 64px; }
+}
