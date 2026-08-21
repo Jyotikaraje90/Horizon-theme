@@ -493,16 +493,23 @@
       mobileArrows.style.top = (imgWrap.offsetHeight / 2) + 'px';
     }
 
+    function getGap() {
+      return parseFloat(window.getComputedStyle(track).gap) || 20;
+    }
+
     function getCardWidth() {
       var card = track.querySelector('.pi-ts__card');
       if (!card) return 380;
-      var gap = parseFloat(window.getComputedStyle(track).gap) || 20;
-      return card.offsetWidth + gap;
+      return card.offsetWidth + getGap();
     }
 
     function getVisibleCount() {
-      var wrapWidth = trackWrap.offsetWidth;
-      return Math.floor(wrapWidth / getCardWidth()) || 1;
+      /* N cards occupy N*card + (N-1)*gap, so add one gap back before dividing
+         by the card+gap step. Without it a 1500px track holding exactly four
+         360px cards with 20px gaps reported 3 (floor(1500/380) = 3), leaving the
+         next arrow live and scrolling into blank space. The +1 absorbs
+         subpixel rounding on fractional layouts. */
+      return Math.max(1, Math.floor((trackWrap.offsetWidth + getGap() + 1) / getCardWidth()));
     }
 
     function getTotalCards() {
@@ -537,13 +544,18 @@
       updateArrows();
     }
 
+    function step(btn, delta) {
+      if (btn.classList.contains('is-disabled')) return;
+      slideTo(currentIndex + delta);
+    }
+
     prevBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () { slideTo(currentIndex - 1); });
-      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex - 1); });
+      btn.addEventListener('click', function () { step(btn, -1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') step(btn, -1); });
     });
     nextBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () { slideTo(currentIndex + 1); });
-      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') slideTo(currentIndex + 1); });
+      btn.addEventListener('click', function () { step(btn, 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') step(btn, 1); });
     });
 
     window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });

@@ -979,13 +979,22 @@
     var psMobileArrows = psWrap.querySelector('.pi-ps__arrows--mobile-overlay');
     var psIdx = 0;
 
+    function psGap() {
+      return parseFloat(window.getComputedStyle(psTrack).gap) || 30;
+    }
     function psGetCardWidth() {
       var card = psTrack.querySelector('.pi-ps__card');
       if (!card) return 390;
-      var gap = parseFloat(window.getComputedStyle(psTrack).gap) || 30;
-      return card.offsetWidth + gap;
+      return card.offsetWidth + psGap();
     }
-    function psVisible() { return Math.floor(psTrackWrap.offsetWidth / psGetCardWidth()) || 1; }
+    /* N cards occupy N*card + (N-1)*gap, so add one gap back before dividing by
+       the card+gap step. Without it a 1500px track holding exactly four 360px
+       cards with 20px gaps reported 3 (floor(1500/380) = 3), leaving the next
+       arrow live and scrolling into blank space. The +1 absorbs subpixel
+       rounding on fractional layouts. */
+    function psVisible() {
+      return Math.max(1, Math.floor((psTrackWrap.offsetWidth + psGap() + 1) / psGetCardWidth()));
+    }
     function psMaxIdx() {
       return Math.max(0, psTrack.querySelectorAll('.pi-ps__card').length - psVisible());
     }
@@ -1021,13 +1030,18 @@
     }
     var psPrevBtns = psWrap.querySelectorAll('.pi-ps__prev');
     var psNextBtns = psWrap.querySelectorAll('.pi-ps__next');
+    function psStep(btn, delta) {
+      if (btn.classList.contains('is-disabled')) return;
+      psSlide(psIdx + delta);
+    }
+
     psPrevBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () { psSlide(psIdx - 1); });
-      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx - 1); });
+      btn.addEventListener('click', function () { psStep(btn, -1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psStep(btn, -1); });
     });
     psNextBtns.forEach(function (btn) {
-      btn.addEventListener('click', function () { psSlide(psIdx + 1); });
-      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psSlide(psIdx + 1); });
+      btn.addEventListener('click', function () { psStep(btn, 1); });
+      btn.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') psStep(btn, 1); });
     });
     window.addEventListener('resize', function () { psSlide(0); psUpdateArrowPos(); });
     psUpdateArrowPos();
