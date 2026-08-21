@@ -1,0 +1,95 @@
+/*
+ * PI search cards — give the predictive-search product tiles the Best Sellers
+ * card treatment: a square #E6E6E6 panel with the product floated inside it,
+ * then name and price below.
+ *
+ * Everything is scoped to .predictive-search-results__products on purpose. The
+ * underlying `resource-card` snippet is shared with the mobile drawer and the
+ * mega menu, so styling the component itself would change those too.
+ *
+ * Sizes come from the Best Sellers card's own small-card breakpoint (the 2-up
+ * mobile frame) rather than its 360px desktop values — a dropdown tile is
+ * roughly that size, and the desktop 20px/18px type wraps badly in it.
+ */
+
+/* ── Image panel ──────────────────────────────────────────────────────────── */
+.predictive-search-results__products .resource-card__media {
+  aspect-ratio: 1 / 1;
+  background: #e6e6e6;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+/* `contain` + multiply is what makes the product sit on the grey panel the way
+   it does in Best Sellers, instead of being cropped edge to edge by `cover`. */
+.predictive-search-results__products .resource-card__media img,
+.predictive-search-results__products .resource-card__media svg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  display: block;
+}
+
+/* ── Card / text block rhythm ─────────────────────────────────────────────── */
+.predictive-search-results__products .resource-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.predictive-search-results__products .resource-card__content {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/* ── Product name ─────────────────────────────────────────────────────────── */
+.predictive-search-results__products .resource-card__title {
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 23px;
+  color: #000000;
+  margin: 0;
+  text-decoration: none;
+  /* Long jewelry names would otherwise push the price out of line across the row */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.predictive-search-results__products .resource-card__link:hover .resource-card__title {
+  text-decoration: underline;
+}
+
+/* ── Price ────────────────────────────────────────────────────────────────── */
+/* Product cards render Horizon's `price` component here, not
+   resource-card__subtext — that class only carries the subtext of non-product
+   resource cards, so both are covered. */
+.predictive-search-results__products .price,
+.predictive-search-results__products .price-item--regular,
+.predictive-search-results__products .price-item--sale,
+.predictive-search-results__products .resource-card__subtext {
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+  color: #000000;
+  margin: 0;
+}
+
+.predictive-search-results__products .compare-at-price {
+  font-size: 13px;
+  color: #6b6b6b;
+  text-decoration: line-through;
+}
+
+@media (max-width: 749px) {
+  .predictive-search-results__products .resource-card__media { border-radius: 12px; }
+  .predictive-search-results__products .resource-card__title { font-size: 16px; line-height: 21px; }
+  .predictive-search-results__products .price,
+  .predictive-search-results__products .price-item--regular,
+  .predictive-search-results__products .resource-card__subtext { font-size: 13px; line-height: 20px; }
+}
