@@ -743,6 +743,15 @@
     }
     .pi-tb__deco img { height: auto; }
   }
+
+  /* Nothing left to scroll to in this direction. Last in the block so it beats
+     the mobile-overlay pointer-events rule on source order, and !important is
+     needed because the arrows carry inline cursor:pointer. */
+  .pi-ss-arrow.is-disabled {
+    opacity: 0.3;
+    cursor: default !important;
+    pointer-events: none !important;
+  }
 </style>
 
 {%- assign piercing_cards = section.blocks | where: "type", "piercing_card" -%}
@@ -977,10 +986,32 @@
       return card.offsetWidth + gap;
     }
     function psVisible() { return Math.floor(psTrackWrap.offsetWidth / psGetCardWidth()) || 1; }
+    function psMaxIdx() {
+      return Math.max(0, psTrack.querySelectorAll('.pi-ps__card').length - psVisible());
+    }
+
+    /* Grey out an arrow that has nowhere to go. With four cards fully visible on
+       a wide viewport the max index is 0, so both arrows are inert and must not
+       advertise otherwise. Re-evaluated on resize because the visible count
+       changes with the breakpoint. */
+    function psUpdateArrows() {
+      var max = psMaxIdx();
+      function paint(btns, disabled) {
+        [].slice.call(btns).forEach(function (btn) {
+          btn.classList.toggle('is-disabled', disabled);
+          btn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+          if (disabled) { btn.removeAttribute('tabindex'); }
+          else { btn.setAttribute('tabindex', '0'); }
+        });
+      }
+      paint(psPrevBtns, psIdx <= 0);
+      paint(psNextBtns, psIdx >= max);
+    }
+
     function psSlide(i) {
-      var total = psTrack.querySelectorAll('.pi-ps__card').length;
-      psIdx = Math.max(0, Math.min(i, Math.max(0, total - psVisible())));
+      psIdx = Math.max(0, Math.min(i, psMaxIdx()));
       psTrack.style.transform = 'translateX(-' + (psIdx * psGetCardWidth()) + 'px)';
+      psUpdateArrows();
     }
     function psUpdateArrowPos() {
       if (!psMobileArrows) return;
@@ -1000,6 +1031,7 @@
     });
     window.addEventListener('resize', function () { psSlide(0); psUpdateArrowPos(); });
     psUpdateArrowPos();
+    psUpdateArrows();
   }
 
   /* Happy Customers slider */

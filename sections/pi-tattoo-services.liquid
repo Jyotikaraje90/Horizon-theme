@@ -362,6 +362,15 @@
     margin-top: {{ section.settings.margin_top }}px;
     margin-bottom: {{ section.settings.margin_bottom }}px;
   }
+
+  /* Nothing left to scroll to in this direction. Last in the block so it beats
+     the equal-specificity .pi-ts__arrows--mobile-overlay .pi-ts__arrow rule on
+     source order; pointer-events also suppresses the hover fill. */
+  .pi-ts__arrow.is-disabled {
+    opacity: 0.3;
+    cursor: default !important;
+    pointer-events: none !important;
+  }
 </style>
 
 <div class="pi-ts" id="pi-ts-{{ section.id }}">
@@ -500,12 +509,32 @@
       return track.querySelectorAll('.pi-ts__card').length;
     }
 
+    function getMaxIndex() {
+      return Math.max(0, getTotalCards() - getVisibleCount());
+    }
+
+    /* Grey out an arrow that has nowhere to go. With four cards fully visible on
+       a wide viewport maxIndex is 0, so both arrows are inert and must not
+       advertise otherwise. Re-evaluated on resize because the visible count
+       changes with the breakpoint. */
+    function updateArrows() {
+      var maxIndex = getMaxIndex();
+      function paint(btns, disabled) {
+        [].slice.call(btns).forEach(function (btn) {
+          btn.classList.toggle('is-disabled', disabled);
+          btn.setAttribute('aria-disabled', disabled ? 'true' : 'false');
+          if (disabled) { btn.removeAttribute('tabindex'); }
+          else { btn.setAttribute('tabindex', '0'); }
+        });
+      }
+      paint(prevBtns, currentIndex <= 0);
+      paint(nextBtns, currentIndex >= maxIndex);
+    }
+
     function slideTo(index) {
-      var total = getTotalCards();
-      var visible = getVisibleCount();
-      var maxIndex = Math.max(0, total - visible);
-      currentIndex = Math.max(0, Math.min(index, maxIndex));
+      currentIndex = Math.max(0, Math.min(index, getMaxIndex()));
       track.style.transform = 'translateX(-' + (currentIndex * getCardWidth()) + 'px)';
+      updateArrows();
     }
 
     prevBtns.forEach(function (btn) {
@@ -519,6 +548,7 @@
 
     window.addEventListener('resize', function () { slideTo(0); updateMobileArrowPos(); });
     updateMobileArrowPos();
+    updateArrows();
   })();
 </script>
 
