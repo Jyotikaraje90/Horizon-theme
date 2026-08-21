@@ -250,7 +250,12 @@
       {%- endfor -%}
     </div>
 
-    {%- if total_pages > 1 -%}
+    {%- comment -%}
+      Rendered whenever the grid has cards, not only when it spans several
+      pages: the control row is part of the design. showPage() disables
+      prev/next at the bounds, so a single-page grid shows an inert row.
+    {%- endcomment -%}
+    {%- if total_cards > 0 -%}
       <div class="pi-tsg__pagination">
         <button type="button" class="pi-tsg__page-arrow pi-tsg__page-prev" aria-label="Previous page">
           <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="display:block;flex-shrink:0;">
