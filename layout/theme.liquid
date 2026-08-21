@@ -44,6 +44,14 @@
       count badge is correct on first paint instead of flashing in late.
     {%- endcomment -%}
     <script src="{{ 'pi-wishlist.js' | asset_url }}"></script>
+    <link rel="stylesheet" href="{{ 'pi-wishlist.css' | asset_url }}">
+
+    {%- comment -%}
+      AJAX add-to-cart for the PI product cards, so the button can show its
+      "Added" state instead of reloading the page. Deferred: the cards' forms
+      post natively until this lands, so nothing breaks in between.
+    {%- endcomment -%}
+    <script src="{{ 'pi-add-to-cart.js' | asset_url }}" defer></script>
   </head>
 
   <body class="page-width-{{ settings.page_width }} card-hover-effect-{{ settings.card_hover_effect }}">
