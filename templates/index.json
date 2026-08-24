@@ -253,6 +253,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_15.png",
             "title": "Earlobe Piercing",
+            "title_link": "/pages/ear-lobe-piercing",
             "description": "A classic and versatile piercing for effortless style."
           }
         },
@@ -270,6 +271,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_12_35e39ac7-edc8-43a9-b152-1a1ff750c74a.png",
             "title": "Septum Piercing",
+            "title_link": "/pages/septum-piercing",
             "description": "A bold, central nose piercing with customizable jewelry options."
           }
         },
@@ -278,6 +280,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_13_7a2c3591-6fd6-438d-ae64-b4d0d1bdfe57.png",
             "title": "Helix Piercing",
+            "title_link": "/pages/helix-piercing",
             "description": "A stylish cartilage piercing along the upper ear."
           }
         },
