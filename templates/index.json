@@ -146,7 +146,8 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_10.png",
             "title": "Fine Line Tattoos",
-            "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
+            "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication.",
+            "link": "/pages/fine-line-tattoos"
           }
         }
       },
