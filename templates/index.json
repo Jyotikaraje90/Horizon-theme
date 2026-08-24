@@ -128,7 +128,8 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_8.png",
             "title": "Micro-Realistic Tattoos",
-            "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
+            "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art.",
+            "link": "/pages/micro-realistic-tattoos"
           }
         },
         "ts_card_3": {
@@ -136,7 +137,8 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_9.png",
             "title": "Blackwork",
-            "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
+            "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs.",
+            "link": "/pages/blackwork"
           }
         },
         "ts_card_4": {
