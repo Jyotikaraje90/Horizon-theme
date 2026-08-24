@@ -4,9 +4,18 @@
   assign product = block.settings.product
   if request.visual_preview_mode and product == blank
     assign product = collections.all.products.first
+  endif
+  assign variant_content = product.selected_or_first_available_variant.metafields.custom.variant_description
+  assign product_content = product.metafields.custom.variant_description
+  if variant_content != blank
+    assign text = variant_content
+  elsif product_content != blank
+    assign text = product_content
+  else
     assign text = product.description
   endif
 %}
+
 
 {% render 'text', fallback_text: text, block: block %}
 
