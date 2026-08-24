@@ -50,7 +50,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_8_ccfb01d0-7c97-4e30-909a-8c417a4b5c6e.png",
             "title": "Micro-Realistic Tattoos",
-            "title_link": "",
+            "title_link": "/pages/micro-realistic-tattoos",
             "description": "Intricate details in a small-scale masterpiece, perfect for subtle yet stunning body art."
           }
         },
@@ -59,7 +59,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_9_d2292955-a875-4d9c-b7b1-f8f2937eabec.png",
             "title": "Blackwork",
-            "title_link": "",
+            "title_link": "/pages/blackwork",
             "description": "Bold, high-contrast tattoos using solid black ink to create striking, timeless designs."
           }
         },
@@ -68,7 +68,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_10_0f1664cd-0f09-48ab-b41c-3be9046c7da4.png",
             "title": "Fine Line Tattoos",
-            "title_link": "",
+            "title_link": "/pages/fine-line-tattoos",
             "description": "Delicate, precise, and minimalistic tattoos that showcase elegance and sophistication."
           }
         },
@@ -77,7 +77,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_39.png",
             "title": "Minimalist Tattoos",
-            "title_link": "",
+            "title_link": "/pages/minimalist-tattoos",
             "description": "Simple yet meaningful designs with clean lines and subtle details, perfect for those who prefer understated body art."
           }
         },
@@ -86,7 +86,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_3.png",
             "title": "Traditional Tattoos",
-            "title_link": "",
+            "title_link": "/pages/traditional-tattoos",
             "description": "Inspired by classic tattooing, featuring bold lines, vibrant colors, and timeless themes like roses, anchors, and daggers."
           }
         },
@@ -95,7 +95,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_4.png",
             "title": "Watercolor Tattoos",
-            "title_link": "",
+            "title_link": "/pages/watercolor-tattoos",
             "description": "Soft, flowing ink techniques that mimic watercolor paintings, adding vibrant, blended colors to tattoos."
           }
         },
@@ -104,7 +104,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_5.png",
             "title": "Geometric Tattoos",
-            "title_link": "",
+            "title_link": "/pages/geometric-tattoos",
             "description": "Precision-based designs using patterns, symmetry, and sacred geometry to create visually striking tattoos."
           }
         },
@@ -113,7 +113,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_6.png",
             "title": "Script & Lettering Tattoos",
-            "title_link": "",
+            "title_link": "/pages/script-lettering-tattoos",
             "description": "Personalized tattoos featuring names, quotes, and calligraphy in various artistic font styles."
           }
         },
@@ -122,7 +122,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_7_f54cc983-234f-482c-9a62-031e65850954.png",
             "title": "Dotwork & Mandala Tattoos",
-            "title_link": "",
+            "title_link": "/pages/dotwork-mandala-tattoos",
             "description": "Intricate designs using tiny dots to create depth, often used for mandalas and spiritual symbols."
           }
         },
@@ -131,7 +131,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_8_164eecfe-9958-46cf-a712-ee541e028274.png",
             "title": "Tribal & Polynesian Tattoos",
-            "title_link": "",
+            "title_link": "/pages/tribal-polynesian-tattoos",
             "description": "Traditional tribal patterns with deep cultural significance, featuring bold black ink designs."
           }
         },
@@ -140,7 +140,7 @@
           "settings": {
             "image": "shopify://shop_images/Mask_group_9_5065cbe3-f9c1-4d75-a470-f262b51e8e6b.png",
             "title": "Horror Tattoos",
-            "title_link": "",
+            "title_link": "/pages/horror-tattoos",
             "description": "Dark, eerie, and gothic tattoo designs inspired by horror movies, skulls, demons, and macabre imagery."
           }
         }

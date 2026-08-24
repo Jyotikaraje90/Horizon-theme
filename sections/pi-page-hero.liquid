@@ -140,7 +140,7 @@
   {%- assign ph_heading = section.settings.heading | default: page.title -%}
   <div class="pi-ph__content">
     {%- if ph_heading != blank -%}
-      <h1 class="pi-ph__heading">{{ ph_heading }}</h1>
+      <h1 class="pi-ph__heading">{{ ph_heading | escape }}</h1>
     {%- endif -%}
   </div>
 
