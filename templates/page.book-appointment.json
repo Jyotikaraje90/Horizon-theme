@@ -66,7 +66,7 @@
         "detailed_booking_form": true,
         "type_label": "Piercing Type Selection*",
         "type_field_name": "Piercing Type",
-        "type_options": "Ear Lobe\nHelix\nTragus\nConch\nIndustrial\nNostril\nSeptum\nEyebrow\nLip\nTongue\nNavel\nOther",
+        "type_options": "Earlobe\nHelix\nTragus\nConch\nIndustrial\nNostril\nSeptum\nEyebrow\nLip\nTongue\nNavel\nOther",
         "artist_label": "Preferred Artist",
         "description_label": "Short Description*",
         "button_label": "Submit",
