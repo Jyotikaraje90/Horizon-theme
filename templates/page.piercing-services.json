@@ -37,7 +37,7 @@
     "pi_psg_piercing": {
       "type": "pi-tattoo-services-grid",
       "blocks": {
-        "sc_1": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_15.png", "title": "Ear Lobe Piercing", "title_link": "/pages/ear-lobe-piercing", "description": "The classic starting point — a clean, versatile piercing perfect for studs, hoops, and stacked looks." } },
+        "sc_1": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_15.png", "title": "Earlobe Piercing", "title_link": "/pages/earlobe-piercing", "description": "The classic starting point — a clean, versatile piercing perfect for studs, hoops, and stacked looks." } },
         "sc_2": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_13.png", "title": "Helix Piercing", "title_link": "/pages/helix-piercing", "description": "Placed along the upper ear cartilage for a bold, stylish accent that pairs beautifully with lobe piercings." } },
         "sc_3": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_20.png", "title": "Tragus Piercing", "title_link": "/pages/tragus-piercing", "description": "A subtle, eye-catching piercing on the small cartilage flap in front of the ear canal." } },
         "sc_4": { "type": "service_card", "settings": { "image": "shopify://shop_images/Mask_group_40.png", "title": "Snake Bite Piercing", "title_link": "/pages/snake-bite-piercing", "description": "Two symmetrical lower-lip piercings for a bold, edgy statement look." } },
