@@ -1,0 +1,317 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "content_direction": "column",
+        "gap": 0,
+        "color_scheme": "",
+        "padding-block-start": 0,
+        "padding-block-end": 0
+      }
+    },
+    "pi_ph_detail": {
+      "type": "pi-page-hero",
+      "settings": {
+        "heading": "",
+        "heading_size": 54,
+        "tablet_heading_size": 40,
+        "mobile_heading_size": 28,
+        "heading_color": "#ffffff",
+        "text_alignment": "center",
+        "bg_fallback_color": "#000000",
+        "deco_opacity": 100,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_usp_detail": {
+      "type": "pi-usp",
+      "blocks": {
+        "usp_1": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/AUTHENTIC1.png",
+            "label": "Authentic"
+          }
+        },
+        "usp_2": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1.png",
+            "label": "Premium"
+          }
+        },
+        "usp_3": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/INCLUSIVE1.png",
+            "label": "Inclusive"
+          }
+        },
+        "usp_4": {
+          "type": "usp",
+          "settings": {
+            "icon": "shopify://shop_images/PREMIUM1_2.png",
+            "label": "Creative"
+          }
+        }
+      },
+      "block_order": [
+        "usp_1",
+        "usp_2",
+        "usp_3",
+        "usp_4"
+      ],
+      "settings": {
+        "background_image": "shopify://shop_images/USPs_4d5abfdd-b00c-48e1-b666-983d3290f381.png",
+        "overlay_opacity": 10,
+        "padding_top": 100,
+        "padding_bottom": 100,
+        "mobile_padding_top": 48,
+        "mobile_padding_bottom": 48,
+        "min_height": 370,
+        "label_color": "#ffffff",
+        "label_size": 34,
+        "mobile_label_size": 22,
+        "icon_size": 100,
+        "mobile_icon_size": 50,
+        "divider_opacity": 70,
+        "divider_height": 175,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "text_alignment": "center"
+      }
+    },
+    "pi_hiw_detail": {
+      "type": "pi-how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Nutrition.png",
+            "title": "Consultation & Design Preparation",
+            "description": "Discuss your ideas, choose the design, and finalize the perfect placement."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Digestion.png",
+            "title": "Tattooing Process",
+            "description": "Our artists bring your design to life with precision and high-quality ink."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "icon": "shopify://shop_images/Metabolism.png",
+            "title": "Aftercare & Healing",
+            "description": "Follow expert aftercare tips to ensure smooth healing and long-lasting vibrancy."
+          }
+        }
+      },
+      "block_order": [
+        "step_1",
+        "step_2",
+        "step_3"
+      ],
+      "settings": {
+        "heading": "How It Works",
+        "step_gap": 100,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "icon_bg": "#f0f0f0",
+        "icon_color": "#000000",
+        "step_title_color": "#121212",
+        "step_desc_color": "#121212",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_owg_detail": {
+      "type": "pi-our-work-gallery",
+      "blocks": {
+        "photo_1": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_10_b7cf75f9-f22d-44b8-b525-d78f4a84f1a9.png"
+          }
+        },
+        "photo_2": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_11_4788ddf0-d4a8-4c42-9bb1-ce0f27d1b40f.png"
+          }
+        },
+        "photo_3": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_12_15b823b2-dd7f-43da-a383-1bce3c3268f7.png"
+          }
+        },
+        "photo_4": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_13_ad07f491-f2e6-499f-a84d-b1ea1a7a9677.png"
+          }
+        },
+        "photo_5": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_14_cd08516e-3af1-4afc-8309-7be1b8e38c31.png"
+          }
+        },
+        "photo_6": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_15_f7efd942-be1d-44cb-ad73-74e933269301.png"
+          }
+        },
+        "photo_7": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_16.png"
+          }
+        },
+        "photo_8": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_17.png"
+          }
+        },
+        "photo_9": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_18.png"
+          }
+        },
+        "photo_10": {
+          "type": "photo",
+          "settings": {
+            "image": "shopify://shop_images/Mask_group_19.png"
+          }
+        }
+      },
+      "block_order": [
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+        "photo_7",
+        "photo_8",
+        "photo_9",
+        "photo_10"
+      ],
+      "settings": {
+        "heading": "Our Work",
+        "columns_desktop": 5,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "image_radius": 0,
+        "padding_top": 80,
+        "padding_bottom": 80,
+        "bg_color": "#ffffff",
+        "heading_color": "#000000",
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_book_detail": {
+      "type": "pi-contact-us",
+      "blocks": {
+        "loc_1": {
+          "type": "location",
+          "settings": {
+            "location_name": "Crete"
+          }
+        },
+        "loc_2": {
+          "type": "location",
+          "settings": {
+            "location_name": "Athens"
+          }
+        },
+        "loc_3": {
+          "type": "location",
+          "settings": {
+            "location_name": "Antwerp"
+          }
+        },
+        "loc_4": {
+          "type": "location",
+          "settings": {
+            "location_name": "Amsterdam"
+          }
+        },
+        "artist_1": {
+          "type": "artist",
+          "settings": {
+            "artist_name": "No Preference"
+          }
+        }
+      },
+      "block_order": [
+        "loc_1",
+        "loc_2",
+        "loc_3",
+        "loc_4",
+        "artist_1"
+      ],
+      "settings": {
+        "title": "Book An Appointment",
+        "subtitle": "Fill out the appointment form below and we'll get back to you as soon as we can!",
+        "detailed_booking_form": true,
+        "button_label": "Submit",
+        "success_message": "Thank you. The form has been submitted.",
+        "padding_top": 32,
+        "padding_bottom": 32,
+        "mobile_padding_top": 40,
+        "mobile_padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "heading_color": "#000000",
+        "subtitle_color": "#000000",
+        "text_alignment": "left",
+        "heading_size": 40,
+        "mobile_heading_size": 28,
+        "subtitle_size": 14,
+        "form_bg_color": "#f0f0f0",
+        "input_bg": "#ffffff",
+        "input_border_color": "#808080",
+        "input_text_color": "#666666",
+        "input_focus_border_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_radius": 8,
+        "btn_size": 16,
+        "btn_hover_bg": "#b49146",
+        "btn_hover_text": "#ffffff",
+        "tab_active_bg": "#b49146",
+        "tab_active_color": "#ffffff",
+        "tab_inactive_color": "#cccccc"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "pi_ph_detail",
+    "pi_usp_detail",
+    "pi_hiw_detail",
+    "pi_owg_detail",
+    "pi_book_detail"
+  ]
+}
