@@ -6,7 +6,8 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "pi_main_banner_xKpQmR": {
       "type": "pi-main-banner",
@@ -16,7 +17,7 @@
         "main_heading": "The Art of Self Expression\nWith Puerto Ink",
         "main_subheading": "The #1 Tattoo and Piercing Studio. From Heraklion to Antwerp, Amsterdam, and soon in Athens.",
         "main_button_label": "Book an Appointment",
-        "main_button_link": "/pages/contact-us",
+        "main_button_link": "/pages/book-an-appointment",
         "banner2_image": "shopify://shop_images/Tatoos_banner_28e81d81-9ae6-424b-9643-c2dd3b377498.png",
         "banner2_label": "Tattoos",
         "banner2_link": "/pages/tattoo-services",
@@ -343,7 +344,7 @@
         "customers_heading": "Happy Customers",
         "trusted_heading": "Trusted by the Best",
         "trusted_button_label": "Explore More",
-        "trusted_button_link": "/pages/about",
+        "trusted_button_link": "/pages/contact-us",
         "trusted_deco_image": "shopify://shop_images/Group_36265_c68b04ce-983d-47e5-9dd5-03932118017c.png",
         "padding_top": 48,
         "padding_bottom": 48,
@@ -539,8 +540,7 @@
         "btn_radius": 8,
         "btn_size": 16,
         "btn_hover_bg": "#b49146",
-        "btn_hover_text": "#ffffff",
-        "blog": "news"
+        "btn_hover_text": "#ffffff"
       }
     },
     "pi_faqs_Xc6dYn": {

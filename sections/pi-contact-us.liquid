@@ -612,13 +612,25 @@
                   </svg>
                 </div>
               {%- endif -%}
+              {%- assign type_label = section.settings.type_label | default: 'Tattoo Size Selection*' -%}
+              {%- assign type_field_name = section.settings.type_field_name | default: 'Tattoo Size' -%}
               <div class="pi-contact-us__select-wrap">
-                <select class="pi-contact-us__select" name="contact[Tattoo Size]" required>
-                  <option value="" disabled selected>Tattoo Size Selection*</option>
-                  <option value="Small (up to 2 in)">Small (up to 2 in)</option>
-                  <option value="Medium (2-6 in)">Medium (2-6 in)</option>
-                  <option value="Large (6-10 in)">Large (6-10 in)</option>
-                  <option value="Extra Large (10+ in)">Extra Large (10+ in)</option>
+                <select class="pi-contact-us__select" name="contact[{{ type_field_name | escape }}]" required>
+                  <option value="" disabled selected>{{ type_label }}</option>
+                  {%- if section.settings.type_options != blank -%}
+                    {%- assign type_options = section.settings.type_options | newline_to_br | split: '<br />' -%}
+                    {%- for option in type_options -%}
+                      {%- assign option_name = option | strip -%}
+                      {%- if option_name != blank -%}
+                        <option value="{{ option_name | escape }}">{{ option_name }}</option>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  {%- else -%}
+                    <option value="Small (up to 2 in)">Small (up to 2 in)</option>
+                    <option value="Medium (2-6 in)">Medium (2-6 in)</option>
+                    <option value="Large (6-10 in)">Large (6-10 in)</option>
+                    <option value="Extra Large (10+ in)">Extra Large (10+ in)</option>
+                  {%- endif -%}
                 </select>
                 <svg class="pi-contact-us__select-icon" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                   <path d="M1 1L5.5 6L10 1" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -634,9 +646,10 @@
                 placeholder="Placement On Body"
                 autocomplete="off"
               >
+              {%- assign artist_label = section.settings.artist_label | default: 'Preferred Tattoo Artist' -%}
               <div class="pi-contact-us__select-wrap">
-                <select class="pi-contact-us__select" name="contact[Preferred Tattoo Artist]">
-                  <option value="" disabled selected>Preferred Tattoo Artist</option>
+                <select class="pi-contact-us__select" name="contact[{{ artist_label | replace: '*', '' | strip | escape }}]">
+                  <option value="" disabled selected>{{ artist_label }}</option>
                   {%- for block in artist_blocks -%}
                     <option value="{{ block.settings.artist_name | escape }}">{{ block.settings.artist_name }}</option>
                   {%- endfor -%}
@@ -669,7 +682,7 @@
               <textarea
                 class="pi-contact-us__textarea pi-contact-us__textarea--tall"
                 name="contact[body]"
-                placeholder="Tattoo Description*"
+                placeholder="{{ section.settings.description_label | default: 'Tattoo Description*' }}"
                 required
               ></textarea>
             </div>
@@ -794,6 +807,40 @@
       "label": "Show detailed tattoo booking fields",
       "info": "Adds Phone, Tattoo Size, Placement On Body, Preferred Artist, and a reference photo upload alongside the standard fields.",
       "default": false
+    },
+    {
+      "type": "text",
+      "id": "type_label",
+      "label": "Type dropdown label",
+      "info": "Detailed form only. Placeholder shown on the size/type dropdown.",
+      "default": "Tattoo Size Selection*"
+    },
+    {
+      "type": "text",
+      "id": "type_field_name",
+      "label": "Type dropdown field name",
+      "info": "Detailed form only. Label used for this answer in the notification email.",
+      "default": "Tattoo Size"
+    },
+    {
+      "type": "textarea",
+      "id": "type_options",
+      "label": "Type dropdown options",
+      "info": "Detailed form only. One option per line. Leave empty to use the default tattoo sizes."
+    },
+    {
+      "type": "text",
+      "id": "artist_label",
+      "label": "Artist dropdown label",
+      "info": "Detailed form only.",
+      "default": "Preferred Tattoo Artist"
+    },
+    {
+      "type": "text",
+      "id": "description_label",
+      "label": "Description field label",
+      "info": "Detailed form only.",
+      "default": "Tattoo Description*"
     },
     {
       "type": "text",
