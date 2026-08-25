@@ -521,6 +521,7 @@
       ],
       "settings": {
         "heading": "Latest Blogs",
+        "blog": "news",
         "padding_top": 80,
         "padding_bottom": 80,
         "mobile_padding_top": 48,
