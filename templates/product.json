@@ -189,31 +189,6 @@
         "margin_bottom": 0
       }
     },
-    "product_metafields_MYLAFL": {
-      "type": "product-metafields",
-      "name": "Product Metafields Details",
-      "settings": {}
-    },
-    "pi_you_may_also_like": {
-      "type": "pi-you-may-also-like",
-      "settings": {
-        "collection": "shop-jwelery",
-        "max_products": 12,
-        "exclude_current": true,
-        "heading": "You May Also Like",
-        "heading_case": "uppercase",
-        "heading_size": 40,
-        "heading_color": "#000000",
-        "atc_label": "Add to Cart",
-        "bg_color": "#ffffff",
-        "card_bg": "#e6e6e6",
-        "card_radius": 20,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "margin_top": 0,
-        "margin_bottom": 0
-      }
-    },
     "1783416835c8045ee7": {
       "type": "_blocks",
       "blocks": {
@@ -265,34 +240,32 @@
         "padding-block-end": 0
       }
     },
-    "hero_banner_metaobjects_zXKYwq": {
-      "type": "hero-banner-metaobjects",
-      "blocks": {
-        "badge_HVP89f": {
-          "type": "badge",
-          "settings": {
-            "badge_text": "Studio Certified"
-          }
-        }
-      },
-      "block_order": [
-        "badge_HVP89f"
-      ],
-      "name": "Hero Banner Metaobject",
+    "pi_you_may_also_like": {
+      "type": "pi-you-may-also-like",
       "settings": {
-        "show_button": true,
-        "custom_heading": "",
-        "heading_color": "#1a1a1a",
-        "heading_size": 32,
-        "text_align": "center"
+        "collection": "shop-jwelery",
+        "max_products": 12,
+        "exclude_current": true,
+        "heading": "You May Also Like",
+        "heading_case": "uppercase",
+        "heading_size": 40,
+        "heading_color": "#000000",
+        "atc_label": "Add to Cart",
+        "sold_out_label": "Out of Stock",
+        "card_btn_size": 16,
+        "bg_color": "#ffffff",
+        "card_bg": "#e6e6e6",
+        "card_radius": 20,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
       }
     }
   },
   "order": [
     "main",
-    "product_metafields_MYLAFL",
-    "pi_you_may_also_like",
     "1783416835c8045ee7",
-    "hero_banner_metaobjects_zXKYwq"
+    "pi_you_may_also_like"
   ]
 }
