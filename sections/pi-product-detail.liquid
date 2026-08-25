@@ -652,6 +652,11 @@
       {%- capture variant_data -%}
         [
         {%- for v in p.variants -%}
+          {%- capture v_description -%}
+            {%- if v.metafields.custom.variant_description != blank -%}
+              {{ v.metafields.custom.variant_description.value | escape | newline_to_br }}
+            {%- endif -%}
+          {%- endcapture -%}
           {
             "id": {{ v.id }},
             "available": {{ v.available }},
@@ -659,6 +664,7 @@
             "price": {{ v.price | money | json }},
             "compare_at": {{ v.compare_at_price | money | json }},
             "has_compare": {% if v.compare_at_price > v.price %}true{% else %}false{% endif %},
+            "description": {{ v_description | strip | json }},
             "media_id": {{ v.featured_media.id | default: 0 }}
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
@@ -978,7 +984,17 @@
 
           {%- comment -%} ── Accordions ── {%- endcomment -%}
           <div class="pi-pdp__accordions">
-            {%- if section.settings.show_description and p.description != blank -%}
+            {%- liquid
+              comment
+                A per-variant description (custom.variant_description) wins over the
+                product description, so the copy swaps with the selected variant.
+              endcomment
+              assign pdp_description = p.description
+              if cur.metafields.custom.variant_description != blank
+                assign pdp_description = cur.metafields.custom.variant_description.value | escape | newline_to_br
+              endif
+            -%}
+            {%- if section.settings.show_description and pdp_description != blank -%}
               <div class="pi-pdp__acc{% if section.settings.open_description %} is-open{% endif %}">
                 <button type="button" class="pi-pdp__acc-trigger" aria-expanded="{{ section.settings.open_description }}">
                   {{ section.settings.description_heading }}
@@ -986,7 +1002,7 @@
                 </button>
                 <div class="pi-pdp__acc-panel">
                   <div class="pi-pdp__acc-panel-inner">
-                    <div class="pi-pdp__acc-panel-content">{{ p.description }}</div>
+                    <div class="pi-pdp__acc-panel-content" data-pi-pdp-description>{{ pdp_description }}</div>
                   </div>
                 </div>
               </div>
@@ -1183,6 +1199,8 @@
   var compareEl   = root.querySelector('[data-pi-pdp-compare]');
   var availEl     = root.querySelector('[data-pi-pdp-availability]');
   var atcBtn      = root.querySelector('[data-pi-pdp-atc]');
+  var descEl      = root.querySelector('[data-pi-pdp-description]');
+  var productDesc = {{ p.description | json }};
 
   var texts = {
     inStock:    {{ section.settings.in_stock_text | json }},
@@ -1237,6 +1255,7 @@
       atcBtn.disabled = !variant.available;
       atcBtn.textContent = variant.available ? texts.atc : texts.soldOut;
     }
+    if (descEl) descEl.innerHTML = variant.description || productDesc;
     if (variant.media_id) showMedia(variant.media_id);
 
     if (window.history && history.replaceState) {
