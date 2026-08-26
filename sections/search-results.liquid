@@ -38,6 +38,12 @@
 
       {% capture children %}
         {% for product in products %}
+          {%- comment -%}
+            Service products (in-studio bookings) are not sold, so they stay out of the
+            product results. The matching service pages are still findable on their own.
+          {%- endcomment -%}
+          {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+          {% if is_service == 'true' %}{% continue %}{% endif %}
           <li
             id="{{ section.id }}-{{ product.id }}"
             class="product-grid__item product-grid__item--{{ forloop.index0 }}"

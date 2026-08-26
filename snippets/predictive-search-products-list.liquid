@@ -49,6 +49,8 @@
           {% for _id in order_ids %}
             {% assign int_id = _id | times: 1 %}
             {% assign product = products | find: 'id', int_id %}
+            {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -64,6 +66,8 @@
           {% endfor %}
         {% else %}
           {% for product in products limit: limit %}
+            {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -91,6 +95,8 @@
         assign limit = limit | default: 8
       %}
       {% for product in products limit: limit %}
+        {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+        {% if is_service == 'true' %}{% continue %}{% endif %}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"
           ref="resultsItems[]"

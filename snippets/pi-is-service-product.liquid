@@ -1,0 +1,25 @@
+{%- doc -%}
+  Outputs 'true' when a product is a service placeholder (booked in-studio, not sold),
+  so it can be kept out of search results alongside the real catalogue.
+
+  A product counts as a service when it carries the `service` tag or its
+  product type is `Service`.
+
+  @param {object} product - the product to test
+
+  @example
+  {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+  {% if is_service == 'true' %}{% continue %}{% endif %}
+{%- enddoc -%}
+{%- liquid
+  assign product_tags = product.tags | join: '|' | downcase | prepend: '|' | append: '|'
+  assign product_type = product.type | downcase | strip
+
+  if product_tags contains '|service|'
+    echo 'true'
+  elsif product_type == 'service'
+    echo 'true'
+  else
+    echo 'false'
+  endif
+-%}

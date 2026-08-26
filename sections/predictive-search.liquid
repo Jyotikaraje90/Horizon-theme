@@ -13,8 +13,30 @@
       class="predictive-search-results__inner"
       data-search-results
     >
+      {%- comment -%}
+        Service products (in-studio bookings) are excluded from search so only the real
+        catalogue is listed. The matching service pages still surface under "Pages".
+      {%- endcomment -%}
+      {%- liquid
+        assign visible_products_count = 0
+        assign first_visible_product_url = null
+
+        for product in predictive_search.resources.products
+          capture is_service
+            render 'pi-is-service-product', product: product
+          endcapture
+
+          unless is_service == 'true'
+            assign visible_products_count = visible_products_count | plus: 1
+            if first_visible_product_url == null
+              assign first_visible_product_url = product.url
+            endif
+          endunless
+        endfor
+      -%}
+
       {% if predictive_search.performed %}
-        {% assign search_results_count = predictive_search.resources.products.size
+        {% assign search_results_count = visible_products_count
           | plus: predictive_search.resources.pages.size
           | plus: predictive_search.resources.articles.size
           | plus: predictive_search.resources.collections.size
@@ -62,7 +84,7 @@
         {% endif %}
 
         {%- if search_results_count > 0 -%}
-          {% if predictive_search.resources.products.size > 0 %}
+          {% if visible_products_count > 0 %}
             {%- liquid
               assign title = 'content.search_results_resource_products' | t
               assign products = predictive_search.resources.products
@@ -122,15 +144,15 @@
 
       {% if predictive_search.performed %}
         {%- if search_results_count > 0 -%}
-          {% assign total_results = predictive_search.resources.products.size
+          {% assign total_results = visible_products_count
             | plus: predictive_search.resources.collections.size
             | plus: predictive_search.resources.pages.size
             | plus: predictive_search.resources.articles.size
           %}
           {% assign single_result_url = null %}
           {% if total_results == 1 %}
-            {% if predictive_search.resources.products.size == 1 %}
-              {% assign single_result_url = predictive_search.resources.products.first.url %}
+            {% if visible_products_count == 1 %}
+              {% assign single_result_url = first_visible_product_url %}
             {% elsif predictive_search.resources.collections.size == 1 %}
               {% assign single_result_url = predictive_search.resources.collections.first.url %}
             {% elsif predictive_search.resources.pages.size == 1 %}
