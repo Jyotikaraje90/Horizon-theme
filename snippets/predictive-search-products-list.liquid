@@ -49,6 +49,9 @@
           {% for _id in order_ids %}
             {% assign int_id = _id | times: 1 %}
             {% assign product = products | find: 'id', int_id %}
+            {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% assign is_service = is_service | strip %}
+            {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -57,13 +60,16 @@
                 resource_type: 'product',
                 resource: product,
                 image_width: 500,
-                image_hover: true,
+                image_hover: false,
                 image_aspect_ratio: '1 / 1'
               %}
             </li>
           {% endfor %}
         {% else %}
           {% for product in products limit: limit %}
+            {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% assign is_service = is_service | strip %}
+            {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
               ref="recentlyViewedItems[]"
@@ -72,7 +78,7 @@
                 resource_type: 'product',
                 resource: product,
                 image_width: 500,
-                image_hover: true,
+                image_hover: false,
                 image_aspect_ratio: '1 / 1'
               %}
             </li>
@@ -91,6 +97,9 @@
         assign limit = limit | default: 8
       %}
       {% for product in products limit: limit %}
+        {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+        {% assign is_service = is_service | strip %}
+        {% if is_service == 'true' %}{% continue %}{% endif %}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"
           ref="resultsItems[]"
@@ -99,7 +108,7 @@
             resource_type: 'product',
             resource: product,
             image_width: 500,
-            image_hover: true,
+            image_hover: false,
             image_aspect_ratio: '1 / 1'
           %}
         </li>
