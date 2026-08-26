@@ -766,6 +766,23 @@
 </div>
 
 <script>
+  (function () {
+    /* Shopify reports a successful newsletter signup with ?customer_posted=true
+       on the URL, and form.posted_successfully? is true for every render while
+       that parameter is there — not just the one that followed the submit. So a
+       reload, a back-navigation or a shared link replayed "Thanks for
+       subscribing!" above an empty field. Clear the flag once the confirmation
+       has been rendered, so it reads as a one-off response to the submit. */
+    if (!document.querySelector('.pi-nf__nl-success')) return;
+    if (!window.history || !window.history.replaceState) return;
+
+    var url = new URL(window.location.href);
+    if (!url.searchParams.has('customer_posted')) return;
+
+    url.searchParams.delete('customer_posted');
+    window.history.replaceState({}, '', url.pathname + url.search + url.hash);
+  })();
+
   (function(){
     if(window.innerWidth > 768) return;
     var cols = Array.prototype.slice.call(document.querySelectorAll('.pi-nf__col'));
