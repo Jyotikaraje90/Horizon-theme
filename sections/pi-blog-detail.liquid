@@ -732,8 +732,14 @@
       {%- if bd_is_article -%}
         {%- assign bd_prev_url = bd_prev.url -%}
         {%- assign bd_next_url = bd_next.url -%}
-        {%- assign bd_prev_text = bd_prev.title | default: section.settings.prev_label -%}
-        {%- assign bd_next_text = bd_next.title | default: section.settings.next_label -%}
+        {%- comment -%}
+          The design labels these Previous / Next rather than spelling out the
+          neighbouring post, so the titles only ride along as the accessible name.
+        {%- endcomment -%}
+        {%- assign bd_prev_text = section.settings.prev_label -%}
+        {%- assign bd_next_text = section.settings.next_label -%}
+        {%- assign bd_prev_label = bd_prev.title -%}
+        {%- assign bd_next_label = bd_next.title -%}
       {%- else -%}
         {%- assign bd_prev_url = section.settings.prev_link -%}
         {%- assign bd_next_url = section.settings.next_link -%}
@@ -748,7 +754,7 @@
       {%- if section.settings.show_nav -%}
         <div class="pi-bd__nav">
           {%- if bd_prev_url != blank or bd_is_article == false -%}
-          <a href="{{ bd_prev_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--prev">
+          <a href="{{ bd_prev_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--prev"{% if bd_prev_label != blank %} aria-label="{{ bd_prev_label | escape }}"{% endif %}>
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M7 1L1 6.5L7 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -757,7 +763,7 @@
           {%- else -%}<span></span>{%- endif -%}
 
           {%- if bd_next_url != blank or bd_is_article == false -%}
-          <a href="{{ bd_next_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--next">
+          <a href="{{ bd_next_url | default: '#' }}" class="pi-bd__nav-link pi-bd__nav-link--next"{% if bd_next_label != blank %} aria-label="{{ bd_next_label | escape }}"{% endif %}>
             <span>{{ bd_next_text | default: 'Next' }}</span>
             <svg class="pi-bd__nav-icon" viewBox="0 0 8 13" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
               <path d="M1 1L7 6.5L1 12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
