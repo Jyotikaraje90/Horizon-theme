@@ -13,8 +13,10 @@
   }
 
   /* [thumb + details] ... [quantity + remove] ... [line total], spread with
-     space-between exactly as the Figma frame does. The details hug their text
-     rather than stretching, which is what keeps the controls off the far right. */
+     space-between exactly as the Figma frame does, which keeps the controls off
+     the far right. The three columns carry fixed widths rather than hugging
+     their text: space-between splits the leftover space evenly, so a column
+     sized by its content would land at a different x on every row. */
   .pi-cart__row {
     display: flex;
     flex-direction: row;
@@ -28,6 +30,7 @@
     flex-direction: row;
     align-items: center;
     gap: 50px;
+    flex: 0 1 480px;
     min-width: 0;
   }
 
@@ -176,8 +179,7 @@
   .pi-cart__remove svg { width: 20.37px; height: 23px; }
 
   .pi-cart__price {
-    flex: 0 0 auto;
-    min-width: 90px;
+    flex: 0 0 120px;
     font-weight: 600;
     font-size: 20px;
     line-height: 26px;
@@ -337,6 +339,7 @@
     .pi-cart__qty-btn { flex: 0 0 40px; }
 
     .pi-cart__price {
+      flex: 0 0 auto;
       min-width: 0;
       text-align: right;
       font-size: 18px;
