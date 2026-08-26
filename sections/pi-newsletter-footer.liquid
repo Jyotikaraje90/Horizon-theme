@@ -657,8 +657,20 @@
   <div class="pi-nf__copyright">
       <div class="pi-nf__copyright-inner">
         <div class="pi-nf__copyright-left">
+          {%- comment -%}
+            `{year}` in the copyright setting is swapped for the current year at
+            render time, so the line does not go stale every January. Anything
+            else in the setting is left alone.
+          {%- endcomment -%}
           {%- if section.settings.copyright_text != blank -%}
-            <p class="pi-nf__copyright-text">{{ section.settings.copyright_text }}</p>
+            {%- assign pi_nf_year = 'now' | date: '%Y' -%}
+            {%- comment -%}
+              The token is assembled rather than written as a literal: Shopify's
+              Liquid parser rejects a brace inside a string in an output tag.
+            {%- endcomment -%}
+            {%- assign pi_nf_year_token = '{' | append: 'year' | append: '}' -%}
+            {%- assign pi_nf_copyright = section.settings.copyright_text | replace: pi_nf_year_token, pi_nf_year -%}
+            <p class="pi-nf__copyright-text">{{ pi_nf_copyright }}</p>
           {%- endif -%}
           {%- if section.settings.copyright_text != blank and section.settings.developer_text != blank -%}
             <span class="pi-nf__copyright-sep"></span>
@@ -803,7 +815,7 @@
     { "type": "text", "id": "studios_heading", "label": "Heading", "default": "Our Studios" },
 
     { "type": "header", "content": "Copyright" },
-    { "type": "text", "id": "copyright_text",  "label": "Copyright line",   "default": "Copyright © 2025 Puerto Ink, All Rights Reserved." },
+    { "type": "text", "id": "copyright_text",  "label": "Copyright line",   "info": "Use {year} where the year should go — it is replaced with the current year automatically.", "default": "Copyright © {year} Puerto Ink, All Rights Reserved." },
     { "type": "text", "id": "developer_text",  "label": "Developer credit",  "default": "Designed & Developed by Alian Software." },
 
     { "type": "header", "content": "Social Links" },
