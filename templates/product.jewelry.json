@@ -16,10 +16,10 @@
           "type": "accordion",
           "settings": {
             "heading": "Measurements",
-            "content": "<p>Gauge, diameter and length details for this piece. Add the exact measurements here, or map them to a product metafield.</p>",
+            "content": "",
             "open_by_default": false,
-            "metafield_namespace": "",
-            "metafield_key": ""
+            "metafield_namespace": "custom",
+            "metafield_key": "measurements"
           }
         },
         "acc_shipping": {
