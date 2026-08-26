@@ -50,6 +50,7 @@
             {% assign int_id = _id | times: 1 %}
             {% assign product = products | find: 'id', int_id %}
             {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% assign is_service = is_service | strip %}
             {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
@@ -67,6 +68,7 @@
         {% else %}
           {% for product in products limit: limit %}
             {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+            {% assign is_service = is_service | strip %}
             {% if is_service == 'true' %}{% continue %}{% endif %}
             <li
               class="predictive-search-results__card predictive-search-results__card--product"
@@ -96,6 +98,7 @@
       %}
       {% for product in products limit: limit %}
         {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+        {% assign is_service = is_service | strip %}
         {% if is_service == 'true' %}{% continue %}{% endif %}
         <li
           class="predictive-search-results__card predictive-search-results__card--product"

@@ -26,6 +26,8 @@
             render 'pi-is-service-product', product: product
           endcapture
 
+          assign is_service = is_service | strip
+
           unless is_service == 'true'
             assign visible_products_count = visible_products_count | plus: 1
             if first_visible_product_url == null

@@ -1,25 +1,53 @@
 {%- doc -%}
-  Outputs 'true' when a product is a service placeholder (booked in-studio, not sold),
-  so it can be kept out of search results alongside the real catalogue.
+  Outputs 'true' when a product is one of the in-studio services rather than something
+  the studio actually sells, so it can be kept out of search results.
 
-  A product counts as a service when it carries the `service` tag or its
-  product type is `Service`.
+  A product counts as a service when any of these hold:
+  - it carries the `service` tag
+  - its product type is `Service`
+  - its title matches one of the service pages linked from the piercing and tattoo
+    services grids (templates/page.piercing-services.json,
+    templates/page.tattoo-services.json)
+
+  Titles are compared loosely: lowercased, `&` read as `and`, and hyphens read as
+  spaces, so "Dotwork & Mandala Tattoos" matches a product named
+  "Dotwork and Mandala Tattoos".
 
   @param {object} product - the product to test
 
   @example
   {% capture is_service %}{% render 'pi-is-service-product', product: product %}{% endcapture %}
+  {% assign is_service = is_service | strip %}
   {% if is_service == 'true' %}{% continue %}{% endif %}
 {%- enddoc -%}
-{%- liquid
-  assign product_tags = product.tags | join: '|' | downcase | prepend: '|' | append: '|'
-  assign product_type = product.type | downcase | strip
-
-  if product_tags contains '|service|'
-    echo 'true'
-  elsif product_type == 'service'
-    echo 'true'
-  else
-    echo 'false'
-  endif
+{%- assign service_titles =
+  '|blackwork|conch piercing|dotwork and mandala tattoos|earlobe piercing|eyebrow piercing|'
+  | append: 'fine line tattoos|geometric tattoos|helix piercing|horror tattoos|industrial piercing|'
+  | append: 'micro realistic tattoos|minimalist tattoos|monroe piercing|navel piercing|'
+  | append: 'nostril piercing|realistic tattoos|script and lettering tattoos|septum piercing|'
+  | append: 'snake bite piercing|tongue piercing|traditional tattoos|tragus piercing|'
+  | append: 'tribal and polynesian tattoos|watercolor tattoos|'
 -%}
+
+{%- assign product_tags = product.tags | join: '|' | downcase | prepend: '|' | append: '|' -%}
+{%- assign product_type = product.type | downcase | strip -%}
+{%- assign product_title = product.title
+  | downcase
+  | replace: '&', ' and '
+  | replace: '-', ' '
+  | replace: '  ', ' '
+  | replace: '  ', ' '
+  | strip
+  | prepend: '|'
+  | append: '|'
+-%}
+
+{%- if product_tags contains '|service|' -%}
+  true
+{%- elsif product_type == 'service' -%}
+  true
+{%- elsif service_titles contains product_title -%}
+  true
+{%- else -%}
+  false
+{%- endif -%}
