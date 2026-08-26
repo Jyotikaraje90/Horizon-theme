@@ -94,7 +94,19 @@
     max-width: 740px;
     min-width: 0;
   }
-  .pi-nf__nl-form-wrap form,
+  {%- comment -%}
+    The bar is the inner row, not the <form>. The form has to stay as a plain
+    wrapper so the success message can sit underneath the bar rather than inside
+    it — Shopify only exposes form.posted_successfully? within the form block.
+  {%- endcomment -%}
+  .pi-nf__nl-form-wrap form {
+    display: block;
+    background: none;
+    border: none;
+    height: auto;
+    padding: 0;
+  }
+  .pi-nf__nl-row,
   .pi-nf__nl-form {
     display: flex;
     flex-direction: row;
@@ -125,9 +137,24 @@
   .pi-nf__nl-input::placeholder { color: rgba(255, 255, 255, 0.7); }
   .pi-nf__nl-input:-webkit-autofill,
   .pi-nf__nl-input:-webkit-autofill:hover,
-  .pi-nf__nl-input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 30px #000 inset !important;
+  .pi-nf__nl-input:-webkit-autofill:focus,
+  .pi-nf__nl-input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+    box-shadow: 0 0 0 1000px #000 inset !important;
     -webkit-text-fill-color: #fff !important;
+    caret-color: #fff !important;
+    /* Chrome repaints its own background after the shadow lands; parking the
+       transition far in the future keeps the black in place. */
+    transition: background-color 100000s ease-in-out 0s !important;
+  }
+  /* Kept in its own rule on purpose: an unknown selector invalidates the whole
+     list it sits in, and these -internal- ones exist only in Chrome. They cover
+     the highlight shown while an autofill suggestion is previewed. */
+  .pi-nf__nl-input:-internal-autofill-previewed,
+  .pi-nf__nl-input:-internal-autofill-selected {
+    -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
+    -webkit-text-fill-color: #fff !important;
+    transition: background-color 100000s ease-in-out 0s !important;
   }
   /* Figma Btn: 150px × 55px, radius 8px, padding 16/32, bg #fff, text #000 */
   .pi-nf__nl-btn {
@@ -151,11 +178,27 @@
   }
   .pi-nf__nl-btn:hover { background: #e8e8e8; }
   .pi-nf__nl-success {
-    display: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 0;
+    padding: 0;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
     font-size: 14px;
-    color: #fff;
-    padding: 10px 20px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #1f9d3f;
+  }
+  /* Tick drawn from two borders rather than shipping an icon for one line */
+  .pi-nf__nl-success::before {
+    content: '';
+    flex: 0 0 auto;
+    width: 13px;
+    height: 8px;
+    margin-top: -4px;
+    border-left: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: rotate(-45deg);
   }
 
   /* ── Footer body — 172px clears card overlap into .pi-nf + 60px design gap ── */
@@ -386,7 +429,7 @@
        Only affects the stacked layout — the 600px+ inline design sets its own
        width. */
     .pi-nf__nl-form-wrap { max-width: 314px; width: 100%; }
-    .pi-nf__nl-form-wrap form,
+    .pi-nf__nl-row,
     .pi-nf__nl-form { height: auto; flex-direction: column; padding: 0; gap: 12px; background: transparent !important; border: none; }
     /* flex: 0 0 auto cancels the base rule's flex: 1. In this column layout
        that flex-basis: 0% applies to the height and collapses the box to
@@ -465,7 +508,7 @@
     .pi-nf__nl-inner { flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; text-align: left; }
     .pi-nf__nl-heading { flex: 0 0 auto; max-width: 200px; text-align: left; font-size: 28px; line-height: 1.2; }
     .pi-nf__nl-form-wrap { flex: 1 1 auto; max-width: none; width: auto; min-width: 0; margin: 0; }
-    .pi-nf__nl-form-wrap form,
+    .pi-nf__nl-row,
     .pi-nf__nl-form {
       flex-direction: row; align-items: center; justify-content: space-between;
       height: auto; padding: 8px 8px 8px 16px; gap: 8px;
@@ -534,12 +577,14 @@
           post-submit anchor Shopify redirects to.
         {%- endcomment -%}
         {%- assign newsletter_form_id = 'pi-newsletter-' | append: section.id -%}
+        {%- comment -%}
+          The bar stays put after a successful submit and the confirmation drops
+          in underneath it, matching puertoink.com. Swapping the bar out for the
+          message left people unsure whether the form had gone or the page had
+          broken. The input re-renders empty, so it shows its placeholder again.
+        {%- endcomment -%}
         {%- form 'customer', id: newsletter_form_id -%}
-          {%- if form.posted_successfully? -%}
-            <p class="pi-nf__nl-success" style="display:block;">
-              {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
-            </p>
-          {%- else -%}
+          <div class="pi-nf__nl-row">
             <input type="hidden" name="contact[tags]" value="newsletter,email">
             <input
               class="pi-nf__nl-input"
@@ -552,6 +597,11 @@
             <button type="submit" class="pi-nf__nl-btn">
               {{- section.settings.newsletter_btn_label | default: 'Subscribe' -}}
             </button>
+          </div>
+          {%- if form.posted_successfully? -%}
+            <p class="pi-nf__nl-success" role="status">
+              {{- section.settings.newsletter_success | default: "Thanks for subscribing!" -}}
+            </p>
           {%- endif -%}
         {%- endform -%}
       </div>
