@@ -554,8 +554,15 @@
     {%- assign bd_tag = article.published_at | date: section.settings.date_format | default: '%b %d, %Y' -%}
   {%- endif -%}
   {%- assign bd_sections    = article.metafields.custom.body_sections.value -%}
-  {%- assign bd_prev        = blog.previous_article -%}
-  {%- assign bd_next        = blog.next_article -%}
+  {%- comment -%}
+    Shopify names these by position in the blog's newest-first order, not by
+    reading order: `next_article` is the NEWER post and `previous_article` is the
+    OLDER one. The design reads the other way — Next carries you onward through
+    the archive — so they are crossed over here. Without this the newest post
+    shows only a Previous arrow and no Next at all.
+  {%- endcomment -%}
+  {%- assign bd_prev        = blog.next_article -%}
+  {%- assign bd_next        = blog.previous_article -%}
   {%- assign bd_back_link   = blog.url | default: section.settings.back_link -%}
   {%- assign bd_search_action = blog.url | default: section.settings.search_action -%}
 {%- else -%}
@@ -804,33 +811,50 @@
       {%- endif -%}
 
       {%- comment -%}
-        Read Next builds itself from the blog on an article, skipping the post
-        being read. The next_post blocks remain for the legacy page.
+        Read Next builds itself from the blog on an article. It starts at the post
+        being read and walks forward through the blog, wrapping back to the top
+        once it runs off the end, so each post recommends a different set. Taking
+        the first N of blog.articles instead would surface the same three newest
+        posts on all nine pages.
+
+        Two passes because Liquid can't slice-and-rotate an array: the first picks
+        up everything after the current post, the second wraps round to the start.
+        The next_post blocks remain for the legacy page.
       {%- endcomment -%}
       {%- assign next_blocks = section.blocks | where: 'type', 'next_post' -%}
       {%- if bd_is_article -%}
+        {%- liquid
+          assign bd_limit = section.settings.next_count | default: 3
+          assign bd_index = 0
+          assign bd_i = 0
+
+          for bd_other in blog.articles
+            if bd_other.id == article.id
+              assign bd_index = bd_i
+            endif
+            assign bd_i = bd_i | plus: 1
+          endfor
+        -%}
         <div class="pi-bd__next">
           <h2 class="pi-bd__next-heading">{{ section.settings.next_heading | default: 'Read Next' }}</h2>
           {%- assign bd_shown = 0 -%}
+
+          {%- assign bd_i = 0 -%}
           {%- for bd_other in blog.articles -%}
-            {%- if bd_other.id == article.id -%}{%- continue -%}{%- endif -%}
-            {%- if bd_shown >= 3 -%}{%- break -%}{%- endif -%}
-            {%- assign bd_shown = bd_shown | plus: 1 -%}
-            <a href="{{ bd_other.url }}" class="pi-bd__next-item">
-              {%- if bd_other.image != blank -%}
-                <img
-                  src="{{ bd_other.image | image_url: width: 300 }}"
-                  alt="{{ bd_other.title | escape }}"
-                  class="pi-bd__next-thumb"
-                  loading="lazy"
-                  width="130"
-                  height="96"
-                >
-              {%- else -%}
-                <span class="pi-bd__next-thumb"></span>
-              {%- endif -%}
-              <h3 class="pi-bd__next-title">{{ bd_other.title }}</h3>
-            </a>
+            {%- if bd_i > bd_index and bd_shown < bd_limit -%}
+              {%- assign bd_shown = bd_shown | plus: 1 -%}
+              {% render 'pi-blog-next-item', article_item: bd_other %}
+            {%- endif -%}
+            {%- assign bd_i = bd_i | plus: 1 -%}
+          {%- endfor -%}
+
+          {%- assign bd_i = 0 -%}
+          {%- for bd_other in blog.articles -%}
+            {%- if bd_i < bd_index and bd_shown < bd_limit -%}
+              {%- assign bd_shown = bd_shown | plus: 1 -%}
+              {% render 'pi-blog-next-item', article_item: bd_other %}
+            {%- endif -%}
+            {%- assign bd_i = bd_i | plus: 1 -%}
           {%- endfor -%}
         </div>
       {%- elsif next_blocks.size > 0 -%}
@@ -1008,6 +1032,16 @@
       "id": "next_heading",
       "label": "Sidebar heading",
       "default": "Read Next"
+    },
+    {
+      "type": "range",
+      "id": "next_count",
+      "label": "Posts in Read Next",
+      "info": "Articles only. The list starts after the post being read and wraps round, so each post shows a different set.",
+      "min": 1,
+      "max": 6,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "header",

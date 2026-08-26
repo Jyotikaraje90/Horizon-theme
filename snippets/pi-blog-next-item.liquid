@@ -1,0 +1,27 @@
+{%- doc -%}
+  Renders one card in the blog detail sidebar's "Read Next" list.
+
+  Pulled out of sections/pi-blog-detail.liquid because the list is built in two
+  passes — the posts after the current one, then a wrap back to the start — and
+  both passes render the same card.
+
+  @param {object} article_item - the article to link to
+
+  @example
+  {% render 'pi-blog-next-item', article_item: bd_other %}
+{%- enddoc -%}
+<a href="{{ article_item.url }}" class="pi-bd__next-item">
+  {%- if article_item.image != blank -%}
+    <img
+      src="{{ article_item.image | image_url: width: 300 }}"
+      alt="{{ article_item.title | escape }}"
+      class="pi-bd__next-thumb"
+      loading="lazy"
+      width="130"
+      height="96"
+    >
+  {%- else -%}
+    <span class="pi-bd__next-thumb"></span>
+  {%- endif -%}
+  <h3 class="pi-bd__next-title">{{ article_item.title }}</h3>
+</a>
