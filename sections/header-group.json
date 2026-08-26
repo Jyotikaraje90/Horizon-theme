@@ -15,9 +15,9 @@
       "type": "pi-announcement-bar",
       "name": "PI Announcement Bar",
       "settings": {
-        "facebook_url": "",
+        "facebook_url": "https://www.facebook.com/puertoink/",
         "twitter_url": "",
-        "instagram_url": "",
+        "instagram_url": "https://www.instagram.com/puertoink/",
         "announcement_text": "Sign up and get 10% off on Piercing Jewelry",
         "announcement_link": "",
         "locations": "Crete, Athens, Antwerp, Amsterdam",
