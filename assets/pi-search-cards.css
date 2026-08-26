@@ -93,3 +93,88 @@
   .predictive-search-results__products .price-item--regular,
   .predictive-search-results__products .resource-card__subtext { font-size: 13px; line-height: 20px; }
 }
+
+/* ── Search results page (/search) ────────────────────────────────────────────
+ *
+ * The search grid renders Horizon's `product-card`, so it inherits the global
+ * "Best Sellers: product card" treatment in base.css — a white panel with a
+ * dashed outline, 20px titles and 18px prices. The dropdown above uses the grey
+ * square panel instead, and the two sitting side by side read as two different
+ * stores.
+ *
+ * These rules restate the dropdown's treatment for the search grid only, scoped
+ * to `.pi-search-grid` (set on the section wrapper in sections/search-results.liquid)
+ * so Best Sellers and the collection grids keep the card they were designed with.
+ */
+
+/* Card container: drop the white panel + dashed outline */
+.pi-search-grid .product-card .product-card__content {
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  padding: 0;
+  /* 5px between title and price; the gallery adds another 5px below the panel */
+  gap: 5px !important;
+}
+
+/* Image panel: square #E6E6E6 tile, matching the dropdown */
+.pi-search-grid .product-card .card-gallery {
+  --gallery-aspect-ratio: 1;
+  background: #e6e6e6;
+  border-radius: 15px !important;
+  overflow: hidden;
+  margin-block-end: 5px;
+}
+
+/* `contain` + multiply floats the product on the grey panel instead of cropping it */
+.pi-search-grid .product-card .product-media-container img {
+  object-fit: contain;
+  mix-blend-mode: multiply;
+}
+
+/* base.css pads each text block 20px 12px to space the Best Sellers card out;
+   the dropdown has no inner padding and relies on the gap above. */
+.pi-search-grid .product-card .product-card__content > .group-block:nth-child(2) > .group-block-content,
+.pi-search-grid .product-card .product-card__content > .group-block:nth-child(3) > .group-block-content,
+.pi-search-grid .product-card .product-card__content > .group-block:last-child > .group-block-content {
+  padding: 0 !important;
+}
+
+/* Product name */
+.pi-search-grid .product-card__content a.contents,
+.pi-search-grid .product-card__content a.contents * {
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif !important;
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  line-height: 23px !important;
+}
+
+/* Price */
+.pi-search-grid .product-card product-price,
+.pi-search-grid .product-card .price,
+.pi-search-grid .product-card .price__amount {
+  font-family: 'Proxima Nova', 'Nunito Sans', system-ui, -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  line-height: 22px !important;
+}
+
+@media (max-width: 749px) {
+  .pi-search-grid .product-card .card-gallery {
+    border-radius: 12px !important;
+  }
+
+  .pi-search-grid .product-card__content a.contents,
+  .pi-search-grid .product-card__content a.contents * {
+    font-size: 16px !important;
+    line-height: 21px !important;
+  }
+
+  .pi-search-grid .product-card product-price,
+  .pi-search-grid .product-card .price,
+  .pi-search-grid .product-card .price__amount {
+    font-size: 13px !important;
+    line-height: 20px !important;
+  }
+}
