@@ -118,11 +118,12 @@
   gap: 5px !important;
 }
 
-/* Image panel: square #E6E6E6 tile, matching the dropdown */
+/* Image panel: square #E6E6E6 tile at the Best Sellers radius (20px desktop,
+   15px mobile — see .pi-bs__card-img-wrap in sections/pi-best-sellers.liquid) */
 .pi-search-grid .product-card .card-gallery {
   --gallery-aspect-ratio: 1;
   background: #e6e6e6;
-  border-radius: 15px !important;
+  border-radius: 20px !important;
   overflow: hidden;
   margin-block-end: 5px;
 }
@@ -162,7 +163,7 @@
 
 @media (max-width: 749px) {
   .pi-search-grid .product-card .card-gallery {
-    border-radius: 12px !important;
+    border-radius: 15px !important;
   }
 
   .pi-search-grid .product-card__content a.contents,
