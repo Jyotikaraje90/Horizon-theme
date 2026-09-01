@@ -25,6 +25,14 @@
     </div>
     {% content_for 'blocks' %}
   {% endcapture %}
+  {%- if closest.product.compare_at_price > closest.product.price -%}
+  {%- assign discount_amount = closest.product.compare_at_price | minus: closest.product.price -%}
+  {%- assign discount_pct = discount_amount | times: 100 | divided_by: closest.product.compare_at_price | round -%}
+  <div class="pi-discount-badge">
+    {{ discount_pct }}% OFF
+  </div>
+{%- endif -%}
+
 
   {% render 'group', children: children, settings: block_settings, shopify_attributes: block.shopify_attributes %}
 </div>
@@ -63,6 +71,25 @@
       align-self: var(--details-position, 'flex-start');
     }
   }
+  .pi-discount-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e63946;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 100px;
+  margin-bottom: 8px;
+  animation: badgePulse 1.5s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+}
+
 {% endstylesheet %}
 
 {% schema %}
