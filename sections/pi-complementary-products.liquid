@@ -1,0 +1,454 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+{%- liquid
+  assign p = section.settings.product | default: product
+  assign max_products = section.settings.max_products
+
+  comment
+    Two sources, in order:
+      1. The Search & Discovery app writes its picks to a product metafield, so
+         the first paint is server-rendered with no request.
+      2. If that metafield is empty (or the app only exposes the picks through
+         the recommendations endpoint), the script below re-requests this same
+         section from /recommendations/products?intent=complementary, which
+         populates `recommendations.products`.
+  endcomment
+  assign comp_products = blank
+  if recommendations.performed and recommendations.products_count > 0
+    assign comp_products = recommendations.products
+  else
+    assign meta_list = p.metafields["shopify--discovery--product_recommendation"]["complementary_products"].value
+    if meta_list != blank and meta_list.size > 0
+      assign comp_products = meta_list
+    endif
+  endif
+-%}
+
+<style>
+  #shopify-section-{{ section.id }} {
+    margin-top: {{ section.settings.margin_top }}px;
+    margin-bottom: {{ section.settings.margin_bottom }}px;
+  }
+  .pcp { background: {{ section.settings.bg_color }}; }
+  .pcp__inner {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 40px {{ section.settings.padding_bottom }}px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  /* ── Header: heading left, circle arrows right ── */
+  .pcp__head {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+  }
+  .pcp__headings { display: flex; flex-direction: column; gap: {{ section.settings.subheading_gap }}px; min-width: 0; }
+  .pcp__heading {
+    font-family: {% if section.settings.heading_font == 'sans' %}'Proxima Nova', 'Nunito Sans', sans-serif{% else %}'Playfair Display', serif{% endif %};
+    font-size: {{ section.settings.heading_size }}px;
+    font-weight: {{ section.settings.heading_weight }};
+    line-height: 1.2;
+    color: {{ section.settings.heading_color }};
+    text-transform: {{ section.settings.heading_case }};
+    margin: 0;
+  }
+  .pcp__subheading {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: {{ section.settings.subheading_size }}px;
+    font-weight: 400;
+    line-height: 1.5;
+    color: {{ section.settings.subheading_color }};
+    margin: 0;
+  }
+  .pcp__nav { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+  .pcp__arrow {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 50%;
+    border: 1.5px solid {{ section.settings.arrow_color }};
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 0;
+    appearance: none;
+    -webkit-appearance: none;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    transition: background 0.2s, opacity 0.2s;
+  }
+  .pcp__arrow svg { display: block; }
+  .pcp__arrow svg path { fill: {{ section.settings.arrow_color }}; }
+  .pcp__arrow--next { background: {{ section.settings.arrow_color }}; }
+  .pcp__arrow--next svg path { fill: #ffffff; }
+  .pcp__arrow:hover:not([disabled]) { background: {{ section.settings.arrow_color }}; }
+  .pcp__arrow:hover:not([disabled]) svg path { fill: #ffffff; }
+  .pcp__arrow--next:hover:not([disabled]) { background: #ffffff; }
+  .pcp__arrow--next:hover:not([disabled]) svg path { fill: {{ section.settings.arrow_color }}; }
+  .pcp__arrow[disabled] { opacity: 0.3; cursor: default; }
+
+  /* ── Track ── */
+  .pcp__track {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .pcp__track::-webkit-scrollbar { display: none; }
+
+  .pcp__card {
+    flex: 0 0 calc((100% - {{ section.settings.per_view | minus: 1 | times: 20 }}px) / {{ section.settings.per_view }});
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .pcp__card-img-wrap {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    background: {{ section.settings.card_bg }};
+    border-radius: {{ section.settings.card_radius }}px;
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .pcp__card-img-wrap img,
+  .pcp__card-img-wrap .placeholder-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    {% if section.settings.multiply_blend %}mix-blend-mode: multiply;{% endif %}
+    display: block;
+  }
+  .pcp__wishlist {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 33px;
+    height: 30px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+    transition: transform 0.15s ease;
+  }
+  .pcp__wishlist:hover { transform: scale(1.15); }
+  .pcp__wishlist svg { width: 100%; height: 100%; display: block; }
+  .pcp__wishlist--active .pcp__wishlist-path { fill: #000000; }
+
+  .pcp__card-info { display: flex; flex-direction: column; gap: 10px; }
+  .pcp__card-title {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: {{ section.settings.card_title_size }}px;
+    font-weight: 600;
+    line-height: 26px;
+    color: {{ section.settings.card_title_color }};
+    margin: 0;
+    text-decoration: none;
+  }
+  .pcp__card-title:hover { text-decoration: underline; }
+  .pcp__card-price {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: {{ section.settings.card_price_size }}px;
+    font-weight: 400;
+    line-height: 26px;
+    color: {{ section.settings.card_price_color }};
+    margin: 0;
+  }
+  .pcp__card-atc form { margin: 0; }
+  .pcp__card-atc-btn {
+    display: inline-block;
+    background: none;
+    border: none;
+    border-bottom: 1px solid {{ section.settings.card_btn_color }};
+    padding: 0 0 2px;
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: {{ section.settings.card_btn_size }}px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: {{ section.settings.card_btn_color }};
+    cursor: pointer;
+    line-height: 21px;
+  }
+  .pcp__card-atc-btn:hover {
+    border-bottom-color: {{ section.settings.card_btn_hover_color }};
+    color: {{ section.settings.card_btn_hover_color }};
+  }
+  .pcp__card-atc-btn--sold-out { cursor: default; opacity: 0.45; }
+  .pcp__card-atc-btn--sold-out:hover {
+    border-bottom-color: {{ section.settings.card_btn_color }};
+    color: {{ section.settings.card_btn_color }};
+  }
+
+  .pcp__empty {
+    font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
+    font-size: 16px;
+    color: #555555;
+    padding: 20px 0;
+  }
+
+  @media (max-width: 1100px) {
+    .pcp__card { flex-basis: calc((100% - 40px) / 3); }
+  }
+  @media (max-width: 900px) {
+    .pcp__card { flex-basis: calc((100% - 20px) / 2); }
+    .pcp__heading { font-size: {{ section.settings.heading_size | times: 0.75 | round }}px; }
+  }
+  @media (max-width: 600px) {
+    .pcp__inner { padding-left: 18px; padding-right: 18px; }
+    .pcp__card { flex-basis: calc((100% - 16px) / 1.35); }
+    .pcp__card-img-wrap { border-radius: 15px; }
+    .pcp__wishlist { width: 16px; height: 15px; top: 15px; right: 15px; }
+    .pcp__heading { font-size: {{ section.settings.heading_size | times: 0.6 | round }}px; }
+    .pcp__card-title { font-size: 16px; line-height: 22px; }
+  }
+  @media (min-width: 481px) and (max-width: 600px) {
+    .pcp__card { flex-basis: calc((100% - 16px) / 1.9); }
+  }
+</style>
+
+{%- comment -%}
+  When this section is re-rendered through /recommendations/products the outer
+  #shopify-section wrapper is not returned, so the script swaps .pcp__inner only.
+{%- endcomment -%}
+<div class="pcp"
+     id="pcp-{{ section.id }}"
+     data-pcp-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ p.id }}&limit={{ max_products }}&intent=complementary"
+     data-pcp-loaded="{% if comp_products != blank %}true{% else %}false{% endif %}">
+  <div class="pcp__inner">
+
+    {%- if comp_products != blank -%}
+      <div class="pcp__head">
+        <div class="pcp__headings">
+          {%- if section.settings.heading != blank -%}
+            <h2 class="pcp__heading">{{ section.settings.heading }}</h2>
+          {%- endif -%}
+          {%- if section.settings.subheading != blank -%}
+            <p class="pcp__subheading">{{ section.settings.subheading }}</p>
+          {%- endif -%}
+        </div>
+        {%- if section.settings.show_arrows -%}
+          <div class="pcp__nav">
+            <button type="button" class="pcp__arrow pcp__arrow--prev" aria-label="{{ section.settings.prev_label | escape }}">
+              <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+            <button type="button" class="pcp__arrow pcp__arrow--next" aria-label="{{ section.settings.next_label | escape }}">
+              <svg width="16" height="16" viewBox="4 4 16 16" xmlns="http://www.w3.org/2000/svg" style="transform:rotate(180deg);"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+            </button>
+          </div>
+        {%- endif -%}
+      </div>
+
+      <div class="pcp__track" id="pcp-track-{{ section.id }}">
+        {%- assign shown = 0 -%}
+        {%- for card_product in comp_products -%}
+          {%- if card_product.id == p.id -%}{%- continue -%}{%- endif -%}
+          {%- if shown >= max_products -%}{%- break -%}{%- endif -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <div class="pcp__card">
+            <a href="{{ card_product.url }}" class="pcp__card-img-wrap" tabindex="-1" aria-hidden="true">
+              {%- if card_product.featured_image -%}
+                <img src="{{ card_product.featured_image | image_url: width: 720 }}"
+                     alt="{{ card_product.featured_image.alt | default: card_product.title | escape }}"
+                     loading="lazy" width="360" height="360">
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+              {%- endif -%}
+              {%- if section.settings.show_wishlist -%}
+                <button class="pcp__wishlist" aria-label="{{ section.settings.wishlist_label }} {{ card_product.title | escape }}" data-pi-wish="{{ card_product.handle }}" type="button">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.68C12 21.68 0.69 15.505 0.69 8.491C0.69 5.179 3.583 2.49 7.148 2.49C9.41 2.49 11.081 3.502 12 4.923C12.919 3.502 14.59 2.49 16.852 2.49C20.417 2.49 23.31 5.179 23.31 8.491C23.31 15.505 12 21.68 12 21.68Z"
+                          stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"
+                          fill="transparent" class="pcp__wishlist-path"/>
+                  </svg>
+                </button>
+              {%- endif -%}
+            </a>
+            <div class="pcp__card-info">
+              <a href="{{ card_product.url }}" class="pcp__card-title">{{ card_product.title }}</a>
+              {%- if section.settings.show_price -%}
+                <p class="pcp__card-price">
+                  {%- if card_product.price_min < card_product.price_max -%}
+                    {{ card_product.price_min | money }}&ndash;{{ card_product.price_max | money }}
+                  {%- else -%}
+                    {{ card_product.price | money }}
+                  {%- endif -%}
+                </p>
+              {%- endif -%}
+              {%- if section.settings.show_atc -%}
+                <div class="pcp__card-atc">
+                  {%- if card_product.available -%}
+                    {%- assign atc_variant = card_product.selected_or_first_available_variant | default: card_product.variants.first -%}
+                    <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data">
+                      <input type="hidden" name="id" value="{{ atc_variant.id }}">
+                      <input type="hidden" name="quantity" value="1">
+                      <button type="submit" class="pcp__card-atc-btn">{{ section.settings.atc_label }}</button>
+                    </form>
+                  {%- else -%}
+                    <span class="pcp__card-atc-btn pcp__card-atc-btn--sold-out">{{ section.settings.sold_out_label }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+    {%- elsif request.design_mode -%}
+      <p class="pcp__empty">{{ section.settings.empty_text }}</p>
+    {%- endif -%}
+
+  </div>
+</div>
+
+<script>
+(function () {
+  var id   = {{ section.id | json }};
+  var root = document.getElementById('pcp-' + id);
+  if (!root) return;
+
+  function bindCarousel() {
+    var track = root.querySelector('.pcp__track');
+    if (!track) return;
+    var prev = root.querySelector('.pcp__arrow--prev');
+    var next = root.querySelector('.pcp__arrow--next');
+
+    function step() {
+      var card = track.querySelector('.pcp__card');
+      if (!card) return track.clientWidth;
+      var gap = parseInt(getComputedStyle(track).columnGap || getComputedStyle(track).gap, 10) || 20;
+      return card.getBoundingClientRect().width + gap;
+    }
+    function sync() {
+      var max = track.scrollWidth - track.clientWidth - 1;
+      if (prev) prev.disabled = track.scrollLeft <= 1;
+      if (next) next.disabled = track.scrollLeft >= max;
+    }
+    if (prev) prev.addEventListener('click', function () { track.scrollBy({ left: -step(), behavior: 'smooth' }); });
+    if (next) next.addEventListener('click', function () { track.scrollBy({ left:  step(), behavior: 'smooth' }); });
+    track.addEventListener('scroll', sync, { passive: true });
+    window.addEventListener('resize', sync);
+    sync();
+
+    /* Wishlist — look defined here, state owned by pi-wishlist.js. */
+    if (window.PIWishlist) {
+      window.PIWishlist.bind(
+        track.querySelectorAll('.pcp__wishlist[data-pi-wish]'),
+        function (btn, active) { btn.classList.toggle('pcp__wishlist--active', active); }
+      );
+    }
+  }
+
+  /* Nothing came back from the metafield — ask the recommendations endpoint,
+     which is the source Search & Discovery always answers on. */
+  function fetchRecommendations() {
+    var url = root.getAttribute('data-pcp-url');
+    if (!url) return;
+    fetch(url)
+      .then(function (r) { return r.ok ? r.text() : Promise.reject(r.status); })
+      .then(function (html) {
+        var doc = new DOMParser().parseFromString(html, 'text/html');
+        var fresh = doc.querySelector('.pcp__inner');
+        var mine  = root.querySelector('.pcp__inner');
+        if (!fresh || !mine || !fresh.querySelector('.pcp__card')) return;
+        mine.innerHTML = fresh.innerHTML;
+        bindCarousel();
+      })
+      .catch(function () { /* leave the section empty */ });
+  }
+
+  if (root.getAttribute('data-pcp-loaded') === 'true') bindCarousel();
+  else fetchRecommendations();
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PI Complementary Products",
+  "tag": "section",
+  "settings": [
+    { "type": "paragraph", "content": "Shows the complementary products set for this product in the Search & Discovery app. Reads the app's product metafield first, then falls back to the complementary recommendations endpoint. The section hides itself when a product has none." },
+    { "type": "product", "id": "product", "label": "Product", "info": "Leave empty on a product template to use the product being viewed." },
+    { "type": "range", "id": "max_products", "label": "Max products", "min": 2, "max": 12, "step": 1, "default": 6 },
+    { "type": "range", "id": "per_view", "label": "Cards per view (desktop)", "min": 2, "max": 6, "step": 1, "default": 4 },
+
+    { "type": "header", "content": "Text" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Pairs Well With" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "info": "Optional. Leave empty to hide." },
+    { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Add to Cart" },
+    { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Out of Stock" },
+    { "type": "text", "id": "wishlist_label", "label": "Wishlist button label", "default": "Add to wishlist" },
+    { "type": "text", "id": "prev_label", "label": "Previous arrow label", "default": "Previous" },
+    { "type": "text", "id": "next_label", "label": "Next arrow label", "default": "Next" },
+    { "type": "text", "id": "empty_text", "label": "Editor-only empty message", "default": "No complementary products are set for this product in the Search & Discovery app. This section is hidden on the storefront until some are added." },
+
+    { "type": "header", "content": "Elements" },
+    { "type": "checkbox", "id": "show_arrows", "label": "Show carousel arrows", "default": true },
+    { "type": "checkbox", "id": "show_price", "label": "Show price", "default": true },
+    { "type": "checkbox", "id": "show_atc", "label": "Show add to cart", "default": true },
+    { "type": "checkbox", "id": "show_wishlist", "label": "Show wishlist heart", "default": true },
+
+    { "type": "header", "content": "Heading styles" },
+    {
+      "type": "select", "id": "heading_font", "label": "Heading font", "default": "serif",
+      "options": [ { "value": "serif", "label": "Serif (Playfair Display)" }, { "value": "sans", "label": "Sans (Proxima Nova)" } ]
+    },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 64, "step": 1, "unit": "px", "default": 40 },
+    {
+      "type": "select", "id": "heading_weight", "label": "Heading weight", "default": "700",
+      "options": [ { "value": "400", "label": "Regular" }, { "value": "500", "label": "Medium" }, { "value": "600", "label": "Semibold" }, { "value": "700", "label": "Bold" } ]
+    },
+    {
+      "type": "select", "id": "heading_case", "label": "Heading case", "default": "uppercase",
+      "options": [ { "value": "none", "label": "As typed" }, { "value": "uppercase", "label": "UPPERCASE" }, { "value": "capitalize", "label": "Capitalize" } ]
+    },
+    { "type": "color", "id": "heading_color", "label": "Heading color", "default": "#000000" },
+    { "type": "range", "id": "subheading_size", "label": "Subheading size", "min": 12, "max": 32, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "subheading_color", "label": "Subheading color", "default": "#555555" },
+    { "type": "range", "id": "subheading_gap", "label": "Gap under heading", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 8 },
+
+    { "type": "header", "content": "Card styles" },
+    { "type": "color", "id": "card_bg", "label": "Card image background", "default": "#E6E6E6" },
+    { "type": "range", "id": "card_radius", "label": "Card image radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 20 },
+    { "type": "checkbox", "id": "multiply_blend", "label": "Blend product images into the card background", "default": true },
+    { "type": "range", "id": "card_title_size", "label": "Card title size", "min": 12, "max": 32, "step": 1, "unit": "px", "default": 20 },
+    { "type": "color", "id": "card_title_color", "label": "Card title color", "default": "#000000" },
+    { "type": "range", "id": "card_price_size", "label": "Card price size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "card_price_color", "label": "Card price color", "default": "#000000" },
+    { "type": "range", "id": "card_btn_size", "label": "Card button text size", "min": 10, "max": 24, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "card_btn_color", "label": "Card button color", "default": "#000000" },
+    { "type": "color", "id": "card_btn_hover_color", "label": "Card button hover color", "default": "#B49146" },
+    { "type": "color", "id": "arrow_color", "label": "Arrow color", "default": "#000000" },
+
+    { "type": "header", "content": "Layout" },
+    { "type": "color", "id": "bg_color", "label": "Section background", "default": "#ffffff" },
+    { "type": "range", "id": "content_width", "label": "Content width", "min": 900, "max": 1800, "step": 20, "unit": "px", "default": 1580 },
+    { "type": "range", "id": "padding_top", "label": "Top padding", "min": 0, "max": 148, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "padding_bottom", "label": "Bottom padding", "min": 0, "max": 148, "step": 4, "unit": "px", "default": 40 },
+    { "type": "range", "id": "margin_top", "label": "Margin Top", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 },
+    { "type": "range", "id": "margin_bottom", "label": "Margin Bottom", "min": 0, "max": 100, "step": 4, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    { "name": "PI Complementary Products" }
+  ]
+}
+{% endschema %}
