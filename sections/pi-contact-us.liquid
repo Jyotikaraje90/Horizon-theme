@@ -568,7 +568,7 @@
                 class="pi-contact-us__field"
                 type="text"
                 name="contact[First Name]"
-                placeholder="First Name*"
+                placeholder="{{ section.settings.first_name_label | escape }}"
                 required
                 autocomplete="given-name"
               >
@@ -576,7 +576,7 @@
                 class="pi-contact-us__field"
                 type="text"
                 name="contact[Last Name]"
-                placeholder="Last Name*"
+                placeholder="{{ section.settings.last_name_label | escape }}"
                 required
                 autocomplete="family-name"
               >
@@ -584,7 +584,7 @@
                 class="pi-contact-us__field"
                 type="tel"
                 name="contact[Phone]"
-                placeholder="Phone*"
+                placeholder="{{ section.settings.phone_label | escape }}"
                 required
                 autocomplete="tel"
               >
@@ -595,14 +595,14 @@
                 class="pi-contact-us__field"
                 type="email"
                 name="contact[email]"
-                placeholder="Email*"
+                placeholder="{{ section.settings.email_label | escape }}"
                 required
                 autocomplete="email"
               >
               {%- if location_blocks.size > 0 -%}
                 <div class="pi-contact-us__select-wrap">
                   <select class="pi-contact-us__select" name="contact[Studio Location]" required>
-                    <option value="" disabled selected>Select Our Studio Location*</option>
+                    <option value="" disabled selected>{{ section.settings.location_label }}</option>
                     {%- for block in location_blocks -%}
                       <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
                     {%- endfor -%}
@@ -643,7 +643,7 @@
                 class="pi-contact-us__field"
                 type="text"
                 name="contact[Placement On Body]"
-                placeholder="Placement On Body"
+                placeholder="{{ section.settings.placement_label | escape }}"
                 autocomplete="off"
               >
               {%- assign artist_label = section.settings.artist_label | default: 'Preferred Tattoo Artist' -%}
@@ -673,9 +673,9 @@
                   <path d="M7 18a4 4 0 0 1-1-7.874A5 5 0 0 1 15.5 7.5 4.5 4.5 0 0 1 17 16.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                   <path d="M12 12v7m0-7l-2.5 2.5M12 12l2.5 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
-                <p class="pi-contact-us__dropzone-title">Choose a file or drag &amp; drop it here</p>
-                <p class="pi-contact-us__dropzone-hint">JPEG, PNG, up to 50MB</p>
-                <span class="pi-contact-us__dropzone-btn">Browse File</span>
+                <p class="pi-contact-us__dropzone-title">{{ section.settings.file_title }}</p>
+                <p class="pi-contact-us__dropzone-hint">{{ section.settings.file_hint }}</p>
+                <span class="pi-contact-us__dropzone-btn">{{ section.settings.file_button }}</span>
                 <p class="pi-contact-us__dropzone-filename"></p>
               </label>
 
@@ -694,7 +694,7 @@
                 class="pi-contact-us__field"
                 type="text"
                 name="contact[First Name]"
-                placeholder="First Name*"
+                placeholder="{{ section.settings.first_name_label | escape }}"
                 required
                 autocomplete="given-name"
               >
@@ -702,7 +702,7 @@
                 class="pi-contact-us__field"
                 type="text"
                 name="contact[Last Name]"
-                placeholder="Last Name*"
+                placeholder="{{ section.settings.last_name_label | escape }}"
                 required
                 autocomplete="family-name"
               >
@@ -713,7 +713,7 @@
                 class="pi-contact-us__field"
                 type="tel"
                 name="contact[Phone]"
-                placeholder="Phone*"
+                placeholder="{{ section.settings.phone_label | escape }}"
                 required
                 autocomplete="tel"
               >
@@ -721,7 +721,7 @@
                 class="pi-contact-us__field"
                 type="email"
                 name="contact[email]"
-                placeholder="Email*"
+                placeholder="{{ section.settings.email_label | escape }}"
                 required
                 autocomplete="email"
               >
@@ -730,7 +730,7 @@
             {%- if location_blocks.size > 0 -%}
               <div class="pi-contact-us__select-wrap" style="width: 100%;">
                 <select class="pi-contact-us__select" name="contact[Studio Location]" required>
-                  <option value="" disabled selected>Select Our Studio Location*</option>
+                  <option value="" disabled selected>{{ section.settings.location_label }}</option>
                   {%- for block in location_blocks -%}
                     <option value="{{ block.settings.location_name | escape }}">{{ block.settings.location_name }}</option>
                   {%- endfor -%}
@@ -744,7 +744,7 @@
             <textarea
               class="pi-contact-us__textarea"
               name="contact[body]"
-              placeholder="Message"
+              placeholder="{{ section.settings.message_label | escape }}"
             ></textarea>
 
           {%- endif -%}
@@ -808,6 +808,18 @@
       "info": "Adds Phone, Tattoo Size, Placement On Body, Preferred Artist, and a reference photo upload alongside the standard fields.",
       "default": false
     },
+    { "type": "header", "content": "Form field labels" },
+    { "type": "text", "id": "first_name_label", "label": "First name placeholder", "default": "First Name*" },
+    { "type": "text", "id": "last_name_label", "label": "Last name placeholder", "default": "Last Name*" },
+    { "type": "text", "id": "phone_label", "label": "Phone placeholder", "default": "Phone*" },
+    { "type": "text", "id": "email_label", "label": "Email placeholder", "default": "Email*" },
+    { "type": "text", "id": "location_label", "label": "Studio location dropdown label", "default": "Select Our Studio Location*" },
+    { "type": "text", "id": "placement_label", "label": "Placement on body placeholder", "default": "Placement On Body", "info": "Detailed form only." },
+    { "type": "text", "id": "message_label", "label": "Message placeholder", "default": "Message" },
+    { "type": "header", "content": "File upload" },
+    { "type": "text", "id": "file_title", "label": "Drop zone title", "default": "Choose a file or drag & drop it here" },
+    { "type": "text", "id": "file_hint", "label": "Drop zone hint", "default": "JPEG, PNG, up to 50MB" },
+    { "type": "text", "id": "file_button", "label": "Browse button label", "default": "Browse File" },
     {
       "type": "text",
       "id": "type_label",
