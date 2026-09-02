@@ -342,7 +342,7 @@
         "wishlist_label": "Add to wishlist",
         "prev_label": "Previous",
         "next_label": "Next",
-        "empty_text": "No complementary products are set for this product in the Search & Discovery app. This section is hidden on the storefront until some are added.",
+        "empty_text": "",
         "show_arrows": true,
         "show_price": true,
         "show_atc": true,
