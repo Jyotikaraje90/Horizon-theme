@@ -1,40 +1,4 @@
-{%- if product.available == false or product.compare_at_price > product.price and product.available -%}
-    <div
-      class="
-        product-badges__badge product-badges__badge--rectangle
-        {% if product.available == false %} color-{{ settings.badge_sold_out_color_scheme }}{% elsif product.compare_at_price > product.price %} color-{{ settings.badge_sale_color_scheme }}{% endif %}
-      "
-    >
-      {%- if product.available == false -%}
-        {{ 'content.product_badge_sold_out' | t }}
-      {%- elsif product.compare_at_price > product.price -%}
-        {{ 'content.product_badge_sale' | t }}
-      {%- endif -%}
-    </div>
-  {%- endif -%} 
-  
-  {%- if product.available == false or product.variants.first.compare_at_price > product.variants.first.price -%}
-    <div
-      class="
-        product-badges__badge product-badges__badge--rectangle
-        {% if product.available == false %}
-          color-{{ settings.badge_sold_out_color_scheme }}
-        {% else %}
-          color-{{ settings.badge_sale_color_scheme }}
-        {% endif %}
-      "
-    >
-      {%- if product.available == false -%}
-        {{ 'content.product_badge_sold_out' | t }}
-      {%- else -%}
-        {%- assign compare_at_price = product.variants.first.compare_at_price -%}
-        {%- assign price = product.variants.first.price -%}
-        {%- assign discount = compare_at_price | minus: price | times: 100 | divided_by: compare_at_price | round -%}
-        {{ discount }}% OFF
-      {%- endif -%}
-    </div>
-  {%- endif -%}
-  {%- doc -%}
+{%- doc -%}
   Product badge styles consolidated into a single snippet.
 
   @example
