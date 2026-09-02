@@ -38,7 +38,7 @@
         "acc_shipping"
       ],
       "settings": {
-        "product": "",
+        "product": "gold-opal-hoop",
         "show_thumbnails": true,
         "show_badge": true,
         "show_wishlist": true,
@@ -261,28 +261,6 @@
         "padding-block-end": 0
       }
     },
-    "pi_you_may_also_like": {
-      "type": "pi-you-may-also-like",
-      "settings": {
-        "collection": "shop-jwelery",
-        "max_products": 12,
-        "exclude_current": true,
-        "heading": "You May Also Like",
-        "heading_case": "uppercase",
-        "heading_size": 40,
-        "heading_color": "#000000",
-        "atc_label": "Add to Cart",
-        "sold_out_label": "Out of Stock",
-        "card_btn_size": 16,
-        "bg_color": "#ffffff",
-        "card_bg": "#e6e6e6",
-        "card_radius": 20,
-        "padding_top": 40,
-        "padding_bottom": 40,
-        "margin_top": 0,
-        "margin_bottom": 0
-      }
-    },
     "pi_complementary": {
       "type": "pi-complementary-products",
       "settings": {
@@ -290,6 +268,7 @@
         "max_products": 6,
         "per_view": 4,
         "heading": "Pairs Well With",
+        "subheading": "",
         "atc_label": "Add to Cart",
         "sold_out_label": "Out of Stock",
         "wishlist_label": "Add to wishlist",
@@ -326,12 +305,81 @@
         "margin_top": 0,
         "margin_bottom": 0
       }
+    },
+    "pi_you_may_also_like": {
+      "type": "pi-you-may-also-like",
+      "settings": {
+        "collection": "shop-jwelery",
+        "max_products": 12,
+        "exclude_current": true,
+        "heading": "You May Also Like",
+        "heading_case": "uppercase",
+        "heading_size": 40,
+        "heading_color": "#000000",
+        "atc_label": "Add to Cart",
+        "sold_out_label": "Out of Stock",
+        "card_btn_size": 16,
+        "bg_color": "#ffffff",
+        "card_bg": "#e6e6e6",
+        "card_radius": 20,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
+    },
+    "pi_complementary_products_TBHmcc": {
+      "type": "pi-complementary-products",
+      "name": "PI Complementary Products",
+      "settings": {
+        "product": "necklace",
+        "max_products": 6,
+        "per_view": 4,
+        "heading": "Pairs Well With",
+        "subheading": "",
+        "atc_label": "Add to Cart",
+        "sold_out_label": "Out of Stock",
+        "wishlist_label": "Add to wishlist",
+        "prev_label": "Previous",
+        "next_label": "Next",
+        "empty_text": "No complementary products are set for this product in the Search & Discovery app. This section is hidden on the storefront until some are added.",
+        "show_arrows": true,
+        "show_price": true,
+        "show_atc": true,
+        "show_wishlist": true,
+        "heading_font": "serif",
+        "heading_size": 40,
+        "heading_weight": "700",
+        "heading_case": "uppercase",
+        "heading_color": "#000000",
+        "subheading_size": 16,
+        "subheading_color": "#555555",
+        "subheading_gap": 8,
+        "card_bg": "#E6E6E6",
+        "card_radius": 20,
+        "multiply_blend": true,
+        "card_title_size": 20,
+        "card_title_color": "#000000",
+        "card_price_size": 16,
+        "card_price_color": "#000000",
+        "card_btn_size": 16,
+        "card_btn_color": "#000000",
+        "card_btn_hover_color": "#B49146",
+        "arrow_color": "#000000",
+        "bg_color": "#ffffff",
+        "content_width": 1580,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "margin_top": 0,
+        "margin_bottom": 0
+      }
     }
   },
   "order": [
     "main",
     "1783416835c8045ee7",
     "pi_complementary",
-    "pi_you_may_also_like"
+    "pi_you_may_also_like",
+    "pi_complementary_products_TBHmcc"
   ]
 }
