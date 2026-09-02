@@ -37,10 +37,10 @@
   }
   .pi-jg__sort-label {
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 20px;
+    font-size: {{ section.settings.sort_label_size }}px;
     font-weight: 600;
     line-height: 26px;
-    color: #000000;
+    color: {{ section.settings.sort_label_color }};
     white-space: nowrap;
   }
   .pi-jg__sort-select {
@@ -49,10 +49,10 @@
     border: none;
     background: transparent;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 16px;
+    font-size: {{ section.settings.sort_value_size }}px;
     font-weight: 400;
     line-height: 26px;
-    color: #121212;
+    color: {{ section.settings.sort_value_color }};
     cursor: pointer;
     padding-right: 18px;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='5' viewBox='0 0 8 5'%3E%3Cpath d='M0 0l4 5 4-5z' fill='%23000000'/%3E%3C/svg%3E");
@@ -229,8 +229,8 @@
   .pi-jg__empty {
     text-align: center;
     font-family: 'Proxima Nova', 'Nunito Sans', sans-serif;
-    font-size: 16px;
-    color: #555555;
+    font-size: {{ section.settings.empty_size }}px;
+    color: {{ section.settings.empty_color }};
     padding: 40px 0;
   }
 
@@ -284,13 +284,13 @@
         {%- comment -%} Controls: sort + count {%- endcomment -%}
         <div class="pi-jg__controls">
           <div class="pi-jg__sort">
-            <span class="pi-jg__sort-label">Sort by:</span>
+            <span class="pi-jg__sort-label">{{ section.settings.sort_label }}</span>
             <select class="pi-jg__sort-select" id="pi-jg-sort-{{ section.id }}" aria-label="Sort products">
-              <option value="best">Best Selling</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="title-asc">Alphabetical: A–Z</option>
-              <option value="title-desc">Alphabetical: Z–A</option>
+              <option value="best">{{ section.settings.sort_best_label }}</option>
+              <option value="price-asc">{{ section.settings.sort_price_asc_label }}</option>
+              <option value="price-desc">{{ section.settings.sort_price_desc_label }}</option>
+              <option value="title-asc">{{ section.settings.sort_title_asc_label }}</option>
+              <option value="title-desc">{{ section.settings.sort_title_desc_label }}</option>
             </select>
           </div>
           <span class="pi-jg__count">{{ fill_count }} Products</span>
@@ -374,7 +374,7 @@
         {%- endif -%}
 
     {%- else -%}
-      <p class="pi-jg__empty">No products found. Assign products to the selected collection to populate this grid.</p>
+      <p class="pi-jg__empty">{{ section.settings.empty_text }}</p>
     {%- endif -%}
 
   </div>
@@ -453,6 +453,21 @@
     { "type": "collection", "id": "collection", "label": "Collection" },
     { "type": "range", "id": "products_per_page", "label": "Products per page", "min": 4, "max": 24, "step": 4, "default": 12 },
     { "type": "range", "id": "grid_card_count", "label": "Total cards to display", "info": "Maximum number of cards to show. Each product appears once; if the collection has fewer products than this, the grid simply shows fewer cards.", "min": 4, "max": 48, "step": 4, "default": 36 },
+    { "type": "header", "content": "Sorting bar" },
+    { "type": "text", "id": "sort_label", "label": "Sort label", "default": "Sort by:" },
+    { "type": "text", "id": "sort_best_label", "label": "Option — best selling", "default": "Best Selling" },
+    { "type": "text", "id": "sort_price_asc_label", "label": "Option — price ascending", "default": "Price: Low to High" },
+    { "type": "text", "id": "sort_price_desc_label", "label": "Option — price descending", "default": "Price: High to Low" },
+    { "type": "text", "id": "sort_title_asc_label", "label": "Option — A to Z", "default": "Alphabetical: A–Z" },
+    { "type": "text", "id": "sort_title_desc_label", "label": "Option — Z to A", "default": "Alphabetical: Z–A" },
+    { "type": "range", "id": "sort_label_size", "label": "Sort label size", "min": 12, "max": 32, "step": 1, "unit": "px", "default": 20 },
+    { "type": "color", "id": "sort_label_color", "label": "Sort label color", "default": "#000000" },
+    { "type": "range", "id": "sort_value_size", "label": "Sort value size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "sort_value_color", "label": "Sort value color", "default": "#121212" },
+    { "type": "header", "content": "Empty state" },
+    { "type": "text", "id": "empty_text", "label": "Empty message", "default": "No products found. Assign products to the selected collection to populate this grid." },
+    { "type": "range", "id": "empty_size", "label": "Empty message size", "min": 12, "max": 28, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "empty_color", "label": "Empty message color", "default": "#555555" },
     { "type": "header", "content": "Card buttons" },
     { "type": "text", "id": "atc_label", "label": "Add to cart label", "default": "Add to Cart" },
     { "type": "text", "id": "sold_out_label", "label": "Sold out label", "default": "Out of Stock" },
