@@ -42,11 +42,11 @@
   assign sale_compare_money = cur.compare_at_price | money
   assign sale_price_money = cur.price | money
   assign sale_label = section.settings.sale_badge_text | replace: '{percent}', sale_save_percent | replace: '{amount}', sale_save_money | replace: '{compare}', sale_compare_money | replace: '{price}', sale_price_money
+  unless sale_on
+    assign sale_label = section.settings.sale_badge_static_text
+  endunless
   if section.settings.sale_badge_mode == 'always'
     assign sale_visible = true
-    unless sale_on
-      assign sale_label = section.settings.sale_badge_static_text
-    endunless
   else
     assign sale_visible = sale_on
   endif
