@@ -24,6 +24,35 @@
     assign rating_value = p.metafields.reviews.rating.value.rating
   endif
   assign rating_count = p.metafields.reviews.rating_count.value | default: 0
+
+  comment
+    Sale / discount badge. The label is precomputed per variant so switching a
+    variant only swaps text, and money values keep the shop's currency format.
+  endcomment
+  assign sale_on = false
+  if cur.compare_at_price > cur.price
+    assign sale_on = true
+  endif
+  assign sale_save_amount = cur.compare_at_price | minus: cur.price
+  assign sale_save_percent = 0
+  if cur.compare_at_price > 0
+    assign sale_save_percent = sale_save_amount | times: 100.0 | divided_by: cur.compare_at_price | round
+  endif
+  assign sale_save_money = sale_save_amount | money
+  assign sale_compare_money = cur.compare_at_price | money
+  assign sale_price_money = cur.price | money
+  assign sale_label = section.settings.sale_badge_text | replace: '{percent}', sale_save_percent | replace: '{amount}', sale_save_money | replace: '{compare}', sale_compare_money | replace: '{price}', sale_price_money
+  if section.settings.sale_badge_mode == 'always'
+    assign sale_visible = true
+    unless sale_on
+      assign sale_label = section.settings.sale_badge_static_text
+    endunless
+  else
+    assign sale_visible = sale_on
+  endif
+  unless section.settings.show_sale_badge
+    assign sale_visible = false
+  endunless
 -%}
 
 <style>
@@ -199,6 +228,79 @@
     display: block;
   }
 
+
+  /* ── Sale / discount badge ── */
+  .pi-pdp__sale {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    max-width: calc(100% - {{ section.settings.sale_badge_offset_x | times: 2 }}px);
+    padding: {{ section.settings.sale_badge_padding_y }}px {{ section.settings.sale_badge_padding_x }}px;
+    border-radius: {{ section.settings.sale_badge_radius }}px;
+    background: {{ section.settings.sale_badge_bg }};
+    color: {{ section.settings.sale_badge_text_color }};
+    font-family: {% if section.settings.sale_badge_font == 'serif' %}{{ serif }}{% else %}{{ sans }}{% endif %};
+    font-size: {{ section.settings.sale_badge_size }}px;
+    font-weight: {{ section.settings.sale_badge_weight }};
+    line-height: 1.2;
+    letter-spacing: {{ section.settings.sale_badge_letter_spacing }}px;
+    text-transform: {{ section.settings.sale_badge_text_case }};
+    white-space: nowrap;
+    pointer-events: none;
+  }
+  .pi-pdp__sale[hidden] { display: none; }
+
+  /* Overlay placement on the media stage */
+  .pi-pdp__sale--overlay {
+    position: absolute;
+    z-index: 3;
+    {% case section.settings.sale_badge_position %}
+      {% when 'top_left' %}top: {{ section.settings.sale_badge_offset_y }}px; left: {{ section.settings.sale_badge_offset_x }}px;
+      {% when 'top_right' %}top: {{ section.settings.sale_badge_offset_y }}px; right: {{ section.settings.sale_badge_offset_x }}px;
+      {% when 'bottom_left' %}bottom: {{ section.settings.sale_badge_offset_y }}px; left: {{ section.settings.sale_badge_offset_x }}px;
+      {% else %}bottom: {{ section.settings.sale_badge_offset_y }}px; right: {{ section.settings.sale_badge_offset_x }}px;
+    {% endcase %}
+  }
+
+  /* Animations */
+  @keyframes pi-pdp-sale-pulse  { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.09); } }
+  @keyframes pi-pdp-sale-bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  @keyframes pi-pdp-sale-flash  { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+  @keyframes pi-pdp-sale-wiggle { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-4deg); } 75% { transform: rotate(4deg); } }
+  @keyframes pi-pdp-sale-pop    { 0% { transform: scale(0.6); opacity: 0; } 60% { transform: scale(1.12); opacity: 1; } 100% { transform: scale(1); } }
+  @keyframes pi-pdp-sale-fade   { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
+  @keyframes pi-pdp-sale-shine  { 0% { left: -140%; } 100% { left: 140%; } }
+
+  {%- assign sale_anim = section.settings.sale_badge_animation -%}
+  {%- assign sale_dur = section.settings.sale_badge_anim_duration -%}
+  {%- if sale_anim == 'pulse' or sale_anim == 'bounce' or sale_anim == 'flash' or sale_anim == 'wiggle' -%}
+  .pi-pdp__sale {
+    animation: pi-pdp-sale-{{ sale_anim }} {{ sale_dur }}s ease-in-out infinite;
+    transform-origin: center;
+  }
+  {%- elsif sale_anim == 'pop' or sale_anim == 'fade' -%}
+  .pi-pdp__sale {
+    animation: pi-pdp-sale-{{ sale_anim }} {{ sale_dur }}s ease-out 1 both;
+  }
+  {%- elsif sale_anim == 'shine' -%}
+  .pi-pdp__sale::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -140%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(100deg, transparent 0%, {{ section.settings.sale_badge_shine_color }} 50%, transparent 100%);
+    animation: pi-pdp-sale-shine {{ sale_dur }}s ease-in-out infinite;
+  }
+  {%- endif -%}
+
+  @media (prefers-reduced-motion: reduce) {
+    .pi-pdp__sale, .pi-pdp__sale::after { animation: none !important; }
+  }
+
   /* ── Info column ── */
   .pi-pdp__info {
     flex: 1 1 0;
@@ -220,6 +322,13 @@
     align-items: center;
     justify-content: space-between;
     width: 100%;
+  }
+  .pi-pdp__badge-group {
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: {{ section.settings.badge_padding_x }}px;
+    min-height: 1px;
   }
   .pi-pdp__badge {
     display: inline-flex;
@@ -657,6 +766,20 @@
               {{ v.metafields.custom.variant_description.value | escape | newline_to_br }}
             {%- endif -%}
           {%- endcapture -%}
+          {%- liquid
+            assign v_save_amount = v.compare_at_price | minus: v.price
+            assign v_save_percent = 0
+            if v.compare_at_price > 0
+              assign v_save_percent = v_save_amount | times: 100.0 | divided_by: v.compare_at_price | round
+            endif
+            assign v_save_money = v_save_amount | money
+            assign v_compare_money = v.compare_at_price | money
+            assign v_price_money = v.price | money
+            assign v_sale_label = section.settings.sale_badge_text | replace: '{percent}', v_save_percent | replace: '{amount}', v_save_money | replace: '{compare}', v_compare_money | replace: '{price}', v_price_money
+            unless v.compare_at_price > v.price
+              assign v_sale_label = section.settings.sale_badge_static_text
+            endunless
+          -%}
           {
             "id": {{ v.id }},
             "available": {{ v.available }},
@@ -665,7 +788,9 @@
             "compare_at": {{ v.compare_at_price | money | json }},
             "has_compare": {% if v.compare_at_price > v.price %}true{% else %}false{% endif %},
             "description": {{ v_description | strip | json }},
-            "media_id": {{ v.featured_media.id | default: 0 }}
+            "media_id": {{ v.featured_media.id | default: 0 }},
+            "sale_visible": {% if section.settings.show_sale_badge and section.settings.sale_badge_mode == 'always' %}true{% elsif section.settings.show_sale_badge and v.compare_at_price > v.price %}true{% else %}false{% endif %},
+            "sale_label": {{ v_sale_label | strip | json }}
           }{% unless forloop.last %},{% endunless %}
         {%- endfor -%}
         ]
@@ -700,6 +825,9 @@
           {%- endif -%}
 
           <div class="pi-pdp__stage">
+            {%- if section.settings.show_sale_badge and section.settings.sale_badge_placement == 'media' -%}
+              <span class="pi-pdp__sale pi-pdp__sale--overlay" data-pi-pdp-sale{% unless sale_visible %} hidden{% endunless %}>{{ sale_label }}</span>
+            {%- endif -%}
             {%- if p.featured_media -%}
               <img id="pi-pdp-stage-{{ section.id }}"
                    src="{{ p.featured_media.preview_image | image_url: width: 1400 }}"
@@ -715,15 +843,18 @@
         <div class="pi-pdp__info">
 
           <div class="pi-pdp__head">
-            {%- if section.settings.show_badge or section.settings.show_wishlist -%}
+            {%- if section.settings.show_badge or section.settings.show_wishlist or section.settings.sale_badge_placement == 'info' -%}
               <div class="pi-pdp__badge-row">
-                {%- if section.settings.show_badge -%}
-                  <span class="pi-pdp__badge" data-pi-pdp-availability>
-                    {%- if cur.available -%}{{ section.settings.in_stock_text }}{%- else -%}{{ section.settings.out_of_stock_text }}{%- endif -%}
-                  </span>
-                {%- else -%}
-                  <span></span>
-                {%- endif -%}
+                <span class="pi-pdp__badge-group">
+                  {%- if section.settings.show_badge -%}
+                    <span class="pi-pdp__badge" data-pi-pdp-availability>
+                      {%- if cur.available -%}{{ section.settings.in_stock_text }}{%- else -%}{{ section.settings.out_of_stock_text }}{%- endif -%}
+                    </span>
+                  {%- endif -%}
+                  {%- if section.settings.show_sale_badge and section.settings.sale_badge_placement == 'info' -%}
+                    <span class="pi-pdp__sale" data-pi-pdp-sale{% unless sale_visible %} hidden{% endunless %}>{{ sale_label }}</span>
+                  {%- endif -%}
+                </span>
                 {%- if section.settings.show_wishlist -%}
                   <button type="button" class="pi-pdp__wishlist" aria-label="{{ section.settings.wishlist_label }}" data-pi-wish="{{ product.handle }}">
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1198,6 +1329,7 @@
   var priceEl     = root.querySelector('[data-pi-pdp-price]');
   var compareEl   = root.querySelector('[data-pi-pdp-compare]');
   var availEl     = root.querySelector('[data-pi-pdp-availability]');
+  var saleEl      = root.querySelector('[data-pi-pdp-sale]');
   var atcBtn      = root.querySelector('[data-pi-pdp-atc]');
   var descEl      = root.querySelector('[data-pi-pdp-description]');
   var productDesc = {{ p.description | json }};
@@ -1249,6 +1381,10 @@
     if (compareEl) {
       if (variant.has_compare) { compareEl.textContent = variant.compare_at; compareEl.hidden = false; }
       else { compareEl.textContent = ''; compareEl.hidden = true; }
+    }
+    if (saleEl) {
+      saleEl.textContent = variant.sale_label || '';
+      saleEl.hidden = !variant.sale_visible || !variant.sale_label;
     }
     if (availEl) availEl.textContent = variant.available ? texts.inStock : texts.outOfStock;
     if (atcBtn) {
@@ -1410,6 +1546,70 @@
     { "type": "range", "id": "badge_radius", "label": "Badge radius", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 5 },
     { "type": "range", "id": "badge_padding_x", "label": "Badge horizontal padding", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 10 },
     { "type": "range", "id": "badge_padding_y", "label": "Badge vertical padding", "min": 0, "max": 20, "step": 1, "unit": "px", "default": 5 },
+
+    { "type": "header", "content": "Sale / discount badge" },
+    { "type": "paragraph", "content": "Text supports {percent}, {amount}, {compare} and {price} placeholders — e.g. \"Save {percent}%\" or \"You save {amount}\"." },
+    { "type": "checkbox", "id": "show_sale_badge", "label": "Show sale badge", "default": true },
+    { "type": "select", "id": "sale_badge_placement", "label": "Placement",
+      "options": [
+        { "value": "media", "label": "On the product image" },
+        { "value": "info", "label": "Next to the stock badge" }
+      ], "default": "media" },
+    { "type": "select", "id": "sale_badge_mode", "label": "When to show",
+      "options": [
+        { "value": "discount", "label": "Only when the product is discounted" },
+        { "value": "always", "label": "Always (uses the fallback text off sale)" }
+      ], "default": "discount" },
+    { "type": "text", "id": "sale_badge_text", "label": "Sale text", "default": "Save {percent}%" },
+    { "type": "text", "id": "sale_badge_static_text", "label": "Fallback text (not on sale)", "default": "New", "info": "Only used when \"When to show\" is set to Always." },
+    { "type": "select", "id": "sale_badge_position", "label": "Position on image",
+      "options": [
+        { "value": "top_left", "label": "Top left" },
+        { "value": "top_right", "label": "Top right" },
+        { "value": "bottom_left", "label": "Bottom left" },
+        { "value": "bottom_right", "label": "Bottom right" }
+      ], "default": "top_left" },
+    { "type": "range", "id": "sale_badge_offset_x", "label": "Horizontal offset", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 16 },
+    { "type": "range", "id": "sale_badge_offset_y", "label": "Vertical offset", "min": 0, "max": 60, "step": 1, "unit": "px", "default": 16 },
+    { "type": "color", "id": "sale_badge_bg", "label": "Background", "default": "#B49146" },
+    { "type": "color", "id": "sale_badge_text_color", "label": "Text color", "default": "#FFFFFF" },
+    { "type": "select", "id": "sale_badge_font", "label": "Font",
+      "options": [
+        { "value": "sans", "label": "Sans (Proxima Nova)" },
+        { "value": "serif", "label": "Serif (Playfair Display)" }
+      ], "default": "sans" },
+    { "type": "range", "id": "sale_badge_size", "label": "Font size", "min": 10, "max": 32, "step": 1, "unit": "px", "default": 14 },
+    { "type": "select", "id": "sale_badge_weight", "label": "Font weight",
+      "options": [
+        { "value": "400", "label": "Regular" },
+        { "value": "500", "label": "Medium" },
+        { "value": "600", "label": "Semibold" },
+        { "value": "700", "label": "Bold" }
+      ], "default": "600" },
+    { "type": "select", "id": "sale_badge_text_case", "label": "Text case",
+      "options": [
+        { "value": "none", "label": "As typed" },
+        { "value": "uppercase", "label": "UPPERCASE" },
+        { "value": "lowercase", "label": "lowercase" },
+        { "value": "capitalize", "label": "Capitalize" }
+      ], "default": "uppercase" },
+    { "type": "range", "id": "sale_badge_letter_spacing", "label": "Letter spacing", "min": 0, "max": 4, "step": 0.1, "unit": "px", "default": 0.5 },
+    { "type": "range", "id": "sale_badge_radius", "label": "Corner radius", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 5 },
+    { "type": "range", "id": "sale_badge_padding_x", "label": "Horizontal padding", "min": 0, "max": 40, "step": 1, "unit": "px", "default": 12 },
+    { "type": "range", "id": "sale_badge_padding_y", "label": "Vertical padding", "min": 0, "max": 30, "step": 1, "unit": "px", "default": 6 },
+    { "type": "select", "id": "sale_badge_animation", "label": "Animation",
+      "options": [
+        { "value": "none", "label": "None" },
+        { "value": "pulse", "label": "Pulse (loops)" },
+        { "value": "bounce", "label": "Bounce (loops)" },
+        { "value": "flash", "label": "Flash (loops)" },
+        { "value": "wiggle", "label": "Wiggle (loops)" },
+        { "value": "shine", "label": "Shine sweep (loops)" },
+        { "value": "pop", "label": "Pop in (once)" },
+        { "value": "fade", "label": "Fade in (once)" }
+      ], "default": "none" },
+    { "type": "range", "id": "sale_badge_anim_duration", "label": "Animation duration", "min": 0.3, "max": 5, "step": 0.1, "unit": "s", "default": 1.6 },
+    { "type": "color", "id": "sale_badge_shine_color", "label": "Shine color", "default": "#FFFFFF66", "info": "Only used by the Shine sweep animation." },
     { "type": "range", "id": "wishlist_size", "label": "Wishlist icon size", "min": 16, "max": 48, "step": 1, "unit": "px", "default": 22 },
     { "type": "color", "id": "wishlist_color", "label": "Wishlist icon color", "default": "#000000" },
 
