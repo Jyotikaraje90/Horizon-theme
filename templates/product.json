@@ -38,7 +38,7 @@
         "acc_shipping"
       ],
       "settings": {
-        "product": "gold-opal-hoop",
+        "product": "",
         "show_thumbnails": true,
         "show_badge": true,
         "show_wishlist": true,
@@ -355,7 +355,7 @@
         "subheading_size": 16,
         "subheading_color": "#555555",
         "subheading_gap": 8,
-        "card_bg": "#E6E6E6",
+        "card_bg": "#e6e6e6",
         "card_radius": 20,
         "multiply_blend": true,
         "card_title_size": 20,
@@ -364,7 +364,7 @@
         "card_price_color": "#000000",
         "card_btn_size": 16,
         "card_btn_color": "#000000",
-        "card_btn_hover_color": "#B49146",
+        "card_btn_hover_color": "#b49146",
         "arrow_color": "#000000",
         "bg_color": "#ffffff",
         "content_width": 1580,
