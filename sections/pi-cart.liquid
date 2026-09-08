@@ -188,6 +188,90 @@
     margin: 0;
   }
 
+  /* ── Cart cross-sell ─────────────────────────────── */
+  .pi-cart__cross-sell {
+    padding: 38px 0;
+    border-bottom: 1px solid {{ section.settings.divider_color }};
+  }
+
+  .pi-cart__cross-sell-heading {
+    margin: 0 0 20px;
+    color: {{ section.settings.text_color }};
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 32px;
+    line-height: 1.15;
+    font-weight: 600;
+  }
+
+  .pi-cart__cross-sell-grid {
+    display: grid;
+    grid-template-columns: repeat({{ section.settings.cross_sell_products_to_show }}, minmax(0, 1fr));
+    gap: 20px;
+  }
+
+  .pi-cart__cross-sell-card {
+    min-width: 0;
+  }
+
+  .pi-cart__cross-sell-image {
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: {{ section.settings.thumb_bg }};
+  }
+
+  .pi-cart__cross-sell-image img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pi-cart__cross-sell-title {
+    display: block;
+    margin: 14px 0 6px;
+    color: {{ section.settings.text_color }};
+    font-size: 17px;
+    font-weight: 600;
+    line-height: 1.3;
+    text-decoration: none;
+  }
+
+  .pi-cart__cross-sell-title:hover { color: {{ section.settings.accent_color }}; }
+
+  .pi-cart__cross-sell-price {
+    margin: 0 0 12px;
+    color: {{ section.settings.text_color }};
+    font-size: 16px;
+  }
+
+  .pi-cart__cross-sell-add {
+    min-height: 42px;
+    padding: 10px 14px;
+    border: 1px solid {{ section.settings.text_color }};
+    border-radius: {{ section.settings.btn_radius }}px;
+    background: transparent;
+    color: {{ section.settings.text_color }};
+    cursor: pointer;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+
+  .pi-cart__cross-sell-add:hover:not(:disabled) {
+    border-color: {{ section.settings.btn_hover_bg }};
+    background: {{ section.settings.btn_hover_bg }};
+    color: {{ section.settings.btn_hover_text }};
+  }
+
+  .pi-cart__cross-sell-add:disabled {
+    cursor: not-allowed;
+    opacity: 0.55;
+  }
+
   /* ── Totals ──────────────────────────────────────── */
   /* Aligned to the right-hand pair of columns so SUBTOTAL sits above the
      quantity column and the amount lines up with the line totals. */
@@ -355,6 +439,10 @@
     }
 
     .pi-cart__checkout { padding: 0 24px; }
+
+    .pi-cart__cross-sell { padding: 28px 0; }
+    .pi-cart__cross-sell-heading { font-size: 26px; }
+    .pi-cart__cross-sell-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
   }
 </style>
 
@@ -452,6 +540,56 @@
         </div>
       {%- endfor -%}
 
+      {%- if section.settings.cross_sell_collection != blank -%}
+        {%- assign cross_sell_count = 0 -%}
+        {%- capture cross_sell_cards -%}
+          {%- for recommended_product in section.settings.cross_sell_collection.products -%}
+            {%- liquid
+              assign product_already_in_cart = false
+              for cart_item in cart.items
+                if cart_item.product_id == recommended_product.id
+                  assign product_already_in_cart = true
+                  break
+                endif
+              endfor
+              assign recommended_variant = recommended_product.selected_or_first_available_variant
+            -%}
+
+            {%- unless product_already_in_cart -%}
+              <article class="pi-cart__cross-sell-card">
+                <a class="pi-cart__cross-sell-image" href="{{ recommended_product.url }}" aria-label="{{ recommended_product.title | escape }}">
+                  {%- if recommended_product.featured_image -%}
+                    {{ recommended_product.featured_image | image_url: width: 600 | image_tag: loading: 'lazy', widths: '240, 360, 600', alt: recommended_product.featured_image.alt }}
+                  {%- endif -%}
+                </a>
+                <a class="pi-cart__cross-sell-title" href="{{ recommended_product.url }}">{{ recommended_product.title }}</a>
+                <p class="pi-cart__cross-sell-price">{{ recommended_product.price | money }}</p>
+                <button
+                  type="button"
+                  class="pi-cart__cross-sell-add"
+                  data-pi-cart-cross-sell-add
+                  data-variant-id="{{ recommended_variant.id }}"
+                  {% unless recommended_variant.available %}disabled{% endunless %}
+                >
+                  {% if recommended_variant.available %}Add to cart{% else %}Sold out{% endif %}
+                </button>
+              </article>
+              {%- assign cross_sell_count = cross_sell_count | plus: 1 -%}
+              {%- if cross_sell_count >= section.settings.cross_sell_products_to_show -%}{% break %}{%- endif -%}
+            {%- endunless -%}
+          {%- endfor -%}
+        {%- endcapture -%}
+
+        {%- if cross_sell_count > 0 -%}
+          <aside class="pi-cart__cross-sell" aria-labelledby="pi-cart-cross-sell-{{ section.id }}">
+            <h2 id="pi-cart-cross-sell-{{ section.id }}" class="pi-cart__cross-sell-heading">
+              {{ section.settings.cross_sell_heading | default: 'Complete your order' }}
+            </h2>
+            <div class="pi-cart__cross-sell-grid">{{ cross_sell_cards }}</div>
+          </aside>
+        {%- endif -%}
+      {%- endif -%}
+
       <div class="pi-cart__foot">
         <div class="pi-cart__subtotal">
           <p class="pi-cart__subtotal-label">{{ section.settings.subtotal_label | default: 'Subtotal' }}</p>
@@ -505,6 +643,29 @@
     root.querySelectorAll('[data-pi-cart-qty]').forEach(function (input) {
       input.addEventListener('change', function () {
         form.submit();
+      });
+    });
+
+    root.querySelectorAll('[data-pi-cart-cross-sell-add]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        if (button.disabled) return;
+
+        button.disabled = true;
+        button.textContent = 'Adding…';
+
+        fetch('{{ routes.cart_add_url }}.js', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+          body: JSON.stringify({ items: [{ id: Number(button.dataset.variantId), quantity: 1 }] })
+        })
+          .then(function (response) {
+            if (!response.ok) throw new Error('Unable to add item to cart');
+            window.location.assign('{{ routes.cart_url }}');
+          })
+          .catch(function () {
+            button.disabled = false;
+            button.textContent = 'Try again';
+          });
       });
     });
   })();
@@ -564,6 +725,30 @@
       "id": "empty_text",
       "label": "Empty cart message",
       "default": "Your cart is currently empty."
+    },
+    {
+      "type": "header",
+      "content": "Cart cross-sell"
+    },
+    {
+      "type": "collection",
+      "id": "cross_sell_collection",
+      "label": "Cart add-ons collection"
+    },
+    {
+      "type": "text",
+      "id": "cross_sell_heading",
+      "label": "Heading",
+      "default": "Complete your order"
+    },
+    {
+      "type": "range",
+      "id": "cross_sell_products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
     },
     {
       "type": "header",
