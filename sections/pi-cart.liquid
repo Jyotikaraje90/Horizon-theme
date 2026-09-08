@@ -547,7 +547,7 @@
             {%- liquid
               assign product_already_in_cart = false
               for cart_item in cart.items
-                if cart_item.product_id == recommended_product.id
+                if cart_item.product.id == recommended_product.id
                   assign product_already_in_cart = true
                   break
                 endif
