@@ -493,6 +493,30 @@
   }
   .pi-pdp__pill.is-unavailable { opacity: 0.45; text-decoration: line-through; }
 
+  /* ── Quantity upsell nudge ── */
+  .pi-pdp__qty-upsell {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-family: {{ sans }};
+    font-size: {{ section.settings.qty_upsell_text_size }}px;
+    color: {{ section.settings.qty_upsell_text_color }};
+    margin: 0 0 10px;
+  }
+  .pi-pdp__qty-upsell-cta {
+    background: none;
+    border: none;
+    padding: 0;
+    font-family: {{ sans }};
+    font-size: {{ section.settings.qty_upsell_text_size }}px;
+    font-weight: 600;
+    color: {{ section.settings.qty_upsell_cta_color }};
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .pi-pdp__qty-upsell-cta:hover { opacity: 0.75; }
+
   /* ── Quantity + Add to cart ── */
   .pi-pdp__buy {
     display: flex;
@@ -1099,6 +1123,17 @@
           {%- comment -%} ── Buy ── {%- endcomment -%}
           <form action="{{ routes.cart_add_url }}" method="post" enctype="multipart/form-data" class="pi-pdp__form" data-pi-pdp-form>
             <input type="hidden" name="id" value="{{ cur.id }}" data-pi-pdp-variant-id>
+            {%- if section.settings.show_qty_upsell and section.settings.show_quantity -%}
+              {%- liquid
+                assign qty_upsell_amount = section.settings.qty_upsell_amount
+                assign qty_upsell_text = section.settings.qty_upsell_text | replace: '{qty}', qty_upsell_amount
+                assign qty_upsell_cta = section.settings.qty_upsell_cta | replace: '{qty}', qty_upsell_amount
+              -%}
+              <p class="pi-pdp__qty-upsell">
+                <span>{{ qty_upsell_text }}</span>
+                <button type="button" class="pi-pdp__qty-upsell-cta" data-qty-upsell-set="{{ qty_upsell_amount }}">{{ qty_upsell_cta }}</button>
+              </p>
+            {%- endif -%}
             <div class="pi-pdp__buy">
               {%- if section.settings.show_quantity -%}
                 <div class="pi-pdp__qty">
@@ -1284,6 +1319,10 @@
   });
   if (plus && qtyInput) plus.addEventListener('click', function () {
     qtyInput.value = (parseInt(qtyInput.value, 10) || 1) + 1;
+  });
+  var qtyUpsellBtn = root.querySelector('[data-qty-upsell-set]');
+  if (qtyUpsellBtn && qtyInput) qtyUpsellBtn.addEventListener('click', function () {
+    qtyInput.value = qtyUpsellBtn.getAttribute('data-qty-upsell-set');
   });
 
   /* ── Accordions ── */
@@ -1716,6 +1755,15 @@
       "type": "select", "id": "btn_text_case", "label": "Button text case", "default": "uppercase",
       "options": [ { "value": "none", "label": "As typed" }, { "value": "uppercase", "label": "UPPERCASE" }, { "value": "capitalize", "label": "Capitalize" } ]
     },
+
+    { "type": "header", "content": "Quantity Upsell" },
+    { "type": "checkbox", "id": "show_qty_upsell", "label": "Show quantity upsell nudge", "default": false },
+    { "type": "range", "id": "qty_upsell_amount", "label": "Recommended quantity", "min": 2, "max": 10, "step": 1, "default": 2 },
+    { "type": "text", "id": "qty_upsell_text", "label": "Nudge text", "info": "Use {qty} to insert the recommended quantity.", "default": "Most customers choose {qty}" },
+    { "type": "text", "id": "qty_upsell_cta", "label": "Quick-select button label", "info": "Use {qty} to insert the recommended quantity.", "default": "Make it {qty}" },
+    { "type": "range", "id": "qty_upsell_text_size", "label": "Nudge text size", "min": 10, "max": 22, "step": 1, "unit": "px", "default": 14 },
+    { "type": "color", "id": "qty_upsell_text_color", "label": "Nudge text color", "default": "#555555" },
+    { "type": "color", "id": "qty_upsell_cta_color", "label": "Quick-select button color", "default": "#B49146" },
 
     { "type": "header", "content": "Accordions" },
     { "type": "range", "id": "acc_heading_size", "label": "Accordion heading size", "min": 12, "max": 30, "step": 1, "unit": "px", "default": 18 },
