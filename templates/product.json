@@ -271,7 +271,7 @@
     "pi_complementary": {
       "type": "pi-complementary-products",
       "settings": {
-        "product": "",
+        "product": "aftercare-spray",
         "max_products": 6,
         "per_view": 4,
         "heading": "Pairs Well With",
