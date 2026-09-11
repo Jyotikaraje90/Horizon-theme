@@ -129,3 +129,45 @@ class CartDrawerComponent extends DialogComponent {
 if (!customElements.get('cart-drawer-component')) {
   customElements.define('cart-drawer-component', CartDrawerComponent);
 }
+document.addEventListener("click", function(e){
+
+if(!e.target.matches("#upgrade14k")) return;
+
+
+let standardVariant = "STANDARD_VARIANT_ID";
+let solid14kVariant = "SOLID_14K_VARIANT_ID";
+
+
+fetch('/cart/change.js',{
+method:'POST',
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+id:standardVariant,
+quantity:0
+})
+})
+.then(()=>{
+
+return fetch('/cart/add.js',{
+method:'POST',
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+items:[
+{
+id:solid14kVariant,
+quantity:1
+}
+]
+})
+})
+
+})
+.then(()=>{
+window.location.reload();
+});
+
+});
