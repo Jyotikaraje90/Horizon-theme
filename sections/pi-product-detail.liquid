@@ -493,29 +493,47 @@
   }
   .pi-pdp__pill.is-unavailable { opacity: 0.45; text-decoration: line-through; }
 
-  /* ── Quantity upsell nudge ── */
+  /* ── Quantity upsell nudge ──
+     Reads as part of the buy row rather than a stray link: a gold dot to mark
+     it as an aside, and the action wearing the theme's button vocabulary —
+     uppercase, letter-spaced, same corner radius as Add to cart. */
   .pi-pdp__qty-upsell {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 10px;
     font-family: {{ sans }};
     font-size: {{ section.settings.qty_upsell_text_size }}px;
+    line-height: 1.4;
     color: {{ section.settings.qty_upsell_text_color }};
-    margin: 0 0 10px;
+    margin: 0 0 14px;
+  }
+  .pi-pdp__qty-upsell::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: {{ section.settings.qty_upsell_cta_color }};
   }
   .pi-pdp__qty-upsell-cta {
     background: none;
-    border: none;
-    padding: 0;
+    border: 1px solid {{ section.settings.qty_upsell_cta_color }};
+    border-radius: var(--pi-pdp-btn-radius);
+    padding: 6px 12px;
     font-family: {{ sans }};
-    font-size: {{ section.settings.qty_upsell_text_size }}px;
+    font-size: {{ section.settings.qty_upsell_text_size | minus: 2 }}px;
     font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
     color: {{ section.settings.qty_upsell_cta_color }};
-    text-decoration: underline;
     cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
   }
-  .pi-pdp__qty-upsell-cta:hover { opacity: 0.75; }
+  .pi-pdp__qty-upsell-cta:hover {
+    background: {{ section.settings.qty_upsell_cta_color }};
+    color: #ffffff;
+  }
 
   /* ── Quantity + Add to cart ── */
   .pi-pdp__buy {
