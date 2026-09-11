@@ -657,16 +657,46 @@
   .pi-pdp__acc.is-open .pi-pdp__acc-panel-inner { opacity: 1; }
   .pi-pdp__acc-panel-content { padding: 0 0 var(--pi-pdp-acc-row-padding); }
 
-  /* ── Accordion: product details grid ── */
-  .pi-pdp__acc-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; border-top: 1px solid var(--pi-pdp-line); }
-  .pi-pdp__acc-details-item { display: grid; grid-template-columns: minmax(110px, 40%) 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--pi-pdp-line); }
-  .pi-pdp__acc-details-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pi-pdp-acc-text-color); opacity: 0.65; }
-  .pi-pdp__acc-details-value { font-size: var(--pi-pdp-acc-text-size); line-height: {{ section.settings.acc_text_line_height }}; color: var(--pi-pdp-acc-text-color); }
-  .pi-pdp__acc-details-value p:first-child { margin-top: 0; }
-  .pi-pdp__acc-details-value p:last-child { margin-bottom: 0; }
-  .pi-pdp__acc-details-care { grid-column: 1 / -1; }
+  /* ── Accordion: product details ──
+     One column, not two: inside the info column a split grid leaves the long
+     fields (care, package contents) wrapping every three words. Short specs sit
+     label-left / value-right; long ones stack so the copy gets the full width. */
+  .pi-pdp__acc-details { display: flex; flex-direction: column; }
+  .pi-pdp__acc-details-item {
+    display: grid;
+    grid-template-columns: 160px minmax(0, 1fr);
+    gap: 4px 24px;
+    padding: 11px 0;
+  }
+  .pi-pdp__acc-details-item + .pi-pdp__acc-details-item { border-top: 1px solid var(--pi-pdp-line); }
+  .pi-pdp__acc-details-item--stacked { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+  .pi-pdp__acc-details-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: var(--pi-pdp-acc-text-color);
+    opacity: 0.55;
+    overflow-wrap: anywhere;
+    padding-top: 3px;
+  }
+  .pi-pdp__acc-details-value {
+    min-width: 0;
+    font-size: var(--pi-pdp-acc-text-size);
+    line-height: {{ section.settings.acc_text_line_height }};
+    color: var(--pi-pdp-acc-text-color);
+  }
+  .pi-pdp__acc-details-value p:first-child,
+  .pi-pdp__acc-details-value ul:first-child,
+  .pi-pdp__acc-details-value ol:first-child { margin-top: 0; }
+  .pi-pdp__acc-details-value p:last-child,
+  .pi-pdp__acc-details-value ul:last-child,
+  .pi-pdp__acc-details-value ol:last-child { margin-bottom: 0; }
+  .pi-pdp__acc-details-value ul,
+  .pi-pdp__acc-details-value ol { padding-left: 1.2em; }
   @media screen and (max-width: 749px) {
-    .pi-pdp__acc-details { grid-template-columns: 1fr; }
+    .pi-pdp__acc-details-item { grid-template-columns: minmax(0, 1fr); gap: 4px; }
   }
   @media (prefers-reduced-motion: reduce) {
     .pi-pdp__acc-panel,
@@ -1216,6 +1246,7 @@
                 {%- liquid
                   assign pd_keys = 'metal_type,gemstone,piercing_type,material,certification_hallmark,after_care_instructions,package_contents,care_guide' | split: ','
                   assign pd_labels = 'Metal Type,Gemstone,Piercing Type,Material,Certification/Hallmark,After Care Instructions,Package Contents,Care Guide' | split: ','
+                  assign pd_stacked = 'after_care_instructions,package_contents,care_guide' | split: ','
                   assign pd_count = 0
                   for key in pd_keys
                     if p.metafields.custom[key] != blank
@@ -1237,7 +1268,7 @@
                               {%- assign pd_field = p.metafields.custom[key] -%}
                               {%- assign pd_label = pd_labels[forloop.index0] -%}
                               {%- if pd_field != blank -%}
-                                <div class="pi-pdp__acc-details-item{% if key == 'care_guide' %} pi-pdp__acc-details-care{% endif %}">
+                                <div class="pi-pdp__acc-details-item{% if pd_stacked contains key %} pi-pdp__acc-details-item--stacked{% endif %}">
                                   <div class="pi-pdp__acc-details-label">{{ pd_label }}</div>
                                   <div class="pi-pdp__acc-details-value">{% if key == 'care_guide' %}{{ pd_field | metafield_tag }}{% else %}{{ pd_field.value | escape | newline_to_br }}{% endif %}</div>
                                 </div>
