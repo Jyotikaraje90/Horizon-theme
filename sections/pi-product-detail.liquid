@@ -656,6 +656,18 @@
   }
   .pi-pdp__acc.is-open .pi-pdp__acc-panel-inner { opacity: 1; }
   .pi-pdp__acc-panel-content { padding: 0 0 var(--pi-pdp-acc-row-padding); }
+
+  /* ── Accordion: product details grid ── */
+  .pi-pdp__acc-details { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 32px; border-top: 1px solid var(--pi-pdp-line); }
+  .pi-pdp__acc-details-item { display: grid; grid-template-columns: minmax(110px, 40%) 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--pi-pdp-line); }
+  .pi-pdp__acc-details-label { font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--pi-pdp-acc-text-color); opacity: 0.65; }
+  .pi-pdp__acc-details-value { font-size: var(--pi-pdp-acc-text-size); line-height: {{ section.settings.acc_text_line_height }}; color: var(--pi-pdp-acc-text-color); }
+  .pi-pdp__acc-details-value p:first-child { margin-top: 0; }
+  .pi-pdp__acc-details-value p:last-child { margin-bottom: 0; }
+  .pi-pdp__acc-details-care { grid-column: 1 / -1; }
+  @media screen and (max-width: 749px) {
+    .pi-pdp__acc-details { grid-template-columns: 1fr; }
+  }
   @media (prefers-reduced-motion: reduce) {
     .pi-pdp__acc-panel,
     .pi-pdp__acc-panel-inner,
@@ -1194,6 +1206,45 @@
                     <div class="pi-pdp__acc-panel">
                       <div class="pi-pdp__acc-panel-inner">
                         <div class="pi-pdp__acc-panel-content">{{ panel_content }}</div>
+                      </div>
+                    </div>
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+
+              {%- if block.type == 'product_details' -%}
+                {%- liquid
+                  assign pd_keys = 'metal_type,gemstone,piercing_type,material,certification_hallmark,after_care_instructions,package_contents,care_guide' | split: ','
+                  assign pd_labels = 'Metal Type,Gemstone,Piercing Type,Material,Certification/Hallmark,After Care Instructions,Package Contents,Care Guide' | split: ','
+                  assign pd_count = 0
+                  for key in pd_keys
+                    if p.metafields.custom[key] != blank
+                      assign pd_count = pd_count | plus: 1
+                    endif
+                  endfor
+                -%}
+                {%- if pd_count > 0 -%}
+                  <div class="pi-pdp__acc{% if block.settings.open_by_default %} is-open{% endif %}" {{ block.shopify_attributes }}>
+                    <button type="button" class="pi-pdp__acc-trigger" aria-expanded="{{ block.settings.open_by_default }}">
+                      {{ block.settings.heading }}
+                      <span class="pi-pdp__acc-icon" aria-hidden="true"></span>
+                    </button>
+                    <div class="pi-pdp__acc-panel">
+                      <div class="pi-pdp__acc-panel-inner">
+                        <div class="pi-pdp__acc-panel-content">
+                          <div class="pi-pdp__acc-details">
+                            {%- for key in pd_keys -%}
+                              {%- assign pd_field = p.metafields.custom[key] -%}
+                              {%- assign pd_label = pd_labels[forloop.index0] -%}
+                              {%- if pd_field != blank -%}
+                                <div class="pi-pdp__acc-details-item{% if key == 'care_guide' %} pi-pdp__acc-details-care{% endif %}">
+                                  <div class="pi-pdp__acc-details-label">{{ pd_label }}</div>
+                                  <div class="pi-pdp__acc-details-value">{% if key == 'care_guide' %}{{ pd_field | metafield_tag }}{% else %}{{ pd_field.value | escape | newline_to_br }}{% endif %}</div>
+                                </div>
+                              {%- endif -%}
+                            {%- endfor -%}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1822,12 +1873,23 @@
         { "type": "text", "id": "metafield_namespace", "label": "Metafield namespace", "info": "e.g. custom. Fill both namespace and key to pull this row's content from each product instead of the text above." },
         { "type": "text", "id": "metafield_key", "label": "Metafield key", "info": "e.g. measurements" }
       ]
+    },
+    {
+      "type": "product_details",
+      "name": "Product details row",
+      "limit": 1,
+      "settings": [
+        { "type": "paragraph", "content": "Shows the product's custom metafields — metal type, gemstone, piercing type, material, certification/hallmark, after care instructions, package contents and care guide. Empty fields are skipped." },
+        { "type": "text", "id": "heading", "label": "Heading", "default": "Details" },
+        { "type": "checkbox", "id": "open_by_default", "label": "Open by default", "default": false }
+      ]
     }
   ],
   "presets": [
     {
       "name": "PI Product Detail",
       "blocks": [
+        { "type": "product_details", "settings": { "heading": "Details" } },
         { "type": "accordion", "settings": { "heading": "Measurements" } },
         { "type": "accordion", "settings": { "heading": "Shipping & Returns" } }
       ]
