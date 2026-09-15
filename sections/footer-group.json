@@ -11,6 +11,40 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "pi_newsletter_popup_FLnBtJ": {
+      "type": "pi-newsletter-popup",
+      "name": "PI Newsletter Popup",
+      "settings": {
+        "enable": true,
+        "heading": "Sign up and save",
+        "subheading": "Get 10% off your first order.",
+        "placeholder": "Email address",
+        "button": "Get my code",
+        "consent_text": "By signing up you agree to receive marketing emails. Unsubscribe any time.",
+        "error_text": "That email didn't work — check it and try again.",
+        "tag": "newsletter",
+        "reward_mode": "email",
+        "reward_code": "WELCOME10",
+        "success_heading": "You're in",
+        "success_text": "Use this code at checkout:",
+        "success_email_text": "Your code is on its way to your inbox.",
+        "success_button": "Start shopping",
+        "delay": 8,
+        "frequency_days": 14,
+        "width": 440,
+        "radius": 5,
+        "heading_size": 30,
+        "text_size": 15,
+        "bg_color": "#ffffff",
+        "text_color": "#000000",
+        "muted_color": "#555555",
+        "border_color": "#cccccc",
+        "accent_color": "#b49146",
+        "btn_bg": "#000000",
+        "btn_text": "#ffffff",
+        "btn_hover_bg": "#b49146"
+      }
+    },
     "pi_nf_Hk5wJm": {
       "type": "pi-newsletter-footer",
       "blocks": {
@@ -171,6 +205,7 @@
     }
   },
   "order": [
+    "pi_newsletter_popup_FLnBtJ",
     "pi_nf_Hk5wJm"
   ]
 }
