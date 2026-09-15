@@ -30,7 +30,7 @@
         "success_email_text": "Your code is on its way to your inbox.",
         "success_button": "Start shopping",
         "delay": 8,
-        "frequency_days": 14,
+        "frequency_days": 0,
         "width": 440,
         "radius": 5,
         "heading_size": 30,
