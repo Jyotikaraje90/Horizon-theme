@@ -37,6 +37,21 @@
     }
   }
 
+  /* Horizon's own cart components — and cart-drawer apps that hook them —
+     listen for `cart:update` (ThemeEvents.cartUpdate in events.js), never our
+     pi:cart:added. Without this an add made here is invisible to them: the
+     drawer never opens and the app never refreshes. Shape mirrors
+     CartUpdateEvent, which sets `detail` on a plain bubbling Event. */
+  function announceCartUpdate(cart) {
+    var ev = new Event('cart:update', { bubbles: true });
+    ev.detail = {
+      resource: cart,
+      sourceId: 'pi-add-to-cart',
+      data: { source: 'pi-add-to-cart', itemCount: cart.item_count }
+    };
+    document.dispatchEvent(ev);
+  }
+
   var api = {
     /* Resolves on a successful add, rejects otherwise, so callers can restore
        their own button state on failure. */
@@ -54,7 +69,10 @@
         return fetch('/cart.js', { headers: { 'Accept': 'application/json' } })
           .then(function (r) { return r.ok ? r.json() : null; })
           .then(function (cart) {
-            if (cart && typeof cart.item_count === 'number') bubbleRefresh(cart.item_count);
+            if (cart && typeof cart.item_count === 'number') {
+              bubbleRefresh(cart.item_count);
+              announceCartUpdate(cart);
+            }
             document.dispatchEvent(new CustomEvent('pi:cart:added', {
               detail: { line: line, cart: cart }
             }));

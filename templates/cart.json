@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "pi_ph_cart": {
@@ -10,6 +19,7 @@
         "heading_color": "#ffffff",
         "text_alignment": "center",
         "bg_fallback_color": "#000000",
+        "deco_scale": 1,
         "deco_opacity": 100,
         "margin_top": 0,
         "margin_bottom": 0
@@ -26,6 +36,16 @@
         "continue_link": "/pages/shop-jewelry",
         "checkout_label": "Checkout",
         "empty_text": "Your cart is currently empty.",
+        "addon_product": "gift-wrapping",
+        "addon_label": "Gift wrapping",
+        "addon_note": "Hand-wrapped in a velvet pouch with a handwritten card.",
+        "show_upgrade": true,
+        "upgrade_eyebrow": "Upgrade available",
+        "upgrade_note": "Replaces the item in your cart.",
+        "upgrade_cta": "Upgrade for +{price}",
+        "cross_sell_collection": "cart-add-ons",
+        "cross_sell_heading": "Complete your order",
+        "cross_sell_products_to_show": 3,
         "padding_top": 80,
         "padding_bottom": 80,
         "mobile_padding_top": 40,
@@ -37,6 +57,7 @@
         "muted_color": "#333333",
         "divider_color": "#e0e0e0",
         "thumb_bg": "#d9d9d9",
+        "remove_color": "#bcbcbc",
         "accent_color": "#b49146",
         "btn_bg": "#000000",
         "btn_text": "#ffffff",
