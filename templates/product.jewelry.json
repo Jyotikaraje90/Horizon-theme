@@ -15,7 +15,7 @@
         "acc_details": {
           "type": "product_details",
           "settings": {
-            "heading": "",
+            "heading": "Details",
             "open_by_default": true
           }
         },
