@@ -15,8 +15,8 @@
         "acc_details": {
           "type": "product_details",
           "settings": {
-            "heading": "{{ section.settings.product.metafields.shopify[\"care-instructions\"] | metafield_text: field: 'label' }}",
-            "open_by_default": false
+            "heading": "",
+            "open_by_default": true
           }
         },
         "acc_measurements": {
