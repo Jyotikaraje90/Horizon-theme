@@ -1,0 +1,404 @@
+{%- comment -%}
+  PI Newsletter popup — signup capture with a reward.
+
+  Shopify's native customer form does the capture, so there is no app and no
+  API key. What the theme cannot do is email anyone, so the reward is handled
+  one of two ways, chosen in the settings:
+
+  - "inline"  shows a code on screen the moment the form posts. One code for
+              everyone — fine for a launch offer, wrong for per-subscriber codes.
+  - "email"   says to check the inbox, and something outside the theme (an
+              email platform, or your own endpoint on the customers/create
+              webhook) mints a unique code and sends it.
+
+  Shopify reloads the page on a successful post, so the success state is
+  server-rendered and the popup re-opens itself to show it.
+{%- endcomment -%}
+
+{%- liquid
+  assign sans = settings.type_body_font.family | default: 'Inter, sans-serif'
+-%}
+
+{%- if section.settings.enable -%}
+  <div
+    class="pi-nlp"
+    id="pi-nlp-{{ section.id }}"
+    data-pi-nlp
+    data-delay="{{ section.settings.delay }}"
+    data-frequency="{{ section.settings.frequency_days }}"
+    hidden
+  >
+    <div class="pi-nlp__backdrop" data-pi-nlp-close></div>
+
+    <div
+      class="pi-nlp__dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="pi-nlp-heading-{{ section.id }}"
+    >
+      <button type="button" class="pi-nlp__close" data-pi-nlp-close aria-label="Close">
+        <svg viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M4 4L16 16M16 4L4 16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+
+      {%- form 'customer', id: 'pi-nlp-form', class: 'pi-nlp__form' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="pi-nlp__body" data-pi-nlp-success>
+            <h2 id="pi-nlp-heading-{{ section.id }}" class="pi-nlp__heading">
+              {{ section.settings.success_heading }}
+            </h2>
+
+            {%- if section.settings.reward_mode == 'inline' and section.settings.reward_code != blank -%}
+              <p class="pi-nlp__sub">{{ section.settings.success_text }}</p>
+              <p class="pi-nlp__code">{{ section.settings.reward_code }}</p>
+            {%- else -%}
+              <p class="pi-nlp__sub">{{ section.settings.success_email_text }}</p>
+            {%- endif -%}
+
+            <button type="button" class="pi-nlp__submit" data-pi-nlp-close>
+              {{ section.settings.success_button }}
+            </button>
+          </div>
+        {%- else -%}
+          <div class="pi-nlp__body">
+            <h2 id="pi-nlp-heading-{{ section.id }}" class="pi-nlp__heading">
+              {{ section.settings.heading }}
+            </h2>
+
+            {%- if section.settings.subheading != blank -%}
+              <p class="pi-nlp__sub">{{ section.settings.subheading }}</p>
+            {%- endif -%}
+
+            {%- comment -%}
+              The tag is what makes these contacts findable later — as a customer
+              segment for the welcome email, or as the filter your endpoint reads
+              when it decides who gets a code.
+            {%- endcomment -%}
+            <input type="hidden" name="contact[tags]" value="{{ section.settings.tag }}">
+
+            <label class="pi-nlp__label" for="pi-nlp-email-{{ section.id }}">
+              {{ section.settings.placeholder }}
+            </label>
+            <input
+              id="pi-nlp-email-{{ section.id }}"
+              class="pi-nlp__input"
+              type="email"
+              name="contact[email]"
+              placeholder="{{ section.settings.placeholder }}"
+              autocomplete="email"
+              required
+              data-pi-nlp-email
+            >
+
+            {%- if form.errors -%}
+              <p class="pi-nlp__error">{{ section.settings.error_text }}</p>
+            {%- endif -%}
+
+            <button type="submit" class="pi-nlp__submit">{{ section.settings.button }}</button>
+
+            {%- if section.settings.consent_text != blank -%}
+              <p class="pi-nlp__consent">{{ section.settings.consent_text }}</p>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+  </div>
+
+  <style>
+    #pi-nlp-{{ section.id }} {
+      --pi-nlp-radius: {{ section.settings.radius }}px;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    #pi-nlp-{{ section.id }}[hidden] { display: none; }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.55);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    #pi-nlp-{{ section.id }}.is-open .pi-nlp__backdrop { opacity: 1; }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__dialog {
+      position: relative;
+      width: 100%;
+      max-width: {{ section.settings.width }}px;
+      padding: 44px 40px 36px;
+      background: {{ section.settings.bg_color }};
+      border-radius: var(--pi-nlp-radius);
+      text-align: center;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    #pi-nlp-{{ section.id }}.is-open .pi-nlp__dialog {
+      opacity: 1;
+      transform: none;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      background: none;
+      border: none;
+      color: {{ section.settings.text_color }};
+      cursor: pointer;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__close svg { width: 18px; height: 18px; }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__heading {
+      margin: 0;
+      font-family: {{ settings.type_heading_font.family | default: 'Playfair Display, serif' }};
+      font-size: {{ section.settings.heading_size }}px;
+      font-weight: 600;
+      line-height: 1.2;
+      color: {{ section.settings.text_color }};
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__sub {
+      margin: 0;
+      font-family: {{ sans }};
+      font-size: {{ section.settings.text_size }}px;
+      line-height: 1.5;
+      color: {{ section.settings.muted_color }};
+    }
+
+    /* The code is the whole point of the success state, so it gets the emphasis
+       the heading would otherwise take. Monospace because people retype it. */
+    #pi-nlp-{{ section.id }} .pi-nlp__code {
+      margin: 6px 0 2px;
+      padding: 14px 18px;
+      border: 1px dashed {{ section.settings.accent_color }};
+      border-radius: var(--pi-nlp-radius);
+      font-family: ui-monospace, "Cascadia Mono", Consolas, monospace;
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      color: {{ section.settings.accent_color }};
+      user-select: all;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__input {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px 16px;
+      background: transparent;
+      border: 1px solid {{ section.settings.border_color }};
+      border-radius: var(--pi-nlp-radius);
+      font-family: {{ sans }};
+      font-size: 15px;
+      color: {{ section.settings.text_color }};
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__input:focus-visible {
+      outline: 2px solid {{ section.settings.accent_color }};
+      outline-offset: 2px;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__submit {
+      margin-top: 4px;
+      padding: 15px 20px;
+      background: {{ section.settings.btn_bg }};
+      border: none;
+      border-radius: var(--pi-nlp-radius);
+      font-family: {{ sans }};
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: {{ section.settings.btn_text }};
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__submit:hover { background: {{ section.settings.btn_hover_bg }}; }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__consent {
+      margin: 6px 0 0;
+      font-family: {{ sans }};
+      font-size: 12px;
+      line-height: 1.5;
+      color: {{ section.settings.muted_color }};
+    }
+
+    #pi-nlp-{{ section.id }} .pi-nlp__error {
+      margin: 8px 0 0;
+      font-family: {{ sans }};
+      font-size: 13px;
+      color: #b3261e;
+    }
+
+    @media screen and (max-width: 600px) {
+      #pi-nlp-{{ section.id }} .pi-nlp__dialog { padding: 40px 24px 28px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #pi-nlp-{{ section.id }} .pi-nlp__backdrop,
+      #pi-nlp-{{ section.id }} .pi-nlp__dialog { transition: none; }
+    }
+  </style>
+
+  <script>
+    (function () {
+      var root = document.getElementById('pi-nlp-{{ section.id }}');
+      if (!root) return;
+
+      var KEY = 'pi-nlp-{{ section.id }}';
+      var inEditor = window.Shopify && window.Shopify.designMode;
+
+      /* Every storage read and write is guarded: a browser blocking site data
+         throws here, and an unhandled throw would leave the popup either never
+         showing or showing on every single page view. */
+      function read() {
+        try { return JSON.parse(localStorage.getItem(KEY) || '{}'); } catch (e) { return {}; }
+      }
+      function write(state) {
+        try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) { /* private mode */ }
+      }
+
+      function open() {
+        root.hidden = false;
+        window.requestAnimationFrame(function () { root.classList.add('is-open'); });
+        var email = root.querySelector('[data-pi-nlp-email]');
+        if (email) email.focus();
+      }
+
+      function close() {
+        root.classList.remove('is-open');
+        var state = read();
+        state.dismissedAt = Date.now();
+        write(state);
+        window.setTimeout(function () { root.hidden = true; }, 250);
+      }
+
+      root.querySelectorAll('[data-pi-nlp-close]').forEach(function (el) {
+        el.addEventListener('click', close);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && !root.hidden) close();
+      });
+
+      /* Shopify reloads the page after a successful post, so this branch is how
+         the visitor ever sees the reward — open regardless of timing rules, and
+         never ask this person again. */
+      if (root.querySelector('[data-pi-nlp-success]')) {
+        var done = read();
+        done.subscribed = true;
+        write(done);
+        open();
+        return;
+      }
+
+      /* In the theme editor the popup shows immediately and ignores the rules,
+         otherwise it is unstyleable — you would wait out the delay on every
+         reload and never see it at all once dismissed. */
+      if (inEditor) {
+        open();
+        return;
+      }
+
+      var state = read();
+      if (state.subscribed) return;
+
+      var days = parseInt(root.dataset.frequency, 10) || 0;
+      if (state.dismissedAt && days > 0) {
+        var elapsed = Date.now() - state.dismissedAt;
+        if (elapsed < days * 86400000) return;
+      }
+
+      window.setTimeout(open, (parseInt(root.dataset.delay, 10) || 0) * 1000);
+    })();
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "PI Newsletter Popup",
+  "tag": "section",
+  "enabled_on": { "groups": ["header", "footer"] },
+  "settings": [
+    { "type": "checkbox", "id": "enable", "label": "Enable popup", "default": true },
+
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Sign up and save" },
+    { "type": "text", "id": "subheading", "label": "Subheading", "default": "Get 10% off your first order." },
+    { "type": "text", "id": "placeholder", "label": "Email placeholder", "default": "Email address" },
+    { "type": "text", "id": "button", "label": "Button label", "default": "Get my code" },
+    { "type": "text", "id": "consent_text", "label": "Consent line", "default": "By signing up you agree to receive marketing emails. Unsubscribe any time." },
+    { "type": "text", "id": "error_text", "label": "Error message", "default": "That email didn't work — check it and try again." },
+    { "type": "text", "id": "tag", "label": "Customer tag", "info": "Tags the contact so you can segment subscribers later.", "default": "newsletter" },
+
+    { "type": "header", "content": "Reward", "info": "The theme can show a code, but it cannot send email. For a unique code per subscriber, choose 'Sent by email' and have your email platform or your own endpoint issue it." },
+    {
+      "type": "select",
+      "id": "reward_mode",
+      "label": "How the code reaches them",
+      "options": [
+        { "value": "inline", "label": "Shown here (same code for everyone)" },
+        { "value": "email", "label": "Sent by email (unique per subscriber)" }
+      ],
+      "default": "email"
+    },
+    { "type": "text", "id": "reward_code", "label": "Shared code", "info": "Used only in 'Shown here' mode.", "default": "WELCOME10" },
+    { "type": "text", "id": "success_heading", "label": "Success heading", "default": "You're in" },
+    { "type": "text", "id": "success_text", "label": "Success text — shown here", "default": "Use this code at checkout:" },
+    { "type": "text", "id": "success_email_text", "label": "Success text — by email", "default": "Your code is on its way to your inbox." },
+    { "type": "text", "id": "success_button", "label": "Success button", "default": "Start shopping" },
+
+    { "type": "header", "content": "Timing" },
+    { "type": "range", "id": "delay", "label": "Show after", "min": 0, "max": 60, "step": 1, "unit": "s", "default": 8 },
+    { "type": "range", "id": "frequency_days", "label": "Don't show again for", "min": 0, "max": 60, "step": 1, "unit": "d", "default": 14 },
+
+    { "type": "header", "content": "Design" },
+    { "type": "range", "id": "width", "label": "Width", "min": 320, "max": 640, "step": 10, "unit": "px", "default": 440 },
+    { "type": "range", "id": "radius", "label": "Corner radius", "min": 0, "max": 24, "step": 1, "unit": "px", "default": 5 },
+    { "type": "range", "id": "heading_size", "label": "Heading size", "min": 20, "max": 48, "step": 1, "unit": "px", "default": 30 },
+    { "type": "range", "id": "text_size", "label": "Text size", "min": 12, "max": 20, "step": 1, "unit": "px", "default": 15 },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#000000" },
+    { "type": "color", "id": "muted_color", "label": "Muted text", "default": "#555555" },
+    { "type": "color", "id": "border_color", "label": "Input border", "default": "#cccccc" },
+    { "type": "color", "id": "accent_color", "label": "Accent", "default": "#b49146" },
+    { "type": "color", "id": "btn_bg", "label": "Button background", "default": "#000000" },
+    { "type": "color", "id": "btn_text", "label": "Button text", "default": "#ffffff" },
+    { "type": "color", "id": "btn_hover_bg", "label": "Button hover background", "default": "#b49146" }
+  ],
+  "presets": [{ "name": "PI Newsletter Popup" }]
+}
+{% endschema %}
