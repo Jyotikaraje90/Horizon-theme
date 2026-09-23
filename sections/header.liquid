@@ -2006,6 +2006,17 @@
        hides the account (≤989) and wishlist (≤849) buttons — it put both back on
        phones and pushed the search icon 40px out of place. The other three
        actions were already centred and need nothing. */
+
+    /* The cart's own button carries the stock .button-unstyled reset, which
+       sets overflow: hidden. That's exactly what clips the count bubble above
+       — it's positioned to overhang the 20px icon box on purpose (see the
+       Figma note above), so the hidden overflow crops the digit off. Scoped
+       to the cart button only, so every other .button-unstyled control on
+       the site keeps its overflow: hidden. */
+    #header-component .header__columns .header-actions__action:has(.header-actions__cart-icon) {
+      overflow: visible;
+    }
+
     #header-component .header__columns .action__cart {
       height: 20px;
       align-items: center;
